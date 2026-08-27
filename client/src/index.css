@@ -1,12 +1,40 @@
+/**
+ * Design philosophy: "Sala de Comando da Campanha" — arena editorial premium,
+ * hierarquia forte, roxo institucional e lima reservado para ação e progresso.
+ */
 @import "tailwindcss";
 @import "tw-animate-css";
+
+@font-face {
+  font-family: "Montserrat Arnold";
+  src: url("/manus-storage/Montserrat-VariableFont_wght_e2cd0636.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Montserrat Arnold";
+  src: url("/manus-storage/Montserrat-Italic-VariableFont_wght_e8cfc93a.ttf") format("truetype");
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Teko Arnold";
+  src: url("/manus-storage/Teko-VariableFont_wght_564efbfa.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+}
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
   --radius-xl: calc(var(--radius) + 4px);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -43,135 +71,524 @@
 }
 
 :root {
-  --primary: var(--color-blue-700);
-  --primary-foreground: var(--color-blue-50);
-  --sidebar-primary: var(--color-blue-600);
-  --sidebar-primary-foreground: var(--color-blue-50);
-  --chart-1: var(--color-blue-300);
-  --chart-2: var(--color-blue-500);
-  --chart-3: var(--color-blue-600);
-  --chart-4: var(--color-blue-700);
-  --chart-5: var(--color-blue-800);
-  --radius: 0.65rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.235 0.015 65);
+  --purple: #4d469c;
+  --lime: #cbdb2a;
+  --taupe: #ccb9a6;
+  --mist: #e8e8e8;
+  --charcoal: #333132;
+  --paper: #f5f4ef;
+  --white: #ffffff;
+  --primary: oklch(0.43 0.14 285);
+  --primary-foreground: oklch(0.99 0 0);
+  --background: oklch(0.965 0.008 88);
+  --foreground: oklch(0.31 0.006 338);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.235 0.015 65);
+  --card-foreground: oklch(0.31 0.006 338);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.235 0.015 65);
-  --secondary: oklch(0.98 0.001 286.375);
-  --secondary-foreground: oklch(0.4 0.015 65);
-  --muted: oklch(0.967 0.001 286.375);
-  --muted-foreground: oklch(0.552 0.016 285.938);
-  --accent: oklch(0.967 0.001 286.375);
-  --accent-foreground: oklch(0.141 0.005 285.823);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(0.92 0.004 286.32);
-  --input: oklch(0.92 0.004 286.32);
-  --ring: oklch(0.623 0.214 259.815);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.235 0.015 65);
-  --sidebar-accent: oklch(0.967 0.001 286.375);
-  --sidebar-accent-foreground: oklch(0.141 0.005 285.823);
-  --sidebar-border: oklch(0.92 0.004 286.32);
-  --sidebar-ring: oklch(0.623 0.214 259.815);
+  --popover-foreground: oklch(0.31 0.006 338);
+  --secondary: oklch(0.84 0.03 70);
+  --secondary-foreground: oklch(0.31 0.006 338);
+  --muted: oklch(0.93 0.004 286);
+  --muted-foreground: oklch(0.48 0.01 286);
+  --accent: oklch(0.86 0.22 116);
+  --accent-foreground: oklch(0.26 0.03 116);
+  --destructive: oklch(0.58 0.21 28);
+  --destructive-foreground: oklch(0.99 0 0);
+  --border: oklch(0.83 0.012 285);
+  --input: oklch(0.88 0.01 285);
+  --ring: oklch(0.65 0.18 116);
+  --chart-1: oklch(0.43 0.14 285);
+  --chart-2: oklch(0.86 0.22 116);
+  --chart-3: oklch(0.77 0.06 64);
+  --chart-4: oklch(0.62 0.1 200);
+  --chart-5: oklch(0.7 0.13 25);
+  --sidebar: oklch(0.3 0.008 338);
+  --sidebar-foreground: oklch(0.98 0 0);
+  --sidebar-primary: oklch(0.86 0.22 116);
+  --sidebar-primary-foreground: oklch(0.22 0.03 116);
+  --sidebar-accent: oklch(0.4 0.1 285);
+  --sidebar-accent-foreground: oklch(0.98 0 0);
+  --sidebar-border: oklch(1 0 0 / 12%);
+  --sidebar-ring: oklch(0.86 0.22 116);
+  --radius: 0.35rem;
+  --sidebar-width: 286px;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-.dark {
-  --primary: var(--color-blue-700);
-  --primary-foreground: var(--color-blue-50);
-  --sidebar-primary: var(--color-blue-500);
-  --sidebar-primary-foreground: var(--color-blue-50);
-  --background: oklch(0.141 0.005 285.823);
-  --foreground: oklch(0.85 0.005 65);
-  --card: oklch(0.21 0.006 285.885);
-  --card-foreground: oklch(0.85 0.005 65);
-  --popover: oklch(0.21 0.006 285.885);
-  --popover-foreground: oklch(0.85 0.005 65);
-  --secondary: oklch(0.24 0.006 286.033);
-  --secondary-foreground: oklch(0.7 0.005 65);
-  --muted: oklch(0.274 0.006 286.033);
-  --muted-foreground: oklch(0.705 0.015 286.067);
-  --accent: oklch(0.274 0.006 286.033);
-  --accent-foreground:  oklch(0.92 0.005 65);
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.488 0.243 264.376);
-  --chart-1: var(--color-blue-300);
-  --chart-2: var(--color-blue-500);
-  --chart-3: var(--color-blue-600);
-  --chart-4: var(--color-blue-700);
-  --chart-5: var(--color-blue-800);
-  --sidebar: oklch(0.21 0.006 285.885);
-  --sidebar-foreground: oklch(0.85 0.005 65);
-  --sidebar-accent: oklch(0.274 0.006 286.033);
-  --sidebar-accent-foreground:  oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.488 0.243 264.376);
-}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--paper); color: var(--charcoal); font-family: "Montserrat Arnold", sans-serif; -webkit-font-smoothing: antialiased; }
+button, input, textarea { font: inherit; }
+button { cursor: pointer; }
+button:active { transform: scale(0.97); }
+img { max-width: 100%; }
+::selection { background: var(--lime); color: var(--charcoal); }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-  button:not(:disabled),
-  [role="button"]:not([aria-disabled="true"]),
-  [type="button"]:not(:disabled),
-  [type="submit"]:not(:disabled),
-  [type="reset"]:not(:disabled),
-  a[href],
-  select:not(:disabled),
-  input[type="checkbox"]:not(:disabled),
-  input[type="radio"]:not(:disabled) {
-    @apply cursor-pointer;
-  }
+  * { @apply border-border outline-ring/50; }
+  body { @apply bg-background text-foreground; }
+  button:not(:disabled), [role="button"]:not([aria-disabled="true"]), a[href], input:not(:disabled), textarea:not(:disabled), select:not(:disabled) { @apply cursor-pointer; }
 }
 
-@layer components {
-  /**
-   * Custom container utility that centers content and adds responsive padding.
-   *
-   * This overrides Tailwind's default container behavior to:
-   * - Auto-center content (mx-auto)
-   * - Add responsive horizontal padding
-   * - Set max-width for large screens
-   *
-   * Usage: <div className="container">...</div>
-   *
-   * For custom widths, use max-w-* utilities directly:
-   * <div className="max-w-6xl mx-auto px-4">...</div>
-   */
-  .container {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 1rem; /* 16px - mobile padding */
-    padding-right: 1rem;
-  }
+.strategy-shell { min-height: 100vh; }
+.scroll-progress { position: fixed; inset: 0 0 auto var(--sidebar-width); height: 4px; background: var(--lime); transform-origin: left; z-index: 100; transition: transform 80ms linear; }
+.content-stage { margin-left: var(--sidebar-width); min-width: 0; overflow: clip; }
+.sidebar { position: fixed; inset: 0 auto 0 0; width: var(--sidebar-width); z-index: 90; background: var(--charcoal); color: white; display: flex; flex-direction: column; border-right: 1px solid rgba(255,255,255,.12); }
+.sidebar::after { content: ""; position: absolute; inset: 0; opacity: .11; pointer-events: none; background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 24px 24px; }
+.sidebar > * { position: relative; z-index: 1; }
+.sidebar-top { padding: 28px 22px 20px; }
+.brand-lockup { display: flex; gap: 13px; align-items: center; }
+.brand-lockup img { width: 55px; height: 55px; object-fit: contain; filter: invert(1); }
+.brand-lockup strong { display: block; font: 600 28px/1 "Teko Arnold", sans-serif; letter-spacing: .04em; }
+.brand-lockup span { display: block; margin-top: 3px; font-size: 10px; text-transform: uppercase; letter-spacing: .18em; color: rgba(255,255,255,.58); }
+.launch-chip { margin-top: 24px; padding: 13px 14px; border-left: 3px solid var(--lime); background: rgba(255,255,255,.06); }
+.launch-chip span { display: block; font-size: 9px; letter-spacing: .16em; color: rgba(255,255,255,.58); }
+.launch-chip strong { display: block; color: var(--lime); font: 600 24px/1.1 "Teko Arnold", sans-serif; letter-spacing: .04em; margin-top: 3px; }
+.sidebar nav { flex: 1; overflow-y: auto; padding: 5px 12px 20px; }
+.sidebar nav button { width: 100%; display: grid; grid-template-columns: 25px 20px 1fr 15px; gap: 9px; align-items: center; min-height: 42px; padding: 9px 10px; border: 0; color: rgba(255,255,255,.62); background: transparent; text-align: left; transition: 180ms var(--ease-out); }
+.sidebar nav button:hover { color: white; background: rgba(255,255,255,.06); }
+.sidebar nav button.active { background: var(--purple); color: white; box-shadow: inset 3px 0 0 var(--lime); }
+.nav-number { font: 500 14px/1 "Teko Arnold", sans-serif; color: rgba(255,255,255,.34); }
+.sidebar nav button.active .nav-number { color: var(--lime); }
+.nav-arrow { opacity: 0; transform: translateX(-5px); transition: 180ms var(--ease-out); }
+.sidebar nav button:hover .nav-arrow, .sidebar nav button.active .nav-arrow { opacity: 1; transform: none; }
+.sidebar-foot { padding: 18px 22px 24px; display: flex; gap: 12px; align-items: center; border-top: 1px solid rgba(255,255,255,.1); }
+.sidebar-foot img { width: 35px; height: 35px; object-fit: contain; }
+.sidebar-foot p { margin: 0; color: rgba(255,255,255,.48); font-size: 9px; line-height: 1.45; }
+.sidebar-close, .mobile-header, .nav-backdrop { display: none; }
 
-  .flex {
-    min-height: 0;
-    min-width: 0;
-  }
+.hero-panel { min-height: 780px; height: min(94vh, 960px); position: relative; background: var(--purple); color: white; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; }
+.hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.hero-overlay { position: absolute; inset: 0; background: rgba(28, 25, 60, .28); box-shadow: inset 0 -150px 120px rgba(24,23,25,.34); }
+.hero-content { position: relative; z-index: 2; padding: clamp(68px, 8vw, 120px) clamp(42px, 7vw, 110px) 20px; max-width: 1120px; }
+.hero-kicker { display: flex; align-items: center; gap: 12px; font-size: 11px; letter-spacing: .2em; font-weight: 650; }
+.hero-kicker span { width: 54px; height: 3px; background: var(--lime); }
+.hero-title-lockup { display: flex; align-items: center; gap: clamp(28px, 4vw, 60px); margin-top: 50px; }
+.hero-title-lockup > img { width: clamp(155px, 20vw, 260px); max-height: 240px; object-fit: contain; filter: invert(1); }
+.hero-title-lockup h1 { margin: 0; font: 650 clamp(72px, 9vw, 148px)/.76 "Teko Arnold", sans-serif; text-transform: uppercase; letter-spacing: -.015em; }
+.hero-title-lockup h1 em { color: var(--lime); font-style: normal; }
+.hero-title-lockup p { max-width: 720px; margin: 32px 0 0; font-size: clamp(14px, 1.2vw, 18px); line-height: 1.75; color: rgba(255,255,255,.78); }
+.hero-actions { display: flex; gap: 12px; margin-top: 36px; }
+.lime-button, .ghost-button, .primary-button, .secondary-button { border: 0; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-weight: 750; font-size: 12px; letter-spacing: .03em; min-height: 44px; padding: 0 18px; transition: 180ms var(--ease-out); }
+.lime-button, .primary-button { background: var(--lime); color: var(--charcoal); box-shadow: 4px 4px 0 rgba(24,23,25,.35); }
+.lime-button:hover, .primary-button:hover { transform: translateY(-2px); box-shadow: 6px 6px 0 rgba(24,23,25,.28); }
+.ghost-button { background: rgba(255,255,255,.08); color: white; border: 1px solid rgba(255,255,255,.28); }
+.ghost-button:hover { background: white; color: var(--charcoal); }
+.secondary-button { background: transparent; color: var(--charcoal); border: 1px solid rgba(51,49,50,.2); }
+.hero-stats { position: relative; z-index: 2; align-self: flex-end; display: grid; grid-template-columns: repeat(4, minmax(150px, 1fr)); width: min(86%, 1050px); background: var(--charcoal); }
+.hero-stats article { min-height: 96px; padding: 20px 24px; display: flex; align-items: center; gap: 13px; border-right: 1px solid rgba(255,255,255,.11); }
+.hero-stats strong { font: 650 39px/1 "Teko Arnold"; color: var(--lime); }
+.hero-stats span { font-size: 9px; line-height: 1.45; letter-spacing: .11em; color: rgba(255,255,255,.65); }
+.hero-rail { position: relative; z-index: 2; background: var(--lime); color: var(--charcoal); font: 650 16px/1 "Teko Arnold"; letter-spacing: .22em; white-space: nowrap; padding: 11px 0 10px 22px; overflow: hidden; }
 
-  @media (min-width: 640px) {
-    .container {
-      padding-left: 1.5rem; /* 24px - tablet padding */
-      padding-right: 1.5rem;
-    }
-  }
+.section-pad { padding: 100px clamp(30px, 5.5vw, 90px); scroll-margin-top: 40px; }
+.section-heading { display: grid; grid-template-columns: auto minmax(0, 920px); gap: 24px; align-items: start; margin-bottom: 48px; }
+.section-index { font: 600 100px/.7 "Teko Arnold"; color: rgba(77,70,156,.14); letter-spacing: -.04em; }
+.eyebrow { margin: 0 0 9px; color: var(--purple); font-size: 10px; font-weight: 800; letter-spacing: .2em; }
+.section-heading h2, .whatsapp-heading h2 { margin: 0; max-width: 940px; font: 600 clamp(48px, 5.5vw, 80px)/.92 "Teko Arnold"; text-transform: uppercase; letter-spacing: -.015em; color: var(--charcoal); }
+.section-description { max-width: 760px; margin: 18px 0 0; font-size: 14px; line-height: 1.75; color: #6f6b6d; }
 
-  @media (min-width: 1024px) {
-    .container {
-      padding-left: 2rem; /* 32px - desktop padding */
-      padding-right: 2rem;
-      max-width: 1280px; /* Standard content width */
-    }
-  }
+.executive-summary { display: grid; grid-template-columns: .8fr 1.2fr; gap: 8vw; background: var(--mist); border-bottom: 1px solid rgba(51,49,50,.14); }
+.summary-manifesto { position: relative; padding-left: 32px; border-left: 5px solid var(--lime); }
+.summary-manifesto svg { color: var(--purple); margin: 18px 0; }
+.summary-manifesto h2 { margin: 0; font: 550 clamp(38px, 4vw, 62px)/1 "Teko Arnold"; text-transform: uppercase; }
+.summary-copy > p { margin: 0 0 17px; font-size: 15px; line-height: 1.8; color: #595658; }
+.command-status { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 28px; background: rgba(51,49,50,.16); border: 1px solid rgba(51,49,50,.16); }
+.command-status article { background: white; padding: 15px 16px; }
+.command-status article > span { display: block; color: var(--purple); font-size: 7px; font-weight: 850; letter-spacing: .14em; margin-bottom: 7px; }
+.command-status strong { display: flex; align-items: center; gap: 6px; font-size: 10px; }
+.command-status strong svg { color: var(--lime); fill: var(--charcoal); }
+.command-status p { margin: 7px 0 0; color: #777274; font-size: 8px; line-height: 1.5; }
+.journey-line { display: grid; grid-template-columns: repeat(7, 1fr); margin-top: 36px; border-top: 2px solid var(--charcoal); }
+.journey-line div { position: relative; padding: 17px 8px 0 0; }
+.journey-line div::before { content: ""; position: absolute; top: -7px; left: 0; width: 12px; height: 12px; background: var(--lime); border: 2px solid var(--charcoal); border-radius: 50%; }
+.journey-line span { display: block; color: var(--purple); font: 600 19px/1 "Teko Arnold"; }
+.journey-line strong { display: block; font-size: 8px; letter-spacing: .06em; text-transform: uppercase; margin-top: 4px; }
+
+.objectives-section { background: white; }
+.objective-console { max-width: 1500px; margin: 0 auto; }
+.objective-summary { display: grid; grid-template-columns: auto 1fr auto; gap: 26px; align-items: center; background: var(--charcoal); color: white; padding: 26px 30px; margin-bottom: 20px; }
+.progress-orbit { --progress: 0deg; width: 105px; height: 105px; padding: 7px; border-radius: 50%; background: conic-gradient(var(--lime) var(--progress), rgba(255,255,255,.12) 0); }
+.progress-orbit > div { width: 100%; height: 100%; border-radius: 50%; background: var(--charcoal); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.progress-orbit strong { color: var(--lime); font: 600 31px/1 "Teko Arnold"; }
+.progress-orbit span { font-size: 8px; letter-spacing: .12em; }
+.objective-summary h3 { margin: 5px 0 6px; font-size: 18px; }
+.objective-summary p { margin: 0; color: rgba(255,255,255,.58); font-size: 12px; }
+.tracker-actions, .kpi-summary-actions { display: flex; gap: 9px; }
+.objective-summary .secondary-button { color: white; border-color: rgba(255,255,255,.25); }
+.objective-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.objective-card { position: relative; background: #f7f7f3; border: 1px solid rgba(51,49,50,.12); border-top: 5px solid var(--purple); padding: 24px; transition: 220ms var(--ease-out); }
+.objective-card:hover { transform: translateY(-3px); box-shadow: 0 18px 40px rgba(51,49,50,.09); }
+.objective-card.is-validated { border-top-color: var(--lime); background: #fbfdef; }
+.objective-card-head { display: flex; justify-content: space-between; align-items: center; }
+.phase-number { color: rgba(77,70,156,.36); font: 600 32px/1 "Teko Arnold"; }
+.validation-toggle { display: flex; align-items: center; gap: 6px; border: 1px solid rgba(51,49,50,.17); background: white; padding: 7px 10px; font-size: 10px; font-weight: 750; }
+.is-validated .validation-toggle { background: var(--lime); border-color: var(--lime); }
+.objective-card h3 { margin: 18px 0 3px; font: 600 33px/1 "Teko Arnold"; text-transform: uppercase; }
+.objective-card > p { margin: 0 0 16px; font-size: 13px; color: #625e60; }
+.signal-box { min-height: 63px; background: white; border-left: 3px solid var(--taupe); padding: 12px 14px; font-size: 11px; line-height: 1.5; }
+.signal-box span { display: block; color: var(--purple); font-weight: 800; font-size: 8px; letter-spacing: .15em; margin-bottom: 4px; }
+.objective-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 18px; }
+.objective-fields label { font-size: 9px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.objective-fields label.full { grid-column: 1 / -1; }
+.objective-fields input, .objective-fields textarea { display: block; width: 100%; margin-top: 6px; border: 1px solid rgba(51,49,50,.15); background: white; color: var(--charcoal); padding: 10px 11px; font-size: 11px; font-weight: 500; outline: none; transition: 160ms; }
+.objective-fields input:focus, .objective-fields textarea:focus { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(77,70,156,.1); }
+.objective-fields textarea { min-height: 62px; resize: vertical; }
+
+.congress-section { background: var(--charcoal); color: white; }
+.congress-section .section-heading h2 { color: white; }
+.congress-section .section-index { color: rgba(203,219,42,.18); }
+.congress-section .eyebrow { color: var(--lime); }
+.congress-section .section-description { color: rgba(255,255,255,.58); }
+.congress-filter { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 22px; }
+.congress-filter button { border: 1px solid rgba(255,255,255,.17); background: transparent; color: rgba(255,255,255,.64); padding: 8px 12px; font-size: 9px; font-weight: 750; }
+.congress-filter button:hover, .congress-filter button.active { color: var(--charcoal); background: var(--lime); border-color: var(--lime); }
+.congress-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.congress-grid.single { grid-template-columns: minmax(360px, 800px); }
+.congress-card { --congress-accent: var(--lime); display: grid; grid-template-columns: 36% 1fr; min-height: 330px; background: #f4f3ee; color: var(--charcoal); border-bottom: 7px solid var(--congress-accent); transition: 220ms var(--ease-out); }
+.congress-card:hover { transform: translateY(-5px); box-shadow: 0 24px 55px rgba(0,0,0,.28); }
+.congress-card-top { position: relative; padding: 24px 18px; border-right: 1px solid rgba(51,49,50,.13); background: white; overflow: hidden; }
+.congress-card-top span { position: absolute; top: 10px; left: 10px; z-index: 2; font: 600 24px/1 "Teko Arnold"; color: var(--purple); }
+.congress-card-top img { width: 100%; height: 100%; object-fit: contain; filter: grayscale(1); mix-blend-mode: multiply; }
+.congress-card-body { padding: 25px 20px; }
+.congress-card-body small { display: block; font-size: 7px; font-weight: 800; letter-spacing: .16em; color: var(--purple); margin: 0 0 6px; }
+.congress-card-body p { margin: 0 0 18px; font-size: 10px; line-height: 1.55; }
+.congress-card-body h3 { margin: 0 0 19px; font: 600 27px/1 "Teko Arnold"; text-transform: uppercase; }
+.congress-card-body .promise { font-weight: 700; color: #4c494b; }
+
+.lead-magnet-section { background: var(--paper); }
+.lead-magnet-layout { display: grid; grid-template-columns: .8fr 1.2fr; gap: 18px; align-items: stretch; }
+.lead-magnet-visual { position: relative; min-height: 470px; background: var(--purple); overflow: hidden; }
+.lead-magnet-visual > img { width: 100%; height: 100%; object-fit: cover; }
+.lead-magnet-counter { position: absolute; inset: auto 18px 18px auto; display: flex; align-items: center; gap: 10px; background: var(--charcoal); color: white; padding: 15px 17px; }
+.lead-magnet-counter strong { font: 600 42px/1 "Teko Arnold"; color: var(--lime); }
+.lead-magnet-counter span { font-size: 8px; letter-spacing: .12em; line-height: 1.5; }
+.magnet-list { background: white; border: 1px solid rgba(51,49,50,.12); }
+.magnet-list button { width: 100%; display: grid; grid-template-columns: 45px 1fr auto; gap: 13px; align-items: center; min-height: 76px; padding: 13px 18px; text-align: left; border: 0; border-bottom: 1px solid rgba(51,49,50,.1); background: white; transition: 160ms var(--ease-out); }
+.magnet-list button:hover, .magnet-list button.selected { background: #f2f3df; box-shadow: inset 5px 0 0 var(--lime); }
+.magnet-id { font: 600 27px/1 "Teko Arnold"; color: rgba(77,70,156,.42); }
+.magnet-copy small, .magnet-copy strong, .magnet-copy em { display: block; }
+.magnet-copy small { color: var(--purple); font-size: 8px; text-transform: uppercase; letter-spacing: .09em; }
+.magnet-copy strong { margin: 4px 0; font-size: 12px; }
+.magnet-copy em { display: flex; align-items: center; gap: 4px; color: #777274; font-size: 9px; font-style: normal; }
+.magnet-detail { grid-column: 1 / -1; background: white; border-top: 7px solid var(--purple); box-shadow: 0 25px 60px rgba(51,49,50,.1); animation: rise 260ms var(--ease-out); }
+.magnet-detail-head { display: flex; justify-content: space-between; gap: 30px; padding: 30px 34px 22px; }
+.magnet-detail-head h3 { margin: 4px 0 8px; font: 600 43px/.95 "Teko Arnold"; text-transform: uppercase; }
+.magnet-detail-head p:last-child { max-width: 850px; margin: 0; color: #676365; font-size: 12px; line-height: 1.65; }
+.magnet-detail-head button { align-self: flex-start; border: 1px solid rgba(51,49,50,.15); background: white; padding: 8px; }
+.detail-stripe { display: flex; gap: 9px; align-items: center; background: var(--mist); padding: 12px 34px; font-size: 11px; }
+.detail-stripe svg { color: var(--purple); }
+.masterclass-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid rgba(51,49,50,.12); }
+.masterclass-grid article { padding: 24px; border-right: 1px solid rgba(51,49,50,.12); }
+.masterclass-grid span { color: var(--purple); font-size: 8px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.masterclass-grid h4 { margin: 6px 0 9px; font: 600 28px/1 "Teko Arnold"; text-transform: uppercase; }
+.masterclass-grid strong { font-size: 10px; line-height: 1.45; }
+.masterclass-grid p { font-size: 10px; line-height: 1.5; color: #6d696a; }
+.detail-columns { display: grid; grid-template-columns: repeat(3, 1fr); }
+.detail-columns > div { padding: 25px 30px; border-right: 1px solid rgba(51,49,50,.12); }
+.detail-columns h4 { margin: 0 0 13px; font: 600 26px/1 "Teko Arnold"; text-transform: uppercase; }
+.detail-columns ul, .detail-columns ol { margin: 0; padding-left: 18px; }
+.detail-columns li { margin: 0 0 9px; font-size: 10px; line-height: 1.5; }
+.magnet-rule { display: grid; grid-template-columns: .7fr 1.3fr; background: var(--charcoal); color: white; }
+.magnet-rule > div, .magnet-rule > p { margin: 0; padding: 18px 30px; }
+.magnet-rule span { display: block; color: var(--lime); font-size: 8px; font-weight: 800; letter-spacing: .14em; }
+.magnet-rule strong { display: block; margin-top: 4px; font-size: 13px; }
+.magnet-rule p { display: flex; gap: 8px; align-items: center; background: rgba(255,255,255,.06); font-size: 10px; line-height: 1.5; }
+.future-materials { display: grid; grid-template-columns: 1.05fr repeat(3, 1fr); gap: 1px; margin-top: 24px; background: rgba(51,49,50,.12); border: 1px solid rgba(51,49,50,.12); }
+.future-materials > * { background: white; padding: 24px; }
+.future-materials h3 { margin: 4px 0 8px; font: 600 31px/1 "Teko Arnold"; text-transform: uppercase; }
+.future-materials p { margin: 0; color: #696567; font-size: 10px; line-height: 1.6; }
+.future-materials article strong { color: var(--purple); font: 600 28px/1 "Teko Arnold"; }
+.future-materials article span { display: block; margin-top: 13px; border-left: 3px solid var(--lime); padding-left: 10px; font-size: 9px; line-height: 1.5; font-weight: 700; }
+
+.content-lab { background: white; }
+.cut-method { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 25px; }
+.cut-method article { min-height: 180px; display: flex; gap: 16px; padding: 22px; background: #f3f2ec; border-top: 4px solid var(--taupe); }
+.cut-method > article:nth-child(2), .cut-method > article:nth-child(5) { border-top-color: var(--purple); }
+.cut-method > article:nth-child(3), .cut-method > article:nth-child(6) { border-top-color: var(--lime); }
+.cut-method article > span { font: 600 34px/1 "Teko Arnold"; color: rgba(77,70,156,.42); }
+.cut-method h3 { margin: 2px 0 8px; font: 600 25px/1 "Teko Arnold"; text-transform: uppercase; }
+.cut-method p { margin: 0; font-size: 10px; line-height: 1.55; }
+.cut-method small { display: flex; gap: 5px; margin-top: 15px; color: var(--purple); font-size: 8px; line-height: 1.5; font-weight: 750; }
+.format-workbench { display: grid; grid-template-columns: .85fr 1.15fr; gap: 0; background: var(--charcoal); color: white; position: relative; padding-bottom: 75px; }
+.format-menu { padding: 30px; border-right: 1px solid rgba(255,255,255,.12); }
+.format-menu .eyebrow { color: var(--lime); }
+.format-menu button { width: 100%; display: flex; justify-content: space-between; gap: 10px; align-items: center; text-align: left; border: 0; border-bottom: 1px solid rgba(255,255,255,.09); background: transparent; color: rgba(255,255,255,.58); padding: 13px 0; font-size: 11px; }
+.format-menu button.active, .format-menu button:hover { color: var(--lime); padding-left: 10px; }
+.format-detail { padding: 38px 42px; animation: rise 220ms var(--ease-out); }
+.format-icon { width: 53px; height: 53px; display: grid; place-items: center; background: var(--lime); color: var(--charcoal); margin-bottom: 26px; }
+.format-detail > span, .format-detail small { color: var(--lime); font-size: 8px; font-weight: 800; letter-spacing: .15em; }
+.format-detail h3 { max-width: 620px; margin: 7px 0 28px; font: 600 42px/.95 "Teko Arnold"; text-transform: uppercase; }
+.format-detail > div p { margin: 6px 0 20px; color: rgba(255,255,255,.68); font-size: 11px; }
+.fallback-box { background: rgba(255,255,255,.06); border-left: 4px solid var(--taupe); padding: 15px 18px; }
+.fallback-box p { margin: 5px 0 0 !important; }
+.editorial-rule { position: absolute; inset: auto 0 0; display: flex; align-items: center; gap: 13px; background: var(--purple); padding: 17px 25px; }
+.editorial-rule svg { color: var(--lime); flex: none; }
+.editorial-rule p { margin: 0; font-size: 10px; line-height: 1.55; }
+
+.calendar-section { background: var(--mist); }
+.calendar-console { max-width: 1600px; margin: 0 auto; }
+.phase-ribbon { display: grid; grid-template-columns: repeat(5, 1fr); background: var(--charcoal); color: white; margin-bottom: 18px; }
+.phase-ribbon article { padding: 18px 16px; border-right: 1px solid rgba(255,255,255,.1); }
+.phase-ribbon article:nth-child(3) { background: var(--purple); }
+.phase-ribbon span, .phase-ribbon small { display: block; color: var(--lime); font-size: 8px; letter-spacing: .1em; }
+.phase-ribbon strong { display: block; font: 600 24px/1 "Teko Arnold"; text-transform: uppercase; margin: 4px 0; }
+.phase-ribbon p { margin: 0 0 8px; color: rgba(255,255,255,.62); font-size: 8px; line-height: 1.5; }
+.calendar-toolbar { display: flex; justify-content: space-between; gap: 15px; align-items: center; background: white; padding: 12px; border: 1px solid rgba(51,49,50,.12); }
+.phase-filters { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.phase-filters > svg { color: var(--purple); margin: 0 4px; }
+.phase-filters button { border: 0; padding: 7px 9px; background: #eeede8; color: #6b6769; font-size: 8px; font-weight: 750; }
+.phase-filters button.active, .phase-filters button:hover { background: var(--purple); color: white; }
+.calendar-search { display: flex; align-items: center; gap: 7px; min-width: 310px; padding: 9px 11px; background: #f1f0eb; }
+.calendar-search input { flex: 1; min-width: 0; border: 0; background: transparent; outline: 0; font-size: 10px; }
+.calendar-body { display: grid; grid-template-columns: 1fr 320px; gap: 18px; align-items: start; margin-top: 18px; }
+.calendar-list { min-width: 0; }
+.results-count { display: flex; align-items: center; gap: 6px; margin: 5px 0 10px; color: #6e6a6c; font-size: 9px; }
+.calendar-card { background: white; border-left: 5px solid var(--taupe); border-bottom: 1px solid rgba(51,49,50,.1); }
+.calendar-card.phase-captação { border-left-color: var(--purple); }
+.calendar-card.phase-prévenda, .calendar-card.phase-abertura { border-left-color: var(--lime); }
+.calendar-card-trigger { width: 100%; display: grid; grid-template-columns: 78px 1fr auto 24px; gap: 13px; align-items: center; min-height: 78px; border: 0; background: transparent; padding: 12px 15px; text-align: left; }
+.calendar-card-trigger:hover { background: #f7f7f2; }
+.calendar-date { font: 600 24px/1 "Teko Arnold"; color: var(--purple); border-right: 1px solid rgba(51,49,50,.14); }
+.calendar-main small { display: block; color: #797577; font-size: 8px; text-transform: uppercase; letter-spacing: .09em; }
+.calendar-main strong { display: block; font-size: 12px; margin: 4px 0; }
+.calendar-main em { display: block; color: var(--purple); font-size: 8px; font-style: normal; font-weight: 700; }
+.keyword-mini { display: flex; align-items: center; gap: 4px; background: #eff2c7; color: var(--charcoal); padding: 6px 8px; font-size: 8px; font-weight: 850; }
+.calendar-card-trigger .rotate { transform: rotate(180deg); }
+.calendar-detail { display: grid; grid-template-columns: 1.3fr .7fr; border-top: 1px solid rgba(51,49,50,.1); animation: rise 180ms var(--ease-out); }
+.detail-main, .detail-side { padding: 20px 22px; }
+.detail-main { border-right: 1px solid rgba(51,49,50,.1); }
+.calendar-detail span { display: block; color: var(--purple); font-size: 7px; font-weight: 850; letter-spacing: .13em; margin-bottom: 5px; }
+.calendar-detail p { margin: 0 0 16px; font-size: 10px; line-height: 1.6; }
+.option-list { display: grid; gap: 6px; }
+.option-list p { display: grid; grid-template-columns: 24px 1fr; gap: 9px; align-items: center; margin: 0; background: #f3f2ec; padding: 8px; }
+.option-list b { width: 24px; height: 24px; display: grid; place-items: center; background: var(--purple); color: white; font: 600 16px/1 "Teko Arnold"; }
+.detail-side > div { padding: 14px; background: #f4f3ed; }
+.detail-side .cta-panel { margin-top: 10px; background: var(--charcoal); color: white; }
+.cta-panel span { color: var(--lime); }
+.cta-panel strong { display: block; font-size: 11px; line-height: 1.4; }
+.cta-panel p { display: flex; gap: 6px; align-items: center; margin: 10px 0 0; color: rgba(255,255,255,.56); font-size: 8px; }
+.keyword-panel { position: sticky; top: 20px; background: var(--charcoal); color: white; }
+.keyword-panel-head { display: flex; gap: 10px; align-items: center; padding: 18px; background: var(--purple); }
+.keyword-panel-head svg { color: var(--lime); }
+.keyword-panel-head span { display: block; font-size: 7px; color: rgba(255,255,255,.65); letter-spacing: .12em; }
+.keyword-panel-head strong { font: 600 22px/1 "Teko Arnold"; text-transform: uppercase; }
+.keyword-panel > p { margin: 0; padding: 16px 18px; color: rgba(255,255,255,.55); font-size: 9px; line-height: 1.55; border-bottom: 1px solid rgba(255,255,255,.1); }
+.keyword-row { display: grid; grid-template-columns: 60px 1fr auto; gap: 9px; align-items: start; padding: 13px 15px; border-bottom: 1px solid rgba(255,255,255,.08); }
+.keyword-row > strong { color: var(--lime); font: 600 18px/1 "Teko Arnold"; }
+.keyword-row span { display: block; font-size: 8px; font-weight: 750; }
+.keyword-row p { margin: 3px 0; color: rgba(255,255,255,.62); font-size: 7px; line-height: 1.4; }
+.keyword-row small { display: block; color: rgba(255,255,255,.36); font-size: 7px; }
+
+.email-section { background: white; }
+.channel-principles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px; }
+.channel-principles article { padding: 20px; border: 1px solid rgba(51,49,50,.13); border-top: 4px solid var(--purple); }
+.channel-principles svg { color: var(--purple); }
+.channel-principles strong { display: block; margin: 12px 0 5px; font: 600 24px/1 "Teko Arnold"; text-transform: uppercase; }
+.channel-principles p { margin: 0; color: #6e6a6c; font-size: 10px; line-height: 1.5; }
+.email-tabs { display: flex; background: var(--charcoal); }
+.email-tabs button { flex: 1; border: 0; border-right: 1px solid rgba(255,255,255,.1); background: transparent; color: rgba(255,255,255,.6); padding: 15px; font-size: 10px; font-weight: 750; }
+.email-tabs button.active { background: var(--purple); color: white; box-shadow: inset 0 -4px 0 var(--lime); }
+.email-timeline { background: #f3f2ec; padding: 24px; }
+.email-timeline article { display: grid; grid-template-columns: 110px 1fr; gap: 24px; position: relative; padding: 0 0 26px; }
+.email-timeline article::after { content: ""; position: absolute; left: 51px; top: 36px; bottom: 0; width: 2px; background: var(--taupe); }
+.email-date { width: 104px; height: 34px; display: grid; place-items: center; background: var(--charcoal); color: var(--lime); font: 600 19px/1 "Teko Arnold"; }
+.email-timeline article > div { background: white; padding: 19px 21px; border-left: 4px solid var(--purple); }
+.email-timeline small { color: var(--purple); font-size: 7px; font-weight: 850; letter-spacing: .13em; }
+.email-timeline p { margin: 4px 0 12px; color: #6c686a; font-size: 9px; line-height: 1.55; }
+.email-timeline h3 { margin: 5px 0 12px; font: 600 24px/1 "Teko Arnold"; text-transform: uppercase; }
+.material-note { display: flex; align-items: center; gap: 7px; padding: 9px; background: #f3f2ec; }
+.email-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; background: #eff2c7; padding: 10px 12px; }
+.email-cta strong { font-size: 10px; }
+.email-cta span { color: var(--purple); font-size: 8px; }
+.email-timeline .rule-note { display: block; margin-top: 10px; color: #777274; letter-spacing: 0; font-weight: 500; }
+.nurture-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(51,49,50,.14); border: 1px solid rgba(51,49,50,.14); }
+.nurture-grid article { background: #f7f6f1; padding: 23px; }
+.nurture-grid article > span { font: 600 33px/1 "Teko Arnold"; color: rgba(77,70,156,.35); }
+.nurture-grid article > small { display: block; color: var(--purple); font-size: 8px; font-weight: 800; margin-top: 8px; }
+.nurture-grid h3 { min-height: 70px; margin: 8px 0; font: 600 22px/1.05 "Teko Arnold"; }
+.nurture-grid article > div { background: white; border-left: 3px solid var(--lime); padding: 10px; }
+.nurture-grid article > div strong { font-size: 9px; }
+.nurture-grid article > div p { margin: 3px 0 0; color: #716d6f; font-size: 8px; }
+.nurture-grid em { display: block; margin-top: 12px; color: #777274; font-size: 8px; font-style: normal; line-height: 1.5; }
+.assets-table { border: 1px solid rgba(51,49,50,.13); }
+.assets-head, .assets-table > div:not(.assets-head) { display: grid; grid-template-columns: .8fr 1.7fr .6fr; gap: 16px; padding: 15px 18px; align-items: center; }
+.assets-head { background: var(--charcoal); color: var(--lime); font-size: 8px; font-weight: 800; letter-spacing: .12em; }
+.assets-table > div:not(.assets-head) { border-bottom: 1px solid rgba(51,49,50,.1); }
+.assets-table strong { font-size: 10px; }
+.assets-table p { margin: 0; color: #706c6e; font-size: 9px; line-height: 1.5; }
+.assets-table > div:not(.assets-head) > span { color: var(--purple); font-size: 9px; font-weight: 750; }
+
+.whatsapp-section { background: var(--purple); color: white; display: grid; grid-template-columns: .65fr 1.35fr; gap: 6vw; }
+.whatsapp-heading { position: sticky; top: 80px; align-self: start; }
+.whatsapp-heading h2 { color: white; }
+.whatsapp-heading h2 em { color: var(--lime); font-style: normal; }
+.whatsapp-heading > div > p:last-of-type { max-width: 480px; color: rgba(255,255,255,.66); font-size: 12px; line-height: 1.65; }
+.whatsapp-heading > svg { color: var(--lime); margin-top: 25px; }
+.whatsapp-flow { position: relative; }
+.whatsapp-flow::before { content: ""; position: absolute; top: 45px; bottom: 45px; left: 30px; width: 2px; background: rgba(255,255,255,.22); }
+.whatsapp-flow article { display: grid; grid-template-columns: 62px 1fr; gap: 20px; position: relative; margin-bottom: 15px; }
+.whatsapp-step { width: 62px; height: 62px; display: grid; place-items: center; border-radius: 50%; background: var(--lime); color: var(--charcoal); font: 600 31px/1 "Teko Arnold"; z-index: 1; border: 7px solid var(--purple); }
+.whatsapp-flow article > div { background: white; color: var(--charcoal); padding: 21px 23px; }
+.whatsapp-flow small { color: var(--purple); font-size: 8px; font-weight: 850; letter-spacing: .1em; }
+.whatsapp-flow h3 { margin: 5px 0 7px; font: 600 26px/1 "Teko Arnold"; text-transform: uppercase; }
+.whatsapp-flow p { margin: 0 0 12px; color: #6f6b6d; font-size: 9px; line-height: 1.5; }
+.whatsapp-flow strong { display: flex; align-items: center; gap: 5px; color: var(--purple); font-size: 9px; }
+.whatsapp-rule { grid-column: 2; display: flex; gap: 12px; align-items: center; padding: 16px 20px; border: 1px solid rgba(255,255,255,.2); }
+.whatsapp-rule svg { color: var(--lime); flex: none; }
+.whatsapp-rule p { margin: 0; color: rgba(255,255,255,.72); font-size: 9px; line-height: 1.55; }
+
+.roadmap-section { background: var(--paper); }
+.roadmap-stage { position: relative; min-height: 680px; background: var(--charcoal); color: white; overflow: hidden; padding: 38px; }
+.roadmap-stage > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .48; }
+.roadmap-stage::after { content: ""; position: absolute; inset: 0; background: rgba(34,31,54,.28); }
+.roadmap-months { position: relative; z-index: 2; display: grid; grid-template-columns: repeat(7, 1fr); background: rgba(51,49,50,.85); backdrop-filter: blur(12px); }
+.roadmap-months button { min-height: 80px; border: 0; border-right: 1px solid rgba(255,255,255,.1); background: transparent; color: rgba(255,255,255,.6); text-align: left; padding: 14px; }
+.roadmap-months button:hover, .roadmap-months button.active { background: var(--purple); color: white; box-shadow: inset 0 -5px 0 var(--lime); }
+.roadmap-months span { display: block; color: var(--lime); font: 600 24px/1 "Teko Arnold"; }
+.roadmap-months strong { display: block; margin-top: 5px; font-size: 8px; line-height: 1.4; }
+.roadmap-detail { position: relative; z-index: 2; width: min(620px, 90%); margin: 250px 0 0 auto; background: rgba(51,49,50,.92); border-left: 6px solid var(--lime); padding: 28px 32px; backdrop-filter: blur(12px); animation: rise 240ms var(--ease-out); }
+.roadmap-detail .eyebrow { color: var(--lime); }
+.roadmap-detail h3 { margin: 4px 0 10px; font: 600 48px/.9 "Teko Arnold"; text-transform: uppercase; }
+.roadmap-detail > p { color: rgba(255,255,255,.72); font-size: 11px; line-height: 1.65; }
+.roadmap-detail > div { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 20px; }
+.roadmap-detail > div span { display: flex; gap: 6px; align-items: center; font-size: 9px; color: rgba(255,255,255,.75); }
+.roadmap-detail > div svg { color: var(--lime); flex: none; }
+
+.kpi-section { background: white; }
+.kpi-console { border: 1px solid rgba(51,49,50,.14); }
+.kpi-summary { display: flex; justify-content: space-between; gap: 30px; align-items: end; padding: 25px 28px; background: var(--charcoal); color: white; }
+.kpi-summary > div > span { color: var(--lime); font-size: 8px; letter-spacing: .15em; font-weight: 800; }
+.kpi-summary > div > strong { display: block; margin: 6px 0; font: 600 52px/.8 "Teko Arnold"; }
+.kpi-summary > div > strong small { color: rgba(255,255,255,.4); font-size: 22px; }
+.kpi-summary p { margin: 0; color: rgba(255,255,255,.55); font-size: 9px; }
+.kpi-summary .secondary-button { color: white; border-color: rgba(255,255,255,.25); }
+.kpi-tabs { display: flex; overflow-x: auto; background: #efeee9; border-bottom: 1px solid rgba(51,49,50,.12); }
+.kpi-tabs button { flex: 1; min-width: 120px; border: 0; border-right: 1px solid rgba(51,49,50,.1); background: transparent; color: #6f6b6d; padding: 13px 10px; font-size: 9px; font-weight: 750; }
+.kpi-tabs button.active { color: white; background: var(--purple); }
+.metric-table-head, .metric-row { display: grid; grid-template-columns: 1.05fr .7fr .7fr 1.3fr .55fr; gap: 12px; align-items: center; }
+.metric-table-head { background: #f7f6f2; padding: 11px 18px; color: #777274; font-size: 7px; font-weight: 800; text-transform: uppercase; letter-spacing: .12em; }
+.metric-row { padding: 12px 18px; border-top: 1px solid rgba(51,49,50,.09); transition: 160ms; }
+.metric-row.done { background: #f8fae5; }
+.metric-row > strong { font-size: 10px; }
+.metric-row input { width: 100%; min-width: 0; border: 1px solid rgba(51,49,50,.14); background: white; padding: 9px 10px; font-size: 9px; outline: none; }
+.metric-row input:focus { border-color: var(--purple); }
+.metric-row button { min-height: 34px; display: flex; align-items: center; justify-content: center; gap: 5px; border: 1px solid rgba(51,49,50,.16); background: white; color: #736f71; font-size: 8px; font-weight: 750; }
+.metric-row button > span { width: 14px; height: 14px; border: 1px dashed #aaa; border-radius: 50%; }
+.metric-row.done button { background: var(--lime); color: var(--charcoal); border-color: var(--lime); }
+
+.site-footer { min-height: 210px; display: grid; grid-template-columns: 150px 1fr auto; gap: 30px; align-items: center; background: var(--charcoal); color: white; padding: 45px clamp(30px, 5.5vw, 90px); border-top: 8px solid var(--lime); }
+.site-footer img { width: 130px; max-height: 120px; object-fit: contain; filter: invert(1); }
+.site-footer strong { font: 600 28px/1 "Teko Arnold"; }
+.site-footer p { max-width: 720px; margin: 7px 0 0; color: rgba(255,255,255,.52); font-size: 9px; line-height: 1.55; }
+.site-footer button { display: flex; gap: 7px; align-items: center; border: 1px solid rgba(255,255,255,.23); background: transparent; color: white; padding: 11px 14px; font-size: 9px; }
+.site-footer button svg { transform: rotate(180deg); }
+
+@keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+@media (max-width: 1180px) {
+  :root { --sidebar-width: 240px; }
+  .sidebar-top { padding-left: 16px; padding-right: 16px; }
+  .brand-lockup img { width: 45px; height: 45px; }
+  .sidebar nav { padding-left: 7px; padding-right: 7px; }
+  .section-pad { padding-left: 42px; padding-right: 42px; }
+  .congress-grid { grid-template-columns: repeat(2, 1fr); }
+  .calendar-body { grid-template-columns: 1fr; }
+  .keyword-panel { position: static; display: grid; grid-template-columns: repeat(2, 1fr); }
+  .keyword-panel-head, .keyword-panel > p { grid-column: 1 / -1; }
+  .future-materials { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 860px) {
+  :root { --sidebar-width: 0px; }
+  .scroll-progress { left: 0; top: 58px; }
+  .content-stage { margin-left: 0; padding-top: 58px; }
+  .mobile-header { position: fixed; inset: 0 0 auto; height: 58px; z-index: 80; display: grid; grid-template-columns: 42px 1fr auto; gap: 10px; align-items: center; padding: 0 14px; background: rgba(51,49,50,.96); color: white; backdrop-filter: blur(12px); }
+  .mobile-header img { width: 112px; height: 45px; object-fit: contain; filter: invert(1); }
+  .mobile-header span { color: var(--lime); font: 600 18px/1 "Teko Arnold"; }
+  .icon-button { width: 38px; height: 38px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.2); background: transparent; color: white; }
+  .sidebar { width: min(330px, 88vw); transform: translateX(-104%); transition: transform 260ms var(--ease-out); box-shadow: 20px 0 60px rgba(0,0,0,.32); }
+  .sidebar.sidebar-open { transform: none; }
+  .nav-backdrop { display: block; position: fixed; inset: 0; z-index: 85; border: 0; background: rgba(20,18,20,.65); }
+  .sidebar-close { display: grid; position: absolute; top: 12px; right: 12px; z-index: 3; width: 35px; height: 35px; place-items: center; border: 0; background: rgba(255,255,255,.08); color: white; }
+  .hero-panel { min-height: 810px; height: auto; }
+  .hero-title-lockup { align-items: flex-start; }
+  .hero-stats { width: 100%; grid-template-columns: repeat(2, 1fr); }
+  .hero-stats article { border-bottom: 1px solid rgba(255,255,255,.1); }
+  .executive-summary, .whatsapp-section { grid-template-columns: 1fr; }
+  .whatsapp-heading { position: static; }
+  .whatsapp-rule { grid-column: 1; }
+  .lead-magnet-layout { grid-template-columns: 1fr; }
+  .lead-magnet-visual { min-height: 380px; }
+  .cut-method { grid-template-columns: repeat(2, 1fr); }
+  .roadmap-months { grid-template-columns: repeat(4, 1fr); }
+  .roadmap-detail { margin-top: 190px; }
+  .kpi-summary { align-items: flex-start; flex-direction: column; }
+  .metric-table-head { display: none; }
+  .metric-row { grid-template-columns: 1fr 1fr; padding: 17px; }
+  .metric-row > strong, .metric-row input:nth-of-type(3) { grid-column: 1 / -1; }
+  .site-footer { grid-template-columns: 100px 1fr; }
+  .site-footer button { grid-column: 1 / -1; justify-self: start; }
+}
+
+@media (max-width: 620px) {
+  .section-pad { padding: 74px 20px; }
+  .section-heading { grid-template-columns: 1fr; gap: 6px; margin-bottom: 30px; }
+  .section-index { font-size: 62px; }
+  .section-heading h2, .whatsapp-heading h2 { font-size: 46px; }
+  .hero-content { padding: 70px 20px 35px; }
+  .hero-title-lockup { flex-direction: column; gap: 24px; margin-top: 35px; }
+  .hero-title-lockup > img { width: 140px; height: 110px; object-position: left; }
+  .hero-title-lockup h1 { font-size: 72px; }
+  .hero-actions { flex-direction: column; align-items: stretch; }
+  .hero-stats article { min-width: 0; padding: 16px 12px; }
+  .hero-stats strong { font-size: 31px; }
+  .hero-rail { font-size: 13px; }
+  .executive-summary { gap: 38px; }
+  .command-status { grid-template-columns: 1fr; }
+  .journey-line { grid-template-columns: repeat(4, 1fr); row-gap: 22px; border-top: 0; }
+  .journey-line div { border-top: 2px solid var(--charcoal); }
+  .objective-summary { grid-template-columns: 1fr; }
+  .tracker-actions, .kpi-summary-actions { width: 100%; flex-wrap: wrap; }
+  .tracker-actions button, .kpi-summary-actions button { flex: 1; }
+  .objective-grid, .congress-grid { grid-template-columns: 1fr; }
+  .congress-card { grid-template-columns: 130px 1fr; }
+  .congress-card-top { padding: 12px; }
+  .lead-magnet-visual { min-height: 300px; }
+  .magnet-detail-head, .detail-stripe { padding-left: 20px; padding-right: 20px; }
+  .masterclass-grid, .detail-columns, .magnet-rule { grid-template-columns: 1fr; }
+  .masterclass-grid article, .detail-columns > div { border-right: 0; border-bottom: 1px solid rgba(51,49,50,.1); }
+  .future-materials { grid-template-columns: 1fr; }
+  .cut-method { grid-template-columns: 1fr; }
+  .format-workbench { grid-template-columns: 1fr; padding-bottom: 105px; }
+  .format-menu { border-right: 0; border-bottom: 1px solid rgba(255,255,255,.12); }
+  .format-detail { padding: 30px 24px; }
+  .phase-ribbon { grid-template-columns: 1fr 1fr; }
+  .calendar-toolbar { align-items: stretch; flex-direction: column; }
+  .calendar-search { min-width: 0; width: 100%; }
+  .calendar-card-trigger { grid-template-columns: 56px 1fr 21px; }
+  .keyword-mini { display: none; }
+  .calendar-detail { grid-template-columns: 1fr; }
+  .detail-main { border-right: 0; border-bottom: 1px solid rgba(51,49,50,.1); }
+  .keyword-panel { grid-template-columns: 1fr; }
+  .keyword-panel-head, .keyword-panel > p { grid-column: 1; }
+  .channel-principles, .nurture-grid { grid-template-columns: 1fr; }
+  .email-tabs { flex-direction: column; }
+  .email-timeline { padding: 15px; }
+  .email-timeline article { grid-template-columns: 1fr; gap: 8px; }
+  .email-timeline article::after { display: none; }
+  .assets-head { display: none; }
+  .assets-table > div:not(.assets-head) { grid-template-columns: 1fr; gap: 8px; }
+  .roadmap-stage { min-height: 760px; padding: 20px; }
+  .roadmap-months { grid-template-columns: repeat(2, 1fr); }
+  .roadmap-detail { width: 100%; margin-top: 100px; padding: 23px; }
+  .roadmap-detail > div { grid-template-columns: 1fr; }
+  .metric-row { grid-template-columns: 1fr; }
+  .metric-row > strong, .metric-row input:nth-of-type(3) { grid-column: 1; }
+  .site-footer { grid-template-columns: 1fr; text-align: left; }
+  .site-footer img { width: 120px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
