@@ -8,12 +8,14 @@ import {
   BookOpenCheck,
   CalendarDays,
   ChevronRight,
+  Cloud,
   Gauge,
   LayoutDashboard,
   Mail,
   Map,
   Menu,
   MessageCircleMore,
+  LogOut,
   SearchCheck,
   Sparkles,
   Target,
@@ -58,7 +60,7 @@ export function SectionHeader({
   );
 }
 
-export default function StrategyLayout({ children }: { children: ReactNode }) {
+export default function StrategyLayout({ children, userName, onLogout }: { children: ReactNode; userName: string; onLogout: () => void }) {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("visao");
   const [progress, setProgress] = useState(0);
@@ -135,7 +137,8 @@ export default function StrategyLayout({ children }: { children: ReactNode }) {
 
         <div className="sidebar-foot">
           <img src={brandAssets.planningSymbol} alt="" />
-          <p>Dados de acompanhamento são salvos somente neste navegador.</p>
+          <div><strong><Cloud size={12} /> Sincronização ativa</strong><p>{userName}<br />Espaço compartilhado da equipe.</p></div>
+          <button type="button" onClick={onLogout} aria-label="Sair da plataforma" title="Sair"><LogOut size={15} /></button>
         </div>
       </aside>
 

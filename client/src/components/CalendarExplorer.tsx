@@ -22,7 +22,17 @@ export default function CalendarExplorer() {
   return (
     <div className="calendar-console">
       <div className="phase-ribbon">
-        {phaseSummary.map((item) => <article key={item.label}><span>{item.period}</span><strong>{item.label}</strong><p>{item.purpose}</p><small>{item.count}</small></article>)}
+        {phaseSummary.map((item) => (
+          <button
+            type="button"
+            key={item.label}
+            className={phase === item.label ? "is-active" : ""}
+            aria-pressed={phase === item.label}
+            onClick={() => setPhase(current => current === item.label ? "Todos" : item.label)}
+          >
+            <span>{item.period}</span><strong>{item.label}</strong><p>{item.purpose}</p><small>{item.count}</small>
+          </button>
+        ))}
       </div>
 
       <div className="calendar-toolbar">

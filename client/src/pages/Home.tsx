@@ -3,15 +3,20 @@
  * e didática, com profundidade por camadas e identidade Arnold aplicada ao sistema inteiro.
  */
 import { useState } from "react";
+import { useAuth } from "@/_core/hooks/useAuth";
+import { startLogin } from "@/const";
 import {
   ArrowDown,
   ArrowRight,
   CalendarClock,
   CheckCircle2,
+  Cloud,
   CircleDot,
   FileText,
   Gauge,
   Lightbulb,
+  Loader2,
+  LogIn,
   Mail,
   MessageCircleMore,
   MousePointerClick,
@@ -184,8 +189,18 @@ function RoadmapSection() {
 }
 
 export default function Home() {
+  const { user, loading, isAuthenticated, logout } = useAuth();
+
+  if (loading) {
+    return <div className="collaboration-gate"><img src={brandAssets.conferenceLogo} alt="Arnold Conference" /><Loader2 className="spin" size={28} /><p>Preparando a central compartilhada...</p></div>;
+  }
+
+  if (!isAuthenticated || !user) {
+    return <div className="collaboration-gate login-gate"><img src={brandAssets.conferenceLogo} alt="Arnold Conference" /><p className="eyebrow">CENTRAL ESTRATÉGICA · 2027</p><h1>Planejamento compartilhado da equipe</h1><p>Entre para acessar o plano, registrar métricas e acompanhar as decisões em qualquer navegador.</p><button type="button" className="lime-button" onClick={startLogin}><LogIn size={18} /> Entrar na central</button><span><Cloud size={14} /> Dados protegidos e sincronizados entre os colaboradores.</span></div>;
+  }
+
   return (
-    <StrategyLayout>
+    <StrategyLayout userName={user.name ?? user.email ?? "Colaborador"} onLogout={logout}>
       <ExecutiveHero />
       <ExecutiveSummary />
 
@@ -214,7 +229,7 @@ export default function Home() {
       <RoadmapSection />
 
       <section id="indicadores" className="section-pad kpi-section">
-        <SectionHeader index="10" eyebrow="PAINEL DE ACOMPANHAMENTO" title="Metas entram depois da linha de base — não antes" description="Registre valores, contexto e validação por camada. Os dados ficam salvos neste navegador e podem ser exportados em CSV." />
+        <SectionHeader index="10" eyebrow="PAINEL DE ACOMPANHAMENTO" title="Metas entram depois da linha de base — não antes" description="Registre valores, contexto e validação por camada. Os dados são compartilhados entre os colaboradores autenticados e podem ser exportados em CSV." />
         <KpiDashboard />
       </section>
 

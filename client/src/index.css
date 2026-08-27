@@ -152,9 +152,24 @@ img { max-width: 100%; }
 .sidebar nav button.active .nav-number { color: var(--lime); }
 .nav-arrow { opacity: 0; transform: translateX(-5px); transition: 180ms var(--ease-out); }
 .sidebar nav button:hover .nav-arrow, .sidebar nav button.active .nav-arrow { opacity: 1; transform: none; }
-.sidebar-foot { padding: 18px 22px 24px; display: flex; gap: 12px; align-items: center; border-top: 1px solid rgba(255,255,255,.1); }
+.sidebar-foot { padding: 18px 18px 24px 22px; display: grid; grid-template-columns: 35px 1fr auto; gap: 10px; align-items: center; border-top: 1px solid rgba(255,255,255,.1); }
 .sidebar-foot img { width: 35px; height: 35px; object-fit: contain; }
 .sidebar-foot p { margin: 0; color: rgba(255,255,255,.48); font-size: 9px; line-height: 1.45; }
+.sidebar-foot strong { display: flex; gap: 5px; align-items: center; color: var(--lime); font-size: 8px; letter-spacing: .08em; text-transform: uppercase; }
+.sidebar-foot button { width: 30px; height: 30px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.14); background: transparent; color: rgba(255,255,255,.62); cursor: pointer; }
+.sidebar-foot button:hover { color: white; border-color: var(--lime); }
+
+.sync-meta, .sync-error { display: flex; align-items: center; gap: 6px; }
+.sync-error { color: #ff9b9b !important; }
+.spin { animation: spin 800ms linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.collaboration-gate { min-height: 100vh; display: grid; place-items: center; align-content: center; gap: 16px; padding: 36px; text-align: center; background: var(--purple); color: white; }
+.collaboration-gate::before { content: ""; position: fixed; inset: 0; pointer-events: none; background: radial-gradient(circle at 70% 20%, rgba(201,232,11,.13), transparent 32%), linear-gradient(135deg, transparent 0 48%, rgba(255,255,255,.035) 48% 49%, transparent 49% 100%); }
+.collaboration-gate > * { position: relative; }
+.collaboration-gate > img { width: min(280px, 70vw); filter: invert(1); }
+.collaboration-gate h1 { max-width: 680px; margin: 0; font: 600 clamp(52px, 8vw, 92px)/.82 "Teko Arnold", sans-serif; text-transform: uppercase; }
+.collaboration-gate > p:not(.eyebrow) { max-width: 610px; margin: 0; color: rgba(255,255,255,.72); }
+.collaboration-gate > span { display: flex; align-items: center; gap: 7px; margin-top: 12px; color: rgba(255,255,255,.55); font-size: 10px; }
 .sidebar-close, .mobile-header, .nav-backdrop { display: none; }
 
 .hero-panel { min-height: 780px; height: min(94vh, 960px); position: relative; background: var(--purple); color: white; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; }
@@ -333,8 +348,10 @@ img { max-width: 100%; }
 .calendar-section { background: var(--mist); }
 .calendar-console { max-width: 1600px; margin: 0 auto; }
 .phase-ribbon { display: grid; grid-template-columns: repeat(5, 1fr); background: var(--charcoal); color: white; margin-bottom: 18px; }
-.phase-ribbon article { padding: 18px 16px; border-right: 1px solid rgba(255,255,255,.1); }
-.phase-ribbon article:nth-child(3) { background: var(--purple); }
+.phase-ribbon button { min-width: 0; padding: 18px 16px; border: 0; border-right: 1px solid rgba(255,255,255,.1); background: transparent; color: inherit; text-align: left; cursor: pointer; transition: background-color 180ms var(--ease-out), transform 160ms var(--ease-out); }
+.phase-ribbon button:hover { background: rgba(255,255,255,.06); }
+.phase-ribbon button:active { transform: scale(.98); }
+.phase-ribbon button.is-active { background: var(--purple); box-shadow: inset 0 -4px 0 var(--lime); }
 .phase-ribbon span, .phase-ribbon small { display: block; color: var(--lime); font-size: 8px; letter-spacing: .1em; }
 .phase-ribbon strong { display: block; font: 600 24px/1 "Teko Arnold"; text-transform: uppercase; margin: 4px 0; }
 .phase-ribbon p { margin: 0 0 8px; color: rgba(255,255,255,.62); font-size: 8px; line-height: 1.5; }

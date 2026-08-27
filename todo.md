@@ -30,3 +30,15 @@
 - [x] Confirmar a regra que destaca Captação em roxo e verificar se ela é compreensível.
 - [x] Validar a alteração em desktop e mobile.
 - [x] Salvar checkpoint e entregar a atualização.
+
+## Colaboração entre navegadores e destaque dinâmico
+
+- [x] Habilitar banco de dados e autenticação no projeto.
+- [x] Definir tabelas para objetivos, indicadores, observações e histórico de alterações.
+- [x] Substituir o armazenamento local por persistência compartilhada.
+- [x] Identificar o usuário responsável por cada atualização.
+- [x] Destacar dinamicamente a fase selecionada na régua do calendário.
+- [x] Validar sincronização em sessões distintas e estados de erro.
+- [x] Salvar dados com um usuário de teste e confirmar leitura por outro usuário usando o banco compartilhado.
+- [x] Validar rejeição sem autenticação e propagação de falhas de gravação.
+- [x] Salvar checkpoint e entregar a versão colaborativa.
