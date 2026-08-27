@@ -53,7 +53,7 @@ function ExecutiveHero() {
         <div className="hero-title-lockup">
           <img src={brandAssets.conferenceLogo} alt="Arnold Conference" />
           <div>
-            <h1>MARKETING<br /><em>EM MOVIMENTO</em></h1>
+            <h1>MARKETING<br /><em>ESTRATÉGICO</em></h1>
             <p>Uma central executiva para revisar, validar e acompanhar o plano de aquisição, relacionamento e vendas dos seis congressos até abril de 2027.</p>
           </div>
         </div>

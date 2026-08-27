@@ -23,3 +23,10 @@
 - [x] Revisar calendário, landing page, e-mails e orientações de produção relacionados às aulas.
 - [x] Validar a correspondência final com programação, vídeos e transcrições.
 - [x] Salvar checkpoint e entregar o documento atualizado.
+
+## Ajuste do título principal e destaque da fase de captação
+
+- [x] Substituir “Marketing em Movimento” por “Marketing Estratégico”.
+- [x] Confirmar a regra que destaca Captação em roxo e verificar se ela é compreensível.
+- [x] Validar a alteração em desktop e mobile.
+- [x] Salvar checkpoint e entregar a atualização.
