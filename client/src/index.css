@@ -281,9 +281,13 @@ img { max-width: 100%; }
 .masterclass-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid rgba(51,49,50,.12); }
 .masterclass-grid article { padding: 24px; border-right: 1px solid rgba(51,49,50,.12); }
 .masterclass-grid span { color: var(--purple); font-size: 8px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
-.masterclass-grid h4 { margin: 6px 0 9px; font: 600 28px/1 "Teko Arnold"; text-transform: uppercase; }
-.masterclass-grid strong { font-size: 10px; line-height: 1.45; }
+.masterclass-grid h4 { margin: 7px 0 10px; font: 600 24px/.98 "Teko Arnold"; text-transform: uppercase; text-wrap: balance; }
+.masterclass-grid strong { display: block; margin-bottom: 9px; color: var(--purple); font-size: 10px; line-height: 1.45; }
 .masterclass-grid p { font-size: 10px; line-height: 1.5; color: #6d696a; }
+.masterclass-grid .masterclass-speaker { margin: 11px 0 0; color: var(--charcoal); font-size: 8px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.masterclass-grid .masterclass-theme { margin: 0 0 12px; color: #4e4a4b; }
+.masterclass-grid .masterclass-problem { margin: 0; padding-top: 11px; border-top: 1px solid rgba(51,49,50,.1); }
+.masterclass-grid .masterclass-problem b { display: block; margin-bottom: 4px; color: var(--charcoal); font-size: 8px; letter-spacing: .1em; text-transform: uppercase; }
 .detail-columns { display: grid; grid-template-columns: repeat(3, 1fr); }
 .detail-columns > div { padding: 25px 30px; border-right: 1px solid rgba(51,49,50,.12); }
 .detail-columns h4 { margin: 0 0 13px; font: 600 26px/1 "Teko Arnold"; text-transform: uppercase; }

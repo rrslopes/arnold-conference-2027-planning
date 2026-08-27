@@ -45,7 +45,14 @@ export default function LeadMagnetExplorer() {
           {selected.masterclasses ? (
             <div className="masterclass-grid">
               {selected.masterclasses.map((lesson) => (
-                <article key={lesson.speaker}><span>{lesson.relation}</span><h4>{lesson.speaker}</h4><strong>{lesson.theme}</strong><p>{lesson.problem}</p></article>
+                <article key={lesson.speaker}>
+                  <span>{lesson.relation}</span>
+                  <p className="masterclass-speaker">{lesson.speaker}</p>
+                  <h4>{lesson.officialTitle}</h4>
+                  {lesson.editorialSubtitle ? <strong>{lesson.editorialSubtitle}</strong> : null}
+                  <p className="masterclass-theme">{lesson.theme}</p>
+                  <p className="masterclass-problem"><b>Questão central</b>{lesson.problem}</p>
+                </article>
               ))}
             </div>
           ) : null}

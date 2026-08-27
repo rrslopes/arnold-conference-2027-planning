@@ -8,3 +8,18 @@
 - [x] Validar datas, CTAs, destinos e congressos após a atualização.
 - [x] Testar compilação, responsividade e expansão dos cards do calendário.
 - [x] Salvar novo checkpoint e entregar a versão atualizada.
+
+## Validação dos títulos das masterclasses integrais
+
+- [x] Localizar nas programações de 2026 as palestras de Ana Paula Pujol, Andreia Naves e Roberto Tranjan.
+- [x] Confirmar o título exibido e a identificação de cada vídeo no YouTube.
+- [x] Cruzar os títulos oficiais com os temas efetivamente tratados nas três transcrições.
+- [x] Recomendar o título final de apresentação de cada íntegra e registrar eventuais ressalvas.
+
+## Atualização dos títulos oficiais no planejamento e na plataforma
+
+- [x] Mapear todas as descrições das três masterclasses no documento e na plataforma.
+- [x] Incluir os títulos oficiais e manter resumos temáticos em campos separados.
+- [x] Revisar calendário, landing page, e-mails e orientações de produção relacionados às aulas.
+- [x] Validar a correspondência final com programação, vídeos e transcrições.
+- [x] Salvar checkpoint e entregar o documento atualizado.
