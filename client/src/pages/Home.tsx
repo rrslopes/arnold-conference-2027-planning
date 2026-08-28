@@ -185,20 +185,14 @@ function RoadmapSection() {
 }
 
 export default function Home() {
-  const [collaboratorName, setCollaboratorName] = useState(() => localStorage.getItem("arnold-collaborator-name") ?? "");
-  const updateCollaboratorName = (value: string) => {
-    setCollaboratorName(value);
-    localStorage.setItem("arnold-collaborator-name", value);
-  };
-
   return (
-    <StrategyLayout collaboratorName={collaboratorName} onNameChange={updateCollaboratorName}>
+    <StrategyLayout>
       <ExecutiveHero />
       <ExecutiveSummary />
 
       <section id="objetivos" className="section-pad objectives-section">
         <SectionHeader index="02" eyebrow="OBJETIVOS E VALIDAÇÃO" title="O avanço precisa deixar rastros" description="Registre metas, resultados e evidências. O sucesso não será medido pela quantidade de posts, mas pela passagem entre etapas." />
-        <ObjectiveTracker actorName={collaboratorName} />
+        <ObjectiveTracker />
       </section>
 
       <CongressSection />
@@ -222,8 +216,8 @@ export default function Home() {
 
       <section id="indicadores" className="section-pad kpi-section">
         <SectionHeader index="10" eyebrow="PAINEL DE ACOMPANHAMENTO" title="A meta principal é a lotação de cada sala" description="Registre capacidade, vendas mensais e acompanhe o avanço dos seis congressos. Os demais indicadores aparecem abaixo como leitura complementar da campanha." />
-        <OccupancyDashboard actorName={collaboratorName} />
-        <div className="secondary-kpi-block"><div className="secondary-kpi-heading"><span>VISUALIZAÇÃO SECUNDÁRIA</span><h3>Aquisição, relacionamento, vendas e eficiência</h3><p>Use estes indicadores para explicar a evolução da lotação, diagnosticar gargalos e orientar correções de campanha.</p></div><KpiDashboard actorName={collaboratorName} /></div>
+        <OccupancyDashboard />
+        <div className="secondary-kpi-block"><div className="secondary-kpi-heading"><span>VISUALIZAÇÃO SECUNDÁRIA</span><h3>Aquisição, relacionamento, vendas e eficiência</h3><p>Use estes indicadores para explicar a evolução da lotação, diagnosticar gargalos e orientar correções de campanha.</p></div><KpiDashboard /></div>
       </section>
 
       <footer className="site-footer">

@@ -7,8 +7,9 @@ import {
   BarChart3,
   BookOpenCheck,
   CalendarDays,
+  ChevronsLeft,
+  ChevronsRight,
   ChevronRight,
-  Cloud,
   Gauge,
   LayoutDashboard,
   Mail,
@@ -59,10 +60,19 @@ export function SectionHeader({
   );
 }
 
-export default function StrategyLayout({ children, collaboratorName, onNameChange }: { children: ReactNode; collaboratorName: string; onNameChange: (value: string) => void }) {
+export default function StrategyLayout({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
+  const [collapsed, setCollapsed] = useState(() => localStorage.getItem("arnold-sidebar-collapsed") === "true");
   const [active, setActive] = useState("visao");
   const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    localStorage.setItem("arnold-sidebar-collapsed", String(collapsed));
+  }, [collapsed]);
+
+  useEffect(() => {
+    localStorage.removeItem("arnold-collaborator-name");
+  }, []);
 
   useEffect(() => {
     const update = () => {
@@ -86,7 +96,7 @@ export default function StrategyLayout({ children, collaboratorName, onNameChang
   };
 
   return (
-    <div className="strategy-shell">
+    <div className={`strategy-shell ${collapsed ? "is-sidebar-collapsed" : ""}`}>
       <div className="scroll-progress" style={{ transform: `scaleX(${progress / 100})` }} />
 
       <header className="mobile-header">
@@ -99,7 +109,11 @@ export default function StrategyLayout({ children, collaboratorName, onNameChang
 
       {open ? <button type="button" className="nav-backdrop" onClick={() => setOpen(false)} aria-label="Fechar menu" /> : null}
 
-      <aside className={`sidebar ${open ? "sidebar-open" : ""}`}>
+      <aside className={`sidebar ${open ? "sidebar-open" : ""} ${collapsed ? "sidebar-collapsed" : ""}`}>
+        <button type="button" className="desktop-sidebar-toggle" onClick={() => setCollapsed(current => !current)} aria-label={collapsed ? "Expandir menu lateral" : "Recolher menu lateral"} title={collapsed ? "Expandir menu" : "Recolher menu"}>
+          {collapsed ? <ChevronsRight size={18} /> : <ChevronsLeft size={18} />}
+          <span>{collapsed ? "Expandir" : "Recolher"}</span>
+        </button>
         <div className="sidebar-top">
           <button type="button" className="sidebar-close" onClick={() => setOpen(false)} aria-label="Fechar menu"><X /></button>
           <div className="brand-lockup">
@@ -124,6 +138,8 @@ export default function StrategyLayout({ children, collaboratorName, onNameChang
                 key={item.id}
                 className={active === item.id ? "active" : ""}
                 onClick={() => goTo(item.id)}
+                aria-label={item.label}
+                title={collapsed ? item.label : undefined}
               >
                 <span className="nav-number">{String(index + 1).padStart(2, "0")}</span>
                 <Icon size={17} />
@@ -134,10 +150,6 @@ export default function StrategyLayout({ children, collaboratorName, onNameChang
           })}
         </nav>
 
-        <div className="sidebar-foot">
-          <img src={brandAssets.planningSymbol} alt="" />
-          <div><strong><Cloud size={12} /> Sincronização ativa</strong><label htmlFor="collaborator-name">Responsável</label><input id="collaborator-name" value={collaboratorName} onChange={event => onNameChange(event.target.value)} placeholder="Seu nome (opcional)" /><p>Salvo apenas neste navegador para identificar suas alterações.</p></div>
-        </div>
       </aside>
 
       <main className="content-stage">{children}</main>

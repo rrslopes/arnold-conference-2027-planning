@@ -21,7 +21,7 @@ function digitsOnly(value: string) {
   return value.replace(/\D/g, "").slice(0, 6);
 }
 
-export default function OccupancyDashboard({ actorName }: { actorName: string }) {
+export default function OccupancyDashboard() {
   const utils = trpc.useUtils();
   const planning = trpc.planning.getState.useQuery(undefined, { refetchOnWindowFocus: true, retry: 1 });
   const [form, setForm] = useState<OccupancyForm>(() => createBlankForm());
@@ -95,7 +95,6 @@ export default function OccupancyDashboard({ actorName }: { actorName: string })
         sold: Number(form[congress.key].monthlySales[month.key] || 0),
       })),
     })),
-    actorName: actorName || undefined,
   });
 
   return (
@@ -105,7 +104,7 @@ export default function OccupancyDashboard({ actorName }: { actorName: string })
           <span>KPI PRINCIPAL · RESULTADO COMERCIAL</span>
           <h3>Lotação das seis salas</h3>
           <p>Preencha a capacidade quando ela for confirmada. Em cada mês, registre somente as vendas realizadas naquele mês; o painel calcula o acumulado.</p>
-          {planning.isError ? <small className="sync-error"><CloudOff size={13} /> Falha de sincronização.</small> : latest ? <small className="sync-meta"><Cloud size={13} /> Atualizado por {latest.updatedByName ?? "usuário da equipe"}, em {new Date(latest.updatedAt).toLocaleString("pt-BR")}</small> : <small className="sync-meta"><Cloud size={13} /> Estrutura compartilhada pronta para o primeiro lançamento.</small>}
+          {planning.isError ? <small className="sync-error"><CloudOff size={13} /> Falha de sincronização.</small> : latest ? <small className="sync-meta"><Cloud size={13} /> Atualizado em {new Date(latest.updatedAt).toLocaleString("pt-BR")}</small> : <small className="sync-meta"><Cloud size={13} /> Estrutura compartilhada pronta para o primeiro lançamento.</small>}
         </div>
         <div className="occupancy-actions">
           <button type="button" className="secondary-button" onClick={() => planning.refetch()} disabled={planning.isFetching}><RefreshCw size={16} className={planning.isFetching ? "spin" : ""} /> Atualizar</button>

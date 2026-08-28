@@ -1,6 +1,6 @@
 /**
- * Objetivos compartilhados: todos os colaboradores autenticados leem e salvam
- * a mesma versão, com autoria e horário da atualização.
+ * Objetivos compartilhados: todos com acesso ao link leem e salvam
+ * a mesma versão, com horário da atualização.
  */
 import { useEffect, useMemo, useState } from "react";
 import { Check, CircleDashed, Cloud, CloudOff, RefreshCw, RotateCcw, Save, Upload } from "lucide-react";
@@ -18,7 +18,7 @@ function toEntries(state: ObjectiveState) {
   return objectives.map(item => ({ key: item.id, ...state[item.id] }));
 }
 
-export default function ObjectiveTracker({ actorName }: { actorName: string }) {
+export default function ObjectiveTracker() {
   const utils = trpc.useUtils();
   const planning = trpc.planning.getState.useQuery(undefined, { refetchOnWindowFocus: true, retry: 1 });
   const [state, setState] = useState<ObjectiveState>(emptyState);
@@ -69,7 +69,7 @@ export default function ObjectiveTracker({ actorName }: { actorName: string }) {
     setState(current => ({ ...current, [id]: { ...current[id], [field]: value } }));
   };
 
-  const save = (nextState = state) => saveMutation.mutate({ entries: toEntries(nextState), actorName: actorName || undefined });
+  const save = (nextState = state) => saveMutation.mutate({ entries: toEntries(nextState) });
 
   const importLocal = () => {
     const cached = localStorage.getItem("arnold-objectives");
@@ -85,7 +85,7 @@ export default function ObjectiveTracker({ actorName }: { actorName: string }) {
 
   const clear = () => {
     if (!window.confirm("Limpar os objetivos para todos os colaboradores?")) return;
-    clearMutation.mutate({ actorName: actorName || undefined });
+    clearMutation.mutate({});
   };
 
   const busy = saveMutation.isPending || clearMutation.isPending;
@@ -99,7 +99,7 @@ export default function ObjectiveTracker({ actorName }: { actorName: string }) {
         <div>
           <p className="eyebrow">PAINEL DE AVANÇO COMPARTILHADO</p>
           <h3>{validated} de {objectives.length} objetivos validados</h3>
-          {planning.isError ? <p className="sync-error"><CloudOff size={13} /> Falha de sincronização. Tente atualizar.</p> : latest ? <p className="sync-meta"><Cloud size={13} /> Última atualização por {latest.updatedByName ?? "usuário da equipe"}, em {new Date(latest.updatedAt).toLocaleString("pt-BR")}</p> : <p className="sync-meta"><Cloud size={13} /> Espaço compartilhado pronto para o primeiro registro.</p>}
+          {planning.isError ? <p className="sync-error"><CloudOff size={13} /> Falha de sincronização. Tente atualizar.</p> : latest ? <p className="sync-meta"><Cloud size={13} /> Última atualização em {new Date(latest.updatedAt).toLocaleString("pt-BR")}</p> : <p className="sync-meta"><Cloud size={13} /> Espaço compartilhado pronto para o primeiro registro.</p>}
         </div>
         <div className="tracker-actions">
           {localAvailable ? <button type="button" className="secondary-button" onClick={importLocal} disabled={busy}><Upload size={16} /> Importar deste navegador</button> : null}

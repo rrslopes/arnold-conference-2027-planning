@@ -132,11 +132,11 @@ img { max-width: 100%; }
 
 .strategy-shell { min-height: 100vh; }
 .scroll-progress { position: fixed; inset: 0 0 auto var(--sidebar-width); height: 4px; background: var(--lime); transform-origin: left; z-index: 100; transition: transform 80ms linear; }
-.content-stage { margin-left: var(--sidebar-width); min-width: 0; overflow: clip; }
-.sidebar { position: fixed; inset: 0 auto 0 0; width: var(--sidebar-width); z-index: 90; background: var(--charcoal); color: white; display: flex; flex-direction: column; border-right: 1px solid rgba(255,255,255,.12); }
+.content-stage { margin-left: var(--sidebar-width); min-width: 0; overflow: clip; transition: margin-left 220ms var(--ease-out); }
+.sidebar { position: fixed; inset: 0 auto 0 0; width: var(--sidebar-width); z-index: 90; background: var(--charcoal); color: white; display: flex; flex-direction: column; border-right: 1px solid rgba(255,255,255,.12); transition: width 220ms var(--ease-out), transform 260ms var(--ease-out); }
 .sidebar::after { content: ""; position: absolute; inset: 0; opacity: .11; pointer-events: none; background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 24px 24px; }
 .sidebar > * { position: relative; z-index: 1; }
-.sidebar-top { padding: 28px 22px 20px; }
+.sidebar-top { padding: 62px 22px 20px; }
 .brand-lockup { display: flex; gap: 13px; align-items: center; }
 .brand-lockup img { width: 55px; height: 55px; object-fit: contain; filter: invert(1); }
 .brand-lockup strong { display: block; font: 600 28px/1 "Teko Arnold", sans-serif; letter-spacing: .04em; }
@@ -152,14 +152,30 @@ img { max-width: 100%; }
 .sidebar nav button.active .nav-number { color: var(--lime); }
 .nav-arrow { opacity: 0; transform: translateX(-5px); transition: 180ms var(--ease-out); }
 .sidebar nav button:hover .nav-arrow, .sidebar nav button.active .nav-arrow { opacity: 1; transform: none; }
-.sidebar-foot { padding: 16px 18px 20px 22px; display: grid; grid-template-columns: 35px 1fr; gap: 10px; align-items: start; border-top: 1px solid rgba(255,255,255,.1); }
-.sidebar-foot img { width: 35px; height: 35px; object-fit: contain; }
-.sidebar-foot p { margin: 0; color: rgba(255,255,255,.48); font-size: 9px; line-height: 1.45; }
-.sidebar-foot strong { display: flex; gap: 5px; align-items: center; color: var(--lime); font-size: 8px; letter-spacing: .08em; text-transform: uppercase; }
-.sidebar-foot label { display: block; margin: 7px 0 3px; color: rgba(255,255,255,.55); font-size: 7px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
-.sidebar-foot input { width: 100%; border: 1px solid rgba(255,255,255,.15); background: rgba(255,255,255,.07); color: white; padding: 7px 8px; font-size: 9px; outline: none; }
-.sidebar-foot input:focus { border-color: var(--lime); }
-.sidebar-foot input::placeholder { color: rgba(255,255,255,.35); }
+.desktop-sidebar-toggle { position: absolute; top: 16px; right: 14px; z-index: 3; display: flex; align-items: center; justify-content: center; gap: 7px; min-width: 104px; height: 34px; padding: 0 10px; border: 1px solid rgba(255,255,255,.18); background: rgba(255,255,255,.07); color: white; font-size: 8px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; transition: 160ms var(--ease-out); }
+.desktop-sidebar-toggle:hover { border-color: var(--lime); background: rgba(203,219,42,.1); color: var(--lime); }
+.desktop-sidebar-toggle:focus-visible { outline: 2px solid var(--lime); outline-offset: 2px; }
+
+@media (min-width: 861px) {
+  .strategy-shell.is-sidebar-collapsed .sidebar { width: 74px; }
+  .strategy-shell.is-sidebar-collapsed .content-stage { margin-left: 74px; }
+  .strategy-shell.is-sidebar-collapsed .scroll-progress { left: 74px; }
+  .sidebar.sidebar-collapsed .desktop-sidebar-toggle { right: 17px; min-width: 40px; width: 40px; padding: 0; }
+  .sidebar.sidebar-collapsed .desktop-sidebar-toggle span { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+  .sidebar.sidebar-collapsed .sidebar-top { padding: 62px 8px 16px; }
+  .sidebar.sidebar-collapsed .brand-lockup { justify-content: center; }
+  .sidebar.sidebar-collapsed .brand-lockup img { width: 46px; height: 46px; }
+  .sidebar.sidebar-collapsed .brand-lockup > div { display: none; }
+  .sidebar.sidebar-collapsed .launch-chip { margin-top: 15px; padding: 8px 3px; border-left: 0; border-bottom: 2px solid var(--lime); text-align: center; }
+  .sidebar.sidebar-collapsed .launch-chip span { display: none; }
+  .sidebar.sidebar-collapsed .launch-chip strong { font-size: 14px; line-height: .95; }
+  .sidebar.sidebar-collapsed nav { padding: 5px 7px 16px; }
+  .sidebar.sidebar-collapsed nav button { display: grid; grid-template-columns: 1fr; place-items: center; min-height: 44px; padding: 8px; }
+  .sidebar.sidebar-collapsed nav button > .nav-number,
+  .sidebar.sidebar-collapsed nav button > span:not(.nav-number),
+  .sidebar.sidebar-collapsed nav button > .nav-arrow { display: none; }
+  .sidebar.sidebar-collapsed nav button > svg:not(.nav-arrow) { width: 19px; height: 19px; }
+}
 
 .sync-meta, .sync-error { display: flex; align-items: center; gap: 6px; }
 .sync-error { color: #ff9b9b !important; }
@@ -656,6 +672,7 @@ img { max-width: 100%; }
   .mobile-header img { width: 112px; height: 45px; object-fit: contain; filter: invert(1); }
   .mobile-header span { color: var(--lime); font: 600 18px/1 "Teko Arnold"; }
   .icon-button { width: 38px; height: 38px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.2); background: transparent; color: white; }
+  .desktop-sidebar-toggle { display: none; }
   .sidebar { width: min(330px, 88vw); transform: translateX(-104%); transition: transform 260ms var(--ease-out); box-shadow: 20px 0 60px rgba(0,0,0,.32); }
   .sidebar.sidebar-open { transform: none; }
   .nav-backdrop { display: block; position: fixed; inset: 0; z-index: 85; border: 0; background: rgba(20,18,20,.65); }

@@ -130,5 +130,18 @@
 - [x] Exibir na plataforma a situação de validação e a evidência disponível para cada corte.
 - [x] Criar testes que impeçam a apresentação de hipóteses como cortes confirmados.
 - [x] Validar desktop e mobile, salvar checkpoint e entregar a versão publicada.
-- [ ] Salvar um novo checkpoint após a auditoria dos cortes de Reels.
-- [ ] Entregar ao usuário a nova versão publicada com a auditoria dos cortes na plataforma.
+- [x] Salvar um novo checkpoint após a auditoria dos cortes de Reels.
+- [x] Entregar ao usuário a nova versão publicada com a auditoria dos cortes na plataforma.
+
+## Simplificação e recolhimento do menu lateral
+
+- [x] Remover o bloco “Sincronização ativa / Responsável” e o campo de nome do menu lateral.
+- [x] Remover o armazenamento local e a propagação visível do nome do responsável sem afetar a persistência compartilhada.
+- [x] Adicionar um controle visível para recolher o menu lateral no desktop.
+- [x] Manter ícones e dicas acessíveis quando o menu estiver recolhido.
+- [x] Adicionar controle visível para expandir novamente o menu no desktop.
+- [x] Preservar o menu móvel e ampliar a área útil de navegação.
+- [x] Validar desktop, menu recolhido, menu expandido, mobile e dados compartilhados.
+- [x] Salvar checkpoint e entregar a versão publicada.
+- [ ] Salvar um novo checkpoint após remover o responsável e implementar o menu desktop recolhível.
+- [ ] Entregar ao usuário a versão publicada com o novo checkpoint da correção do menu lateral.

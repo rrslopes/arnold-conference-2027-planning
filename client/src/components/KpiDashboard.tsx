@@ -15,7 +15,7 @@ function toEntries(state: MetricState) {
   return Object.entries(state).map(([key, value]) => ({ key, ...value }));
 }
 
-export default function KpiDashboard({ actorName }: { actorName: string }) {
+export default function KpiDashboard() {
   const utils = trpc.useUtils();
   const planning = trpc.planning.getState.useQuery(undefined, { refetchOnWindowFocus: true, retry: 1 });
   const [state, setState] = useState<MetricState>(blankState);
@@ -56,10 +56,10 @@ export default function KpiDashboard({ actorName }: { actorName: string }) {
   const latest = useMemo(() => [...(planning.data?.metrics ?? [])].sort((a, b) => b.updatedAt - a.updatedAt)[0], [planning.data]);
 
   const update = (key: string, field: keyof MetricState[string], value: string | boolean) => setState(current => ({ ...current, [key]: { ...current[key], [field]: value } }));
-  const save = (nextState = state) => saveMutation.mutate({ entries: toEntries(nextState), actorName: actorName || undefined });
+  const save = (nextState = state) => saveMutation.mutate({ entries: toEntries(nextState) });
   const clear = () => {
     if (!window.confirm("Limpar os indicadores para todos os colaboradores?")) return;
-    clearMutation.mutate({ actorName: actorName || undefined });
+    clearMutation.mutate({});
   };
   const importLocal = () => {
     const cached = localStorage.getItem("arnold-kpis");
@@ -88,7 +88,7 @@ export default function KpiDashboard({ actorName }: { actorName: string }) {
   return (
     <div className="kpi-console">
       <div className="kpi-summary">
-        <div><span>MÉTRICAS VALIDADAS</span><strong>{completed}<small>/{total}</small></strong>{planning.isError ? <p className="sync-error"><CloudOff size={13} /> Falha de sincronização.</p> : latest ? <p className="sync-meta"><Cloud size={13} /> Atualizado por {latest.updatedByName ?? "usuário da equipe"}, em {new Date(latest.updatedAt).toLocaleString("pt-BR")}</p> : <p className="sync-meta"><Cloud size={13} /> Espaço compartilhado pronto para o primeiro registro.</p>}</div>
+        <div><span>MÉTRICAS VALIDADAS</span><strong>{completed}<small>/{total}</small></strong>{planning.isError ? <p className="sync-error"><CloudOff size={13} /> Falha de sincronização.</p> : latest ? <p className="sync-meta"><Cloud size={13} /> Atualizado em {new Date(latest.updatedAt).toLocaleString("pt-BR")}</p> : <p className="sync-meta"><Cloud size={13} /> Espaço compartilhado pronto para o primeiro registro.</p>}</div>
         <div className="kpi-summary-actions">
           {localAvailable ? <button type="button" className="secondary-button" onClick={importLocal} disabled={busy}><Upload size={16} /> Importar deste navegador</button> : null}
           <button type="button" className="secondary-button" onClick={() => planning.refetch()} disabled={planning.isFetching}><RefreshCw size={16} className={planning.isFetching ? "spin" : ""} /> Atualizar</button>
