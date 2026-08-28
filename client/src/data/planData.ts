@@ -1,5 +1,6 @@
 import { operationalBriefs, optionModes, type ProductionBrief } from "./calendarBriefs";
 import { cutAuditByCalendarId, type CutValidation } from "./cutValidations";
+import { calendarMilestones, type CalendarMilestone } from "./calendarMilestones";
 
 /**
  * Design philosophy: "Sala de Comando da Campanha" — conteúdo estratégico profundo,
@@ -296,6 +297,7 @@ export type CalendarItem = {
   optionMode?: "alternatives" | "inputs";
   productionBrief?: ProductionBrief;
   cutValidations?: CutValidation[];
+  milestone?: CalendarMilestone;
   storyCards?: Array<{
     card: string;
     format: string;
@@ -351,6 +353,7 @@ export const calendar: CalendarItem[] = calendarBase.map(item => {
     productionBrief: operationalBriefs[item.id],
     optionMode: optionModes[item.id],
     cutValidations: cutAudit?.validations,
+    milestone: calendarMilestones[item.id],
   };
 });
 

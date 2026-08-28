@@ -143,5 +143,18 @@
 - [x] Preservar o menu móvel e ampliar a área útil de navegação.
 - [x] Validar desktop, menu recolhido, menu expandido, mobile e dados compartilhados.
 - [x] Salvar checkpoint e entregar a versão publicada.
-- [ ] Salvar um novo checkpoint após remover o responsável e implementar o menu desktop recolhível.
-- [ ] Entregar ao usuário a versão publicada com o novo checkpoint da correção do menu lateral.
+- [x] Salvar um novo checkpoint após remover o responsável e implementar o menu desktop recolhível.
+- [x] Entregar ao usuário a versão publicada com o novo checkpoint da correção do menu lateral.
+
+## Marcos do calendário e pack de mídia paga
+
+- [x] Identificar 08/09 como lançamento das masterclasses no calendário editorial.
+- [x] Identificar 23/09 como abertura das vendas no calendário editorial.
+- [x] Adicionar metadados específicos para diferenciar grandes marcos das fases comuns.
+- [x] Destacar visualmente todos os cards das duas datas sem reduzir a legibilidade das fases.
+- [x] Exibir aviso operacional de “pack de artes para mídia paga” nos conteúdos dos marcos.
+- [x] Explicar brevemente o que a agência precisa providenciar, sem criar direção de arte.
+- [x] Criar testes de regressão para datas, rótulos e aviso de mídia paga.
+- [x] Validar os destaques em desktop e mobile, salvar checkpoint e entregar a versão publicada.
+- [ ] Salvar um novo checkpoint após destacar 08/09 e 23/09 e incluir o aviso de pack de artes para mídia paga.
+- [ ] Entregar ao usuário a versão publicada com o novo checkpoint da atualização do calendário.
