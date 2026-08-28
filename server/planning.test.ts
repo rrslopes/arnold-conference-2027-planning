@@ -5,6 +5,7 @@ const mocks = vi.hoisted(() => ({
   getSharedPlanningState: vi.fn(),
   saveObjectiveProgress: vi.fn(),
   saveMetricProgress: vi.fn(),
+  saveOccupancyProgress: vi.fn(),
   clearObjectiveProgress: vi.fn(),
   clearMetricProgress: vi.fn(),
 }));
@@ -55,6 +56,27 @@ describe("planning router", () => {
     const entries = [{ key: "conteudo::Alcance qualificado", target: "5000", actual: "1800", note: "Semana 1", done: true }];
     await caller.planning.saveMetrics({ entries, actorName: "Colaboradora" });
     expect(mocks.saveMetricProgress).toHaveBeenCalledWith(entries, { id: 0, name: "Colaboradora" });
+  });
+
+  it("saves capacity and eight monthly sales values for all six congresses", async () => {
+    mocks.saveOccupancyProgress.mockResolvedValue({ updatedAt: 789, updatedByName: "Colaboradora" });
+    const caller = appRouter.createCaller(createContext());
+    const congressKeys = ["gestao-academias", "wttc", "sonafe", "nutricao-estetica", "nutricao-esportiva", "bodybuilding"] as const;
+    const monthKeys = ["2026-09", "2026-10", "2026-11", "2026-12", "2027-01", "2027-02", "2027-03", "2027-04"] as const;
+    const entries = congressKeys.map(congressKey => ({
+      congressKey,
+      capacity: congressKey === "gestao-academias" ? 600 : null,
+      monthlySales: monthKeys.map(monthKey => ({ monthKey, sold: monthKey === "2026-09" ? 12 : 0 })),
+    }));
+    await caller.planning.saveOccupancy({ entries, actorName: "Colaboradora" });
+    expect(mocks.saveOccupancyProgress).toHaveBeenCalledWith(entries, { id: 0, name: "Colaboradora" });
+  });
+
+  it("rejects occupancy payloads with zero capacity or incomplete months", async () => {
+    const caller = appRouter.createCaller(createContext());
+    const invalidEntries = [{ congressKey: "wttc" as const, capacity: 0, monthlySales: [{ monthKey: "2026-09" as const, sold: 10 }] }];
+    await expect(caller.planning.saveOccupancy({ entries: invalidEntries, actorName: "Colaboradora" })).rejects.toThrow();
+    expect(mocks.saveOccupancyProgress).not.toHaveBeenCalled();
   });
 
   it("allows shared reading without an authenticated user", async () => {

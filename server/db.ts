@@ -3,8 +3,10 @@ import { drizzle } from "drizzle-orm/mysql2";
 import {
   InsertUser,
   metricProgress,
+  monthlyCongressSales,
   objectiveProgress,
   planningActivity,
+  roomOccupancy,
   users,
 } from "../drizzle/schema";
 import { ENV } from './_core/env';
@@ -119,14 +121,22 @@ export type MetricEntryInput = {
   done: boolean;
 };
 
+export type OccupancyEntryInput = {
+  congressKey: string;
+  capacity: number | null;
+  monthlySales: Array<{ monthKey: string; sold: number }>;
+};
+
 export async function getSharedPlanningState() {
   const db = await requireDb();
-  const [objectives, metrics, activity] = await Promise.all([
+  const [objectives, metrics, activity, occupancy, monthlySales] = await Promise.all([
     db.select().from(objectiveProgress),
     db.select().from(metricProgress),
     db.select().from(planningActivity).orderBy(desc(planningActivity.createdAt)).limit(20),
+    db.select().from(roomOccupancy),
+    db.select().from(monthlyCongressSales),
   ]);
-  return { objectives, metrics, activity };
+  return { objectives, metrics, activity, occupancy, monthlySales };
 }
 
 export async function saveObjectiveProgress(entries: ObjectiveEntryInput[], actor: Actor) {
@@ -197,6 +207,56 @@ export async function saveMetricProgress(entries: MetricEntryInput[], actor: Act
     }
     await tx.insert(planningActivity).values({
       entityType: "metrics",
+      action: "save",
+      snapshot: JSON.stringify(entries),
+      actorId: actor.id,
+      actorName,
+      createdAt: now,
+    });
+  });
+  return { updatedAt: now, updatedByName: actorName };
+}
+
+export async function saveOccupancyProgress(entries: OccupancyEntryInput[], actor: Actor) {
+  const db = await requireDb();
+  const now = Date.now();
+  const actorName = actor.name ?? "Usuário da equipe";
+  await db.transaction(async tx => {
+    for (const entry of entries) {
+      await tx.insert(roomOccupancy).values({
+        congressKey: entry.congressKey,
+        capacity: entry.capacity,
+        updatedById: actor.id,
+        updatedByName: actorName,
+        updatedAt: now,
+      }).onDuplicateKeyUpdate({
+        set: {
+          capacity: entry.capacity,
+          updatedById: actor.id,
+          updatedByName: actorName,
+          updatedAt: now,
+        },
+      });
+      for (const month of entry.monthlySales) {
+        await tx.insert(monthlyCongressSales).values({
+          congressKey: entry.congressKey,
+          monthKey: month.monthKey,
+          sold: month.sold,
+          updatedById: actor.id,
+          updatedByName: actorName,
+          updatedAt: now,
+        }).onDuplicateKeyUpdate({
+          set: {
+            sold: month.sold,
+            updatedById: actor.id,
+            updatedByName: actorName,
+            updatedAt: now,
+          },
+        });
+      }
+    }
+    await tx.insert(planningActivity).values({
+      entityType: "occupancy",
       action: "save",
       snapshot: JSON.stringify(entries),
       actorId: actor.id,

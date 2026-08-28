@@ -106,3 +106,16 @@
 - [x] Atualizar a interface para apresentar briefings operacionais de produção.
 - [x] Criar testes de completude para as pautas e validar desktop e mobile.
 - [x] Salvar checkpoint e entregar a versão publicada.
+
+## KPI principal — lotação das salas
+
+- [x] Modelar capacidade e vendas mensais para cada um dos seis congressos.
+- [x] Criar persistência compartilhada para capacidades e lançamentos mensais.
+- [x] Permitir preencher ou atualizar a capacidade quando a informação estiver disponível.
+- [x] Permitir lançar vendas por mês, com atualização ou correção do valor registrado.
+- [x] Calcular vendas acumuladas, vagas restantes e percentual de lotação por congresso.
+- [x] Destacar barras de progresso individuais e um resumo geral de lotação.
+- [x] Exibir estado “aguardando capacidade” sem calcular percentuais inválidos.
+- [x] Reorganizar os demais KPIs como visualização secundária.
+- [x] Validar colaboração entre navegadores, cálculos, erros e responsividade.
+- [x] Salvar checkpoint e entregar a versão publicada.

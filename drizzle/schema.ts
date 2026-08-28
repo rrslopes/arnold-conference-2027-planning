@@ -1,4 +1,4 @@
-import { bigint, boolean, int, mysqlEnum, mysqlTable, text, timestamp, varchar } from "drizzle-orm/mysql-core";
+import { bigint, boolean, int, mysqlEnum, mysqlTable, text, timestamp, uniqueIndex, varchar } from "drizzle-orm/mysql-core";
 
 /**
  * Core user table backing auth flow.
@@ -51,7 +51,7 @@ export const metricProgress = mysqlTable("metric_progress", {
 
 export const planningActivity = mysqlTable("planning_activity", {
   id: int("id").autoincrement().primaryKey(),
-  entityType: mysqlEnum("entityType", ["objectives", "metrics"]).notNull(),
+  entityType: mysqlEnum("entityType", ["objectives", "metrics", "occupancy"]).notNull(),
   action: mysqlEnum("action", ["save", "clear"]).notNull(),
   snapshot: text("snapshot").notNull(),
   actorId: int("actorId").notNull(),
@@ -59,8 +59,33 @@ export const planningActivity = mysqlTable("planning_activity", {
   createdAt: bigint("createdAt", { mode: "number" }).notNull(),
 });
 
+export const roomOccupancy = mysqlTable("room_occupancy", {
+  id: int("id").autoincrement().primaryKey(),
+  congressKey: varchar("congressKey", { length: 64 }).notNull().unique(),
+  capacity: int("capacity"),
+  updatedById: int("updatedById").notNull(),
+  updatedByName: varchar("updatedByName", { length: 255 }),
+  updatedAt: bigint("updatedAt", { mode: "number" }).notNull(),
+});
+
+export const monthlyCongressSales = mysqlTable("monthly_congress_sales", {
+  id: int("id").autoincrement().primaryKey(),
+  congressKey: varchar("congressKey", { length: 64 }).notNull(),
+  monthKey: varchar("monthKey", { length: 7 }).notNull(),
+  sold: int("sold").default(0).notNull(),
+  updatedById: int("updatedById").notNull(),
+  updatedByName: varchar("updatedByName", { length: 255 }),
+  updatedAt: bigint("updatedAt", { mode: "number" }).notNull(),
+}, table => ({
+  congressMonthUnique: uniqueIndex("monthly_congress_sales_congress_month_unique").on(table.congressKey, table.monthKey),
+}));
+
 export type ObjectiveProgress = typeof objectiveProgress.$inferSelect;
 export type InsertObjectiveProgress = typeof objectiveProgress.$inferInsert;
 export type MetricProgress = typeof metricProgress.$inferSelect;
 export type InsertMetricProgress = typeof metricProgress.$inferInsert;
 export type PlanningActivity = typeof planningActivity.$inferSelect;
+export type RoomOccupancy = typeof roomOccupancy.$inferSelect;
+export type InsertRoomOccupancy = typeof roomOccupancy.$inferInsert;
+export type MonthlyCongressSale = typeof monthlyCongressSales.$inferSelect;
+export type InsertMonthlyCongressSale = typeof monthlyCongressSales.$inferInsert;

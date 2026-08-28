@@ -1,4 +1,4 @@
-/** Indicadores compartilhados entre todos os colaboradores autenticados. */
+/** Indicadores secundários compartilhados entre todos os colaboradores com acesso ao link. */
 import { useEffect, useMemo, useState } from "react";
 import { CheckCircle2, Cloud, CloudOff, Download, RefreshCw, Save, Trash2, Upload } from "lucide-react";
 import { toast } from "sonner";

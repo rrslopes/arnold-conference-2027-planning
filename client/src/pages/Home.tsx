@@ -25,6 +25,7 @@ import ObjectiveTracker from "@/components/ObjectiveTracker";
 import LeadMagnetExplorer from "@/components/LeadMagnetExplorer";
 import CalendarExplorer from "@/components/CalendarExplorer";
 import KpiDashboard from "@/components/KpiDashboard";
+import OccupancyDashboard from "@/components/OccupancyDashboard";
 import {
   brandAssets,
   congressLogos,
@@ -220,8 +221,9 @@ export default function Home() {
       <RoadmapSection />
 
       <section id="indicadores" className="section-pad kpi-section">
-        <SectionHeader index="10" eyebrow="PAINEL DE ACOMPANHAMENTO" title="Metas entram depois da linha de base — não antes" description="Registre valores, contexto e validação por camada. Os dados são compartilhados entre os colaboradores autenticados e podem ser exportados em CSV." />
-        <KpiDashboard actorName={collaboratorName} />
+        <SectionHeader index="10" eyebrow="PAINEL DE ACOMPANHAMENTO" title="A meta principal é a lotação de cada sala" description="Registre capacidade, vendas mensais e acompanhe o avanço dos seis congressos. Os demais indicadores aparecem abaixo como leitura complementar da campanha." />
+        <OccupancyDashboard actorName={collaboratorName} />
+        <div className="secondary-kpi-block"><div className="secondary-kpi-heading"><span>VISUALIZAÇÃO SECUNDÁRIA</span><h3>Aquisição, relacionamento, vendas e eficiência</h3><p>Use estes indicadores para explicar a evolução da lotação, diagnosticar gargalos e orientar correções de campanha.</p></div><KpiDashboard actorName={collaboratorName} /></div>
       </section>
 
       <footer className="site-footer">

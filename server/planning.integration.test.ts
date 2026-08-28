@@ -1,12 +1,13 @@
 import { afterAll, describe, expect, it } from "vitest";
 import { eq, or } from "drizzle-orm";
 import type { TrpcContext } from "./_core/context";
-import { getDb } from "./db";
+import { getDb, saveOccupancyProgress } from "./db";
 import { appRouter } from "./routers";
-import { objectiveProgress, planningActivity } from "../drizzle/schema";
+import { monthlyCongressSales, objectiveProgress, planningActivity, roomOccupancy } from "../drizzle/schema";
 
 const runId = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 const objectiveKey = `qa-sync-${runId}`;
+const occupancyKey = `qa-occupancy-${runId}`;
 const actorAName = `QA Navegador A ${runId}`;
 const actorBName = `QA Navegador B ${runId}`;
 
@@ -23,6 +24,8 @@ describe.sequential("shared planning persistence", () => {
     const db = await getDb();
     if (!db) return;
     await db.delete(objectiveProgress).where(eq(objectiveProgress.objectiveKey, objectiveKey));
+    await db.delete(monthlyCongressSales).where(eq(monthlyCongressSales.congressKey, occupancyKey));
+    await db.delete(roomOccupancy).where(eq(roomOccupancy.congressKey, occupancyKey));
     await db.delete(planningActivity).where(or(eq(planningActivity.actorName, actorAName), eq(planningActivity.actorName, actorBName)));
   });
 
@@ -56,5 +59,21 @@ describe.sequential("shared planning persistence", () => {
       updatedByName: actorBName,
     });
     expect(readBackInBrowserA.activity.some(item => item.actorName === actorBName && item.entityType === "objectives")).toBe(true);
+  });
+
+  it("persists capacity and monthly sales for a second anonymous browser", async () => {
+    await saveOccupancyProgress([{ congressKey: occupancyKey, capacity: 500, monthlySales: [
+      { monthKey: "2026-09", sold: 80 },
+      { monthKey: "2026-10", sold: 45 },
+    ] }], { id: 0, name: actorAName });
+
+    const anonymousBrowserB = appRouter.createCaller(createAnonymousContext());
+    const state = await anonymousBrowserB.planning.getState();
+    expect(state.occupancy.find(item => item.congressKey === occupancyKey)).toMatchObject({ capacity: 500, updatedByName: actorAName });
+    expect(state.monthlySales.filter(item => item.congressKey === occupancyKey).map(item => [item.monthKey, item.sold])).toEqual(expect.arrayContaining([
+      ["2026-09", 80],
+      ["2026-10", 45],
+    ]));
+    expect(state.activity.some(item => item.actorName === actorAName && item.entityType === "occupancy")).toBe(true);
   });
 });
