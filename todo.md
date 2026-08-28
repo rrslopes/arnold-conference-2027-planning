@@ -119,3 +119,16 @@
 - [x] Reorganizar os demais KPIs como visualização secundária.
 - [x] Validar colaboração entre navegadores, cálculos, erros e responsividade.
 - [x] Salvar checkpoint e entregar a versão publicada.
+
+## Auditoria de existência dos cortes de Reels
+
+- [x] Mapear todas as pautas e alternativas que sugerem cortes de palestras.
+- [x] Identificar quais sugestões foram sustentadas por transcrições e quais foram apenas hipóteses editoriais.
+- [x] Localizar nas transcrições a fala correspondente, com palestrante e referência textual verificável.
+- [x] Classificar cada corte como confirmado, parcialmente confirmado ou não verificável com o acervo atual.
+- [x] Substituir sugestões não confirmadas por busca orientada ou por outro formato de produção.
+- [x] Exibir na plataforma a situação de validação e a evidência disponível para cada corte.
+- [x] Criar testes que impeçam a apresentação de hipóteses como cortes confirmados.
+- [x] Validar desktop e mobile, salvar checkpoint e entregar a versão publicada.
+- [ ] Salvar um novo checkpoint após a auditoria dos cortes de Reels.
+- [ ] Entregar ao usuário a nova versão publicada com a auditoria dos cortes na plataforma.

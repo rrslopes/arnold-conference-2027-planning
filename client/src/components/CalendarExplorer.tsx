@@ -3,7 +3,7 @@
  * detalhes operacionais e CTAs apresentados no mesmo contexto de decisão.
  */
 import { useEffect, useMemo, useState } from "react";
-import { ArrowUpRight, CalendarDays, ChevronDown, Filter, Link2, Search, Tag } from "lucide-react";
+import { ArrowUpRight, CalendarDays, ChevronDown, Filter, Link2, Search, ShieldCheck, Tag, Video } from "lucide-react";
 import { calendar, keywords, phaseSummary } from "@/data/planData";
 
 const phases = ["Todos", "Reativação", "Transição", "Captação", "Pré-venda", "Abertura", "Aceleração"];
@@ -14,20 +14,28 @@ export default function CalendarExplorer() {
   const [open, setOpen] = useState<string | null>(() => new URLSearchParams(window.location.search).get("story-review") || "0902");
 
   useEffect(() => {
-    if (window.location.hash === "#calendario") {
+    const reviewId = new URLSearchParams(window.location.search).get("story-review");
+    const directCardId = window.location.hash.startsWith("#calendar-") ? window.location.hash.slice(1) : null;
+    if (window.location.hash !== "#calendario" && !directCardId) return;
+
+    requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        const reviewId = new URLSearchParams(window.location.search).get("story-review");
-        const target = reviewId ? document.getElementById(`calendar-${reviewId}`) : document.getElementById("calendario");
+        const target = directCardId
+          ? document.getElementById(directCardId)
+          : reviewId
+            ? document.getElementById(`calendar-${reviewId}`)
+            : document.getElementById("calendario");
         target?.scrollIntoView();
       });
-    }
+    });
   }, []);
 
   const filtered = useMemo(() => calendar.filter((item) => {
     const matchPhase = phase === "Todos" || item.phase === phase;
     const storyText = (item.storyCards || []).flatMap(card => [card.card, card.format, card.prompt, ...(card.answers || []), card.note || ""]).join(" ");
     const briefText = item.productionBrief ? [item.productionBrief.format, item.productionBrief.purpose, item.productionBrief.note, ...item.productionBrief.units.flatMap(unit => [unit.unit, unit.role, unit.content, unit.source || ""])].join(" ") : "";
-    const haystack = `${item.date} ${item.title} ${item.idea} ${item.optionLabel || ""} ${(item.options || []).join(" ")} ${storyText} ${briefText} ${item.fallback} ${item.channel} ${item.congresses.join(" ")}`.toLowerCase();
+    const cutText = (item.cutValidations || []).flatMap(cut => [cut.id, cut.speaker, cut.transcriptStatus, cut.excerpt, cut.location, cut.productionNote, cut.videoStatus]).join(" ");
+    const haystack = `${item.date} ${item.title} ${item.idea} ${item.optionLabel || ""} ${(item.options || []).join(" ")} ${storyText} ${briefText} ${cutText} ${item.fallback} ${item.channel} ${item.congresses.join(" ")}`.toLowerCase();
     return matchPhase && haystack.includes(query.toLowerCase());
   }), [phase, query]);
 
@@ -61,7 +69,7 @@ export default function CalendarExplorer() {
               <article id={`calendar-${item.id}`} key={item.id} className={`calendar-card phase-${item.phase.toLowerCase().replace("-", "")}`}>
                 <button type="button" className="calendar-card-trigger" onClick={() => setOpen(expanded ? null : item.id)} aria-expanded={expanded}>
                   <span className="calendar-date">{item.date}</span>
-                  <span className="calendar-main"><small>{item.phase} · {item.channel}</small><strong>{item.title}</strong><em>{item.congresses.join(" · ")}</em>{item.storyCards ? <span className="option-count">{item.storyCards.length} Stories detalhados</span> : item.productionBrief ? <span className="option-count">{item.productionBrief.units.length} unidades detalhadas</span> : item.options ? <span className="option-count">{item.options.length} opções detalhadas</span> : null}</span>
+                  <span className="calendar-main"><small>{item.phase} · {item.channel}</small><strong>{item.title}</strong><em>{item.congresses.join(" · ")}</em>{item.storyCards ? <span className="option-count">{item.storyCards.length} Stories detalhados</span> : item.productionBrief ? <span className="option-count">{item.productionBrief.units.length} unidades detalhadas</span> : item.options ? <span className="option-count">{item.options.length} opções detalhadas</span> : null}{item.cutValidations ? <span className="cut-count"><ShieldCheck size={12} /> {item.cutValidations.length} {item.cutValidations.length === 1 ? "corte auditado" : "cortes auditados"}</span> : null}</span>
                   {item.keyword ? <span className="keyword-mini"><Tag size={13} /> {item.keyword}</span> : null}
                   <ChevronDown size={19} className={expanded ? "rotate" : ""} />
                 </button>
@@ -69,6 +77,7 @@ export default function CalendarExplorer() {
                   <div className="calendar-detail">
                     <div className="detail-main"><span>ORIGEM / MATERIAL</span><p>{item.origin}</p><span>IDEIA ESTRATÉGICA</span><p>{item.idea}</p>
                       {item.productionBrief ? <div className="production-sequence"><div className="production-sequence-head"><span className="option-list-title">BRIEFING OPERACIONAL DA PEÇA</span><strong>{item.productionBrief.format}</strong><p>{item.productionBrief.purpose}</p></div><div className="production-step-grid">{item.productionBrief.units.map(unit => <article className="production-step" key={`${item.id}-${unit.unit}-${unit.role}`}><header><b>{unit.unit}</b><em>{unit.role}</em></header><strong>{unit.content}</strong>{unit.source ? <small><span>FONTE</span>{unit.source}</small> : null}</article>)}</div><p className="production-note"><b>LIMITE DO BRIEFING</b>{item.productionBrief.note}</p></div> : null}
+                      {item.cutValidations ? <div className="cut-validation"><div className="cut-validation-head"><ShieldCheck size={18} /><div><span>EVIDÊNCIA DOS CORTES</span><strong>Confirmado na transcrição não significa corte aprovado</strong><p>O texto comprova a existência da fala. Antes de editar, a equipe ainda precisa abrir a íntegra e conferir áudio, imagem, começo, fim e legenda.</p></div></div><div className="cut-validation-grid">{item.cutValidations.map(cut => <article key={`${item.id}-${cut.id}`} className={cut.transcriptStatus.includes("reformulado") ? "is-reformulated" : ""}><header><b>{cut.id}</b><span>{cut.transcriptStatus}</span></header><h4>{cut.speaker}</h4><blockquote>“{cut.excerpt}”</blockquote><p><strong>LOCALIZAÇÃO</strong>{cut.location}</p><p><strong>USO SEGURO</strong>{cut.productionNote}</p><small><Video size={13} /> {cut.videoStatus}</small></article>)}</div></div> : null}
                       {item.storyCards ? <div className="story-sequence"><span className="option-list-title">ROTEIRO EXPLÍCITO DA SEQUÊNCIA</span>{item.storyCards.map((story) => <article className="story-step" key={`${item.id}-${story.card}`}><header><b>{story.card}</b><em>{story.format}</em></header><strong>{story.prompt}</strong>{story.answers ? <div className="story-answers"><span>RESPOSTAS CLICÁVEIS</span>{story.answers.map(answer => <p key={answer}>{answer}</p>)}</div> : null}{story.note ? <small>{story.note}</small> : null}</article>)}</div> : null}
                       {item.options ? <div className={`option-list option-${item.optionMode || "alternatives"}`}><span className="option-list-title">{item.optionLabel || "OPÇÕES DE CONTEÚDO"}</span><p className="option-mode-note">{item.optionMode === "inputs" ? "Estas referências alimentam a sequência principal acima; não são opções excludentes nem respostas de enquete." : "Escolher apenas uma alternativa. O briefing acima desenvolve a recomendação principal ou a estrutura comum."}</p>{item.options.map((option, index) => <p key={option}><b>{String.fromCharCode(65 + index)}</b>{option}</p>)}</div> : null}
                     </div>

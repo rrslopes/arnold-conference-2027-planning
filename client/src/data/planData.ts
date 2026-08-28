@@ -1,4 +1,5 @@
 import { operationalBriefs, optionModes, type ProductionBrief } from "./calendarBriefs";
+import { cutAuditByCalendarId, type CutValidation } from "./cutValidations";
 
 /**
  * Design philosophy: "Sala de Comando da Campanha" — conteúdo estratégico profundo,
@@ -294,6 +295,7 @@ export type CalendarItem = {
   options?: string[];
   optionMode?: "alternatives" | "inputs";
   productionBrief?: ProductionBrief;
+  cutValidations?: CutValidation[];
   storyCards?: Array<{
     card: string;
     format: string;
@@ -341,11 +343,16 @@ const calendarBase: CalendarItem[] = [
   { id: "0927", date: "27/09", phase: "Aceleração", channel: "Feed", title: "Prova e próximos passos", origin: "Dados e depoimentos reais", idea: "Usar somente provas verificáveis e autorizadas. Não fabricar escassez; qualquer dado de procura ou venda precisa ser aprovado.", optionLabel: "Fontes de prova que podem ser usadas", options: ["Comentários autorizados.", "Dúvidas reais que foram resolvidas.", "Depoimentos de edições anteriores.", "Dados de interesse ou procura previamente aprovados."], fallback: "Bastidores da equipe e explicação sobre os próximos conteúdos.", cta: "Escolher o congresso e fazer a inscrição", destination: "Página central de vendas", congresses: ["Todos"] },
 ];
 
-export const calendar: CalendarItem[] = calendarBase.map(item => ({
-  ...item,
-  productionBrief: operationalBriefs[item.id],
-  optionMode: optionModes[item.id],
-}));
+export const calendar: CalendarItem[] = calendarBase.map(item => {
+  const cutAudit = cutAuditByCalendarId[item.id];
+  return {
+    ...item,
+    ...(cutAudit?.overrides ?? {}),
+    productionBrief: operationalBriefs[item.id],
+    optionMode: optionModes[item.id],
+    cutValidations: cutAudit?.validations,
+  };
+});
 
 export const emailBase = [
   { date: "31/08 ou 01/09", audience: "Participantes/compradores anteriores, alunos, ex-alunos e contatos válidos", objective: "Reapresentar o Arnold Conference, citar os seis congressos e abrir a temporada de novidades.", materials: "Bloco visual com os seis nomes e uma pergunta sobre interesse.", cta: "Quero receber as novidades", destination: "Landing page geral", rule: "Um disparo; excluir descadastrados, inválidos e contatos sem base legal." },
