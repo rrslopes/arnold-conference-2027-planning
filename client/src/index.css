@@ -413,8 +413,23 @@ img { max-width: 100%; }
 .calendar-detail p { margin: 0 0 16px; font-size: 10px; line-height: 1.6; }
 .option-list { display: grid; gap: 6px; }
 .option-list .option-list-title { margin: 6px 0 2px; color: var(--purple); font-size: 7px; font-weight: 900; letter-spacing: .16em; text-transform: uppercase; }
+.option-list .option-mode-note { display: block; margin: 0 0 4px; padding: 9px 11px; background: #edece6; color: #6a6567; font-size: 8px; line-height: 1.5; }
 .option-list p { display: grid; grid-template-columns: 24px 1fr; gap: 9px; align-items: center; margin: 0; background: #f3f2ec; padding: 8px; }
 .option-list b { width: 24px; height: 24px; display: grid; place-items: center; background: var(--purple); color: white; font: 600 16px/1 "Teko Arnold"; }
+.production-sequence { display: grid; gap: 12px; margin: 18px 0; padding: 16px; background: #ecebe5; border-top: 3px solid var(--purple); }
+.production-sequence-head .option-list-title { margin: 0 0 8px; color: var(--purple); font-size: 7px; font-weight: 900; letter-spacing: .16em; text-transform: uppercase; }
+.production-sequence-head > strong { display: block; color: var(--charcoal); font: 600 23px/1 "Teko Arnold"; text-transform: uppercase; }
+.production-sequence-head > p { margin: 6px 0 0; color: #696466; font-size: 9px; line-height: 1.55; }
+.production-step-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.production-step { min-width: 0; padding: 12px; background: white; border-left: 3px solid var(--lime-dark); }
+.production-step header { display: flex; justify-content: space-between; align-items: center; gap: 9px; margin-bottom: 8px; }
+.production-step header b { color: var(--purple); font-size: 8px; letter-spacing: .1em; text-transform: uppercase; }
+.production-step header em { padding: 4px 6px; background: #eeede7; color: #625d5f; font-size: 6px; font-style: normal; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.production-step > strong { display: block; color: var(--charcoal); font-size: 10px; line-height: 1.55; }
+.production-step > small { display: block; margin-top: 9px; padding-top: 8px; border-top: 1px solid rgba(51,49,50,.1); color: #6b6668; font-size: 7px; line-height: 1.4; }
+.production-step > small span { margin: 0 0 3px; color: var(--purple); font-size: 6px; letter-spacing: .12em; }
+.production-sequence .production-note { margin: 0; padding: 10px 12px; background: var(--charcoal); color: rgba(255,255,255,.78); font-size: 8px; line-height: 1.55; }
+.production-sequence .production-note b { display: block; margin-bottom: 3px; color: var(--lime); font-size: 7px; letter-spacing: .12em; }
 .story-sequence { display: grid; gap: 10px; margin-top: 8px; }
 .story-sequence .option-list-title { margin: 6px 0 2px; color: var(--purple); font-size: 7px; font-weight: 900; letter-spacing: .16em; text-transform: uppercase; }
 .story-step { border-left: 3px solid var(--purple); background: #f3f2ec; padding: 12px 14px; }
@@ -638,6 +653,7 @@ img { max-width: 100%; }
   .keyword-mini { display: none; }
   .calendar-detail { grid-template-columns: 1fr; }
   .detail-main { border-right: 0; border-bottom: 1px solid rgba(51,49,50,.1); }
+  .production-step-grid { grid-template-columns: 1fr; }
   .story-answers { grid-template-columns: 1fr; }
   .keyword-panel { grid-template-columns: 1fr; }
   .keyword-panel-head, .keyword-panel > p { grid-column: 1; }

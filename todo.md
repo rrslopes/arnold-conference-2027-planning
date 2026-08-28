@@ -93,3 +93,16 @@
 - [x] Substituir “Mapa” nas Iscas 4 e 5 por nomes específicos e orientados às dores centrais.
 - [x] Atualizar testes de conteúdo e validar a seção de iscas em desktop e mobile.
 - [x] Salvar checkpoint e entregar a versão publicada.
+
+## Enxugamento das iscas e revisão operacional do calendário
+
+- [x] Reduzir os materiais escritos das Iscas 3, 4 e 5 para formatos rápidos, modulares e acionáveis.
+- [x] Definir para cada isca uma combinação de microguia, infográfico, checklist ou ferramenta interativa.
+- [x] Auditar todas as pautas do calendário quanto a tema, sequência, conteúdo por card ou cena e fonte necessária.
+- [x] Reelaborar as pautas vagas sem escrever copy final nem direção de arte.
+- [x] Especificar integralmente o carrossel de 21/09, incluindo função e conteúdo de cada card.
+- [x] Especificar integralmente o carrossel de 25/09, incluindo função e conteúdo de cada card.
+- [x] Diferenciar opções alternativas de pauta de uma sequência única de carrossel.
+- [x] Atualizar a interface para apresentar briefings operacionais de produção.
+- [x] Criar testes de completude para as pautas e validar desktop e mobile.
+- [x] Salvar checkpoint e entregar a versão publicada.

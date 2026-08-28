@@ -136,7 +136,7 @@ export default function LeadMagnetExplorer() {
               <div className="content-block-grid">
                 {selected.contentBlocks.map((block, index) => (
                   <article key={block.title}>
-                    <span>CAPÍTULO {String(index + 1).padStart(2, "0")}</span>
+                    <span>MÓDULO {String(index + 1).padStart(2, "0")}</span>
                     <h5>{block.title}</h5>
                     <p><b>Ferramenta ou saída</b>{block.outcome}</p>
                     <small>Fonte: {block.source}</small>

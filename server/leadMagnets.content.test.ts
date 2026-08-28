@@ -30,11 +30,14 @@ describe("portfólio detalhado de iscas", () => {
     expect(leadMagnets.filter(item => [4, 5].includes(item.id)).every(item => !item.title.toLowerCase().includes("mapa"))).toBe(true);
   });
 
-  it("inclui ranking e pauta detalhada nas três iscas especializadas", () => {
+  it("inclui ranking e quatro módulos curtos nas três iscas especializadas", () => {
     for (const id of [3, 4, 5]) {
       const item = leadMagnets.find(entry => entry.id === id);
       expect(item?.sourceRanking?.length).toBeGreaterThanOrEqual(5);
-      expect(item?.contentBlocks?.length).toBeGreaterThanOrEqual(8);
+      expect(item?.contentBlocks).toHaveLength(4);
+      expect(item?.format).toMatch(/8(?:–10)? páginas/);
+      expect(item?.format).not.toMatch(/(?:2[0-9]|3[0-9]) páginas/);
+      expect(item?.format).toMatch(/interativ|infográfico|fluxograma/i);
       expect(item?.campaignTitle?.length).toBeGreaterThan(15);
       expect(item?.campaignSubtitle?.length).toBeGreaterThan(40);
     }
