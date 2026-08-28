@@ -51,3 +51,12 @@
 - [x] Atualizar autoria e histórico para colaboração pública por link.
 - [x] Revisar testes e validar acesso anônimo em navegadores distintos.
 - [x] Salvar checkpoint e entregar a versão sem login.
+
+## Clarificação das interações do calendário
+
+- [x] Mapear todos os cards que misturam caixa de perguntas, enquete, quiz ou alternativas de pauta.
+- [x] Definir para cada interação a pergunta completa, o número de Stories e as opções de resposta.
+- [x] Diferenciar visualmente “Story separado”, “pergunta”, “respostas” e “alternativa de pauta”.
+- [x] Manter o formato de contingência em bloco separado.
+- [x] Validar todas as pautas interativas em desktop e mobile.
+- [x] Salvar checkpoint e entregar a versão clarificada.
