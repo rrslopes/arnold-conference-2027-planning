@@ -15,7 +15,6 @@ import {
   Map,
   Menu,
   MessageCircleMore,
-  LogOut,
   SearchCheck,
   Sparkles,
   Target,
@@ -60,7 +59,7 @@ export function SectionHeader({
   );
 }
 
-export default function StrategyLayout({ children, userName, onLogout }: { children: ReactNode; userName: string; onLogout: () => void }) {
+export default function StrategyLayout({ children, collaboratorName, onNameChange }: { children: ReactNode; collaboratorName: string; onNameChange: (value: string) => void }) {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("visao");
   const [progress, setProgress] = useState(0);
@@ -137,8 +136,7 @@ export default function StrategyLayout({ children, userName, onLogout }: { child
 
         <div className="sidebar-foot">
           <img src={brandAssets.planningSymbol} alt="" />
-          <div><strong><Cloud size={12} /> Sincronização ativa</strong><p>{userName}<br />Espaço compartilhado da equipe.</p></div>
-          <button type="button" onClick={onLogout} aria-label="Sair da plataforma" title="Sair"><LogOut size={15} /></button>
+          <div><strong><Cloud size={12} /> Sincronização ativa</strong><label htmlFor="collaborator-name">Responsável</label><input id="collaborator-name" value={collaboratorName} onChange={event => onNameChange(event.target.value)} placeholder="Seu nome (opcional)" /><p>Salvo apenas neste navegador para identificar suas alterações.</p></div>
         </div>
       </aside>
 

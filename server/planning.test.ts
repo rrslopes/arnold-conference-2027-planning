@@ -45,29 +45,31 @@ describe("planning router", () => {
     mocks.saveObjectiveProgress.mockResolvedValue({ updatedAt: 123, updatedByName: "Colaboradora" });
     const caller = appRouter.createCaller(createContext());
     const entries = [{ key: "audiencia", target: "1000", current: "240", note: "Primeira leitura", validated: false }];
-    await caller.planning.saveObjectives({ entries });
-    expect(mocks.saveObjectiveProgress).toHaveBeenCalledWith(entries, expect.objectContaining({ id: 7, name: "Colaboradora" }));
+    await caller.planning.saveObjectives({ entries, actorName: "Colaboradora" });
+    expect(mocks.saveObjectiveProgress).toHaveBeenCalledWith(entries, { id: 0, name: "Colaboradora" });
   });
 
   it("saves metric entries with the authenticated actor", async () => {
     mocks.saveMetricProgress.mockResolvedValue({ updatedAt: 456, updatedByName: "Colaboradora" });
     const caller = appRouter.createCaller(createContext());
     const entries = [{ key: "conteudo::Alcance qualificado", target: "5000", actual: "1800", note: "Semana 1", done: true }];
-    await caller.planning.saveMetrics({ entries });
-    expect(mocks.saveMetricProgress).toHaveBeenCalledWith(entries, expect.objectContaining({ id: 7 }));
+    await caller.planning.saveMetrics({ entries, actorName: "Colaboradora" });
+    expect(mocks.saveMetricProgress).toHaveBeenCalledWith(entries, { id: 0, name: "Colaboradora" });
   });
 
-  it("rejects access without an authenticated user", async () => {
+  it("allows shared reading without an authenticated user", async () => {
+    const payload = { objectives: [], metrics: [], activity: [] };
+    mocks.getSharedPlanningState.mockResolvedValue(payload);
     const ctx = createContext();
     ctx.user = null;
     const caller = appRouter.createCaller(ctx);
-    await expect(caller.planning.getState()).rejects.toMatchObject({ code: "UNAUTHORIZED" });
+    await expect(caller.planning.getState()).resolves.toEqual(payload);
   });
 
   it("propagates a database save failure to the client", async () => {
     mocks.saveObjectiveProgress.mockRejectedValue(new Error("Banco temporariamente indisponível"));
     const caller = appRouter.createCaller(createContext());
     const entries = [{ key: "audiencia", target: "1000", current: "240", note: "Primeira leitura", validated: false }];
-    await expect(caller.planning.saveObjectives({ entries })).rejects.toThrow("Banco temporariamente indisponível");
+    await expect(caller.planning.saveObjectives({ entries, actorName: "Colaboradora" })).rejects.toThrow("Banco temporariamente indisponível");
   });
 });

@@ -152,24 +152,19 @@ img { max-width: 100%; }
 .sidebar nav button.active .nav-number { color: var(--lime); }
 .nav-arrow { opacity: 0; transform: translateX(-5px); transition: 180ms var(--ease-out); }
 .sidebar nav button:hover .nav-arrow, .sidebar nav button.active .nav-arrow { opacity: 1; transform: none; }
-.sidebar-foot { padding: 18px 18px 24px 22px; display: grid; grid-template-columns: 35px 1fr auto; gap: 10px; align-items: center; border-top: 1px solid rgba(255,255,255,.1); }
+.sidebar-foot { padding: 16px 18px 20px 22px; display: grid; grid-template-columns: 35px 1fr; gap: 10px; align-items: start; border-top: 1px solid rgba(255,255,255,.1); }
 .sidebar-foot img { width: 35px; height: 35px; object-fit: contain; }
 .sidebar-foot p { margin: 0; color: rgba(255,255,255,.48); font-size: 9px; line-height: 1.45; }
 .sidebar-foot strong { display: flex; gap: 5px; align-items: center; color: var(--lime); font-size: 8px; letter-spacing: .08em; text-transform: uppercase; }
-.sidebar-foot button { width: 30px; height: 30px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.14); background: transparent; color: rgba(255,255,255,.62); cursor: pointer; }
-.sidebar-foot button:hover { color: white; border-color: var(--lime); }
+.sidebar-foot label { display: block; margin: 7px 0 3px; color: rgba(255,255,255,.55); font-size: 7px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.sidebar-foot input { width: 100%; border: 1px solid rgba(255,255,255,.15); background: rgba(255,255,255,.07); color: white; padding: 7px 8px; font-size: 9px; outline: none; }
+.sidebar-foot input:focus { border-color: var(--lime); }
+.sidebar-foot input::placeholder { color: rgba(255,255,255,.35); }
 
 .sync-meta, .sync-error { display: flex; align-items: center; gap: 6px; }
 .sync-error { color: #ff9b9b !important; }
 .spin { animation: spin 800ms linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
-.collaboration-gate { min-height: 100vh; display: grid; place-items: center; align-content: center; gap: 16px; padding: 36px; text-align: center; background: var(--purple); color: white; }
-.collaboration-gate::before { content: ""; position: fixed; inset: 0; pointer-events: none; background: radial-gradient(circle at 70% 20%, rgba(201,232,11,.13), transparent 32%), linear-gradient(135deg, transparent 0 48%, rgba(255,255,255,.035) 48% 49%, transparent 49% 100%); }
-.collaboration-gate > * { position: relative; }
-.collaboration-gate > img { width: min(280px, 70vw); filter: invert(1); }
-.collaboration-gate h1 { max-width: 680px; margin: 0; font: 600 clamp(52px, 8vw, 92px)/.82 "Teko Arnold", sans-serif; text-transform: uppercase; }
-.collaboration-gate > p:not(.eyebrow) { max-width: 610px; margin: 0; color: rgba(255,255,255,.72); }
-.collaboration-gate > span { display: flex; align-items: center; gap: 7px; margin-top: 12px; color: rgba(255,255,255,.55); font-size: 10px; }
 .sidebar-close, .mobile-header, .nav-backdrop { display: none; }
 
 .hero-panel { min-height: 780px; height: min(94vh, 960px); position: relative; background: var(--purple); color: white; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; }

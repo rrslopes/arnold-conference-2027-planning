@@ -42,3 +42,12 @@
 - [x] Salvar dados com um usuário de teste e confirmar leitura por outro usuário usando o banco compartilhado.
 - [x] Validar rejeição sem autenticação e propagação de falhas de gravação.
 - [x] Salvar checkpoint e entregar a versão colaborativa.
+
+## Remoção do login Manus
+
+- [x] Tornar as rotas de leitura e gravação públicas, sem sessão Manus.
+- [x] Remover a tela de login e o botão de logout.
+- [x] Adicionar nome opcional do responsável salvo no próprio navegador.
+- [x] Atualizar autoria e histórico para colaboração pública por link.
+- [x] Revisar testes e validar acesso anônimo em navegadores distintos.
+- [x] Salvar checkpoint e entregar a versão sem login.

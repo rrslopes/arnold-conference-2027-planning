@@ -18,7 +18,7 @@ function toEntries(state: ObjectiveState) {
   return objectives.map(item => ({ key: item.id, ...state[item.id] }));
 }
 
-export default function ObjectiveTracker() {
+export default function ObjectiveTracker({ actorName }: { actorName: string }) {
   const utils = trpc.useUtils();
   const planning = trpc.planning.getState.useQuery(undefined, { refetchOnWindowFocus: true, retry: 1 });
   const [state, setState] = useState<ObjectiveState>(emptyState);
@@ -69,7 +69,7 @@ export default function ObjectiveTracker() {
     setState(current => ({ ...current, [id]: { ...current[id], [field]: value } }));
   };
 
-  const save = (nextState = state) => saveMutation.mutate({ entries: toEntries(nextState) });
+  const save = (nextState = state) => saveMutation.mutate({ entries: toEntries(nextState), actorName: actorName || undefined });
 
   const importLocal = () => {
     const cached = localStorage.getItem("arnold-objectives");
@@ -85,7 +85,7 @@ export default function ObjectiveTracker() {
 
   const clear = () => {
     if (!window.confirm("Limpar os objetivos para todos os colaboradores?")) return;
-    clearMutation.mutate();
+    clearMutation.mutate({ actorName: actorName || undefined });
   };
 
   const busy = saveMutation.isPending || clearMutation.isPending;

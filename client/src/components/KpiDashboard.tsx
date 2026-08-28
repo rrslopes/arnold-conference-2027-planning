@@ -15,7 +15,7 @@ function toEntries(state: MetricState) {
   return Object.entries(state).map(([key, value]) => ({ key, ...value }));
 }
 
-export default function KpiDashboard() {
+export default function KpiDashboard({ actorName }: { actorName: string }) {
   const utils = trpc.useUtils();
   const planning = trpc.planning.getState.useQuery(undefined, { refetchOnWindowFocus: true, retry: 1 });
   const [state, setState] = useState<MetricState>(blankState);
@@ -56,10 +56,10 @@ export default function KpiDashboard() {
   const latest = useMemo(() => [...(planning.data?.metrics ?? [])].sort((a, b) => b.updatedAt - a.updatedAt)[0], [planning.data]);
 
   const update = (key: string, field: keyof MetricState[string], value: string | boolean) => setState(current => ({ ...current, [key]: { ...current[key], [field]: value } }));
-  const save = (nextState = state) => saveMutation.mutate({ entries: toEntries(nextState) });
+  const save = (nextState = state) => saveMutation.mutate({ entries: toEntries(nextState), actorName: actorName || undefined });
   const clear = () => {
     if (!window.confirm("Limpar os indicadores para todos os colaboradores?")) return;
-    clearMutation.mutate();
+    clearMutation.mutate({ actorName: actorName || undefined });
   };
   const importLocal = () => {
     const cached = localStorage.getItem("arnold-kpis");

@@ -10,19 +10,9 @@ const objectiveKey = `qa-sync-${runId}`;
 const actorAName = `QA Navegador A ${runId}`;
 const actorBName = `QA Navegador B ${runId}`;
 
-function createContext(id: number, name: string): TrpcContext {
+function createAnonymousContext(): TrpcContext {
   return {
-    user: {
-      id,
-      openId: `qa-${id}-${runId}`,
-      email: `qa-${id}@example.com`,
-      name,
-      loginMethod: "qa",
-      role: "user",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      lastSignedIn: new Date(),
-    },
+    user: null,
     req: { protocol: "https", headers: {} } as TrpcContext["req"],
     res: {} as TrpcContext["res"],
   };
@@ -37,30 +27,34 @@ describe.sequential("shared planning persistence", () => {
   });
 
   it("saves in one authenticated session and reads in another", async () => {
-    const browserA = appRouter.createCaller(createContext(900001, actorAName));
-    const browserB = appRouter.createCaller(createContext(900002, actorBName));
+    const anonymousBrowserA = appRouter.createCaller(createAnonymousContext());
+    const anonymousBrowserB = appRouter.createCaller(createAnonymousContext());
 
-    await browserA.planning.saveObjectives({
+    await anonymousBrowserA.planning.saveObjectives({
       entries: [{ key: objectiveKey, target: "1200", current: "180", note: "Registro do navegador A", validated: false }],
+      actorName: actorAName,
     });
 
-    const readInBrowserB = await browserB.planning.getState();
+    const readInBrowserB = await anonymousBrowserB.planning.getState();
     expect(readInBrowserB.objectives.find(item => item.objectiveKey === objectiveKey)).toMatchObject({
       target: "1200",
       current: "180",
       updatedByName: actorAName,
     });
+    expect(readInBrowserB.activity.some(item => item.actorName === actorAName && item.entityType === "objectives")).toBe(true);
 
-    await browserB.planning.saveObjectives({
+    await anonymousBrowserB.planning.saveObjectives({
       entries: [{ key: objectiveKey, target: "1200", current: "360", note: "Atualização do navegador B", validated: true }],
+      actorName: actorBName,
     });
 
-    const readBackInBrowserA = await browserA.planning.getState();
+    const readBackInBrowserA = await anonymousBrowserA.planning.getState();
     expect(readBackInBrowserA.objectives.find(item => item.objectiveKey === objectiveKey)).toMatchObject({
       current: "360",
       note: "Atualização do navegador B",
       validated: true,
       updatedByName: actorBName,
     });
+    expect(readBackInBrowserA.activity.some(item => item.actorName === actorBName && item.entityType === "objectives")).toBe(true);
   });
 });

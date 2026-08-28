@@ -6,9 +6,10 @@ import {
   saveMetricProgress,
   saveObjectiveProgress,
 } from "../db";
-import { protectedProcedure, router } from "../_core/trpc";
+import { publicProcedure, router } from "../_core/trpc";
 
 const sharedText = z.string().max(5000);
+const actorName = z.string().trim().max(120).optional();
 
 const objectiveEntry = z.object({
   key: z.string().min(1).max(80),
@@ -27,15 +28,17 @@ const metricEntry = z.object({
 });
 
 export const planningRouter = router({
-  getState: protectedProcedure.query(() => getSharedPlanningState()),
-  saveObjectives: protectedProcedure
-    .input(z.object({ entries: z.array(objectiveEntry).max(50) }))
-    .mutation(({ input, ctx }) => saveObjectiveProgress(input.entries, ctx.user)),
-  saveMetrics: protectedProcedure
-    .input(z.object({ entries: z.array(metricEntry).max(100) }))
-    .mutation(({ input, ctx }) => saveMetricProgress(input.entries, ctx.user)),
-  clearObjectives: protectedProcedure
-    .mutation(({ ctx }) => clearObjectiveProgress(ctx.user)),
-  clearMetrics: protectedProcedure
-    .mutation(({ ctx }) => clearMetricProgress(ctx.user)),
+  getState: publicProcedure.query(() => getSharedPlanningState()),
+  saveObjectives: publicProcedure
+    .input(z.object({ entries: z.array(objectiveEntry).max(50), actorName }))
+    .mutation(({ input }) => saveObjectiveProgress(input.entries, { id: 0, name: input.actorName || null })),
+  saveMetrics: publicProcedure
+    .input(z.object({ entries: z.array(metricEntry).max(100), actorName }))
+    .mutation(({ input }) => saveMetricProgress(input.entries, { id: 0, name: input.actorName || null })),
+  clearObjectives: publicProcedure
+    .input(z.object({ actorName }))
+    .mutation(({ input }) => clearObjectiveProgress({ id: 0, name: input.actorName || null })),
+  clearMetrics: publicProcedure
+    .input(z.object({ actorName }))
+    .mutation(({ input }) => clearMetricProgress({ id: 0, name: input.actorName || null })),
 });
