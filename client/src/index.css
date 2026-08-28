@@ -286,6 +286,11 @@ img { max-width: 100%; }
 .magnet-detail-head h3 { margin: 4px 0 8px; font: 600 43px/.95 "Teko Arnold"; text-transform: uppercase; }
 .magnet-detail-head p:last-child { max-width: 850px; margin: 0; color: #676365; font-size: 12px; line-height: 1.65; }
 .magnet-detail-head button { align-self: flex-start; border: 1px solid rgba(51,49,50,.15); background: white; padding: 8px; }
+.campaign-positioning { position: relative; padding: 22px 34px 24px 38%; overflow: hidden; background: var(--purple); color: white; }
+.campaign-positioning::before { content: ""; position: absolute; inset: 0 66% 0 0; background: var(--lime); clip-path: polygon(0 0, 100% 0, 82% 100%, 0 100%); }
+.campaign-positioning span { position: relative; display: block; color: var(--lime); font-size: 8px; font-weight: 800; letter-spacing: .14em; }
+.campaign-positioning h4 { position: relative; margin: 5px 0 4px; font: 600 31px/1 "Teko Arnold"; text-transform: uppercase; text-wrap: balance; }
+.campaign-positioning p { position: relative; max-width: 760px; margin: 0; color: rgba(255,255,255,.8); font-size: 10px; line-height: 1.55; }
 .detail-stripe { display: flex; gap: 9px; align-items: center; background: var(--mist); padding: 12px 34px; font-size: 11px; }
 .detail-stripe svg { color: var(--purple); }
 .masterclass-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid rgba(51,49,50,.12); }
@@ -298,6 +303,35 @@ img { max-width: 100%; }
 .masterclass-grid .masterclass-theme { margin: 0 0 12px; color: #4e4a4b; }
 .masterclass-grid .masterclass-problem { margin: 0; padding-top: 11px; border-top: 1px solid rgba(51,49,50,.1); }
 .masterclass-grid .masterclass-problem b { display: block; margin-bottom: 4px; color: var(--charcoal); font-size: 8px; letter-spacing: .1em; text-transform: uppercase; }
+.magnet-deep-dive { padding: 28px 34px 34px; border-bottom: 1px solid rgba(51,49,50,.12); }
+.magnet-section-intro { max-width: 860px; margin-bottom: 20px; }
+.magnet-section-intro > span { color: var(--purple); font-size: 8px; font-weight: 800; letter-spacing: .14em; }
+.magnet-section-intro h4 { margin: 5px 0 7px; font: 600 30px/1 "Teko Arnold"; text-transform: uppercase; }
+.magnet-section-intro p { margin: 0; color: #6d696a; font-size: 10px; line-height: 1.55; }
+.diagnostic-question-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.diagnostic-question { display: grid; grid-template-columns: 42px 1fr; gap: 14px; min-width: 0; padding: 17px; background: #f7f7f3; border-left: 3px solid var(--purple); }
+.question-number { font: 600 27px/1 "Teko Arnold"; color: var(--purple); }
+.diagnostic-question h5, .result-delivery-grid h5, .source-ranking h5, .content-block-grid h5 { margin: 0 0 7px; font-size: 11px; line-height: 1.35; }
+.diagnostic-question p, .result-delivery-grid p, .source-ranking p, .content-block-grid p { margin: 0; color: #6b6768; font-size: 9px; line-height: 1.5; }
+.diagnostic-question p b, .content-block-grid p b { display: block; margin-bottom: 2px; color: var(--charcoal); font-size: 7px; letter-spacing: .09em; text-transform: uppercase; }
+.answer-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+.answer-chips span { padding: 5px 7px; background: white; border: 1px solid rgba(77,70,156,.16); color: #575253; font-size: 7px; line-height: 1.25; }
+.result-blueprint { background: #efefe9; }
+.result-delivery-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: rgba(51,49,50,.13); border: 1px solid rgba(51,49,50,.13); }
+.result-delivery-grid article { min-height: 135px; padding: 17px; background: white; }
+.result-delivery-grid article > span { display: block; margin-bottom: 12px; font: 600 25px/1 "Teko Arnold"; color: var(--lime-dark); }
+.source-ranking { border-top: 1px solid rgba(51,49,50,.13); }
+.source-ranking article { display: grid; grid-template-columns: 48px 1fr auto; gap: 14px; align-items: center; padding: 13px 0; border-bottom: 1px solid rgba(51,49,50,.13); }
+.source-ranking article > strong { font: 600 27px/1 "Teko Arnold"; color: var(--purple); }
+.source-ranking article > span { padding: 5px 7px; background: #ecebe4; color: #625e60; font-size: 7px; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; }
+.source-ranking article > span[data-status="transcrita"] { background: #e7efc4; color: #48530d; }
+.source-ranking article > span[data-status="a transcrever"] { background: #eee9ff; color: var(--purple); }
+.content-blueprint { background: #f7f7f3; }
+.content-block-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.content-block-grid article { display: flex; flex-direction: column; min-height: 160px; padding: 17px; background: white; box-shadow: 0 10px 25px rgba(51,49,50,.05); }
+.content-block-grid article > span { color: var(--purple); font-size: 7px; font-weight: 800; letter-spacing: .1em; }
+.content-block-grid h5 { margin-top: 9px; }
+.content-block-grid small { display: block; margin-top: auto; padding-top: 14px; color: #777274; font-size: 7px; line-height: 1.4; }
 .detail-columns { display: grid; grid-template-columns: repeat(3, 1fr); }
 .detail-columns > div { padding: 25px 30px; border-right: 1px solid rgba(51,49,50,.12); }
 .detail-columns h4 { margin: 0 0 13px; font: 600 26px/1 "Teko Arnold"; text-transform: uppercase; }
@@ -584,7 +618,12 @@ img { max-width: 100%; }
   .congress-card { grid-template-columns: 130px 1fr; }
   .congress-card-top { padding: 12px; }
   .lead-magnet-visual { min-height: 300px; }
-  .magnet-detail-head, .detail-stripe { padding-left: 20px; padding-right: 20px; }
+  .magnet-detail-head, .detail-stripe, .magnet-deep-dive { padding-left: 20px; padding-right: 20px; }
+  .campaign-positioning { padding: 78px 20px 22px; }
+  .campaign-positioning::before { inset: 0 0 auto 0; height: 55px; clip-path: polygon(0 0, 100% 0, 92% 100%, 0 100%); }
+  .diagnostic-question-grid, .result-delivery-grid, .content-block-grid { grid-template-columns: 1fr; }
+  .source-ranking article { grid-template-columns: 38px 1fr; }
+  .source-ranking article > span { grid-column: 2; justify-self: start; }
   .masterclass-grid, .detail-columns, .magnet-rule { grid-template-columns: 1fr; }
   .masterclass-grid article, .detail-columns > div { border-right: 0; border-bottom: 1px solid rgba(51,49,50,.1); }
   .future-materials { grid-template-columns: 1fr; }

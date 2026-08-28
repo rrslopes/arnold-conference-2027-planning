@@ -60,3 +60,36 @@
 - [x] Manter o formato de contingência em bloco separado.
 - [x] Validar todas as pautas interativas em desktop e mobile.
 - [x] Salvar checkpoint e entregar a versão clarificada.
+
+## Revisão estratégica dos títulos e insumos das iscas
+
+- [x] Identificar quais nomes atuais são títulos finais e quais ainda são orientações provisórias.
+- [x] Cruzar as seis iscas com as nove transcrições disponíveis e as programações de 2026.
+- [x] Avaliar quais materiais podem ser produzidos integralmente com o acervo atual.
+- [x] Propor títulos mais incisivos, ancorados em dores reais e sem promessas não sustentadas.
+- [x] Priorizar palestras adicionais cuja transcrição aumentaria a qualidade ou a cobertura dos seis congressos.
+- [x] Entregar recomendação estratégica antes de alterar títulos na plataforma.
+
+## Ranking de palestras e pauta de produção das seis iscas
+
+- [x] Conciliar os 26 arquivos de vídeo confirmados pelo cliente com os títulos correspondentes nas programações de 2026.
+- [x] Inventariar todas as palestras de Gestão de Academias, Nutrição Esportiva e Nutrição Estética na programação de 2026.
+- [x] Definir e aplicar critérios de ranking: dor, utilidade, diferenciação, captação e segurança editorial.
+- [x] Classificar as palestras prioritárias por congresso e justificar cada posição.
+- [x] Revisar os títulos e as promessas das seis iscas com base no ranking.
+- [x] Desenvolver a pauta completa, os capítulos, as ferramentas práticas e os insumos de cada isca.
+- [x] Indicar quais íntegras devem ser transcritas primeiro e quais são complementares.
+- [x] Entregar o documento final sem alterar a plataforma antes da aprovação.
+- [x] Criar tabela verificável dos 26 arquivos do Drive com congresso, título da programação e classificação editorial.
+- [x] Salvar a conciliação textual como anexo de suporte ao ranking e às prioridades de transcrição.
+
+## Atualização da plataforma — diagnóstico e naming das iscas
+
+- [x] Validar a existência do novo documento estratégico no repositório compartilhado do projeto.
+- [x] Manter a masterclass como isca pronta, sem alterar seus títulos oficiais.
+- [x] Detalhar as perguntas e os critérios de qualificação do Diagnóstico Arnold 2027 sem expor pesos de scoring.
+- [x] Explicar a estrutura de entrega do resultado do Diagnóstico Arnold 2027.
+- [x] Atualizar a Isca 3 para “Mapa de Crescimento da Academia”, com campanha, subtítulo, ranking e pauta de produção.
+- [x] Substituir “Mapa” nas Iscas 4 e 5 por nomes específicos e orientados às dores centrais.
+- [x] Atualizar testes de conteúdo e validar a seção de iscas em desktop e mobile.
+- [x] Salvar checkpoint e entregar a versão publicada.
