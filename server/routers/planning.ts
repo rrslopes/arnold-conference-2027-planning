@@ -4,12 +4,14 @@ import {
   clearObjectiveProgress,
   getSharedPlanningState,
   saveCalendarWorkflow,
+  saveEmailWorkflow,
   saveMetricProgress,
   saveObjectiveProgress,
   saveOccupancyProgress,
 } from "../db";
 import { publicProcedure, router } from "../_core/trpc";
 import { EDITORIAL_STATUS_IDS, isValidArtworkUrl } from "../../shared/editorialWorkflow";
+import { EMAIL_STATUS_IDS, isValidEmailPreviewUrl } from "../../shared/emailWorkflow";
 
 const sharedText = z.string().max(5000);
 const actorName = z.string().trim().max(120).optional();
@@ -45,6 +47,12 @@ const calendarWorkflowEntry = z.object({
   status: z.enum(EDITORIAL_STATUS_IDS),
 });
 
+const emailWorkflowEntry = z.object({
+  emailItemId: z.string().regex(/^email-(base|nurture)-[a-z0-9-]+$/).max(48),
+  previewUrl: z.string().trim().max(2048).refine(isValidEmailPreviewUrl, "Informe um link HTTPS válido."),
+  status: z.enum(EMAIL_STATUS_IDS),
+});
+
 export const planningRouter = router({
   getState: publicProcedure.query(() => getSharedPlanningState()),
   saveObjectives: publicProcedure
@@ -59,6 +67,9 @@ export const planningRouter = router({
   saveCalendarWorkflow: publicProcedure
     .input(calendarWorkflowEntry)
     .mutation(({ input }) => saveCalendarWorkflow(input)),
+  saveEmailWorkflow: publicProcedure
+    .input(emailWorkflowEntry)
+    .mutation(({ input }) => saveEmailWorkflow(input)),
   clearObjectives: publicProcedure
     .input(z.object({ actorName }))
     .mutation(({ input }) => clearObjectiveProgress({ id: 0, name: input.actorName || null })),

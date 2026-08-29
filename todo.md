@@ -171,4 +171,25 @@
 - [x] Garantir que dados salvos por uma sessão sejam carregados em outra sessão anônima.
 - [x] Criar testes de banco, rotas, validação dos status, link e estados da interface.
 - [x] Validar o fluxo em desktop e mobile sem comprometer a leitura dos briefings.
-- [ ] Salvar checkpoint e entregar a versão publicada do fluxo de aprovação.
+- [x] Salvar checkpoint e entregar a versão publicada do fluxo de aprovação.
+
+## Fluxo colaborativo de aprovação dos e-mails
+
+- [x] Identificar todos os envios do plano de e-mail e atribuir identificadores persistentes.
+- [x] Organizar os status específicos de e-mail em fila, dependências, briefing, criação, aprovação, ajustes, concluído e enviado.
+- [x] Preservar os estados e aprovadores relevantes dos prints sem misturá-los aos status de redes sociais.
+- [x] Modelar no banco o link HTTPS da prévia do e-mail, status e última atualização por envio.
+- [x] Criar leitura e gravação públicas, preservando colaboração compartilhada sem login.
+- [x] Adicionar em cada card de e-mail o campo de link para aprovação, seletor de status e botão para abrir a prévia.
+- [x] Exibir resumo do status no card de e-mail e confirmação de sincronização.
+- [x] Criar testes de status, validação de URL, persistência entre sessões e responsividade.
+- [x] Validar desktop e mobile sem comprometer a leitura do plano de e-mail.
+- [x] Salvar checkpoint e entregar a versão publicada do fluxo de aprovação dos e-mails.
+- [x] Validar visualmente os nove e-mails de campanha e os sete de nutrição, confirmando resumo, link, status e ação de abrir prévia em desktop e mobile.
+- [x] Salvar um novo checkpoint após a validação final e entregar ao usuário a versão publicada do fluxo de e-mail.
+- [x] Criar um modo de revisão visual que isole um card de campanha ou nutrição sem alterar a experiência normal da plataforma.
+- [x] Manter a ação “Abrir prévia” visível e desabilitada até existir um link HTTPS válido.
+- [x] Capturar os dois fluxos em desktop e mobile com campos, status, ação e resumo legíveis no mesmo viewport.
+- [x] Salvar um novo checkpoint após a validação visual isolada e entregar o link publicado.
+- [ ] Salvar um novo checkpoint após as mudanças finais do modo de revisão e da ação Abrir prévia.
+- [ ] Entregar ao usuário o link publicado correspondente ao checkpoint final do fluxo de e-mail.

@@ -89,6 +89,14 @@ export const calendarWorkflow = mysqlTable("calendar_workflow", {
   updatedAt: bigint("updatedAt", { mode: "number" }).notNull(),
 });
 
+export const emailWorkflow = mysqlTable("email_workflow", {
+  id: int("id").autoincrement().primaryKey(),
+  emailItemId: varchar("emailItemId", { length: 48 }).notNull().unique(),
+  previewUrl: varchar("previewUrl", { length: 2048 }).notNull(),
+  status: varchar("status", { length: 64 }).default("nao-foi-feito").notNull(),
+  updatedAt: bigint("updatedAt", { mode: "number" }).notNull(),
+});
+
 export type ObjectiveProgress = typeof objectiveProgress.$inferSelect;
 export type InsertObjectiveProgress = typeof objectiveProgress.$inferInsert;
 export type MetricProgress = typeof metricProgress.$inferSelect;
@@ -100,3 +108,5 @@ export type MonthlyCongressSale = typeof monthlyCongressSales.$inferSelect;
 export type InsertMonthlyCongressSale = typeof monthlyCongressSales.$inferInsert;
 export type CalendarWorkflow = typeof calendarWorkflow.$inferSelect;
 export type InsertCalendarWorkflow = typeof calendarWorkflow.$inferInsert;
+export type EmailWorkflow = typeof emailWorkflow.$inferSelect;
+export type InsertEmailWorkflow = typeof emailWorkflow.$inferInsert;

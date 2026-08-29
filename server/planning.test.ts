@@ -7,6 +7,7 @@ const mocks = vi.hoisted(() => ({
   saveMetricProgress: vi.fn(),
   saveOccupancyProgress: vi.fn(),
   saveCalendarWorkflow: vi.fn(),
+  saveEmailWorkflow: vi.fn(),
   clearObjectiveProgress: vi.fn(),
   clearMetricProgress: vi.fn(),
 }));
@@ -110,6 +111,40 @@ describe("planning router", () => {
       status: "status-inexistente" as never,
     })).rejects.toThrow();
     expect(mocks.saveCalendarWorkflow).not.toHaveBeenCalled();
+  });
+
+  it("saves preview link and email-specific status without authentication", async () => {
+    mocks.saveEmailWorkflow.mockResolvedValue({ updatedAt: 988 });
+    const ctx = createContext();
+    ctx.user = null;
+    const caller = appRouter.createCaller(ctx);
+    const entry = {
+      emailItemId: "email-base-masterclasses",
+      previewUrl: "https://app.rdstation.com.br/email/preview/example",
+      status: "aprovar-texto-adri" as const,
+    };
+    await caller.planning.saveEmailWorkflow(entry);
+    expect(mocks.saveEmailWorkflow).toHaveBeenCalledWith(entry);
+  });
+
+  it("rejects invalid email status, item id and non-HTTPS preview links", async () => {
+    const caller = appRouter.createCaller(createContext());
+    await expect(caller.planning.saveEmailWorkflow({
+      emailItemId: "email-base-masterclasses",
+      previewUrl: "http://example.com/preview",
+      status: "aprovar-texto-adri",
+    })).rejects.toThrow();
+    await expect(caller.planning.saveEmailWorkflow({
+      emailItemId: "masterclasses",
+      previewUrl: "https://example.com/preview",
+      status: "aprovar-texto-adri",
+    })).rejects.toThrow();
+    await expect(caller.planning.saveEmailWorkflow({
+      emailItemId: "email-base-masterclasses",
+      previewUrl: "https://example.com/preview",
+      status: "aprovar-arte-social" as never,
+    })).rejects.toThrow();
+    expect(mocks.saveEmailWorkflow).not.toHaveBeenCalled();
   });
 
   it("allows shared reading without an authenticated user", async () => {

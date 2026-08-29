@@ -2,6 +2,7 @@ import { desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import {
   calendarWorkflow,
+  emailWorkflow,
   InsertUser,
   metricProgress,
   monthlyCongressSales,
@@ -135,17 +136,42 @@ export type CalendarWorkflowInput = {
   status: string;
 };
 
+export type EmailWorkflowInput = {
+  emailItemId: string;
+  previewUrl: string;
+  status: string;
+};
+
 export async function getSharedPlanningState() {
   const db = await requireDb();
-  const [objectives, metrics, activity, occupancy, monthlySales, editorialWorkflow] = await Promise.all([
+  const [objectives, metrics, activity, occupancy, monthlySales, editorialWorkflow, emailApprovals] = await Promise.all([
     db.select().from(objectiveProgress),
     db.select().from(metricProgress),
     db.select().from(planningActivity).orderBy(desc(planningActivity.createdAt)).limit(20),
     db.select().from(roomOccupancy),
     db.select().from(monthlyCongressSales),
     db.select().from(calendarWorkflow),
+    db.select().from(emailWorkflow),
   ]);
-  return { objectives, metrics, activity, occupancy, monthlySales, editorialWorkflow };
+  return { objectives, metrics, activity, occupancy, monthlySales, editorialWorkflow, emailApprovals };
+}
+
+export async function saveEmailWorkflow(entry: EmailWorkflowInput) {
+  const db = await requireDb();
+  const now = Date.now();
+  await db.insert(emailWorkflow).values({
+    emailItemId: entry.emailItemId,
+    previewUrl: entry.previewUrl,
+    status: entry.status,
+    updatedAt: now,
+  }).onDuplicateKeyUpdate({
+    set: {
+      previewUrl: entry.previewUrl,
+      status: entry.status,
+      updatedAt: now,
+    },
+  });
+  return { updatedAt: now };
 }
 
 export async function saveCalendarWorkflow(entry: CalendarWorkflowInput) {

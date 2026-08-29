@@ -2,7 +2,7 @@
  * Design philosophy: "Sala de Comando da Campanha" — página executiva, assimétrica
  * e didática, com profundidade por camadas e identidade Arnold aplicada ao sistema inteiro.
  */
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   ArrowDown,
   ArrowRight,
@@ -26,6 +26,8 @@ import LeadMagnetExplorer from "@/components/LeadMagnetExplorer";
 import CalendarExplorer from "@/components/CalendarExplorer";
 import KpiDashboard from "@/components/KpiDashboard";
 import OccupancyDashboard from "@/components/OccupancyDashboard";
+import EmailWorkflowEditor from "@/components/EmailWorkflowEditor";
+import { trpc } from "@/lib/trpc";
 import {
   brandAssets,
   congressLogos,
@@ -146,14 +148,25 @@ function ContentLab() {
 }
 
 function EmailPlan() {
-  const [tab, setTab] = useState<"base" | "nurture" | "assets">("base");
+  const reviewEmailId = typeof window === "undefined" ? null : new URLSearchParams(window.location.search).get("email-review");
+  const [tab, setTab] = useState<"base" | "nurture" | "assets">(() => reviewEmailId?.startsWith("email-nurture-") ? "nurture" : "base");
+  const planning = trpc.planning.getState.useQuery(undefined, { refetchOnWindowFocus: true, retry: 1 });
+  const approvalsByEmail = useMemo(() => Object.fromEntries(
+    (planning.data?.emailApprovals ?? []).map(row => [row.emailItemId, row]),
+  ), [planning.data?.emailApprovals]);
+  const visibleBaseEmails = reviewEmailId ? emailBase.filter(item => item.id === reviewEmailId) : emailBase;
+  const visibleNurtureEmails = reviewEmailId ? emailNurture.filter(item => item.id === reviewEmailId) : emailNurture;
+  useEffect(() => {
+    if (!reviewEmailId) return;
+    const timer = window.setTimeout(() => document.getElementById(reviewEmailId)?.scrollIntoView({ block: "center" }), 80);
+    return () => window.clearTimeout(timer);
+  }, [reviewEmailId, tab]);
   return (
-    <section id="email" className="section-pad email-section">
-      <SectionHeader index="07" eyebrow="PLANO DE E-MAIL MARKETING" title="Uma base de 10 mil contatos não é uma lista homogênea" description="A intensidade comercial cresce com sinais reais de abertura, clique, histórico e intenção. Todo e-mail tem um CTA clicável e um único destino principal." />
-      <div className="channel-principles"><article><Mail /><strong>Segmentação real</strong><p>Histórico, origem, data do último engajamento, cliques e compra.</p></article><article><MousePointerClick /><strong>Um CTA principal</strong><p>O botão pode se repetir, mas sempre leva ao mesmo destino.</p></article><article><ShieldCheck /><strong>Supressão disciplinada</strong><p>Comprou, recusou ou pediu saída: interromper a pressão comercial.</p></article></div>
+    <section id="email" className={`section-pad email-section ${reviewEmailId ? "email-review-mode" : ""}`}>
+      {reviewEmailId ? <div className="email-review-banner"><span>REVISÃO DIRETA DO FLUXO DE APROVAÇÃO</span><strong>{tab === "nurture" ? "Sequência das masterclasses" : "Campanha para a base"}</strong><a href="/#email">Ver plano completo de e-mail</a></div> : <><SectionHeader index="07" eyebrow="PLANO DE E-MAIL MARKETING" title="Uma base de 10 mil contatos não é uma lista homogênea" description="A intensidade comercial cresce com sinais reais de abertura, clique, histórico e intenção. Todo e-mail tem um CTA clicável e um único destino principal." /><div className="channel-principles"><article><Mail /><strong>Segmentação real</strong><p>Histórico, origem, data do último engajamento, cliques e compra.</p></article><article><MousePointerClick /><strong>Um CTA principal</strong><p>O botão pode se repetir, mas sempre leva ao mesmo destino.</p></article><article><ShieldCheck /><strong>Supressão disciplinada</strong><p>Comprou, recusou ou pediu saída: interromper a pressão comercial.</p></article></div></>}
       <div className="email-tabs"><button type="button" className={tab === "base" ? "active" : ""} onClick={() => setTab("base")}>Campanhas para a base</button><button type="button" className={tab === "nurture" ? "active" : ""} onClick={() => setTab("nurture")}>Sequência das masterclasses</button><button type="button" className={tab === "assets" ? "active" : ""} onClick={() => setTab("assets")}>Materiais necessários</button></div>
-      {tab === "base" ? <div className="email-timeline">{emailBase.map((item) => <article key={item.date}><span className="email-date">{item.date}</span><div><small>PÚBLICO</small><p>{item.audience}</p><small>OBJETIVO</small><h3>{item.objective}</h3><p className="material-note"><FileText size={15} /> {item.materials}</p><div className="email-cta"><MousePointerClick size={16} /><strong>{item.cta}</strong><span>{item.destination}</span></div><small className="rule-note">{item.rule}</small></div></article>)}</div> : null}
-      {tab === "nurture" ? <div className="nurture-grid">{emailNurture.map((item, index) => <article key={item.moment}><span>{String(index + 1).padStart(2, "0")}</span><small>{item.moment}</small><h3>{item.content}</h3><div><strong>{item.cta}</strong><p>{item.destination}</p></div><em>{item.condition}</em></article>)}</div> : null}
+      {tab === "base" ? <div className="email-timeline">{visibleBaseEmails.map((item) => <article id={item.id} key={item.id}><span className="email-date">{item.date}</span><div><small>PÚBLICO</small><p>{item.audience}</p><small>OBJETIVO</small><h3>{item.objective}</h3><p className="material-note"><FileText size={15} /> {item.materials}</p><div className="email-cta"><MousePointerClick size={16} /><strong>{item.cta}</strong><span>{item.destination}</span></div><small className="rule-note">{item.rule}</small><EmailWorkflowEditor emailItemId={item.id} row={approvalsByEmail[item.id]} defaultOpen={reviewEmailId === item.id} /></div></article>)}</div> : null}
+      {tab === "nurture" ? <div className="nurture-grid">{visibleNurtureEmails.map((item, index) => <article id={item.id} key={item.id}><span>{String(index + 1).padStart(2, "0")}</span><small>{item.moment}</small><h3>{item.content}</h3><div><strong>{item.cta}</strong><p>{item.destination}</p></div><em>{item.condition}</em><EmailWorkflowEditor emailItemId={item.id} row={approvalsByEmail[item.id]} defaultOpen={reviewEmailId === item.id} /></article>)}</div> : null}
       {tab === "assets" ? <div className="assets-table"><div className="assets-head"><span>Material</span><span>Conteúdo mínimo</span><span>Prazo</span></div>{emailAssets.map((item) => <div key={item.material}><strong>{item.material}</strong><p>{item.minimum}</p><span>{item.deadline}</span></div>)}</div> : null}
     </section>
   );
@@ -185,6 +198,9 @@ function RoadmapSection() {
 }
 
 export default function Home() {
+  const isEmailReview = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("email-review");
+  if (isEmailReview) return <StrategyLayout><EmailPlan /></StrategyLayout>;
+
   return (
     <StrategyLayout>
       <ExecutiveHero />

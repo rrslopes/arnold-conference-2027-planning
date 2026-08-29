@@ -564,6 +564,11 @@ img { max-width: 100%; }
 .channel-principles strong { display: block; margin: 12px 0 5px; font: 600 24px/1 "Teko Arnold"; text-transform: uppercase; }
 .channel-principles p { margin: 0; color: #6e6a6c; font-size: 10px; line-height: 1.5; }
 .email-tabs { display: flex; background: var(--charcoal); }
+.email-review-mode { min-height: 100vh; padding-top: 40px; }
+.email-review-banner { background: var(--charcoal); color: white; display: grid; grid-template-columns: 1fr auto; gap: 4px 22px; padding: 18px 20px; border-left: 4px solid var(--lime); }
+.email-review-banner span { color: var(--lime); font: 700 10px/1.2 Montserrat, sans-serif; letter-spacing: .13em; grid-column: 1; }
+.email-review-banner strong { font: 600 18px/1.2 Montserrat, sans-serif; grid-column: 1; }
+.email-review-banner a { color: white; font: 600 11px/1.2 Montserrat, sans-serif; grid-column: 2; grid-row: 1 / span 2; align-self: center; text-decoration: underline; text-underline-offset: 3px; }
 .email-tabs button { flex: 1; border: 0; border-right: 1px solid rgba(255,255,255,.1); background: transparent; color: rgba(255,255,255,.6); padding: 15px; font-size: 10px; font-weight: 750; }
 .email-tabs button.active { background: var(--purple); color: white; box-shadow: inset 0 -4px 0 var(--lime); }
 .email-timeline { background: #f3f2ec; padding: 24px; }
@@ -579,7 +584,56 @@ img { max-width: 100%; }
 .email-cta strong { font-size: 10px; }
 .email-cta span { color: var(--purple); font-size: 8px; }
 .email-timeline .rule-note { display: block; margin-top: 10px; color: #777274; letter-spacing: 0; font-weight: 500; }
+.email-approval { margin-top: 15px; border: 1px solid rgba(51,49,50,.13); border-left: 4px solid #989295; background: #f4f3ee; }
+.email-approval.status-queue { border-left-color: #b84135; }
+.email-approval.status-dependency { border-left-color: #d6a439; }
+.email-approval.status-briefing { border-left-color: #d7876d; }
+.email-approval.status-creation { border-left-color: #df7067; }
+.email-approval.status-approval { border-left-color: #9b75a6; }
+.email-approval.status-revision { border-left-color: #b42125; }
+.email-approval.status-ready { border-left-color: #64a36a; }
+.email-approval.status-sent { border-left-color: #15734d; }
+.email-approval.status-canceled { border-left-color: #9a9a9a; }
+.email-approval summary { display: grid; grid-template-columns: minmax(0, 1fr) auto 18px; gap: 9px; align-items: center; min-height: 50px; padding: 10px 12px; cursor: pointer; list-style: none; }
+.email-approval summary::-webkit-details-marker { display: none; }
+.email-approval summary > span { display: grid; grid-template-columns: 18px auto; align-items: center; gap: 2px 6px; min-width: 0; color: var(--purple); }
+.email-approval summary > span svg { grid-row: 1 / 3; }
+.email-approval summary b { font-size: 8px; letter-spacing: .09em; }
+.email-approval summary small { color: #797476; font-size: 7px; font-weight: 500; }
+.email-status-badge { display: inline-flex; align-items: center; gap: 5px; max-width: 170px; padding: 6px 8px; background: #e4e1de; color: #625d5f; font-size: 7px; font-style: normal; font-weight: 900; line-height: 1.25; text-align: right; text-transform: uppercase; }
+.email-status-badge i { width: 7px; height: 7px; flex: 0 0 7px; border-radius: 50%; background: currentColor; }
+.email-status-badge.status-queue { background: #f7dbd7; color: #9f352c; }
+.email-status-badge.status-dependency { background: #fae9bd; color: #8a6500; }
+.email-status-badge.status-briefing, .email-status-badge.status-creation { background: #f8dcd4; color: #9b4638; }
+.email-status-badge.status-approval { background: #eadff0; color: #75517d; }
+.email-status-badge.status-revision { background: #f6d1cf; color: #9f2528; }
+.email-status-badge.status-ready { background: #dceecf; color: #347337; }
+.email-status-badge.status-sent { background: #d2eadb; color: #126846; }
+.email-status-badge.status-canceled { background: #e4e4e4; color: #666; }
+.email-approval-chevron { color: var(--purple); transition: transform 160ms var(--ease-out); }
+.email-approval[open] .email-approval-chevron { transform: rotate(180deg); }
+.email-approval-body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(200px, .55fr); gap: 11px; padding: 12px; border-top: 1px solid rgba(51,49,50,.12); }
+.email-approval-body label { display: grid; align-content: start; min-width: 0; }
+.email-approval-body label > span { margin-bottom: 5px; color: var(--purple); font-size: 7px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+.email-approval-body input, .email-approval-body select { width: 100%; min-height: 38px; border: 1px solid rgba(51,49,50,.2); border-radius: 0; background: white; color: var(--charcoal); padding: 8px 9px; font: 500 9px/1.4 "Montserrat Arnold"; outline: none; }
+.email-approval-body input:focus, .email-approval-body select:focus { border-color: var(--purple); box-shadow: 0 0 0 2px rgba(77,70,156,.12); }
+.email-preview-url { display: grid; grid-template-columns: 30px 1fr; align-items: center; background: white; border: 1px solid rgba(51,49,50,.2); }
+.email-preview-url > svg { justify-self: center; color: var(--purple); }
+.email-preview-url input { min-width: 0; border: 0; box-shadow: none !important; padding-left: 0; }
+.email-preview-url.is-invalid { border-color: #b42125; }
+.email-approval-body label > small { margin-top: 5px; color: #777174; font-size: 7px; line-height: 1.4; }
+.email-approval-body label > small.field-error { color: #a22325; font-weight: 800; }
+.email-approval-actions { grid-column: 1 / -1; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
+.email-approval-actions a, .email-approval-actions button { min-height: 33px; display: inline-flex; align-items: center; justify-content: center; gap: 5px; border: 1px solid rgba(51,49,50,.17); background: white; color: var(--purple); padding: 7px 9px; font-size: 7px; font-weight: 900; text-transform: uppercase; }
+.email-approval-actions .email-approval-save { border-color: var(--purple); background: var(--purple); color: white; }
+.email-approval-actions button:disabled { cursor: not-allowed; opacity: .45; }
+.email-approval footer { display: flex; align-items: center; gap: 6px; padding: 9px 12px; border-top: 1px solid rgba(51,49,50,.1); color: #706a6d; font-size: 7px; }
+.email-approval footer em { display: inline-flex; align-items: center; gap: 4px; margin-left: auto; color: var(--purple); font-style: normal; font-weight: 850; }
 .nurture-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(51,49,50,.14); border: 1px solid rgba(51,49,50,.14); }
+.nurture-grid .email-approval-body { grid-template-columns: 1fr; }
+.nurture-grid .email-approval-actions { grid-column: 1; justify-content: stretch; }
+.nurture-grid .email-approval-actions a, .nurture-grid .email-approval-actions button { flex: 1 1 30%; }
+.email-review-mode .nurture-grid { grid-template-columns: 1fr; }
 .nurture-grid article { background: #f7f6f1; padding: 23px; }
 .nurture-grid article > span { font: 600 33px/1 "Teko Arnold"; color: rgba(77,70,156,.35); }
 .nurture-grid article > small { display: block; color: var(--purple); font-size: 8px; font-weight: 800; margin-top: 8px; }
@@ -728,6 +782,16 @@ img { max-width: 100%; }
 }
 
 @media (max-width: 860px) {
+  .email-review-mode { padding-top: 58px; }
+  .email-review-banner { grid-template-columns: 1fr; }
+  .email-review-banner a { grid-column: 1; grid-row: auto; margin-top: 6px; }
+  .email-review-mode .email-tabs { display: none; }
+  .email-review-mode .email-timeline { padding: 12px; }
+  .email-review-mode .email-timeline article { padding: 0; }
+  .email-review-mode .email-timeline article > .email-date,
+  .email-review-mode .email-timeline article > div > :not(.email-approval),
+  .email-review-mode .nurture-grid article > :not(.email-approval) { display: none; }
+  .email-review-mode .nurture-grid article { padding: 12px; }
   :root { --sidebar-width: 0px; }
   .scroll-progress { left: 0; top: 58px; }
   .content-stage { margin-left: 0; padding-top: 58px; }
@@ -851,6 +915,14 @@ img { max-width: 100%; }
   .email-timeline { padding: 15px; }
   .email-timeline article { grid-template-columns: 1fr; gap: 8px; }
   .email-timeline article::after { display: none; }
+  .email-approval summary { grid-template-columns: minmax(0, 1fr) 18px; }
+  .email-status-badge { grid-column: 1 / -1; grid-row: 2; width: fit-content; max-width: none; text-align: left; }
+  .email-approval-chevron { grid-column: 2; grid-row: 1; }
+  .email-approval-body { grid-template-columns: 1fr; }
+  .email-approval-actions { grid-column: 1; justify-content: stretch; }
+  .email-approval-actions a, .email-approval-actions button { flex: 1 1 30%; }
+  .email-approval footer { align-items: flex-start; flex-wrap: wrap; }
+  .email-approval footer em { width: 100%; margin-left: 19px; }
   .assets-head { display: none; }
   .assets-table > div:not(.assets-head) { grid-template-columns: 1fr; gap: 8px; }
   .roadmap-stage { min-height: 760px; padding: 20px; }

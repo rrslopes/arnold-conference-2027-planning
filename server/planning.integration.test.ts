@@ -3,12 +3,13 @@ import { eq, or } from "drizzle-orm";
 import type { TrpcContext } from "./_core/context";
 import { getDb, saveOccupancyProgress } from "./db";
 import { appRouter } from "./routers";
-import { calendarWorkflow, monthlyCongressSales, objectiveProgress, planningActivity, roomOccupancy } from "../drizzle/schema";
+import { calendarWorkflow, emailWorkflow, monthlyCongressSales, objectiveProgress, planningActivity, roomOccupancy } from "../drizzle/schema";
 
 const runId = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 const objectiveKey = `qa-sync-${runId}`;
 const occupancyKey = `qa-occupancy-${runId}`;
 const workflowKey = "9999";
+const emailWorkflowKey = `email-base-qa-sync-${runId}`;
 const actorAName = `QA Navegador A ${runId}`;
 const actorBName = `QA Navegador B ${runId}`;
 
@@ -28,6 +29,7 @@ describe.sequential("shared planning persistence", () => {
     await db.delete(monthlyCongressSales).where(eq(monthlyCongressSales.congressKey, occupancyKey));
     await db.delete(roomOccupancy).where(eq(roomOccupancy.congressKey, occupancyKey));
     await db.delete(calendarWorkflow).where(eq(calendarWorkflow.calendarItemId, workflowKey));
+    await db.delete(emailWorkflow).where(eq(emailWorkflow.emailItemId, emailWorkflowKey));
     await db.delete(planningActivity).where(or(eq(planningActivity.actorName, actorAName), eq(planningActivity.actorName, actorBName)));
   });
 
@@ -109,6 +111,35 @@ describe.sequential("shared planning persistence", () => {
       caption: "Legenda ajustada e aprovada pelo navegador B",
       artworkUrl: "https://drive.google.com/file/d/qa-b/view",
       status: "aprovado-para-programar",
+    });
+  });
+
+  it("synchronizes email preview and email-specific status between anonymous browsers", async () => {
+    const anonymousBrowserA = appRouter.createCaller(createAnonymousContext());
+    const anonymousBrowserB = appRouter.createCaller(createAnonymousContext());
+
+    await anonymousBrowserA.planning.saveEmailWorkflow({
+      emailItemId: emailWorkflowKey,
+      previewUrl: "https://example.com/email-preview-a",
+      status: "em-criacao",
+    });
+
+    const readInBrowserB = await anonymousBrowserB.planning.getState();
+    expect(readInBrowserB.emailApprovals.find(item => item.emailItemId === emailWorkflowKey)).toMatchObject({
+      previewUrl: "https://example.com/email-preview-a",
+      status: "em-criacao",
+    });
+
+    await anonymousBrowserB.planning.saveEmailWorkflow({
+      emailItemId: emailWorkflowKey,
+      previewUrl: "https://example.com/email-preview-b",
+      status: "email-mkt-aprovado",
+    });
+
+    const readBackInBrowserA = await anonymousBrowserA.planning.getState();
+    expect(readBackInBrowserA.emailApprovals.find(item => item.emailItemId === emailWorkflowKey)).toMatchObject({
+      previewUrl: "https://example.com/email-preview-b",
+      status: "email-mkt-aprovado",
     });
   });
 });
