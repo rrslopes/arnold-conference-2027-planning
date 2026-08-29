@@ -427,6 +427,14 @@ img { max-width: 100%; }
 .calendar-main em { display: block; color: var(--purple); font-size: 8px; font-style: normal; font-weight: 700; }
 .calendar-main .option-count { display: inline-block; margin-top: 7px; padding: 4px 7px; background: rgba(189,225,17,.16); color: #596600; border: 1px solid rgba(156,184,12,.3); font-size: 7px; font-style: normal; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
 .calendar-main .cut-count { width: fit-content; display: flex; align-items: center; gap: 4px; margin: 5px 0 0; padding: 4px 7px; background: rgba(77,70,156,.09); color: var(--purple); border: 1px solid rgba(77,70,156,.22); font-size: 7px; font-style: normal; font-weight: 900; letter-spacing: .07em; text-transform: uppercase; }
+.calendar-card-flags { display: grid; justify-items: end; gap: 5px; margin: 0; }
+.workflow-mini { max-width: 155px; display: inline-flex; align-items: center; gap: 5px; padding: 5px 7px; background: #eeece8; color: #625d5f; font-size: 7px; font-weight: 900; line-height: 1.25; text-align: right; text-transform: uppercase; }
+.workflow-mini i, .editorial-status-badge i { width: 7px; height: 7px; flex: 0 0 7px; border-radius: 50%; background: currentColor; }
+.workflow-mini.status-agency, .editorial-status-badge.status-agency { background: #dfe8f2; color: #355d7d; }
+.workflow-mini.status-social, .editorial-status-badge.status-social { background: #f8ded9; color: #9f352c; }
+.workflow-mini.status-approval, .editorial-status-badge.status-approval { background: #fff0c2; color: #8a5a00; }
+.workflow-mini.status-ready, .editorial-status-badge.status-ready { background: #dff1d2; color: #347337; }
+.workflow-mini.status-published, .editorial-status-badge.status-published { background: #d2eadb; color: #126846; }
 .milestone-badges { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 7px; }
 .calendar-main .milestone-badges b { display: inline-flex; align-items: center; gap: 4px; padding: 5px 7px; background: var(--purple); color: white; font-size: 7px; font-weight: 900; letter-spacing: .09em; text-transform: uppercase; }
 .calendar-main .milestone-badges b:last-child { background: var(--charcoal); color: var(--lime); }
@@ -449,6 +457,40 @@ img { max-width: 100%; }
 .paid-media-alert > svg { color: var(--lime); }
 .paid-media-alert span { color: var(--lime); }
 .paid-media-alert p { color: rgba(255,255,255,.78); }
+.editorial-workflow { display: grid; gap: 13px; margin: 18px 0; padding: 16px; background: #f1f0eb; border-top: 4px solid #827d80; box-shadow: inset 0 0 0 1px rgba(51,49,50,.08); }
+.editorial-workflow.status-agency { border-top-color: #5d83a1; }
+.editorial-workflow.status-social { border-top-color: #c94e3d; }
+.editorial-workflow.status-approval { border-top-color: #e1a226; }
+.editorial-workflow.status-ready { border-top-color: #6aa656; }
+.editorial-workflow.status-published { border-top-color: #26885e; }
+.editorial-workflow-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
+.editorial-workflow-title { display: grid; grid-template-columns: 22px 1fr; gap: 10px; align-items: start; }
+.editorial-workflow-title > svg { color: var(--purple); }
+.editorial-workflow-title span, .editorial-workflow label > span { margin: 0 0 5px; color: var(--purple); font-size: 7px; font-weight: 900; letter-spacing: .13em; text-transform: uppercase; }
+.editorial-workflow-title strong { display: block; color: var(--charcoal); font: 600 23px/1 "Teko Arnold"; text-transform: uppercase; }
+.editorial-workflow-title p { margin: 4px 0 0; color: #706b6d; font-size: 8px; }
+.editorial-status-badge { display: inline-flex; align-items: center; gap: 6px; padding: 7px 9px; background: #e2dfdb; color: #615c5e; font-size: 7px; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; }
+.editorial-workflow-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+.editorial-workflow label { display: grid; align-content: start; min-width: 0; }
+.editorial-workflow textarea, .editorial-workflow input, .editorial-workflow select { width: 100%; border: 1px solid rgba(51,49,50,.2); border-radius: 0; background: white; color: var(--charcoal); font: 500 10px/1.5 "Montserrat Arnold"; outline: none; transition: border-color 140ms var(--ease-out), box-shadow 140ms var(--ease-out); }
+.editorial-workflow textarea:focus, .editorial-workflow input:focus, .editorial-workflow select:focus { border-color: var(--purple); box-shadow: 0 0 0 2px rgba(77,70,156,.12); }
+.editorial-workflow textarea { min-height: 186px; resize: vertical; padding: 11px; }
+.editorial-workflow select { min-height: 39px; padding: 8px 10px; }
+.editorial-workflow label > small { margin-top: 5px; color: #777174; font-size: 7px; line-height: 1.45; }
+.editorial-workflow label > small.field-error { color: #a33a2c; font-weight: 750; }
+.editorial-workflow-side { display: grid; grid-template-columns: minmax(0, 1fr) minmax(190px, .7fr); gap: 12px; align-content: start; }
+.artwork-url-field { display: grid; grid-template-columns: 30px 1fr; align-items: center; background: white; border: 1px solid rgba(51,49,50,.2); }
+.artwork-url-field:focus-within { border-color: var(--purple); box-shadow: 0 0 0 2px rgba(77,70,156,.12); }
+.artwork-url-field.is-invalid { border-color: #c94e3d; }
+.artwork-url-field > svg { justify-self: center; color: var(--purple); }
+.artwork-url-field input { min-width: 0; min-height: 37px; border: 0; box-shadow: none !important; padding: 8px 8px 8px 0; }
+.editorial-workflow-actions { grid-column: 1 / -1; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
+.editorial-workflow-actions a, .editorial-workflow-actions button { min-height: 34px; display: inline-flex; align-items: center; justify-content: center; gap: 5px; border: 1px solid rgba(51,49,50,.18); padding: 7px 9px; font-size: 7px; font-weight: 900; letter-spacing: .05em; text-transform: uppercase; }
+.editorial-workflow-actions a, .editorial-refresh { background: white; color: var(--purple); }
+.editorial-save { border-color: var(--purple) !important; background: var(--purple); color: white; }
+.editorial-workflow-actions button:disabled { cursor: not-allowed; opacity: .45; }
+.editorial-workflow-meta { display: flex; align-items: center; gap: 6px; padding-top: 10px; border-top: 1px solid rgba(51,49,50,.12); color: #6f696c; font-size: 7px; }
+.editorial-workflow-meta em { display: inline-flex; align-items: center; gap: 4px; margin-left: auto; color: var(--purple); font-style: normal; font-weight: 850; }
 .option-list { display: grid; gap: 6px; }
 .option-list .option-list-title { margin: 6px 0 2px; color: var(--purple); font-size: 7px; font-weight: 900; letter-spacing: .16em; text-transform: uppercase; }
 .option-list .option-mode-note { display: block; margin: 0 0 4px; padding: 9px 11px; background: #edece6; color: #6a6567; font-size: 8px; line-height: 1.5; }
@@ -783,10 +825,22 @@ img { max-width: 100%; }
   .calendar-search { min-width: 0; width: 100%; }
   .calendar-card-trigger { grid-template-columns: 56px 1fr 21px; }
   .calendar-card.is-milestone .calendar-card-trigger { grid-template-columns: 64px 1fr 21px; }
+  .calendar-card-flags { display: none; }
   .keyword-mini { display: none; }
   .calendar-detail { grid-template-columns: 1fr; }
   .milestone-operation { padding: 12px; }
   .milestone-operation > header, .paid-media-alert { grid-template-columns: 20px 1fr; }
+  .editorial-workflow { padding: 12px; }
+  .editorial-workflow-head { align-items: stretch; flex-direction: column; }
+  .editorial-status-badge { width: fit-content; }
+  .editorial-workflow-grid { grid-template-columns: 1fr; }
+  .editorial-workflow-side { grid-template-columns: 1fr; }
+  .editorial-workflow-actions { grid-column: 1; }
+  .editorial-workflow textarea { min-height: 150px; }
+  .editorial-workflow-actions { justify-content: stretch; }
+  .editorial-workflow-actions a, .editorial-workflow-actions button { flex: 1 1 30%; }
+  .editorial-workflow-meta { align-items: flex-start; flex-wrap: wrap; }
+  .editorial-workflow-meta em { width: 100%; margin-left: 20px; }
   .detail-main { border-right: 0; border-bottom: 1px solid rgba(51,49,50,.1); }
   .production-step-grid { grid-template-columns: 1fr; }
   .story-answers { grid-template-columns: 1fr; }

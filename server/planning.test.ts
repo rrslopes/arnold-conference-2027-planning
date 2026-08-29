@@ -6,6 +6,7 @@ const mocks = vi.hoisted(() => ({
   saveObjectiveProgress: vi.fn(),
   saveMetricProgress: vi.fn(),
   saveOccupancyProgress: vi.fn(),
+  saveCalendarWorkflow: vi.fn(),
   clearObjectiveProgress: vi.fn(),
   clearMetricProgress: vi.fn(),
 }));
@@ -77,6 +78,38 @@ describe("planning router", () => {
     const invalidEntries = [{ congressKey: "wttc" as const, capacity: 0, monthlySales: [{ monthKey: "2026-09" as const, sold: 10 }] }];
     await expect(caller.planning.saveOccupancy({ entries: invalidEntries, actorName: "Colaboradora" })).rejects.toThrow();
     expect(mocks.saveOccupancyProgress).not.toHaveBeenCalled();
+  });
+
+  it("saves caption, artwork link and status for one calendar item without authentication", async () => {
+    mocks.saveCalendarWorkflow.mockResolvedValue({ updatedAt: 987 });
+    const ctx = createContext();
+    ctx.user = null;
+    const caller = appRouter.createCaller(ctx);
+    const entry = {
+      calendarItemId: "0923b",
+      caption: "Legenda em revisão pelo cliente.",
+      artworkUrl: "https://drive.google.com/file/d/example/view",
+      status: "aprovar-arte" as const,
+    };
+    await caller.planning.saveCalendarWorkflow(entry);
+    expect(mocks.saveCalendarWorkflow).toHaveBeenCalledWith(entry);
+  });
+
+  it("rejects invalid workflow status and non-HTTPS artwork links", async () => {
+    const caller = appRouter.createCaller(createContext());
+    await expect(caller.planning.saveCalendarWorkflow({
+      calendarItemId: "0923b",
+      caption: "Legenda",
+      artworkUrl: "javascript:alert(1)",
+      status: "aprovar-arte",
+    })).rejects.toThrow();
+    await expect(caller.planning.saveCalendarWorkflow({
+      calendarItemId: "0923b",
+      caption: "Legenda",
+      artworkUrl: "https://drive.google.com/file/d/example/view",
+      status: "status-inexistente" as never,
+    })).rejects.toThrow();
+    expect(mocks.saveCalendarWorkflow).not.toHaveBeenCalled();
   });
 
   it("allows shared reading without an authenticated user", async () => {

@@ -80,6 +80,15 @@ export const monthlyCongressSales = mysqlTable("monthly_congress_sales", {
   congressMonthUnique: uniqueIndex("monthly_congress_sales_congress_month_unique").on(table.congressKey, table.monthKey),
 }));
 
+export const calendarWorkflow = mysqlTable("calendar_workflow", {
+  id: int("id").autoincrement().primaryKey(),
+  calendarItemId: varchar("calendarItemId", { length: 24 }).notNull().unique(),
+  caption: text("caption").notNull(),
+  artworkUrl: varchar("artworkUrl", { length: 2048 }).notNull(),
+  status: varchar("status", { length: 64 }).default("nao-iniciado").notNull(),
+  updatedAt: bigint("updatedAt", { mode: "number" }).notNull(),
+});
+
 export type ObjectiveProgress = typeof objectiveProgress.$inferSelect;
 export type InsertObjectiveProgress = typeof objectiveProgress.$inferInsert;
 export type MetricProgress = typeof metricProgress.$inferSelect;
@@ -89,3 +98,5 @@ export type RoomOccupancy = typeof roomOccupancy.$inferSelect;
 export type InsertRoomOccupancy = typeof roomOccupancy.$inferInsert;
 export type MonthlyCongressSale = typeof monthlyCongressSales.$inferSelect;
 export type InsertMonthlyCongressSale = typeof monthlyCongressSales.$inferInsert;
+export type CalendarWorkflow = typeof calendarWorkflow.$inferSelect;
+export type InsertCalendarWorkflow = typeof calendarWorkflow.$inferInsert;

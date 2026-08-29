@@ -1,6 +1,7 @@
 import { desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import {
+  calendarWorkflow,
   InsertUser,
   metricProgress,
   monthlyCongressSales,
@@ -127,16 +128,44 @@ export type OccupancyEntryInput = {
   monthlySales: Array<{ monthKey: string; sold: number }>;
 };
 
+export type CalendarWorkflowInput = {
+  calendarItemId: string;
+  caption: string;
+  artworkUrl: string;
+  status: string;
+};
+
 export async function getSharedPlanningState() {
   const db = await requireDb();
-  const [objectives, metrics, activity, occupancy, monthlySales] = await Promise.all([
+  const [objectives, metrics, activity, occupancy, monthlySales, editorialWorkflow] = await Promise.all([
     db.select().from(objectiveProgress),
     db.select().from(metricProgress),
     db.select().from(planningActivity).orderBy(desc(planningActivity.createdAt)).limit(20),
     db.select().from(roomOccupancy),
     db.select().from(monthlyCongressSales),
+    db.select().from(calendarWorkflow),
   ]);
-  return { objectives, metrics, activity, occupancy, monthlySales };
+  return { objectives, metrics, activity, occupancy, monthlySales, editorialWorkflow };
+}
+
+export async function saveCalendarWorkflow(entry: CalendarWorkflowInput) {
+  const db = await requireDb();
+  const now = Date.now();
+  await db.insert(calendarWorkflow).values({
+    calendarItemId: entry.calendarItemId,
+    caption: entry.caption,
+    artworkUrl: entry.artworkUrl,
+    status: entry.status,
+    updatedAt: now,
+  }).onDuplicateKeyUpdate({
+    set: {
+      caption: entry.caption,
+      artworkUrl: entry.artworkUrl,
+      status: entry.status,
+      updatedAt: now,
+    },
+  });
+  return { updatedAt: now };
 }
 
 export async function saveObjectiveProgress(entries: ObjectiveEntryInput[], actor: Actor) {

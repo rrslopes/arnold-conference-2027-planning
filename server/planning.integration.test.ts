@@ -3,11 +3,12 @@ import { eq, or } from "drizzle-orm";
 import type { TrpcContext } from "./_core/context";
 import { getDb, saveOccupancyProgress } from "./db";
 import { appRouter } from "./routers";
-import { monthlyCongressSales, objectiveProgress, planningActivity, roomOccupancy } from "../drizzle/schema";
+import { calendarWorkflow, monthlyCongressSales, objectiveProgress, planningActivity, roomOccupancy } from "../drizzle/schema";
 
 const runId = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 const objectiveKey = `qa-sync-${runId}`;
 const occupancyKey = `qa-occupancy-${runId}`;
+const workflowKey = "9999";
 const actorAName = `QA Navegador A ${runId}`;
 const actorBName = `QA Navegador B ${runId}`;
 
@@ -26,6 +27,7 @@ describe.sequential("shared planning persistence", () => {
     await db.delete(objectiveProgress).where(eq(objectiveProgress.objectiveKey, objectiveKey));
     await db.delete(monthlyCongressSales).where(eq(monthlyCongressSales.congressKey, occupancyKey));
     await db.delete(roomOccupancy).where(eq(roomOccupancy.congressKey, occupancyKey));
+    await db.delete(calendarWorkflow).where(eq(calendarWorkflow.calendarItemId, workflowKey));
     await db.delete(planningActivity).where(or(eq(planningActivity.actorName, actorAName), eq(planningActivity.actorName, actorBName)));
   });
 
@@ -75,5 +77,38 @@ describe.sequential("shared planning persistence", () => {
       ["2026-10", 45],
     ]));
     expect(state.activity.some(item => item.actorName === actorAName && item.entityType === "occupancy")).toBe(true);
+  });
+
+  it("synchronizes caption, artwork link and status between anonymous browsers", async () => {
+    const anonymousBrowserA = appRouter.createCaller(createAnonymousContext());
+    const anonymousBrowserB = appRouter.createCaller(createAnonymousContext());
+
+    await anonymousBrowserA.planning.saveCalendarWorkflow({
+      calendarItemId: workflowKey,
+      caption: "Legenda criada pelo navegador A",
+      artworkUrl: "https://drive.google.com/file/d/qa-a/view",
+      status: "aprovar-legenda",
+    });
+
+    const readInBrowserB = await anonymousBrowserB.planning.getState();
+    expect(readInBrowserB.editorialWorkflow.find(item => item.calendarItemId === workflowKey)).toMatchObject({
+      caption: "Legenda criada pelo navegador A",
+      artworkUrl: "https://drive.google.com/file/d/qa-a/view",
+      status: "aprovar-legenda",
+    });
+
+    await anonymousBrowserB.planning.saveCalendarWorkflow({
+      calendarItemId: workflowKey,
+      caption: "Legenda ajustada e aprovada pelo navegador B",
+      artworkUrl: "https://drive.google.com/file/d/qa-b/view",
+      status: "aprovado-para-programar",
+    });
+
+    const readBackInBrowserA = await anonymousBrowserA.planning.getState();
+    expect(readBackInBrowserA.editorialWorkflow.find(item => item.calendarItemId === workflowKey)).toMatchObject({
+      caption: "Legenda ajustada e aprovada pelo navegador B",
+      artworkUrl: "https://drive.google.com/file/d/qa-b/view",
+      status: "aprovado-para-programar",
+    });
   });
 });

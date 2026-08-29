@@ -156,5 +156,19 @@
 - [x] Explicar brevemente o que a agência precisa providenciar, sem criar direção de arte.
 - [x] Criar testes de regressão para datas, rótulos e aviso de mídia paga.
 - [x] Validar os destaques em desktop e mobile, salvar checkpoint e entregar a versão publicada.
-- [ ] Salvar um novo checkpoint após destacar 08/09 e 23/09 e incluir o aviso de pack de artes para mídia paga.
-- [ ] Entregar ao usuário a versão publicada com o novo checkpoint da atualização do calendário.
+- [x] Salvar um novo checkpoint após destacar 08/09 e 23/09 e incluir o aviso de pack de artes para mídia paga.
+- [x] Entregar ao usuário a versão publicada com o novo checkpoint da atualização do calendário.
+
+## Fluxo colaborativo de produção e aprovação dos posts
+
+- [x] Definir a lista de status por responsabilidade com base no processo atual do cliente.
+- [x] Modelar no banco legenda, link da arte, status e data da última atualização para cada pauta.
+- [x] Criar leitura e gravação públicas dos dados editoriais, preservando a colaboração sem login.
+- [x] Validar o link da arte e permitir abrir o arquivo do Drive em nova aba.
+- [x] Adicionar campos de legenda e link da arte dentro de cada card do calendário.
+- [x] Adicionar seletor visual de status com cores distintas para agência, cliente e social.
+- [x] Exibir resumo do status no card fechado e confirmação de salvamento compartilhado.
+- [x] Garantir que dados salvos por uma sessão sejam carregados em outra sessão anônima.
+- [x] Criar testes de banco, rotas, validação dos status, link e estados da interface.
+- [x] Validar o fluxo em desktop e mobile sem comprometer a leitura dos briefings.
+- [ ] Salvar checkpoint e entregar a versão publicada do fluxo de aprovação.
