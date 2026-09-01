@@ -231,4 +231,38 @@
 - [x] Permitir ativar a capacidade ampliada somente após confirmação operacional.
 - [x] Criar testes para capacidade-base, cenário ampliado, gatilho e total geral.
 - [x] Validar o cenário em desktop e mobile.
-- [ ] Salvar checkpoint e entregar a versão atualizada.
+- [x] Salvar checkpoint e entregar a versão atualizada.
+
+## Definição preliminar de metas de Instagram
+
+- [x] Ler e interpretar o relatório da mLabs de 01/08 a 31/08/2026, se o link público estiver acessível.
+- [x] Conciliar eventuais diferenças de nomenclatura e período entre mLabs e Meta Business Suite.
+- [x] Consolidar a linha de base dos últimos 28 dias apresentada nos prints.
+- [x] Separar visualizações, alcance, interações, seguidores, conversas e desempenho por publicação.
+- [x] Identificar efeitos de posts fora da curva, volume de publicações e ausência de mídia paga relevante.
+- [x] Definir quais métricas devem ser acompanhadas por período e por conteúdo.
+- [x] Propor metas preliminares em três níveis: mínimo aceitável, operacional e superação.
+- [x] Solicitar apenas os dados adicionais necessários para validar as metas.
+- [x] Entregar o parecer antes de qualquer alteração na plataforma.
+- [x] Validar encoding, delimitador, período e legibilidade dos CSVs de posts e Stories de junho a agosto de 2026.
+- [x] Confirmar número de registros, granularidade e colunas disponíveis em cada exportação.
+- [x] Identificar campos ausentes que ainda impeçam a calibração definitiva das metas.
+- [x] Responder se o formato enviado é correto, sem alterar a plataforma.
+- [x] Validar encoding, delimitador e período dos CSVs de posts e Stories de março a maio de 2026.
+- [x] Confirmar volume mensal, tipos de conteúdo, duplicidades e campos disponíveis nos posts.
+- [x] Confirmar volume mensal, granularidade e métricas disponíveis nos Stories.
+- [x] Determinar se março a maio oferece uma linha de base histórica suficiente para recalibrar as metas.
+- [x] Responder à validação sem alterar a plataforma.
+
+## Metas de referência de Instagram
+
+- [x] Consolidar as linhas de base de março, abril, maio e agosto sem combinar fases distintas em médias simples.
+- [x] Definir metas mínima, operacional e de superação para alcance, visualizações, interações e crescimento líquido.
+- [x] Definir referências medianas por Reel e carrossel usando apenas métricas disponíveis.
+- [x] Definir metas de Stories para alcance, respostas, cliques e figurinhas, marcando retenção detalhada como sem linha de base.
+- [x] Modelar resultados mensais compartilhados e percentuais de atingimento da meta operacional.
+- [x] Criar persistência pública sem login para os resultados mensais de Instagram.
+- [x] Construir um painel secundário de metas sociais abaixo do KPI principal de lotação.
+- [x] Manter métricas ausentes como “sem linha de base”, sem estimativas.
+- [x] Validar cálculos, colaboração entre navegadores, estados vazios e responsividade.
+- [ ] Salvar checkpoint e entregar a versão publicada do painel de metas sociais.

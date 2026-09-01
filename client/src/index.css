@@ -759,6 +759,92 @@ img { max-width: 100%; }
 .secondary-kpi-heading span { grid-row: 1 / 3; color: var(--purple); font-size: 8px; font-weight: 850; letter-spacing: .15em; }
 .secondary-kpi-heading h3 { margin: 0; font: 600 35px/1 "Teko Arnold"; text-transform: uppercase; }
 .secondary-kpi-heading p { margin: 0; color: #777174; font-size: 9px; }
+.social-goals-console { overflow: hidden; border: 1px solid rgba(51,49,50,.14); background: #f2f1ec; box-shadow: 0 16px 45px rgba(51,49,50,.07); }
+.social-goals-head { display: flex; justify-content: space-between; gap: 30px; align-items: end; padding: 27px 28px; background: var(--charcoal); color: white; border-bottom: 5px solid var(--purple); }
+.social-goals-head > div:first-child { max-width: 780px; }
+.social-goals-head > div > span { display: block; color: var(--lime); font-size: 8px; font-weight: 850; letter-spacing: .15em; }
+.social-goals-head h3 { margin: 6px 0 0; font: 600 39px/.92 "Teko Arnold"; text-transform: uppercase; }
+.social-goals-head p { margin: 10px 0 8px; color: rgba(255,255,255,.64); font-size: 10px; line-height: 1.55; }
+.social-goals-head small { display: flex; align-items: center; gap: 6px; color: rgba(255,255,255,.5); font-size: 8px; }
+.social-goals-actions { display: flex; gap: 8px; flex: none; }
+.social-goals-actions .secondary-button { color: white; border-color: rgba(255,255,255,.25); }
+.social-month-strip { display: grid; grid-template-columns: repeat(8, minmax(84px, 1fr)); overflow-x: auto; background: #dfddd5; border-bottom: 1px solid rgba(51,49,50,.12); }
+.social-month-strip button { min-height: 58px; border: 0; border-right: 1px solid rgba(51,49,50,.1); background: transparent; color: #716c6e; padding: 9px 8px; }
+.social-month-strip button strong, .social-month-strip button small { display: block; }
+.social-month-strip button strong { font: 600 17px/1 "Teko Arnold"; }
+.social-month-strip button small { margin-top: 4px; font-size: 6px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+.social-month-strip button.active { background: var(--purple); color: white; box-shadow: inset 0 -4px 0 var(--lime); }
+.social-period-context { display: grid; grid-template-columns: 310px 1fr; gap: 25px; align-items: center; padding: 16px 22px; background: white; border-bottom: 1px solid rgba(51,49,50,.1); }
+.social-period-context span { display: block; color: var(--purple); font-size: 7px; font-weight: 900; letter-spacing: .12em; }
+.social-period-context strong { display: block; margin-top: 3px; font: 600 23px/1 "Teko Arnold"; text-transform: uppercase; }
+.social-period-context small { display: block; margin-top: 3px; color: #777174; font-size: 8px; }
+.social-period-context p { margin: 0; color: #686365; font-size: 9px; line-height: 1.55; }
+.social-view-tabs { display: grid; grid-template-columns: repeat(3, 1fr); background: #efeee9; border-bottom: 1px solid rgba(51,49,50,.12); }
+.social-view-tabs button { min-height: 47px; display: flex; align-items: center; justify-content: center; gap: 7px; border: 0; border-right: 1px solid rgba(51,49,50,.1); background: transparent; color: #696466; font-size: 8px; font-weight: 850; letter-spacing: .05em; text-transform: uppercase; }
+.social-view-tabs button.active { background: white; color: var(--purple); box-shadow: inset 0 -3px 0 var(--purple); }
+.social-view-panel { padding: 18px; }
+.social-account-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 11px; }
+.social-goal-card { min-width: 0; background: white; border-top: 4px solid var(--purple); padding: 17px; box-shadow: 0 7px 20px rgba(51,49,50,.05); }
+.social-goal-card > header { display: flex; justify-content: space-between; align-items: end; gap: 15px; }
+.social-goal-card > header span { color: var(--charcoal); font-size: 8px; font-weight: 850; letter-spacing: .06em; text-transform: uppercase; }
+.social-goal-card > header strong { color: var(--purple); font: 600 28px/1 "Teko Arnold"; }
+.social-goal-card > label { display: grid; grid-template-columns: 1fr 130px; gap: 12px; align-items: center; margin: 13px 0 10px; padding: 8px 10px; background: #f0efe9; }
+.social-goal-card > label span { color: #746f71; font-size: 7px; font-weight: 850; letter-spacing: .08em; }
+.social-goal-card input, .social-input-card input { width: 100%; min-width: 0; border: 1px solid rgba(51,49,50,.16); background: white; color: var(--charcoal); padding: 8px 9px; font-size: 9px; font-weight: 700; outline: none; }
+.social-goal-card input:focus, .social-input-card input:focus, .social-note-field textarea:focus { border-color: var(--purple); box-shadow: 0 0 0 2px rgba(77,70,156,.12); }
+.social-goal-levels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(51,49,50,.11); }
+.social-goal-levels span { background: #f7f6f1; padding: 7px; color: #7b7678; font-size: 6px; font-weight: 850; }
+.social-goal-levels b { display: block; margin-top: 2px; color: var(--charcoal); font-size: 9px; }
+.social-progress { height: 8px; overflow: hidden; background: #dedcd5; }
+.social-progress i { display: block; width: 0; height: 100%; background: linear-gradient(90deg, var(--purple), var(--lime-dark)); transition: width 240ms var(--ease-out); }
+.social-goal-card > .social-progress { margin-top: 10px; }
+.social-goal-card footer { display: flex; justify-content: space-between; gap: 10px; margin-top: 6px; color: #716c6e; font-size: 7px; }
+.social-goal-card footer b { color: var(--purple); }
+.social-goal-card > small { display: block; margin-top: 9px; color: #8b8688; font-size: 7px; }
+.social-detail-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 12px; }
+.social-input-card { min-width: 0; background: white; border: 1px solid rgba(51,49,50,.11); }
+.social-input-card h5 { margin: 0; padding: 11px 13px; background: var(--purple); color: white; font: 600 19px/1 "Teko Arnold"; text-transform: uppercase; }
+.social-input-card > div { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(51,49,50,.1); }
+.social-input-card label { min-width: 0; background: white; padding: 10px; }
+.social-input-card label:first-child { grid-column: 1 / -1; background: #f6f7dc; }
+.social-input-card label span { display: block; min-height: 20px; margin-bottom: 5px; color: #716c6e; font-size: 7px; font-weight: 800; line-height: 1.35; }
+.social-note-field { display: block; margin-top: 12px; padding: 14px; background: white; border: 1px solid rgba(51,49,50,.11); }
+.social-note-field > span { display: block; margin-bottom: 7px; color: var(--purple); font-size: 7px; font-weight: 900; letter-spacing: .12em; }
+.social-note-field textarea { width: 100%; min-height: 80px; resize: vertical; border: 1px solid rgba(51,49,50,.15); padding: 11px; color: var(--charcoal); font-size: 9px; line-height: 1.55; outline: none; }
+.social-format-view { display: grid; gap: 12px; }
+.social-format-section { background: white; border: 1px solid rgba(51,49,50,.12); }
+.social-format-section > header { display: grid; grid-template-columns: 180px 1fr; gap: 20px; align-items: center; padding: 15px 18px; border-bottom: 1px solid rgba(51,49,50,.1); }
+.social-format-section > header span { color: var(--purple); font-size: 7px; font-weight: 900; letter-spacing: .12em; }
+.social-format-section h4 { margin: 4px 0 0; font: 600 27px/1 "Teko Arnold"; text-transform: uppercase; }
+.social-format-section > header p { margin: 0; color: #6f6a6c; font-size: 8px; line-height: 1.55; }
+.social-format-section > small { display: block; padding: 10px 18px; background: #f5f4ef; color: #726d6f; font-size: 7px; line-height: 1.5; }
+.social-reference-head, .social-reference-row { display: grid; grid-template-columns: minmax(170px, 1.4fr) repeat(4, minmax(60px, .65fr)) minmax(125px, .9fr); gap: 10px; align-items: center; }
+.social-reference-head { padding: 9px 16px; background: #efeee9; color: #7b7678; font-size: 6px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+.social-reference-row { padding: 11px 16px; border-top: 1px solid rgba(51,49,50,.08); }
+.social-reference-row > strong { font-size: 8px; line-height: 1.4; }
+.social-reference-row > strong small { display: block; margin-top: 4px; color: #888284; font-size: 6px; font-weight: 500; }
+.social-reference-row > span, .social-reference-row > b { font-size: 8px; }
+.social-reference-row > b { color: var(--purple); }
+.social-reference-row > div { display: grid; grid-template-columns: 1fr 32px; gap: 6px; align-items: center; }
+.social-reference-row > div small { color: #777174; font-size: 6px; text-align: right; }
+.social-history-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.social-history-grid > article { min-width: 0; background: white; border-top: 4px solid var(--purple); }
+.social-history-grid > article > header { padding: 15px; }
+.social-history-grid > article > header span { color: var(--purple); font-size: 7px; font-weight: 900; letter-spacing: .11em; }
+.social-history-grid h4 { margin: 5px 0; font: 600 24px/1 "Teko Arnold"; text-transform: uppercase; }
+.social-history-grid p { margin: 0; color: #726d6f; font-size: 8px; line-height: 1.5; }
+.social-history-formats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(51,49,50,.1); }
+.social-history-formats > div { min-width: 0; background: #f7f6f1; padding: 10px; }
+.social-history-formats strong, .social-history-formats span { display: block; }
+.social-history-formats strong { margin-bottom: 7px; color: var(--purple); font-size: 6px; }
+.social-history-formats span { color: #777174; font-size: 6px; line-height: 1.6; }
+.social-history-formats b { color: var(--charcoal); }
+.social-missing-box { display: grid; grid-template-columns: 30px 1fr; gap: 12px; margin-top: 12px; padding: 17px 18px; background: rgba(203,219,42,.2); border-left: 5px solid var(--lime-dark); }
+.social-missing-box svg { color: var(--purple); }
+.social-missing-box span { color: var(--purple); font-size: 7px; font-weight: 900; letter-spacing: .12em; }
+.social-missing-box h4 { margin: 5px 0 8px; font: 600 22px/1 "Teko Arnold"; text-transform: uppercase; }
+.social-missing-box ul { margin: 0; padding-left: 16px; color: #625d5f; font-size: 8px; line-height: 1.65; }
+.social-missing-box p { margin: 8px 0 0; color: #6e696b; font-size: 8px; }
 .kpi-console { border: 1px solid rgba(51,49,50,.14); }
 .kpi-summary { display: flex; justify-content: space-between; gap: 30px; align-items: end; padding: 25px 28px; background: var(--charcoal); color: white; }
 .kpi-summary > div > span { color: var(--lime); font-size: 8px; letter-spacing: .15em; font-weight: 800; }
@@ -846,6 +932,12 @@ img { max-width: 100%; }
   .occupancy-summary article:nth-child(2) { border-right: 0; }
   .occupancy-summary article:nth-child(-n+2) { border-bottom: 1px solid rgba(255,255,255,.1); }
   .occupancy-grid { grid-template-columns: 1fr; }
+  .social-goals-head { align-items: flex-start; flex-direction: column; }
+  .social-account-grid, .social-history-grid { grid-template-columns: 1fr; }
+  .social-detail-grid { grid-template-columns: 1fr; }
+  .social-format-section > header { grid-template-columns: 1fr; gap: 7px; }
+  .social-reference-table { overflow-x: auto; }
+  .social-reference-head, .social-reference-row { min-width: 690px; }
   .site-footer { grid-template-columns: 100px 1fr; }
   .site-footer button { grid-column: 1 / -1; justify-self: start; }
 }
@@ -886,6 +978,30 @@ img { max-width: 100%; }
   .monthly-sales-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .secondary-kpi-heading { grid-template-columns: 1fr; }
   .secondary-kpi-heading span { grid-row: auto; }
+  .social-goals-head { padding: 23px 19px; }
+  .social-goals-head h3 { font-size: 34px; }
+  .social-goals-actions { width: 100%; }
+  .social-goals-actions button { flex: 1; }
+  .social-month-strip { grid-template-columns: repeat(8, 82px); }
+  .social-period-context { grid-template-columns: 1fr; gap: 9px; }
+  .social-view-tabs { grid-template-columns: 1fr; }
+  .social-view-tabs button { justify-content: flex-start; padding: 0 16px; border-right: 0; border-bottom: 1px solid rgba(51,49,50,.08); }
+  .social-view-panel { padding: 10px; }
+  .social-goal-card > label { grid-template-columns: 1fr 105px; }
+  .social-goal-card footer { align-items: flex-start; flex-direction: column; gap: 3px; }
+  .social-reference-head { display: none; }
+  .social-reference-row { min-width: 0; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 13px; }
+  .social-reference-row > strong { grid-column: 1 / -1; font-size: 9px; }
+  .social-reference-row > span, .social-reference-row > b { display: grid; gap: 3px; font-size: 9px; }
+  .social-reference-row > span::before, .social-reference-row > b::before { color: #858082; font-size: 5px; font-weight: 900; letter-spacing: .08em; }
+  .social-reference-row > span:nth-of-type(1)::before { content: "MÍNIMO"; }
+  .social-reference-row > span:nth-of-type(2)::before { content: "OPERACIONAL"; }
+  .social-reference-row > span:nth-of-type(3)::before { content: "SUPERAÇÃO"; }
+  .social-reference-row > b::before { content: "REALIZADO"; }
+  .social-reference-row > div { grid-column: 2 / -1; }
+  .social-history-formats { grid-template-columns: 1fr; }
+  .social-history-formats strong { font-size: 7px; }
+  .social-history-formats span { font-size: 7px; }
   .tracker-actions, .kpi-summary-actions { width: 100%; flex-wrap: wrap; }
   .tracker-actions button, .kpi-summary-actions button { flex: 1; }
   .objective-grid, .congress-grid { grid-template-columns: 1fr; }

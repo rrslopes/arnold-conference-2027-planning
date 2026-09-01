@@ -83,6 +83,38 @@ export const monthlyCongressSales = mysqlTable("monthly_congress_sales", {
   congressMonthUnique: uniqueIndex("monthly_congress_sales_congress_month_unique").on(table.congressKey, table.monthKey),
 }));
 
+export const monthlySocialResults = mysqlTable("monthly_social_results", {
+  id: int("id").autoincrement().primaryKey(),
+  monthKey: varchar("monthKey", { length: 7 }).notNull().unique(),
+  accountsReached: int("accountsReached"),
+  views: int("views"),
+  interactions: int("interactions"),
+  netFollowers: int("netFollowers"),
+  reelsPublished: int("reelsPublished"),
+  reelsMedianReach: int("reelsMedianReach"),
+  reelsMedianViews: int("reelsMedianViews"),
+  reelsMedianInteractions: int("reelsMedianInteractions"),
+  reelsMedianSharesSaves: int("reelsMedianSharesSaves"),
+  reelsMedianShares: int("reelsMedianShares"),
+  reelsMedianSaves: int("reelsMedianSaves"),
+  carouselsPublished: int("carouselsPublished"),
+  carouselsMedianReach: int("carouselsMedianReach"),
+  carouselsMedianViews: int("carouselsMedianViews"),
+  carouselsMedianInteractions: int("carouselsMedianInteractions"),
+  carouselsMedianSharesSaves: int("carouselsMedianSharesSaves"),
+  carouselsMedianShares: int("carouselsMedianShares"),
+  carouselsMedianSaves: int("carouselsMedianSaves"),
+  storiesPublished: int("storiesPublished"),
+  storiesMedianReach: int("storiesMedianReach"),
+  storiesMedianViews: int("storiesMedianViews"),
+  storyReplies: int("storyReplies"),
+  storyLinkClicks: int("storyLinkClicks"),
+  storyStickerTaps: int("storyStickerTaps"),
+  storyProfileVisits: int("storyProfileVisits"),
+  note: text("note").notNull(),
+  updatedAt: bigint("updatedAt", { mode: "number" }).notNull(),
+});
+
 export const calendarWorkflow = mysqlTable("calendar_workflow", {
   id: int("id").autoincrement().primaryKey(),
   calendarItemId: varchar("calendarItemId", { length: 24 }).notNull().unique(),
@@ -109,6 +141,8 @@ export type RoomOccupancy = typeof roomOccupancy.$inferSelect;
 export type InsertRoomOccupancy = typeof roomOccupancy.$inferInsert;
 export type MonthlyCongressSale = typeof monthlyCongressSales.$inferSelect;
 export type InsertMonthlyCongressSale = typeof monthlyCongressSales.$inferInsert;
+export type MonthlySocialResult = typeof monthlySocialResults.$inferSelect;
+export type InsertMonthlySocialResult = typeof monthlySocialResults.$inferInsert;
 export type CalendarWorkflow = typeof calendarWorkflow.$inferSelect;
 export type InsertCalendarWorkflow = typeof calendarWorkflow.$inferInsert;
 export type EmailWorkflow = typeof emailWorkflow.$inferSelect;

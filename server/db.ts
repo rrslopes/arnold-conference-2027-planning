@@ -6,11 +6,13 @@ import {
   InsertUser,
   metricProgress,
   monthlyCongressSales,
+  monthlySocialResults,
   objectiveProgress,
   planningActivity,
   roomOccupancy,
   users,
 } from "../drizzle/schema";
+import type { SocialMonthlyResult } from "../shared/socialMetrics";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -145,18 +147,60 @@ export type EmailWorkflowInput = {
   status: string;
 };
 
+export type SocialMonthlyResultInput = SocialMonthlyResult;
+
 export async function getSharedPlanningState() {
   const db = await requireDb();
-  const [objectives, metrics, activity, occupancy, monthlySales, editorialWorkflow, emailApprovals] = await Promise.all([
+  const [objectives, metrics, activity, occupancy, monthlySales, socialResults, editorialWorkflow, emailApprovals] = await Promise.all([
     db.select().from(objectiveProgress),
     db.select().from(metricProgress),
     db.select().from(planningActivity).orderBy(desc(planningActivity.createdAt)).limit(20),
     db.select().from(roomOccupancy),
     db.select().from(monthlyCongressSales),
+    db.select().from(monthlySocialResults),
     db.select().from(calendarWorkflow),
     db.select().from(emailWorkflow),
   ]);
-  return { objectives, metrics, activity, occupancy, monthlySales, editorialWorkflow, emailApprovals };
+  return { objectives, metrics, activity, occupancy, monthlySales, socialResults, editorialWorkflow, emailApprovals };
+}
+
+export async function saveSocialMonthlyResults(entries: SocialMonthlyResultInput[]) {
+  const db = await requireDb();
+  const now = Date.now();
+  await db.transaction(async tx => {
+    for (const entry of entries) {
+      const values = {
+        monthKey: entry.monthKey,
+        accountsReached: entry.accountsReached,
+        views: entry.views,
+        interactions: entry.interactions,
+        netFollowers: entry.netFollowers,
+        reelsPublished: entry.reelsPublished,
+        reelsMedianReach: entry.reelsMedianReach,
+        reelsMedianViews: entry.reelsMedianViews,
+        reelsMedianInteractions: entry.reelsMedianInteractions,
+        reelsMedianShares: entry.reelsMedianShares,
+        reelsMedianSaves: entry.reelsMedianSaves,
+        carouselsPublished: entry.carouselsPublished,
+        carouselsMedianReach: entry.carouselsMedianReach,
+        carouselsMedianViews: entry.carouselsMedianViews,
+        carouselsMedianInteractions: entry.carouselsMedianInteractions,
+        carouselsMedianShares: entry.carouselsMedianShares,
+        carouselsMedianSaves: entry.carouselsMedianSaves,
+        storiesPublished: entry.storiesPublished,
+        storiesMedianReach: entry.storiesMedianReach,
+        storiesMedianViews: entry.storiesMedianViews,
+        storyReplies: entry.storyReplies,
+        storyLinkClicks: entry.storyLinkClicks,
+        storyStickerTaps: entry.storyStickerTaps,
+        storyProfileVisits: entry.storyProfileVisits,
+        note: entry.note,
+        updatedAt: now,
+      };
+      await tx.insert(monthlySocialResults).values(values).onDuplicateKeyUpdate({ set: values });
+    }
+  });
+  return { updatedAt: now };
 }
 
 export async function saveEmailWorkflow(entry: EmailWorkflowInput) {

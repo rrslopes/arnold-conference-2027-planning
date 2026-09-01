@@ -6,6 +6,7 @@ const mocks = vi.hoisted(() => ({
   saveObjectiveProgress: vi.fn(),
   saveMetricProgress: vi.fn(),
   saveOccupancyProgress: vi.fn(),
+  saveSocialMonthlyResults: vi.fn(),
   saveCalendarWorkflow: vi.fn(),
   saveEmailWorkflow: vi.fn(),
   clearObjectiveProgress: vi.fn(),
@@ -114,6 +115,76 @@ describe("planning router", () => {
     }));
     await expect(caller.planning.saveOccupancy({ entries })).rejects.toThrow(/Confirme operacionalmente/);
     expect(mocks.saveOccupancyProgress).not.toHaveBeenCalled();
+  });
+
+  it("saves eight monthly social results without authentication", async () => {
+    mocks.saveSocialMonthlyResults.mockResolvedValue({ updatedAt: 790 });
+    const monthKeys = ["2026-09", "2026-10", "2026-11", "2026-12", "2027-01", "2027-02", "2027-03", "2027-04"] as const;
+    const entries = monthKeys.map((monthKey, index) => ({
+      monthKey,
+      accountsReached: index === 0 ? 32000 : null,
+      views: index === 0 ? 60000 : null,
+      interactions: index === 0 ? 2400 : null,
+      netFollowers: index === 0 ? 100 : null,
+      reelsPublished: null,
+      reelsMedianReach: null,
+      reelsMedianViews: null,
+      reelsMedianInteractions: null,
+      reelsMedianShares: null,
+      reelsMedianSaves: null,
+      carouselsPublished: null,
+      carouselsMedianReach: null,
+      carouselsMedianViews: null,
+      carouselsMedianInteractions: null,
+      carouselsMedianShares: null,
+      carouselsMedianSaves: null,
+      storiesPublished: null,
+      storiesMedianReach: null,
+      storiesMedianViews: null,
+      storyReplies: null,
+      storyLinkClicks: null,
+      storyStickerTaps: null,
+      storyProfileVisits: null,
+      note: index === 0 ? "Primeiro mês da campanha" : "",
+    }));
+    const ctx = createContext();
+    ctx.user = null;
+    const caller = appRouter.createCaller(ctx);
+    await caller.planning.saveSocialResults({ entries });
+    expect(mocks.saveSocialMonthlyResults).toHaveBeenCalledWith(entries);
+  });
+
+  it("rejects estimated, negative or incomplete social payloads", async () => {
+    const caller = appRouter.createCaller(createContext());
+    const invalidEntry = {
+      monthKey: "2026-09" as const,
+      accountsReached: -1,
+      views: null,
+      interactions: null,
+      netFollowers: -20,
+      reelsPublished: null,
+      reelsMedianReach: null,
+      reelsMedianViews: null,
+      reelsMedianInteractions: null,
+      reelsMedianShares: null,
+      reelsMedianSaves: null,
+      carouselsPublished: null,
+      carouselsMedianReach: null,
+      carouselsMedianViews: null,
+      carouselsMedianInteractions: null,
+      carouselsMedianShares: null,
+      carouselsMedianSaves: null,
+      storiesPublished: null,
+      storiesMedianReach: null,
+      storiesMedianViews: null,
+      storyReplies: null,
+      storyLinkClicks: null,
+      storyStickerTaps: null,
+      storyProfileVisits: null,
+      note: "",
+    };
+    await expect(caller.planning.saveSocialResults({ entries: [invalidEntry] as never })).rejects.toThrow();
+    expect(mocks.saveSocialMonthlyResults).not.toHaveBeenCalled();
   });
 
   it("saves caption, artwork link and status for one calendar item without authentication", async () => {

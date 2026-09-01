@@ -1,15 +1,16 @@
 import { afterAll, describe, expect, it } from "vitest";
 import { eq, or } from "drizzle-orm";
 import type { TrpcContext } from "./_core/context";
-import { getDb, saveOccupancyProgress } from "./db";
+import { getDb, saveOccupancyProgress, saveSocialMonthlyResults } from "./db";
 import { appRouter } from "./routers";
-import { calendarWorkflow, emailWorkflow, monthlyCongressSales, objectiveProgress, planningActivity, roomOccupancy } from "../drizzle/schema";
+import { calendarWorkflow, emailWorkflow, monthlyCongressSales, monthlySocialResults, objectiveProgress, planningActivity, roomOccupancy } from "../drizzle/schema";
 
 const runId = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 const objectiveKey = `qa-sync-${runId}`;
 const occupancyKey = `qa-occupancy-${runId}`;
 const workflowKey = "9999";
 const emailWorkflowKey = `email-base-qa-sync-${runId}`;
+const socialMonthKey = "2099-99";
 const actorAName = `QA Navegador A ${runId}`;
 const actorBName = `QA Navegador B ${runId}`;
 
@@ -30,6 +31,7 @@ describe.sequential("shared planning persistence", () => {
     await db.delete(roomOccupancy).where(eq(roomOccupancy.congressKey, occupancyKey));
     await db.delete(calendarWorkflow).where(eq(calendarWorkflow.calendarItemId, workflowKey));
     await db.delete(emailWorkflow).where(eq(emailWorkflow.emailItemId, emailWorkflowKey));
+    await db.delete(monthlySocialResults).where(eq(monthlySocialResults.monthKey, socialMonthKey));
     await db.delete(planningActivity).where(or(eq(planningActivity.actorName, actorAName), eq(planningActivity.actorName, actorBName)));
   });
 
@@ -140,6 +142,46 @@ describe.sequential("shared planning persistence", () => {
     expect(readBackInBrowserA.emailApprovals.find(item => item.emailItemId === emailWorkflowKey)).toMatchObject({
       previewUrl: "https://example.com/email-preview-b",
       status: "email-mkt-aprovado",
+    });
+  });
+
+  it("persists a social result and exposes it to a second anonymous browser", async () => {
+    await saveSocialMonthlyResults([{
+      monthKey: socialMonthKey as "2026-09",
+      accountsReached: 32000,
+      views: 60000,
+      interactions: 2400,
+      netFollowers: 100,
+      reelsPublished: 8,
+      reelsMedianReach: 3996,
+      reelsMedianViews: 4739,
+      reelsMedianInteractions: 89,
+      reelsMedianShares: 12,
+      reelsMedianSaves: 5,
+      carouselsPublished: 4,
+      carouselsMedianReach: 2190,
+      carouselsMedianViews: 4933,
+      carouselsMedianInteractions: 86,
+      carouselsMedianShares: 11,
+      carouselsMedianSaves: 3,
+      storiesPublished: 60,
+      storiesMedianReach: 277,
+      storiesMedianViews: 382,
+      storyReplies: 8,
+      storyLinkClicks: 95,
+      storyStickerTaps: 40,
+      storyProfileVisits: 109,
+      note: "Registro de QA sem autoria visível",
+    }]);
+
+    const anonymousBrowserB = appRouter.createCaller(createAnonymousContext());
+    const state = await anonymousBrowserB.planning.getState();
+    expect(state.socialResults.find(item => item.monthKey === socialMonthKey)).toMatchObject({
+      accountsReached: 32000,
+      reelsMedianShares: 12,
+      reelsMedianSaves: 5,
+      storyLinkClicks: 95,
+      note: "Registro de QA sem autoria visível",
     });
   });
 });

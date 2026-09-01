@@ -26,6 +26,7 @@ import LeadMagnetExplorer from "@/components/LeadMagnetExplorer";
 import CalendarExplorer from "@/components/CalendarExplorer";
 import KpiDashboard from "@/components/KpiDashboard";
 import OccupancyDashboard from "@/components/OccupancyDashboard";
+import SocialGoalsDashboard from "@/components/SocialGoalsDashboard";
 import EmailWorkflowEditor from "@/components/EmailWorkflowEditor";
 import EditorialIntelligence from "@/components/EditorialIntelligence";
 import { trpc } from "@/lib/trpc";
@@ -203,6 +204,8 @@ export default function Home() {
   if (isEmailReview) return <StrategyLayout><EmailPlan /></StrategyLayout>;
   const isIntelligenceReview = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("intelligence-review");
   if (isIntelligenceReview) return <StrategyLayout><section id="inteligencia" className="section-pad intelligence-section"><SectionHeader index="04" eyebrow="INTELIGÊNCIA DE PROGRAMAÇÃO E CONTEÚDO" title="Uma fonte única para decidir quem atrair e o que produzir" description="A programação oficial organiza a promessa de 2027; o acervo de 2026 fornece matéria-prima." /><EditorialIntelligence /></section></StrategyLayout>;
+  const isSocialReview = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("social-review");
+  if (isSocialReview) return <StrategyLayout><section id="indicadores" className="section-pad kpi-section"><SectionHeader index="11" eyebrow="REVISÃO DO PAINEL SOCIAL" title="Metas de referência do Instagram" description="Modo isolado para validar resultados mensais, referências por formato e limites de interpretação." /><SocialGoalsDashboard /></section></StrategyLayout>;
 
   return (
     <StrategyLayout>
@@ -241,7 +244,8 @@ export default function Home() {
       <section id="indicadores" className="section-pad kpi-section">
         <SectionHeader index="11" eyebrow="PAINEL DE ACOMPANHAMENTO" title="A meta principal é a lotação de cada sala" description="Registre capacidade, vendas mensais e acompanhe o avanço dos seis congressos. Os demais indicadores aparecem abaixo como leitura complementar da campanha." />
         <OccupancyDashboard />
-        <div className="secondary-kpi-block"><div className="secondary-kpi-heading"><span>VISUALIZAÇÃO SECUNDÁRIA</span><h3>Aquisição, relacionamento, vendas e eficiência</h3><p>Use estes indicadores para explicar a evolução da lotação, diagnosticar gargalos e orientar correções de campanha.</p></div><KpiDashboard /></div>
+        <div className="secondary-kpi-block"><div className="secondary-kpi-heading"><span>VISUALIZAÇÃO SECUNDÁRIA</span><h3>Metas de Instagram com referência histórica</h3><p>Lance resultados mensais e compare o desempenho com faixas reais de 2026, sem transformar referência em promessa.</p></div><SocialGoalsDashboard /></div>
+        <div className="secondary-kpi-block"><div className="secondary-kpi-heading"><span>DEMAIS INDICADORES</span><h3>Aquisição, relacionamento, vendas e eficiência</h3><p>Use estes indicadores para explicar a evolução da lotação, diagnosticar gargalos e orientar correções de campanha.</p></div><KpiDashboard /></div>
       </section>
 
       <footer className="site-footer">

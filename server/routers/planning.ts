@@ -8,6 +8,7 @@ import {
   saveMetricProgress,
   saveObjectiveProgress,
   saveOccupancyProgress,
+  saveSocialMonthlyResults,
 } from "../db";
 import { publicProcedure, router } from "../_core/trpc";
 import { EDITORIAL_STATUS_IDS, isValidArtworkUrl } from "../../shared/editorialWorkflow";
@@ -53,6 +54,35 @@ const occupancyEntry = z.object({
   }
 });
 
+const optionalCount = z.number().int().min(0).max(100_000_000).nullable();
+const socialMonthlyEntry = z.object({
+  monthKey,
+  accountsReached: optionalCount,
+  views: optionalCount,
+  interactions: optionalCount,
+  netFollowers: z.number().int().min(-100_000_000).max(100_000_000).nullable(),
+  reelsPublished: optionalCount,
+  reelsMedianReach: optionalCount,
+  reelsMedianViews: optionalCount,
+  reelsMedianInteractions: optionalCount,
+  reelsMedianShares: optionalCount,
+  reelsMedianSaves: optionalCount,
+  carouselsPublished: optionalCount,
+  carouselsMedianReach: optionalCount,
+  carouselsMedianViews: optionalCount,
+  carouselsMedianInteractions: optionalCount,
+  carouselsMedianShares: optionalCount,
+  carouselsMedianSaves: optionalCount,
+  storiesPublished: optionalCount,
+  storiesMedianReach: optionalCount,
+  storiesMedianViews: optionalCount,
+  storyReplies: optionalCount,
+  storyLinkClicks: optionalCount,
+  storyStickerTaps: optionalCount,
+  storyProfileVisits: optionalCount,
+  note: z.string().max(2000),
+});
+
 const calendarWorkflowEntry = z.object({
   calendarItemId: z.string().regex(/^\d{4}[a-c]?$/).max(24),
   caption: z.string().max(5000),
@@ -77,6 +107,9 @@ export const planningRouter = router({
   saveOccupancy: publicProcedure
     .input(z.object({ entries: z.array(occupancyEntry).length(6), actorName }))
     .mutation(({ input }) => saveOccupancyProgress(input.entries, { id: 0, name: input.actorName || null })),
+  saveSocialResults: publicProcedure
+    .input(z.object({ entries: z.array(socialMonthlyEntry).length(8) }))
+    .mutation(({ input }) => saveSocialMonthlyResults(input.entries)),
   saveCalendarWorkflow: publicProcedure
     .input(calendarWorkflowEntry)
     .mutation(({ input }) => saveCalendarWorkflow(input)),
