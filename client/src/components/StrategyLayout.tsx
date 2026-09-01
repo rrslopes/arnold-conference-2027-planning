@@ -28,6 +28,7 @@ const navIcons: Record<string, typeof Gauge> = {
   visao: LayoutDashboard,
   objetivos: Target,
   publicos: UsersRound,
+  inteligencia: BookOpenCheck,
   iscas: Sparkles,
   laboratorio: SearchCheck,
   calendario: CalendarDays,

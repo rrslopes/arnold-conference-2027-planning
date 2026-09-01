@@ -30,6 +30,7 @@ export const navigation = [
   { id: "visao", label: "Visão geral" },
   { id: "objetivos", label: "Objetivos" },
   { id: "publicos", label: "Públicos" },
+  { id: "inteligencia", label: "Programação & conteúdo" },
   { id: "iscas", label: "Iscas digitais" },
   { id: "laboratorio", label: "Laboratório" },
   { id: "calendario", label: "Calendário" },

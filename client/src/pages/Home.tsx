@@ -27,6 +27,7 @@ import CalendarExplorer from "@/components/CalendarExplorer";
 import KpiDashboard from "@/components/KpiDashboard";
 import OccupancyDashboard from "@/components/OccupancyDashboard";
 import EmailWorkflowEditor from "@/components/EmailWorkflowEditor";
+import EditorialIntelligence from "@/components/EditorialIntelligence";
 import { trpc } from "@/lib/trpc";
 import {
   brandAssets,
@@ -126,7 +127,7 @@ function ContentLab() {
 
   return (
     <section id="laboratorio" className="section-pad content-lab">
-      <SectionHeader index="05" eyebrow="LABORATÓRIO DE CONTEÚDO" title="Como reconhecer um corte que realmente merece virar post" description="A busca começa pela transcrição e termina no arquivo original. Se a fala não funcionar isoladamente, a alternativa é parte do planejamento — não um improviso." />
+      <SectionHeader index="06" eyebrow="LABORATÓRIO DE CONTEÚDO" title="Como reconhecer um corte que realmente merece virar post" description="A busca começa pela transcrição e termina no arquivo original. Se a fala não funcionar isoladamente, a alternativa é parte do planejamento — não um improviso." />
       <div className="cut-method">
         {cutMethod.map((item) => <article key={item.step}><span>{String(item.step).padStart(2, "0")}</span><div><h3>{item.title}</h3><p>{item.action}</p><small><CheckCircle2 size={14} /> {item.criterion}</small></div></article>)}
       </div>
@@ -163,7 +164,7 @@ function EmailPlan() {
   }, [reviewEmailId, tab]);
   return (
     <section id="email" className={`section-pad email-section ${reviewEmailId ? "email-review-mode" : ""}`}>
-      {reviewEmailId ? <div className="email-review-banner"><span>REVISÃO DIRETA DO FLUXO DE APROVAÇÃO</span><strong>{tab === "nurture" ? "Sequência das masterclasses" : "Campanha para a base"}</strong><a href="/#email">Ver plano completo de e-mail</a></div> : <><SectionHeader index="07" eyebrow="PLANO DE E-MAIL MARKETING" title="Uma base de 10 mil contatos não é uma lista homogênea" description="A intensidade comercial cresce com sinais reais de abertura, clique, histórico e intenção. Todo e-mail tem um CTA clicável e um único destino principal." /><div className="channel-principles"><article><Mail /><strong>Segmentação real</strong><p>Histórico, origem, data do último engajamento, cliques e compra.</p></article><article><MousePointerClick /><strong>Um CTA principal</strong><p>O botão pode se repetir, mas sempre leva ao mesmo destino.</p></article><article><ShieldCheck /><strong>Supressão disciplinada</strong><p>Comprou, recusou ou pediu saída: interromper a pressão comercial.</p></article></div></>}
+      {reviewEmailId ? <div className="email-review-banner"><span>REVISÃO DIRETA DO FLUXO DE APROVAÇÃO</span><strong>{tab === "nurture" ? "Sequência das masterclasses" : "Campanha para a base"}</strong><a href="/#email">Ver plano completo de e-mail</a></div> : <><SectionHeader index="08" eyebrow="PLANO DE E-MAIL MARKETING" title="Uma base de 10 mil contatos não é uma lista homogênea" description="A intensidade comercial cresce com sinais reais de abertura, clique, histórico e intenção. Todo e-mail tem um CTA clicável e um único destino principal." /><div className="channel-principles"><article><Mail /><strong>Segmentação real</strong><p>Histórico, origem, data do último engajamento, cliques e compra.</p></article><article><MousePointerClick /><strong>Um CTA principal</strong><p>O botão pode se repetir, mas sempre leva ao mesmo destino.</p></article><article><ShieldCheck /><strong>Supressão disciplinada</strong><p>Comprou, recusou ou pediu saída: interromper a pressão comercial.</p></article></div></>}
       <div className="email-tabs"><button type="button" className={tab === "base" ? "active" : ""} onClick={() => setTab("base")}>Campanhas para a base</button><button type="button" className={tab === "nurture" ? "active" : ""} onClick={() => setTab("nurture")}>Sequência das masterclasses</button><button type="button" className={tab === "assets" ? "active" : ""} onClick={() => setTab("assets")}>Materiais necessários</button></div>
       {tab === "base" ? <div className="email-timeline">{visibleBaseEmails.map((item) => <article id={item.id} key={item.id}><span className="email-date">{item.date}</span><div><small>PÚBLICO</small><p>{item.audience}</p><small>OBJETIVO</small><h3>{item.objective}</h3><p className="material-note"><FileText size={15} /> {item.materials}</p><div className="email-cta"><MousePointerClick size={16} /><strong>{item.cta}</strong><span>{item.destination}</span></div><small className="rule-note">{item.rule}</small><EmailWorkflowEditor emailItemId={item.id} row={approvalsByEmail[item.id]} defaultOpen={reviewEmailId === item.id} /></div></article>)}</div> : null}
       {tab === "nurture" ? <div className="nurture-grid">{visibleNurtureEmails.map((item, index) => <article id={item.id} key={item.id}><span>{String(index + 1).padStart(2, "0")}</span><small>{item.moment}</small><h3>{item.content}</h3><div><strong>{item.cta}</strong><p>{item.destination}</p></div><em>{item.condition}</em><EmailWorkflowEditor emailItemId={item.id} row={approvalsByEmail[item.id]} defaultOpen={reviewEmailId === item.id} /></article>)}</div> : null}
@@ -187,7 +188,7 @@ function RoadmapSection() {
   const current = roadmap.find((item) => item.month === selected) ?? roadmap[0];
   return (
     <section id="roadmap" className="section-pad roadmap-section">
-      <SectionHeader index="09" eyebrow="ROADMAP ATÉ O EVENTO" title="Setembro abre as vendas. Abril encerra um ciclo de maturação." description="As fases futuras permanecem em nível estratégico para que o calendário seja revisto conforme dados, programação, oferta e capacidade real da equipe." />
+      <SectionHeader index="10" eyebrow="ROADMAP ATÉ O EVENTO" title="Setembro abre as vendas. Abril encerra um ciclo de maturação." description="As fases futuras permanecem em nível estratégico para que o calendário seja revisto conforme dados, programação, oferta e capacidade real da equipe." />
       <div className="roadmap-stage">
         <img src={brandAssets.roadmap} alt="Representação abstrata da jornada estratégica até o evento" />
         <div className="roadmap-months">{roadmap.map((item) => <button type="button" className={selected === item.month ? "active" : ""} key={item.month} onClick={() => setSelected(item.month)}><span>{item.month}</span><strong>{item.title}</strong></button>)}</div>
@@ -200,6 +201,8 @@ function RoadmapSection() {
 export default function Home() {
   const isEmailReview = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("email-review");
   if (isEmailReview) return <StrategyLayout><EmailPlan /></StrategyLayout>;
+  const isIntelligenceReview = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("intelligence-review");
+  if (isIntelligenceReview) return <StrategyLayout><section id="inteligencia" className="section-pad intelligence-section"><SectionHeader index="04" eyebrow="INTELIGÊNCIA DE PROGRAMAÇÃO E CONTEÚDO" title="Uma fonte única para decidir quem atrair e o que produzir" description="A programação oficial organiza a promessa de 2027; o acervo de 2026 fornece matéria-prima." /><EditorialIntelligence /></section></StrategyLayout>;
 
   return (
     <StrategyLayout>
@@ -213,8 +216,13 @@ export default function Home() {
 
       <CongressSection />
 
+      <section id="inteligencia" className="section-pad intelligence-section">
+        <SectionHeader index="04" eyebrow="INTELIGÊNCIA DE PROGRAMAÇÃO E CONTEÚDO" title="Uma fonte única para decidir quem atrair e o que produzir" description="A programação oficial organiza a promessa de 2027; o acervo de 2026 fornece matéria-prima. As três visões abaixo mantêm essas funções separadas, mas conectadas." />
+        <EditorialIntelligence />
+      </section>
+
       <section id="iscas" className="section-pad lead-magnet-section">
-        <SectionHeader index="04" eyebrow="PORTFÓLIO DE AQUISIÇÃO" title="Seis iscas, cada uma com um trabalho diferente" description="As entregas evoluem de prova para diagnóstico, aplicação e decisão. As três masterclasses contam como uma única isca." />
+        <SectionHeader index="05" eyebrow="PORTFÓLIO DE AQUISIÇÃO" title="Seis iscas, cada uma com um trabalho diferente" description="As entregas evoluem de prova para diagnóstico, aplicação e decisão. As três masterclasses contam como uma única isca." />
         <LeadMagnetExplorer />
         <div className="future-materials"><div><p className="eyebrow">INSUMOS FUTUROS</p><h3>WTTC, SONAFE e Bodybuilding</h3><p>Esses materiais não são iscas adicionais. Eles fortalecem conteúdos, páginas, diagnóstico e planejador.</p></div>{futureMaterials.map((item) => <article key={item.congress}><strong>{item.congress}</strong><p>{item.materials}</p><span>{item.use}</span></article>)}</div>
       </section>
@@ -222,7 +230,7 @@ export default function Home() {
       <ContentLab />
 
       <section id="calendario" className="section-pad calendar-section">
-        <SectionHeader index="06" eyebrow="CALENDÁRIO EDITORIAL · PRIMEIRA FASE" title="Cada dia precisa responder: por que publicar e para onde levar" description="De 31/08 a 27/09, pauta, fonte, alternativa e CTA aparecem no mesmo cartão. Use os filtros para revisar por fase, formato ou congresso." />
+        <SectionHeader index="07" eyebrow="CALENDÁRIO EDITORIAL · PRIMEIRA FASE" title="Cada dia precisa responder: por que publicar e para onde levar" description="De 31/08 a 27/09, pauta, fonte, alternativa e CTA aparecem no mesmo cartão. Use os filtros para revisar por fase, formato ou congresso." />
         <CalendarExplorer />
       </section>
 
@@ -231,7 +239,7 @@ export default function Home() {
       <RoadmapSection />
 
       <section id="indicadores" className="section-pad kpi-section">
-        <SectionHeader index="10" eyebrow="PAINEL DE ACOMPANHAMENTO" title="A meta principal é a lotação de cada sala" description="Registre capacidade, vendas mensais e acompanhe o avanço dos seis congressos. Os demais indicadores aparecem abaixo como leitura complementar da campanha." />
+        <SectionHeader index="11" eyebrow="PAINEL DE ACOMPANHAMENTO" title="A meta principal é a lotação de cada sala" description="Registre capacidade, vendas mensais e acompanhe o avanço dos seis congressos. Os demais indicadores aparecem abaixo como leitura complementar da campanha." />
         <OccupancyDashboard />
         <div className="secondary-kpi-block"><div className="secondary-kpi-heading"><span>VISUALIZAÇÃO SECUNDÁRIA</span><h3>Aquisição, relacionamento, vendas e eficiência</h3><p>Use estes indicadores para explicar a evolução da lotação, diagnosticar gargalos e orientar correções de campanha.</p></div><KpiDashboard /></div>
       </section>

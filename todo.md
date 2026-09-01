@@ -191,5 +191,20 @@
 - [x] Manter a ação “Abrir prévia” visível e desabilitada até existir um link HTTPS válido.
 - [x] Capturar os dois fluxos em desktop e mobile com campos, status, ação e resumo legíveis no mesmo viewport.
 - [x] Salvar um novo checkpoint após a validação visual isolada e entregar o link publicado.
-- [ ] Salvar um novo checkpoint após as mudanças finais do modo de revisão e da ação Abrir prévia.
-- [ ] Entregar ao usuário o link publicado correspondente ao checkpoint final do fluxo de e-mail.
+- [x] Salvar um novo checkpoint após as mudanças finais do modo de revisão e da ação Abrir prévia.
+- [x] Entregar ao usuário o link publicado correspondente ao checkpoint final do fluxo de e-mail.
+
+## Inteligência editorial por programação
+
+- [x] Criar uma única área integrada, sem fragmentar a navegação, com três visões: Programações, Eixos de atração e Matéria-prima.
+- [x] Estruturar a programação provisória dos seis congressos, distinguindo dados confirmados de 2027 e referências de 2026.
+- [x] Integrar a programação oficial disponível de Nutrição Estética 2027 com horários, palestrantes e temas.
+- [x] Definir eixos estratégicos de atração de público derivados da programação confirmada de 2027.
+- [x] Organizar o que deve ser solicitado aos palestrantes para pautas, Reels, carrosséis e e-mails seguros.
+- [x] Cruzar Nutrição Estética 2027 com a programação e as íntegras disponíveis de Nutrição Estética 2026.
+- [x] Classificar as íntegras de 2026 em prioridade alta, média ou baixa para transcrição, explicando a ponte com 2027.
+- [x] Exibir claramente o que já pode orientar pautas e o que ainda depende de ementa, fala ou autorização do palestrante.
+- [x] Integrar a nova área ao menu existente sem criar excesso de seções independentes.
+- [x] Criar testes de conteúdo para programação, eixos, solicitações, prioridades e distinção entre 2026 e 2027.
+- [x] Validar a nova área em desktop e mobile.
+- [ ] Salvar checkpoint e entregar a versão publicada da inteligência editorial.
