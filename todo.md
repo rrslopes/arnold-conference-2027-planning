@@ -265,4 +265,4 @@
 - [x] Construir um painel secundário de metas sociais abaixo do KPI principal de lotação.
 - [x] Manter métricas ausentes como “sem linha de base”, sem estimativas.
 - [x] Validar cálculos, colaboração entre navegadores, estados vazios e responsividade.
-- [ ] Salvar checkpoint e entregar a versão publicada do painel de metas sociais.
+- [x] Salvar checkpoint e entregar a versão publicada do painel de metas sociais.
