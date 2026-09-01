@@ -207,4 +207,14 @@
 - [x] Integrar a nova área ao menu existente sem criar excesso de seções independentes.
 - [x] Criar testes de conteúdo para programação, eixos, solicitações, prioridades e distinção entre 2026 e 2027.
 - [x] Validar a nova área em desktop e mobile.
-- [ ] Salvar checkpoint e entregar a versão publicada da inteligência editorial.
+- [x] Salvar checkpoint e entregar a versão publicada da inteligência editorial.
+
+## Atualização das capacidades dos auditórios
+
+- [x] Validar as abas, colunas e observações da planilha de capacidades de 2027.
+- [x] Conciliar cada auditório com um dos seis identificadores de congresso usados no painel.
+- [x] Verificar salas compartilhadas, capacidades variáveis e possíveis divergências de nomenclatura.
+- [x] Registrar as seis capacidades no banco compartilhado sem alterar vendas mensais existentes.
+- [x] Confirmar no banco os valores gravados e os cálculos iniciais de vagas e lotação.
+- [x] Validar visualmente o painel com as novas capacidades.
+- [x] Entregar ao usuário a confirmação dos dados atualizados.
