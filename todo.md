@@ -218,3 +218,17 @@
 - [x] Confirmar no banco os valores gravados e os cálculos iniciais de vagas e lotação.
 - [x] Validar visualmente o painel com as novas capacidades.
 - [x] Entregar ao usuário a confirmação dos dados atualizados.
+
+## Cenário de expansão — Nutrição Estética
+
+- [x] Manter 162 lugares como capacidade-base vigente no formato escolar.
+- [x] Registrar 240 lugares como capacidade ampliável mediante mudança para auditório.
+- [x] Modelar a capacidade ampliável sem somá-la à capacidade total atual das seis salas.
+- [x] Exibir no cartão de Nutrição Estética o cenário, a condição e as 78 vagas adicionais possíveis.
+- [x] Alertar quando as vendas atingirem a faixa de decisão para expansão.
+- [x] Registrar a confirmação operacional da mudança para auditório em um campo separado.
+- [x] Bloquear a ativação dos 240 lugares enquanto a confirmação operacional não estiver registrada.
+- [x] Permitir ativar a capacidade ampliada somente após confirmação operacional.
+- [x] Criar testes para capacidade-base, cenário ampliado, gatilho e total geral.
+- [x] Validar o cenário em desktop e mobile.
+- [ ] Salvar checkpoint e entregar a versão atualizada.

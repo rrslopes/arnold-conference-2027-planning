@@ -66,14 +66,14 @@ describe.sequential("shared planning persistence", () => {
   });
 
   it("persists capacity and monthly sales for a second anonymous browser", async () => {
-    await saveOccupancyProgress([{ congressKey: occupancyKey, capacity: 500, monthlySales: [
+    await saveOccupancyProgress([{ congressKey: occupancyKey, capacity: 500, expandedCapacity: 650, expansionConfirmed: false, expansionActive: false, monthlySales: [
       { monthKey: "2026-09", sold: 80 },
       { monthKey: "2026-10", sold: 45 },
     ] }], { id: 0, name: actorAName });
 
     const anonymousBrowserB = appRouter.createCaller(createAnonymousContext());
     const state = await anonymousBrowserB.planning.getState();
-    expect(state.occupancy.find(item => item.congressKey === occupancyKey)).toMatchObject({ capacity: 500, updatedByName: actorAName });
+    expect(state.occupancy.find(item => item.congressKey === occupancyKey)).toMatchObject({ capacity: 500, expandedCapacity: 650, expansionConfirmed: false, expansionActive: false, updatedByName: actorAName });
     expect(state.monthlySales.filter(item => item.congressKey === occupancyKey).map(item => [item.monthKey, item.sold])).toEqual(expect.arrayContaining([
       ["2026-09", 80],
       ["2026-10", 45],

@@ -30,6 +30,21 @@ export type OccupancyCalculation = {
   overCapacity: number;
 };
 
+export type ExpansionStatus = "inactive" | "decision" | "required" | "active";
+
+export function getActiveCapacity(baseCapacity: number | null, expandedCapacity: number | null, expansionActive: boolean) {
+  if (expansionActive && expandedCapacity && expandedCapacity > 0) return expandedCapacity;
+  return baseCapacity;
+}
+
+export function getExpansionStatus(baseCapacity: number | null, sold: number, expansionActive: boolean): ExpansionStatus {
+  if (expansionActive) return "active";
+  if (!baseCapacity || baseCapacity <= 0) return "inactive";
+  if (sold >= baseCapacity) return "required";
+  if (sold >= Math.ceil(baseCapacity * 0.8)) return "decision";
+  return "inactive";
+}
+
 export function calculateOccupancy(capacity: number | null, monthlySales: Record<string, number>): OccupancyCalculation {
   const sold = Object.values(monthlySales).reduce((total, value) => total + Math.max(0, Number.isFinite(value) ? value : 0), 0);
   if (!capacity || capacity <= 0) {

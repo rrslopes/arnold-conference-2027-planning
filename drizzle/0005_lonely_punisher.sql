@@ -1,0 +1,1 @@
+ALTER TABLE `room_occupancy` ADD `expansionConfirmed` boolean DEFAULT false NOT NULL;

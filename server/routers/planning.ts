@@ -37,7 +37,20 @@ const monthKey = z.enum(["2026-09", "2026-10", "2026-11", "2026-12", "2027-01", 
 const occupancyEntry = z.object({
   congressKey,
   capacity: z.number().int().min(1).max(100000).nullable(),
+  expandedCapacity: z.number().int().min(1).max(100000).nullable(),
+  expansionConfirmed: z.boolean(),
+  expansionActive: z.boolean(),
   monthlySales: z.array(z.object({ monthKey, sold: z.number().int().min(0).max(100000) })).length(8),
+}).superRefine((entry, ctx) => {
+  if (entry.expansionActive && !entry.expandedCapacity) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["expandedCapacity"], message: "Informe a capacidade ampliada antes de ativá-la." });
+  }
+  if (entry.expansionActive && !entry.expansionConfirmed) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["expansionActive"], message: "Confirme operacionalmente a mudança para auditório antes de ativar a capacidade ampliada." });
+  }
+  if (entry.capacity && entry.expandedCapacity && entry.expandedCapacity <= entry.capacity) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["expandedCapacity"], message: "A capacidade ampliada deve ser maior que a capacidade-base." });
+  }
 });
 
 const calendarWorkflowEntry = z.object({

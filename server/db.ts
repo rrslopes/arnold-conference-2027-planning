@@ -126,6 +126,9 @@ export type MetricEntryInput = {
 export type OccupancyEntryInput = {
   congressKey: string;
   capacity: number | null;
+  expandedCapacity: number | null;
+  expansionConfirmed: boolean;
+  expansionActive: boolean;
   monthlySales: Array<{ monthKey: string; sold: number }>;
 };
 
@@ -281,12 +284,18 @@ export async function saveOccupancyProgress(entries: OccupancyEntryInput[], acto
       await tx.insert(roomOccupancy).values({
         congressKey: entry.congressKey,
         capacity: entry.capacity,
+        expandedCapacity: entry.expandedCapacity,
+        expansionConfirmed: entry.expansionConfirmed,
+        expansionActive: entry.expansionActive,
         updatedById: actor.id,
         updatedByName: actorName,
         updatedAt: now,
       }).onDuplicateKeyUpdate({
         set: {
           capacity: entry.capacity,
+          expandedCapacity: entry.expandedCapacity,
+          expansionConfirmed: entry.expansionConfirmed,
+          expansionActive: entry.expansionActive,
           updatedById: actor.id,
           updatedByName: actorName,
           updatedAt: now,

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { calculateOccupancy, OCCUPANCY_CONGRESSES, SALES_MONTHS } from "../shared/occupancy";
+import { calculateOccupancy, getActiveCapacity, getExpansionStatus, OCCUPANCY_CONGRESSES, SALES_MONTHS } from "../shared/occupancy";
 
 describe("cálculos de lotação", () => {
   it("mantém o percentual indefinido enquanto a capacidade não existe", () => {
@@ -40,5 +40,17 @@ describe("cálculos de lotação", () => {
     expect(SALES_MONTHS).toHaveLength(8);
     expect(SALES_MONTHS[0].key).toBe("2026-09");
     expect(SALES_MONTHS.at(-1)?.key).toBe("2027-04");
+  });
+
+  it("mantém 162 como meta vigente até a expansão ser confirmada", () => {
+    expect(getActiveCapacity(162, 240, false)).toBe(162);
+    expect(getActiveCapacity(162, 240, true)).toBe(240);
+  });
+
+  it("sinaliza a faixa de decisão a partir de 80% e a necessidade ao atingir 162", () => {
+    expect(getExpansionStatus(162, 129, false)).toBe("inactive");
+    expect(getExpansionStatus(162, 130, false)).toBe("decision");
+    expect(getExpansionStatus(162, 162, false)).toBe("required");
+    expect(getExpansionStatus(162, 162, true)).toBe("active");
   });
 });

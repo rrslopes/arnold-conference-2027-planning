@@ -720,6 +720,27 @@ img { max-width: 100%; }
 .capacity-field span { color: #656063; font-size: 8px; font-weight: 800; letter-spacing: .1em; }
 .capacity-field input, .monthly-sales-grid input { width: 100%; min-width: 0; border: 1px solid rgba(51,49,50,.17); background: white; padding: 9px 10px; color: var(--charcoal); font-size: 10px; font-weight: 750; outline: none; }
 .capacity-field input:focus, .monthly-sales-grid input:focus { border-color: var(--purple); box-shadow: 0 0 0 2px rgba(77,70,156,.12); }
+.capacity-expansion { margin: 0 20px 16px; border: 1px solid rgba(77,70,156,.18); background: linear-gradient(135deg, rgba(77,70,156,.08), rgba(203,219,42,.12)); }
+.capacity-expansion > header { display: flex; justify-content: space-between; align-items: center; gap: 14px; padding: 13px 14px 10px; border-bottom: 1px solid rgba(77,70,156,.12); }
+.capacity-expansion > header span { display: block; color: var(--purple); font-size: 7px; font-weight: 850; letter-spacing: .13em; }
+.capacity-expansion > header strong { display: block; margin-top: 3px; color: var(--charcoal); font: 600 21px/1 "Teko Arnold"; }
+.capacity-expansion > header svg { color: var(--purple); flex: 0 0 auto; }
+.capacity-expansion > p { margin: 0; padding: 11px 14px; color: #5f595c; font-size: 9px; line-height: 1.55; }
+.capacity-expansion-controls { display: grid; grid-template-columns: 120px 1fr; gap: 8px; padding: 0 14px 13px; }
+.capacity-expansion-controls > label:first-child span { display: block; margin-bottom: 5px; color: var(--purple); font-size: 7px; font-weight: 850; letter-spacing: .09em; }
+.capacity-expansion-controls input[type="text"], .capacity-expansion-controls input[inputmode="numeric"] { width: 100%; border: 1px solid rgba(51,49,50,.17); background: white; padding: 9px 10px; color: var(--charcoal); font-size: 10px; font-weight: 750; outline: none; }
+.capacity-expansion-switch { display: flex; align-items: center; gap: 9px; padding: 9px 10px; background: rgba(255,255,255,.78); color: #5f595c; font-size: 8px; font-weight: 700; line-height: 1.35; }
+.capacity-expansion-switch input { accent-color: var(--purple); }
+.capacity-expansion-switch:last-child { grid-column: 1 / -1; }
+.capacity-expansion-switch:has(input:disabled) { opacity: .48; cursor: not-allowed; }
+.capacity-expansion > small { display: block; padding: 9px 14px; background: var(--purple); color: white; font-size: 7px; font-weight: 800; letter-spacing: .06em; line-height: 1.45; }
+.capacity-expansion--decision { border-color: #d49e22; background: rgba(238,187,69,.13); }
+.capacity-expansion--decision > header svg, .capacity-expansion--required > header svg { color: #b87810; }
+.capacity-expansion--required { border-color: #b62828; background: rgba(182,40,40,.09); }
+.capacity-expansion--required > small { background: #9f2020; }
+.capacity-expansion--active { border-color: #27845f; background: rgba(39,132,95,.1); }
+.capacity-expansion--active > header svg { color: #27845f; }
+.capacity-expansion--active > small { background: #237957; }
 .occupancy-card-progress { padding: 0 20px 15px; }
 .occupancy-card-progress strong { color: var(--charcoal); font: 600 22px/1 "Teko Arnold"; text-transform: uppercase; }
 .occupancy-card .occupancy-progress i { background: var(--occupancy-accent); }
@@ -857,6 +878,9 @@ img { max-width: 100%; }
   .occupancy-overall > div:first-child { align-items: flex-start; flex-direction: column; gap: 4px; }
   .occupancy-grid { padding: 10px; }
   .capacity-field { grid-template-columns: 1fr 120px; margin-left: 14px; margin-right: 14px; }
+  .capacity-expansion { margin-left: 14px; margin-right: 14px; }
+  .capacity-expansion-controls { grid-template-columns: 1fr; }
+  .capacity-expansion-switch:last-child { grid-column: auto; }
   .occupancy-card-progress { padding-left: 14px; padding-right: 14px; }
   .occupancy-card-numbers > div { padding-left: 14px; padding-right: 14px; }
   .monthly-sales-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }

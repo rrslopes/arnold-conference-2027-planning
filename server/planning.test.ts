@@ -68,6 +68,9 @@ describe("planning router", () => {
     const entries = congressKeys.map(congressKey => ({
       congressKey,
       capacity: congressKey === "gestao-academias" ? 600 : null,
+      expandedCapacity: congressKey === "nutricao-estetica" ? 240 : null,
+      expansionConfirmed: false,
+      expansionActive: false,
       monthlySales: monthKeys.map(monthKey => ({ monthKey, sold: monthKey === "2026-09" ? 12 : 0 })),
     }));
     await caller.planning.saveOccupancy({ entries, actorName: "Colaboradora" });
@@ -76,8 +79,40 @@ describe("planning router", () => {
 
   it("rejects occupancy payloads with zero capacity or incomplete months", async () => {
     const caller = appRouter.createCaller(createContext());
-    const invalidEntries = [{ congressKey: "wttc" as const, capacity: 0, monthlySales: [{ monthKey: "2026-09" as const, sold: 10 }] }];
+    const invalidEntries = [{ congressKey: "wttc" as const, capacity: 0, expandedCapacity: null, expansionConfirmed: false, expansionActive: false, monthlySales: [{ monthKey: "2026-09" as const, sold: 10 }] }];
     await expect(caller.planning.saveOccupancy({ entries: invalidEntries, actorName: "Colaboradora" })).rejects.toThrow();
+    expect(mocks.saveOccupancyProgress).not.toHaveBeenCalled();
+  });
+
+  it("rejects an active expansion without a larger expanded capacity", async () => {
+    const caller = appRouter.createCaller(createContext());
+    const monthKeys = ["2026-09", "2026-10", "2026-11", "2026-12", "2027-01", "2027-02", "2027-03", "2027-04"] as const;
+    const congressKeys = ["gestao-academias", "wttc", "sonafe", "nutricao-estetica", "nutricao-esportiva", "bodybuilding"] as const;
+    const entries = congressKeys.map(congressKey => ({
+      congressKey,
+      capacity: congressKey === "nutricao-estetica" ? 162 : 279,
+      expandedCapacity: congressKey === "nutricao-estetica" ? 162 : null,
+      expansionConfirmed: congressKey === "nutricao-estetica",
+      expansionActive: congressKey === "nutricao-estetica",
+      monthlySales: monthKeys.map(monthKey => ({ monthKey, sold: 0 })),
+    }));
+    await expect(caller.planning.saveOccupancy({ entries })).rejects.toThrow();
+    expect(mocks.saveOccupancyProgress).not.toHaveBeenCalled();
+  });
+
+  it("blocks the expanded target until the operation confirms the auditorium", async () => {
+    const caller = appRouter.createCaller(createContext());
+    const monthKeys = ["2026-09", "2026-10", "2026-11", "2026-12", "2027-01", "2027-02", "2027-03", "2027-04"] as const;
+    const congressKeys = ["gestao-academias", "wttc", "sonafe", "nutricao-estetica", "nutricao-esportiva", "bodybuilding"] as const;
+    const entries = congressKeys.map(congressKey => ({
+      congressKey,
+      capacity: congressKey === "nutricao-estetica" ? 162 : 279,
+      expandedCapacity: congressKey === "nutricao-estetica" ? 240 : null,
+      expansionConfirmed: false,
+      expansionActive: congressKey === "nutricao-estetica",
+      monthlySales: monthKeys.map(monthKey => ({ monthKey, sold: 0 })),
+    }));
+    await expect(caller.planning.saveOccupancy({ entries })).rejects.toThrow(/Confirme operacionalmente/);
     expect(mocks.saveOccupancyProgress).not.toHaveBeenCalled();
   });
 
