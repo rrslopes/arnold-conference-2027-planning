@@ -48,6 +48,29 @@ function scrollToSection(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
+type IndicatorGuideProps = {
+  number: string;
+  level: string;
+  title: string;
+  purpose: string;
+  cadence: string;
+  source: string;
+  avoid: string;
+  primary?: boolean;
+};
+
+function IndicatorGuide({ number, level, title, purpose, cadence, source, avoid, primary = false }: IndicatorGuideProps) {
+  return <div className={`indicator-guide ${primary ? "is-primary" : ""}`}>
+    <header><span>{number}</span><div><small>{level}</small><h3>{title}</h3></div></header>
+    <div className="indicator-guide-grid">
+      <div><strong>O QUE MEDE</strong><p>{purpose}</p></div>
+      <div><strong>QUANDO PREENCHER</strong><p>{cadence}</p></div>
+      <div><strong>FONTE DO DADO</strong><p>{source}</p></div>
+      <div><strong>NÃO ENTRA AQUI</strong><p>{avoid}</p></div>
+    </div>
+  </div>;
+}
+
 function ExecutiveHero() {
   return (
     <section id="visao" className="hero-panel">
@@ -206,6 +229,8 @@ export default function Home() {
   if (isIntelligenceReview) return <StrategyLayout><section id="inteligencia" className="section-pad intelligence-section"><SectionHeader index="04" eyebrow="INTELIGÊNCIA DE PROGRAMAÇÃO E CONTEÚDO" title="Uma fonte única para decidir quem atrair e o que produzir" description="A programação oficial organiza a promessa de 2027; o acervo de 2026 fornece matéria-prima." /><EditorialIntelligence /></section></StrategyLayout>;
   const isSocialReview = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("social-review");
   if (isSocialReview) return <StrategyLayout><section id="indicadores" className="section-pad kpi-section"><SectionHeader index="11" eyebrow="REVISÃO DO PAINEL SOCIAL" title="Metas de referência do Instagram" description="Modo isolado para validar resultados mensais, referências por formato e limites de interpretação." /><SocialGoalsDashboard /></section></StrategyLayout>;
+  const isFunnelReview = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("funnel-review");
+  if (isFunnelReview) return <StrategyLayout><section id="indicadores" className="section-pad kpi-section"><SectionHeader index="11" eyebrow="REVISÃO DO FUNIL INTEGRADO" title="Aquisição e vendas" description="Modo isolado para validar a orientação de preenchimento do funil, sem repetir métricas de Instagram." /><IndicatorGuide number="03" level="DIAGNÓSTICO DO FUNIL" title="Aquisição e vendas" purpose="Onde a audiência deixa o canal social, converte em lead, consome a recompensa, responde às réguas e avança até a compra." cadence="Atualize semanalmente durante campanhas e mantenha o valor atual como acumulado do ciclo; registre o período na observação." source="Automação de DM, landing page, RD Station, WhatsApp, analytics, checkout e plataforma de vendas." avoid="Alcance, visualizações, seguidores, compartilhamentos ou salvamentos do Instagram; essas métricas já estão na camada 02." /><KpiDashboard /></section></StrategyLayout>;
 
   return (
     <StrategyLayout>
@@ -242,10 +267,11 @@ export default function Home() {
       <RoadmapSection />
 
       <section id="indicadores" className="section-pad kpi-section">
-        <SectionHeader index="11" eyebrow="PAINEL DE ACOMPANHAMENTO" title="A meta principal é a lotação de cada sala" description="Registre capacidade, vendas mensais e acompanhe o avanço dos seis congressos. Os demais indicadores aparecem abaixo como leitura complementar da campanha." />
+        <SectionHeader index="11" eyebrow="PAINEL DE ACOMPANHAMENTO" title="Três camadas, três perguntas diferentes" description="Comece pelo resultado principal, use o Instagram para diagnosticar atenção e consulte o funil para localizar onde a jornada avança ou trava. Cada dado deve entrar uma única vez." />
+        <IndicatorGuide number="01" level="RESULTADO PRINCIPAL" title="Lotação das salas" purpose="Quantas inscrições confirmadas cada congresso acumulou em relação à capacidade vigente da sala." cadence="Registre as vendas confirmadas no fechamento de cada mês e corrija o mês quando houver conciliação." source="Plataforma de vendas, pedidos pagos e relatório financeiro conciliado por congresso." avoid="Leads, checkouts iniciados, pagamentos pendentes, seguidores, alcance ou qualquer intenção ainda não convertida em inscrição." primary />
         <OccupancyDashboard />
-        <div className="secondary-kpi-block"><div className="secondary-kpi-heading"><span>VISUALIZAÇÃO SECUNDÁRIA</span><h3>Metas de Instagram com referência histórica</h3><p>Lance resultados mensais e compare o desempenho com faixas reais de 2026, sem transformar referência em promessa.</p></div><SocialGoalsDashboard /></div>
-        <div className="secondary-kpi-block"><div className="secondary-kpi-heading"><span>DEMAIS INDICADORES</span><h3>Aquisição, relacionamento, vendas e eficiência</h3><p>Use estes indicadores para explicar a evolução da lotação, diagnosticar gargalos e orientar correções de campanha.</p></div><KpiDashboard /></div>
+        <div className="secondary-kpi-block"><IndicatorGuide number="02" level="DIAGNÓSTICO DO CANAL" title="Desempenho do Instagram" purpose="Se os conteúdos estão alcançando pessoas e gerando consumo, interação, compartilhamento, salvamento e crescimento do perfil." cadence="Faça o fechamento mensal com os totais da conta e as medianas de Reels, carrosséis e Stories publicados no período." source="Exportações do Meta Business Suite e relatório da mLabs, sempre usando o mesmo intervalo de datas." avoid="Leads da landing page, cliques de e-mail, compras, receita ou métricas sociais que a exportação não disponibiliza." /><SocialGoalsDashboard /></div>
+        <div className="secondary-kpi-block"><IndicatorGuide number="03" level="DIAGNÓSTICO DO FUNIL" title="Aquisição e vendas" purpose="Onde a audiência deixa o canal social, converte em lead, consome a recompensa, responde às réguas e avança até a compra." cadence="Atualize semanalmente durante campanhas e mantenha o valor atual como acumulado do ciclo; registre o período na observação." source="Automação de DM, landing page, RD Station, WhatsApp, analytics, checkout e plataforma de vendas." avoid="Alcance, visualizações, seguidores, compartilhamentos ou salvamentos do Instagram; essas métricas já estão na camada 02." /><KpiDashboard /></div>
       </section>
 
       <footer className="site-footer">

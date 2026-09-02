@@ -8,7 +8,7 @@ import { trpc } from "@/lib/trpc";
 type MetricState = Record<string, { target: string; actual: string; note: string; done: boolean }>;
 
 const blankState = Object.fromEntries(
-  kpiLayers.flatMap(layer => layer.metrics.map(metric => [`${layer.id}::${metric}`, { target: "", actual: "", note: "", done: false }])),
+  kpiLayers.flatMap(layer => layer.metrics.map(metric => [`${layer.id}::${metric.key}`, { target: "", actual: "", note: "", done: false }])),
 ) as MetricState;
 
 function toEntries(state: MetricState) {
@@ -75,8 +75,8 @@ export default function KpiDashboard() {
   const exportData = () => {
     const rows = [["Camada", "Métrica", "Meta", "Atual", "Status", "Observação"]];
     kpiLayers.forEach(layer => layer.metrics.forEach(metric => {
-      const row = state[`${layer.id}::${metric}`];
-      rows.push([layer.layer, metric, row.target, row.actual, row.done ? "Validado" : "Em aberto", row.note]);
+      const row = state[`${layer.id}::${metric.key}`];
+      rows.push([layer.layer, metric.label, row.target, row.actual, row.done ? "Validado" : "Em aberto", row.note]);
     }));
     const csv = rows.map(row => row.map(cell => `"${String(cell).replaceAll('"', '""')}"`).join(",")).join("\n");
     const blob = new Blob([`\uFEFF${csv}`], { type: "text/csv;charset=utf-8" });
@@ -98,12 +98,18 @@ export default function KpiDashboard() {
         </div>
       </div>
       <div className="kpi-tabs" role="tablist">{kpiLayers.map(item => <button type="button" role="tab" aria-selected={active === item.id} key={item.id} className={active === item.id ? "active" : ""} onClick={() => setActive(item.id)}>{item.layer}</button>)}</div>
+      <div className="kpi-layer-guide">
+        <div><span>O QUE ESTA ETAPA MEDE</span><p>{currentLayer.purpose}</p></div>
+        <div><span>QUANDO PREENCHER</span><p>{currentLayer.cadence}</p></div>
+        <div><span>FONTE DO DADO</span><p>{currentLayer.source}</p></div>
+        <div><span>NÃO REGISTRAR AQUI</span><p>{currentLayer.avoid}</p></div>
+      </div>
       <div className="metric-table" aria-busy={planning.isLoading}>
         <div className="metric-table-head"><span>Métrica</span><span>Meta</span><span>Valor atual</span><span>Observação</span><span>Status</span></div>
         {currentLayer.metrics.map(metric => {
-          const key = `${currentLayer.id}::${metric}`;
+          const key = `${currentLayer.id}::${metric.key}`;
           const row = state[key] ?? blankState[key];
-          return <div key={metric} className={`metric-row ${row.done ? "done" : ""}`}><strong>{metric}</strong><input value={row.target} onChange={event => update(key, "target", event.target.value)} placeholder="Definir" /><input value={row.actual} onChange={event => update(key, "actual", event.target.value)} placeholder="Registrar" /><input value={row.note} onChange={event => update(key, "note", event.target.value)} placeholder="Contexto ou decisão" /><button type="button" onClick={() => update(key, "done", !row.done)} aria-pressed={row.done}>{row.done ? <CheckCircle2 size={18} /> : <span />}{row.done ? "Validado" : "Validar"}</button></div>;
+          return <div key={metric.key} className={`metric-row ${row.done ? "done" : ""}`}><div className="metric-name"><strong>{metric.label}</strong><small>{metric.description}</small></div><input value={row.target} onChange={event => update(key, "target", event.target.value)} placeholder="Definir" aria-label={`Meta de ${metric.label}`} /><input value={row.actual} onChange={event => update(key, "actual", event.target.value)} placeholder="Registrar" aria-label={`Valor atual de ${metric.label}`} /><input value={row.note} onChange={event => update(key, "note", event.target.value)} placeholder="Período, fonte ou decisão" aria-label={`Observação de ${metric.label}`} /><button type="button" onClick={() => update(key, "done", !row.done)} aria-pressed={row.done}>{row.done ? <CheckCircle2 size={18} /> : <span />}{row.done ? "Validado" : "Validar"}</button></div>;
         })}
       </div>
     </div>

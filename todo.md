@@ -266,3 +266,14 @@
 - [x] Manter métricas ausentes como “sem linha de base”, sem estimativas.
 - [x] Validar cálculos, colaboração entre navegadores, estados vazios e responsividade.
 - [x] Salvar checkpoint e entregar a versão publicada do painel de metas sociais.
+
+## Clarificação da hierarquia de indicadores
+
+- [x] Auditar as métricas do painel geral e identificar sobreposições com o painel de Instagram.
+- [x] Redefinir o painel geral como funil integrado de aquisição e vendas.
+- [x] Explicar em cada uma das três camadas o que mede, quando preencher, fonte do dado e o que não registrar.
+- [x] Remover ou reposicionar indicadores sociais redundantes sem apagar dados compartilhados existentes.
+- [x] Atualizar títulos, descrições e estados vazios para orientar quem realiza o preenchimento.
+- [x] Criar testes de conteúdo para garantir a separação entre lotação, Instagram e funil integrado.
+- [x] Validar desktop, mobile, persistência e ausência de regressões.
+- [ ] Salvar checkpoint e entregar a versão clarificada.
