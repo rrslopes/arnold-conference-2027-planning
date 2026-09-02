@@ -288,4 +288,4 @@
 - [x] Reforçar que calendário e e-mail são referências estratégicas, enquanto a operação diária ocorrerá na planilha externa.
 - [x] Atualizar testes para a interface simplificada e garantir que os controles removidos não retornem.
 - [x] Validar desktop, mobile, compilação e ausência de regressões.
-- [ ] Salvar checkpoint e entregar a versão simplificada.
+- [x] Salvar checkpoint e entregar a versão simplificada.
