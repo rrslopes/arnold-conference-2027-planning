@@ -277,3 +277,15 @@
 - [x] Criar testes de conteúdo para garantir a separação entre lotação, Instagram e funil integrado.
 - [x] Validar desktop, mobile, persistência e ausência de regressões.
 - [x] Salvar checkpoint e entregar a versão clarificada.
+
+## Simplificação dos fluxos de redes sociais e e-mail
+
+- [x] Mapear componentes, filtros, textos e testes ligados a legenda, links e status de aprovação.
+- [x] Remover do calendário de redes sociais os campos de legenda, link da arte e status.
+- [x] Remover do plano de e-mail os campos de link da prévia e status.
+- [x] Retirar filtros, resumos, botões e modos de revisão que dependam desses fluxos.
+- [x] Preservar no banco os registros antigos sem exibi-los nem exigir nova migração destrutiva.
+- [x] Reforçar que calendário e e-mail são referências estratégicas, enquanto a operação diária ocorrerá na planilha externa.
+- [x] Atualizar testes para a interface simplificada e garantir que os controles removidos não retornem.
+- [x] Validar desktop, mobile, compilação e ausência de regressões.
+- [ ] Salvar checkpoint e entregar a versão simplificada.

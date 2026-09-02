@@ -5,9 +5,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { ArrowUpRight, CalendarDays, ChevronDown, Filter, Flag, Link2, Megaphone, Search, ShieldCheck, Tag, Video } from "lucide-react";
 import { calendar, keywords, phaseSummary } from "@/data/planData";
-import { getEditorialStatus } from "../../../shared/editorialWorkflow";
-import { trpc } from "@/lib/trpc";
-import CalendarWorkflowEditor from "./CalendarWorkflowEditor";
 
 const phases = ["Todos", "Reativação", "Transição", "Captação", "Pré-venda", "Abertura", "Aceleração"];
 
@@ -15,11 +12,6 @@ export default function CalendarExplorer() {
   const [phase, setPhase] = useState("Todos");
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState<string | null>(() => new URLSearchParams(window.location.search).get("story-review") || "0902");
-  const planning = trpc.planning.getState.useQuery(undefined, { refetchOnWindowFocus: true, retry: 1 });
-
-  const workflowByItem = useMemo(() => Object.fromEntries(
-    (planning.data?.editorialWorkflow ?? []).map(row => [row.calendarItemId, row]),
-  ), [planning.data?.editorialWorkflow]);
 
   useEffect(() => {
     const reviewId = new URLSearchParams(window.location.search).get("story-review");
@@ -40,15 +32,13 @@ export default function CalendarExplorer() {
 
   const filtered = useMemo(() => calendar.filter((item) => {
     const matchPhase = phase === "Todos" || item.phase === phase;
-    const workflow = workflowByItem[item.id];
-    const workflowText = `${getEditorialStatus(workflow?.status).label} ${workflow?.caption ?? ""} ${workflow?.artworkUrl ?? ""}`;
     const storyText = (item.storyCards || []).flatMap(card => [card.card, card.format, card.prompt, ...(card.answers || []), card.note || ""]).join(" ");
     const briefText = item.productionBrief ? [item.productionBrief.format, item.productionBrief.purpose, item.productionBrief.note, ...item.productionBrief.units.flatMap(unit => [unit.unit, unit.role, unit.content, unit.source || ""])].join(" ") : "";
     const cutText = (item.cutValidations || []).flatMap(cut => [cut.id, cut.speaker, cut.transcriptStatus, cut.excerpt, cut.location, cut.productionNote, cut.videoStatus]).join(" ");
     const milestoneText = item.milestone ? `${item.milestone.label} ${item.milestone.description} ${item.milestone.paidMediaPack.label} ${item.milestone.paidMediaPack.requirement}` : "";
-    const haystack = `${item.date} ${item.title} ${item.idea} ${item.optionLabel || ""} ${(item.options || []).join(" ")} ${storyText} ${briefText} ${cutText} ${milestoneText} ${workflowText} ${item.fallback} ${item.channel} ${item.congresses.join(" ")}`.toLowerCase();
+    const haystack = `${item.date} ${item.title} ${item.idea} ${item.optionLabel || ""} ${(item.options || []).join(" ")} ${storyText} ${briefText} ${cutText} ${milestoneText} ${item.fallback} ${item.channel} ${item.congresses.join(" ")}`.toLowerCase();
     return matchPhase && haystack.includes(query.toLowerCase());
-  }), [phase, query, workflowByItem]);
+  }), [phase, query]);
 
   return (
     <div className="calendar-console">
@@ -66,9 +56,11 @@ export default function CalendarExplorer() {
         ))}
       </div>
 
+      <div className="external-operation-note"><CalendarDays size={19} /><div><span>PLANEJAMENTO ESTRATÉGICO</span><strong>A operação diária será organizada na planilha compartilhada com as agências</strong><p>Aqui permanecem pauta, formato, CTA, briefing, marcos e alternativas. Inserções extras de feed, legendas, links de arte e aprovações devem ser controlados na planilha operacional.</p></div></div>
+
       <div className="calendar-toolbar">
         <div className="phase-filters"><Filter size={17} />{phases.map((item) => <button type="button" key={item} className={phase === item ? "active" : ""} onClick={() => setPhase(item)}>{item}</button>)}</div>
-        <label className="calendar-search"><Search size={17} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Buscar tema, congresso, status ou formato" /></label>
+        <label className="calendar-search"><Search size={17} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Buscar tema, congresso ou formato" /></label>
       </div>
 
       <div className="calendar-body">
@@ -76,20 +68,17 @@ export default function CalendarExplorer() {
           <div className="results-count"><CalendarDays size={17} /><strong>{filtered.length}</strong> pautas encontradas</div>
           {filtered.map((item) => {
             const expanded = open === item.id;
-            const workflow = workflowByItem[item.id];
-            const editorialStatus = getEditorialStatus(workflow?.status);
             return (
               <article id={`calendar-${item.id}`} key={item.id} className={`calendar-card phase-${item.phase.toLowerCase().replace("-", "")} ${item.milestone ? `is-milestone milestone-${item.milestone.tone}` : ""}`}>
                 <button type="button" className="calendar-card-trigger" onClick={() => setOpen(expanded ? null : item.id)} aria-expanded={expanded}>
                   <span className="calendar-date">{item.date}</span>
                   <span className="calendar-main"><small>{item.phase} · {item.channel}</small><strong>{item.title}</strong><em>{item.congresses.join(" · ")}</em>{item.milestone ? <span className="milestone-badges"><b><Flag size={12} /> Grande marco</b><b><Megaphone size={12} /> Mídia paga</b></span> : null}{item.storyCards ? <span className="option-count">{item.storyCards.length} Stories detalhados</span> : item.productionBrief ? <span className="option-count">{item.productionBrief.units.length} unidades detalhadas</span> : item.options ? <span className="option-count">{item.options.length} opções detalhadas</span> : null}{item.cutValidations ? <span className="cut-count"><ShieldCheck size={12} /> {item.cutValidations.length} {item.cutValidations.length === 1 ? "corte auditado" : "cortes auditados"}</span> : null}</span>
-                  <span className="calendar-card-flags"><span className={`workflow-mini status-${editorialStatus.tone}`}><i />{editorialStatus.label}</span>{item.keyword ? <span className="keyword-mini"><Tag size={13} /> {item.keyword}</span> : null}</span>
+                  <span className="calendar-card-flags">{item.keyword ? <span className="keyword-mini"><Tag size={13} /> {item.keyword}</span> : null}</span>
                   <ChevronDown size={19} className={expanded ? "rotate" : ""} />
                 </button>
                 {expanded ? (
                   <div className="calendar-detail">
                     <div className="detail-main"><span>ORIGEM / MATERIAL</span><p>{item.origin}</p><span>IDEIA ESTRATÉGICA</span><p>{item.idea}</p>
-                      <CalendarWorkflowEditor calendarItemId={item.id} row={workflow} />
                       {item.milestone ? <div className={`milestone-operation milestone-operation-${item.milestone.tone}`}><header><Flag size={18} /><div><span>GRANDE MARCO DA CAMPANHA</span><strong>{item.milestone.label}</strong><p>{item.milestone.description}</p></div></header><div className="paid-media-alert"><Megaphone size={18} /><div><span>{item.milestone.paidMediaPack.label}</span><p>{item.milestone.paidMediaPack.requirement}</p></div></div></div> : null}
                       {item.productionBrief ? <div className="production-sequence"><div className="production-sequence-head"><span className="option-list-title">BRIEFING OPERACIONAL DA PEÇA</span><strong>{item.productionBrief.format}</strong><p>{item.productionBrief.purpose}</p></div><div className="production-step-grid">{item.productionBrief.units.map(unit => <article className="production-step" key={`${item.id}-${unit.unit}-${unit.role}`}><header><b>{unit.unit}</b><em>{unit.role}</em></header><strong>{unit.content}</strong>{unit.source ? <small><span>FONTE</span>{unit.source}</small> : null}</article>)}</div><p className="production-note"><b>LIMITE DO BRIEFING</b>{item.productionBrief.note}</p></div> : null}
                       {item.cutValidations ? <div className="cut-validation"><div className="cut-validation-head"><ShieldCheck size={18} /><div><span>EVIDÊNCIA DOS CORTES</span><strong>Confirmado na transcrição não significa corte aprovado</strong><p>O texto comprova a existência da fala. Antes de editar, a equipe ainda precisa abrir a íntegra e conferir áudio, imagem, começo, fim e legenda.</p></div></div><div className="cut-validation-grid">{item.cutValidations.map(cut => <article key={`${item.id}-${cut.id}`} className={cut.transcriptStatus.includes("reformulado") ? "is-reformulated" : ""}><header><b>{cut.id}</b><span>{cut.transcriptStatus}</span></header><h4>{cut.speaker}</h4><blockquote>“{cut.excerpt}”</blockquote><p><strong>LOCALIZAÇÃO</strong>{cut.location}</p><p><strong>USO SEGURO</strong>{cut.productionNote}</p><small><Video size={13} /> {cut.videoStatus}</small></article>)}</div></div> : null}

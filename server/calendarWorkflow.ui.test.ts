@@ -1,39 +1,33 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 
 const read = (path: string) => readFileSync(resolve(process.cwd(), path), "utf8");
 
-describe("interface colaborativa do calendário", () => {
-  const editor = read("client/src/components/CalendarWorkflowEditor.tsx");
+describe("calendário estratégico simplificado", () => {
   const calendarExplorer = read("client/src/components/CalendarExplorer.tsx");
-  const css = read("client/src/index.css");
 
-  it("oferece legenda, link HTTPS, status e salvamento compartilhado", () => {
-    expect(editor).toContain("Legenda do post");
-    expect(editor).toContain("Link da arte para aprovação");
-    expect(editor).toContain('type="url"');
-    expect(editor).toContain("Status atual");
-    expect(editor).toContain("saveCalendarWorkflow");
-    expect(editor).toContain("Abrir arte");
+  it("não renderiza legenda, link de arte ou status de aprovação", () => {
+    expect(calendarExplorer).not.toContain("CalendarWorkflowEditor");
+    expect(calendarExplorer).not.toContain("getEditorialStatus");
+    expect(calendarExplorer).not.toContain("workflow-mini");
+    expect(calendarExplorer).not.toContain("workflowByItem");
+    expect(calendarExplorer).not.toContain("Legenda do post");
+    expect(calendarExplorer).not.toContain("Link da arte para aprovação");
+    expect(existsSync(resolve(process.cwd(), "client/src/components/CalendarWorkflowEditor.tsx"))).toBe(false);
   });
 
-  it("mostra sincronização e alterações pendentes sem autoria nominal", () => {
-    expect(editor).toContain("Última atualização compartilhada");
-    expect(editor).toContain("Há alterações locais pendentes");
-    expect(editor).toContain("Sincronizado");
-    expect(editor).not.toContain("Responsável");
-    expect(editor).not.toContain("actorName");
+  it("preserva pauta, briefing, CTA, marcos e alternativas", () => {
+    expect(calendarExplorer).toContain("IDEIA ESTRATÉGICA");
+    expect(calendarExplorer).toContain("BRIEFING OPERACIONAL DA PEÇA");
+    expect(calendarExplorer).toContain("CHAMADA PARA AÇÃO");
+    expect(calendarExplorer).toContain("GRANDE MARCO DA CAMPANHA");
+    expect(calendarExplorer).toContain("ALTERNATIVA SEGURA");
   });
 
-  it("exibe um status resumido em todos os cards e permite buscá-lo", () => {
-    expect(calendarExplorer).toContain("workflow-mini");
-    expect(calendarExplorer).toContain("getEditorialStatus(workflow?.status)");
-    expect(calendarExplorer).toContain("Buscar tema, congresso, status ou formato");
-  });
-
-  it("empilha campos e ações no mobile", () => {
-    expect(css).toMatch(/@media \(max-width: 860px\)[\s\S]*?\.editorial-workflow-side \{ grid-template-columns: 1fr; \}/);
-    expect(css).toContain(".editorial-workflow-actions a, .editorial-workflow-actions button { flex: 1 1 30%; }");
+  it("orienta a operação diária para a planilha compartilhada", () => {
+    expect(calendarExplorer).toContain("A operação diária será organizada na planilha compartilhada com as agências");
+    expect(calendarExplorer).toContain("Inserções extras de feed, legendas, links de arte e aprovações");
+    expect(calendarExplorer).toContain("Buscar tema, congresso ou formato");
   });
 });
