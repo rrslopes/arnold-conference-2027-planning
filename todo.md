@@ -276,4 +276,4 @@
 - [x] Atualizar títulos, descrições e estados vazios para orientar quem realiza o preenchimento.
 - [x] Criar testes de conteúdo para garantir a separação entre lotação, Instagram e funil integrado.
 - [x] Validar desktop, mobile, persistência e ausência de regressões.
-- [ ] Salvar checkpoint e entregar a versão clarificada.
+- [x] Salvar checkpoint e entregar a versão clarificada.
