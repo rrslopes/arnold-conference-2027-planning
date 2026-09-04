@@ -2,6 +2,7 @@ import { desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import {
   calendarWorkflow,
+  emailPerformance,
   emailWorkflow,
   InsertUser,
   metricProgress,
@@ -13,6 +14,7 @@ import {
   users,
 } from "../drizzle/schema";
 import type { SocialMonthlyResult } from "../shared/socialMetrics";
+import { toStoredRate, type EmailPerformanceDraft } from "../shared/emailPerformance";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -148,10 +150,11 @@ export type EmailWorkflowInput = {
 };
 
 export type SocialMonthlyResultInput = SocialMonthlyResult;
+export type EmailPerformanceInput = EmailPerformanceDraft;
 
 export async function getSharedPlanningState() {
   const db = await requireDb();
-  const [objectives, metrics, activity, occupancy, monthlySales, socialResults, editorialWorkflow, emailApprovals] = await Promise.all([
+  const [objectives, metrics, activity, occupancy, monthlySales, socialResults, editorialWorkflow, emailApprovals, emailPerformanceResults] = await Promise.all([
     db.select().from(objectiveProgress),
     db.select().from(metricProgress),
     db.select().from(planningActivity).orderBy(desc(planningActivity.createdAt)).limit(20),
@@ -160,8 +163,37 @@ export async function getSharedPlanningState() {
     db.select().from(monthlySocialResults),
     db.select().from(calendarWorkflow),
     db.select().from(emailWorkflow),
+    db.select().from(emailPerformance).orderBy(desc(emailPerformance.sentAt)),
   ]);
-  return { objectives, metrics, activity, occupancy, monthlySales, socialResults, editorialWorkflow, emailApprovals };
+  return { objectives, metrics, activity, occupancy, monthlySales, socialResults, editorialWorkflow, emailApprovals, emailPerformanceResults };
+}
+
+export async function saveEmailPerformance(entry: EmailPerformanceInput) {
+  const db = await requireDb();
+  const now = Date.now();
+  const values = {
+    campaignName: entry.campaignName,
+    subject: entry.subject,
+    sentAt: entry.sentAt,
+    emailUrl: entry.emailUrl,
+    openRateMilli: toStoredRate(entry.openRate),
+    clickRateMilli: toStoredRate(entry.clickRate),
+    unsubscribeRateMilli: toStoredRate(entry.unsubscribeRate),
+    spamRateMilli: toStoredRate(entry.spamRate),
+    updatedAt: now,
+  };
+  if (entry.id) {
+    await db.update(emailPerformance).set(values).where(eq(emailPerformance.id, entry.id));
+  } else {
+    await db.insert(emailPerformance).values(values);
+  }
+  return { updatedAt: now };
+}
+
+export async function deleteEmailPerformance(id: number) {
+  const db = await requireDb();
+  await db.delete(emailPerformance).where(eq(emailPerformance.id, id));
+  return { deletedId: id };
 }
 
 export async function saveSocialMonthlyResults(entries: SocialMonthlyResultInput[]) {

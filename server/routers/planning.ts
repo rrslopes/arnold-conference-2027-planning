@@ -2,8 +2,10 @@ import { z } from "zod";
 import {
   clearMetricProgress,
   clearObjectiveProgress,
+  deleteEmailPerformance,
   getSharedPlanningState,
   saveCalendarWorkflow,
+  saveEmailPerformance,
   saveEmailWorkflow,
   saveMetricProgress,
   saveObjectiveProgress,
@@ -13,6 +15,7 @@ import {
 import { publicProcedure, router } from "../_core/trpc";
 import { EDITORIAL_STATUS_IDS, isValidArtworkUrl } from "../../shared/editorialWorkflow";
 import { EMAIL_STATUS_IDS, isValidEmailPreviewUrl } from "../../shared/emailWorkflow";
+import { isValidSentEmailUrl } from "../../shared/emailPerformance";
 
 const sharedText = z.string().max(5000);
 const actorName = z.string().trim().max(120).optional();
@@ -96,6 +99,23 @@ const emailWorkflowEntry = z.object({
   status: z.enum(EMAIL_STATUS_IDS),
 });
 
+const optionalRate = z.number().min(0).max(100).nullable();
+const emailPerformanceEntry = z.object({
+  id: z.number().int().positive().optional(),
+  campaignName: z.string().trim().min(1).max(180),
+  subject: z.string().trim().min(1).max(255),
+  sentAt: z.number().int().positive(),
+  emailUrl: z.string().trim().max(2048).refine(isValidSentEmailUrl, "Informe um link HTTPS válido para o e-mail enviado."),
+  openRate: optionalRate,
+  clickRate: optionalRate,
+  unsubscribeRate: optionalRate,
+  spamRate: optionalRate,
+}).superRefine((entry, ctx) => {
+  if (entry.sentAt > Date.now() + 86_400_000) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["sentAt"], message: "A data de envio não pode estar no futuro." });
+  }
+});
+
 export const planningRouter = router({
   getState: publicProcedure.query(() => getSharedPlanningState()),
   saveObjectives: publicProcedure
@@ -116,6 +136,12 @@ export const planningRouter = router({
   saveEmailWorkflow: publicProcedure
     .input(emailWorkflowEntry)
     .mutation(({ input }) => saveEmailWorkflow(input)),
+  saveEmailPerformance: publicProcedure
+    .input(emailPerformanceEntry)
+    .mutation(({ input }) => saveEmailPerformance(input)),
+  deleteEmailPerformance: publicProcedure
+    .input(z.object({ id: z.number().int().positive() }))
+    .mutation(({ input }) => deleteEmailPerformance(input.id)),
   clearObjectives: publicProcedure
     .input(z.object({ actorName }))
     .mutation(({ input }) => clearObjectiveProgress({ id: 0, name: input.actorName || null })),

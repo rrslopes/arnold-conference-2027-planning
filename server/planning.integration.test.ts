@@ -3,7 +3,7 @@ import { eq, or } from "drizzle-orm";
 import type { TrpcContext } from "./_core/context";
 import { getDb, saveOccupancyProgress, saveSocialMonthlyResults } from "./db";
 import { appRouter } from "./routers";
-import { calendarWorkflow, emailWorkflow, monthlyCongressSales, monthlySocialResults, objectiveProgress, planningActivity, roomOccupancy } from "../drizzle/schema";
+import { calendarWorkflow, emailPerformance, emailWorkflow, monthlyCongressSales, monthlySocialResults, objectiveProgress, planningActivity, roomOccupancy } from "../drizzle/schema";
 
 const runId = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 const objectiveKey = `qa-sync-${runId}`;
@@ -11,6 +11,7 @@ const occupancyKey = `qa-occupancy-${runId}`;
 const workflowKey = "9999";
 const emailWorkflowKey = `email-base-qa-sync-${runId}`;
 const socialMonthKey = "2099-99";
+const emailCampaignName = `QA Performance ${runId}`;
 const actorAName = `QA Navegador A ${runId}`;
 const actorBName = `QA Navegador B ${runId}`;
 
@@ -32,6 +33,7 @@ describe.sequential("shared planning persistence", () => {
     await db.delete(calendarWorkflow).where(eq(calendarWorkflow.calendarItemId, workflowKey));
     await db.delete(emailWorkflow).where(eq(emailWorkflow.emailItemId, emailWorkflowKey));
     await db.delete(monthlySocialResults).where(eq(monthlySocialResults.monthKey, socialMonthKey));
+    await db.delete(emailPerformance).where(eq(emailPerformance.campaignName, emailCampaignName));
     await db.delete(planningActivity).where(or(eq(planningActivity.actorName, actorAName), eq(planningActivity.actorName, actorBName)));
   });
 
@@ -183,5 +185,33 @@ describe.sequential("shared planning persistence", () => {
       storyLinkClicks: 95,
       note: "Registro de QA sem autoria visível",
     });
+  });
+
+  it("creates, updates, reads and deletes email performance between anonymous browsers", async () => {
+    const anonymousBrowserA = appRouter.createCaller(createAnonymousContext());
+    const anonymousBrowserB = appRouter.createCaller(createAnonymousContext());
+    const initial = {
+      campaignName: emailCampaignName,
+      subject: "Assunto inicial de QA",
+      sentAt: Date.UTC(2026, 8, 4, 12),
+      emailUrl: "https://example.com/qa-email",
+      openRate: 31.25,
+      clickRate: null,
+      unsubscribeRate: null,
+      spamRate: null,
+    };
+    await anonymousBrowserA.planning.saveEmailPerformance(initial);
+
+    const readInBrowserB = await anonymousBrowserB.planning.getState();
+    const created = readInBrowserB.emailPerformanceResults.find(item => item.campaignName === emailCampaignName);
+    expect(created).toMatchObject({ subject: initial.subject, openRateMilli: 31250, clickRateMilli: null });
+
+    await anonymousBrowserB.planning.saveEmailPerformance({ ...initial, id: created!.id, clickRate: 5.4, unsubscribeRate: 0.18, spamRate: 0.02 });
+    const readBackInBrowserA = await anonymousBrowserA.planning.getState();
+    expect(readBackInBrowserA.emailPerformanceResults.find(item => item.id === created!.id)).toMatchObject({ clickRateMilli: 5400, unsubscribeRateMilli: 180, spamRateMilli: 20 });
+
+    await anonymousBrowserA.planning.deleteEmailPerformance({ id: created!.id });
+    const afterDelete = await anonymousBrowserB.planning.getState();
+    expect(afterDelete.emailPerformanceResults.some(item => item.id === created!.id)).toBe(false);
   });
 });

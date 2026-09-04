@@ -316,3 +316,19 @@
 - [x] Atualizar testes para impedir a reintrodução de peças inéditas e coordenadores não confirmados.
 - [x] Validar conteúdo, navegação, desktop, mobile, compilação e ausência de regressões.
 - [x] Salvar checkpoint e entregar a versão corrigida.
+
+## Performance e ranking de e-mail marketing
+
+- [x] Revisar o plano de e-mail e os padrões atuais de persistência compartilhada.
+- [x] Definir campos, validações e denominadores consistentes para as taxas de performance.
+- [x] Definir uma metodologia transparente de ranking com maior peso para cliques do que para aberturas.
+- [x] Penalizar descadastros e marcações de spam sem esconder as métricas brutas.
+- [x] Criar tabela não destrutiva para resultados por campanha de e-mail.
+- [x] Criar leitura e gravação públicas, sem login e sem autoria visível.
+- [x] Permitir cadastrar, editar e excluir campanhas já disparadas com confirmação explícita.
+- [x] Registrar link do e-mail enviado, data, nome da campanha, assunto e quatro taxas.
+- [x] Construir ranking automático, comparativo e explicação do score.
+- [x] Exibir estado vazio e orientar preenchimento progressivo conforme cada disparo.
+- [x] Criar testes determinísticos de score, desempate, validações e persistência.
+- [x] Validar colaboração anônima, desktop, mobile, logs, compilação e build.
+- [ ] Salvar checkpoint e entregar o painel de performance de e-mail.

@@ -9,6 +9,8 @@ const mocks = vi.hoisted(() => ({
   saveSocialMonthlyResults: vi.fn(),
   saveCalendarWorkflow: vi.fn(),
   saveEmailWorkflow: vi.fn(),
+  saveEmailPerformance: vi.fn(),
+  deleteEmailPerformance: vi.fn(),
   clearObjectiveProgress: vi.fn(),
   clearMetricProgress: vi.fn(),
 }));
@@ -251,6 +253,52 @@ describe("planning router", () => {
       status: "aprovar-arte-social" as never,
     })).rejects.toThrow();
     expect(mocks.saveEmailWorkflow).not.toHaveBeenCalled();
+  });
+
+  it("saves a dispatched email with progressive metrics without authentication", async () => {
+    mocks.saveEmailPerformance.mockResolvedValue({ updatedAt: 989 });
+    const ctx = createContext();
+    ctx.user = null;
+    const caller = appRouter.createCaller(ctx);
+    const entry = {
+      campaignName: "Masterclasses · entrega imediata",
+      subject: "Suas três masterclasses estão disponíveis",
+      sentAt: Date.UTC(2026, 8, 4, 12),
+      emailUrl: "https://example.com/email-enviado",
+      openRate: 31.4,
+      clickRate: null,
+      unsubscribeRate: null,
+      spamRate: null,
+    };
+    await caller.planning.saveEmailPerformance(entry);
+    expect(mocks.saveEmailPerformance).toHaveBeenCalledWith(entry);
+  });
+
+  it("rejects invalid rates, future sends and non-HTTPS sent email links", async () => {
+    const caller = appRouter.createCaller(createContext());
+    const valid = {
+      campaignName: "Campanha",
+      subject: "Assunto",
+      sentAt: Date.UTC(2026, 8, 4, 12),
+      emailUrl: "https://example.com/email",
+      openRate: 30,
+      clickRate: 5,
+      unsubscribeRate: 0.2,
+      spamRate: 0.01,
+    };
+    await expect(caller.planning.saveEmailPerformance({ ...valid, clickRate: 101 })).rejects.toThrow();
+    await expect(caller.planning.saveEmailPerformance({ ...valid, emailUrl: "http://example.com/email" })).rejects.toThrow();
+    await expect(caller.planning.saveEmailPerformance({ ...valid, sentAt: Date.now() + 172_800_000 })).rejects.toThrow(/futuro/);
+    expect(mocks.saveEmailPerformance).not.toHaveBeenCalled();
+  });
+
+  it("deletes an email performance entry without authentication", async () => {
+    mocks.deleteEmailPerformance.mockResolvedValue({ deletedId: 17 });
+    const ctx = createContext();
+    ctx.user = null;
+    const caller = appRouter.createCaller(ctx);
+    await caller.planning.deleteEmailPerformance({ id: 17 });
+    expect(mocks.deleteEmailPerformance).toHaveBeenCalledWith(17);
   });
 
   it("allows shared reading without an authenticated user", async () => {
