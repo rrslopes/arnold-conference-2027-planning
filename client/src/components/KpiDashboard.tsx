@@ -1,6 +1,6 @@
 /** Indicadores secundários compartilhados entre todos os colaboradores com acesso ao link. */
 import { useEffect, useMemo, useState } from "react";
-import { CheckCircle2, Cloud, CloudOff, Download, RefreshCw, Save, Trash2, Upload } from "lucide-react";
+import { CheckCircle2, Cloud, CloudOff, Download, RefreshCw, Save, Trash2, TriangleAlert, Upload } from "lucide-react";
 import { toast } from "sonner";
 import { kpiLayers } from "@/data/planData";
 import { trpc } from "@/lib/trpc";
@@ -104,6 +104,7 @@ export default function KpiDashboard() {
         <div><span>FONTE DO DADO</span><p>{currentLayer.source}</p></div>
         <div><span>NÃO REGISTRAR AQUI</span><p>{currentLayer.avoid}</p></div>
       </div>
+      {"constraint" in currentLayer && currentLayer.constraint ? <div className="kpi-source-constraint"><TriangleAlert size={19} /><p>{currentLayer.constraint}</p></div> : null}
       <div className="metric-table" aria-busy={planning.isLoading}>
         <div className="metric-table-head"><span>Métrica</span><span>Meta</span><span>Valor atual</span><span>Observação</span><span>Status</span></div>
         {currentLayer.metrics.map(metric => {

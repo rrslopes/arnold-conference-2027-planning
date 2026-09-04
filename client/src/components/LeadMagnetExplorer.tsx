@@ -3,7 +3,7 @@
  * como entregas estratégicas conectadas, não como uma coleção genérica de downloads.
  */
 import { useEffect, useState } from "react";
-import { ArrowRight, CheckCircle2, Clock3, FileWarning, PackageOpen, X } from "lucide-react";
+import { ArrowRight, ArrowUpRight, CheckCircle2, Clock3, FileWarning, PackageOpen, X } from "lucide-react";
 import { brandAssets, leadMagnets, type LeadMagnet } from "@/data/planData";
 
 const statusMeta = {
@@ -150,7 +150,7 @@ export default function LeadMagnetExplorer() {
             <div><h4>Materiais necessários</h4><ul>{selected.materials.map((item) => <li key={item}>{item}</li>)}</ul></div>
             <div><h4>Como produzir</h4><ol>{selected.production.map((item) => <li key={item}>{item}</li>)}</ol></div>
           </div>
-          <div className="magnet-rule"><div><span>CTA PRINCIPAL</span><strong>{selected.cta}</strong></div><p><FileWarning size={17} /> {selected.limit}</p></div>
+          <div className="magnet-rule"><div><span>CTA PRINCIPAL</span><strong>{selected.cta}</strong>{selected.destination ? <a href={selected.destination.url} target="_blank" rel="noreferrer">{selected.destination.label}<ArrowUpRight size={15} /></a> : <small>Destino ainda não definido para esta entrega.</small>}</div><p><FileWarning size={17} /> {selected.limit}</p></div>
         </div>
       ) : null}
     </div>

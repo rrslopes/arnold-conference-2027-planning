@@ -28,6 +28,7 @@ import KpiDashboard from "@/components/KpiDashboard";
 import OccupancyDashboard from "@/components/OccupancyDashboard";
 import SocialGoalsDashboard from "@/components/SocialGoalsDashboard";
 import EditorialIntelligence from "@/components/EditorialIntelligence";
+import PaidMediaHub from "@/components/PaidMediaHub";
 import {
   brandAssets,
   congressLogos,
@@ -178,7 +179,7 @@ function EmailPlan() {
   });
   return (
     <section id="email" className="section-pad email-section">
-      <SectionHeader index="08" eyebrow="PLANO DE E-MAIL MARKETING" title="Uma base de 10 mil contatos não é uma lista homogênea" description="A intensidade comercial cresce com sinais reais de abertura, clique, histórico e intenção. Todo e-mail tem um CTA clicável e um único destino principal." /><div className="channel-principles"><article><Mail /><strong>Segmentação real</strong><p>Histórico, origem, data do último engajamento, cliques e compra.</p></article><article><MousePointerClick /><strong>Um CTA principal</strong><p>O botão pode se repetir, mas sempre leva ao mesmo destino.</p></article><article><ShieldCheck /><strong>Supressão disciplinada</strong><p>Comprou, recusou ou pediu saída: interromper a pressão comercial.</p></article></div>
+      <SectionHeader index="09" eyebrow="PLANO DE E-MAIL MARKETING" title="Uma base de 10 mil contatos não é uma lista homogênea" description="A intensidade comercial cresce com sinais reais de abertura, clique, histórico e intenção. Todo e-mail tem um CTA clicável e um único destino principal." /><div className="channel-principles"><article><Mail /><strong>Segmentação real</strong><p>Histórico, origem, data do último engajamento, cliques e compra.</p></article><article><MousePointerClick /><strong>Um CTA principal</strong><p>O botão pode se repetir, mas sempre leva ao mesmo destino.</p></article><article><ShieldCheck /><strong>Supressão disciplinada</strong><p>Comprou, recusou ou pediu saída: interromper a pressão comercial.</p></article></div>
       <div className="external-operation-note"><FileText size={19} /><div><span>ORIENTAÇÃO ESTRATÉGICA</span><strong>A plataforma define a lógica da régua; a produção e a aprovação ficam na planilha operacional</strong><p>Aqui permanecem público, objetivo, materiais, CTA, destino e regra de cada envio. Copy final, link da prévia, ajustes e status devem ser controlados com as agências na planilha compartilhada.</p></div></div>
       <div className="email-tabs"><button type="button" className={tab === "base" ? "active" : ""} onClick={() => setTab("base")}>Campanhas para a base</button><button type="button" className={tab === "nurture" ? "active" : ""} onClick={() => setTab("nurture")}>Sequência das masterclasses</button><button type="button" className={tab === "assets" ? "active" : ""} onClick={() => setTab("assets")}>Materiais necessários</button></div>
       {tab === "base" ? <div className="email-timeline">{emailBase.map((item) => <article id={item.id} key={item.id}><span className="email-date">{item.date}</span><div><small>PÚBLICO</small><p>{item.audience}</p><small>OBJETIVO</small><h3>{item.objective}</h3><p className="material-note"><FileText size={15} /> {item.materials}</p><div className="email-cta"><MousePointerClick size={16} /><strong>{item.cta}</strong><span>{item.destination}</span></div><small className="rule-note">{item.rule}</small></div></article>)}</div> : null}
@@ -203,7 +204,7 @@ function RoadmapSection() {
   const current = roadmap.find((item) => item.month === selected) ?? roadmap[0];
   return (
     <section id="roadmap" className="section-pad roadmap-section">
-      <SectionHeader index="10" eyebrow="ROADMAP ATÉ O EVENTO" title="Setembro abre as vendas. Abril encerra um ciclo de maturação." description="As fases futuras permanecem em nível estratégico para que o calendário seja revisto conforme dados, programação, oferta e capacidade real da equipe." />
+      <SectionHeader index="11" eyebrow="ROADMAP ATÉ O EVENTO" title="Setembro abre as vendas. Abril encerra um ciclo de maturação." description="As fases futuras permanecem em nível estratégico para que o calendário seja revisto conforme dados, programação, oferta e capacidade real da equipe." />
       <div className="roadmap-stage">
         <img src={brandAssets.roadmap} alt="Representação abstrata da jornada estratégica até o evento" />
         <div className="roadmap-months">{roadmap.map((item) => <button type="button" className={selected === item.month ? "active" : ""} key={item.month} onClick={() => setSelected(item.month)}><span>{item.month}</span><strong>{item.title}</strong></button>)}</div>
@@ -220,10 +221,12 @@ export default function Home() {
   if (isEmailPlanView) return <StrategyLayout><EmailPlan /></StrategyLayout>;
   const isIntelligenceReview = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("intelligence-review");
   if (isIntelligenceReview) return <StrategyLayout><section id="inteligencia" className="section-pad intelligence-section"><SectionHeader index="04" eyebrow="INTELIGÊNCIA DE PROGRAMAÇÃO E CONTEÚDO" title="Uma fonte única para decidir quem atrair e o que produzir" description="A programação oficial organiza a promessa de 2027; o acervo de 2026 fornece matéria-prima." /><EditorialIntelligence /></section></StrategyLayout>;
+  const isPaidMediaReview = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("paid-media-review");
+  if (isPaidMediaReview) return <StrategyLayout><section id="midia-paga" className="section-pad paid-media-section"><SectionHeader index="08" eyebrow="REVISÃO DO PLANO DE MÍDIA PAGA" title="O que redimensionar. O que produzir só para mídia." description="Modo isolado para validar posts derivados, peças exclusivas, formatos, destinos e bloqueios comerciais." /><PaidMediaHub /></section></StrategyLayout>;
   const isSocialReview = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("social-review");
-  if (isSocialReview) return <StrategyLayout><section id="indicadores" className="section-pad kpi-section"><SectionHeader index="11" eyebrow="REVISÃO DO PAINEL SOCIAL" title="Metas de referência do Instagram" description="Modo isolado para validar resultados mensais, referências por formato e limites de interpretação." /><SocialGoalsDashboard /></section></StrategyLayout>;
+  if (isSocialReview) return <StrategyLayout><section id="indicadores" className="section-pad kpi-section"><SectionHeader index="12" eyebrow="REVISÃO DO PAINEL SOCIAL" title="Metas de referência do Instagram" description="Modo isolado para validar resultados mensais, referências por formato e limites de interpretação." /><SocialGoalsDashboard /></section></StrategyLayout>;
   const isFunnelReview = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("funnel-review");
-  if (isFunnelReview) return <StrategyLayout><section id="indicadores" className="section-pad kpi-section"><SectionHeader index="11" eyebrow="REVISÃO DO FUNIL INTEGRADO" title="Aquisição e vendas" description="Modo isolado para validar a orientação de preenchimento do funil, sem repetir métricas de Instagram." /><IndicatorGuide number="03" level="DIAGNÓSTICO DO FUNIL" title="Aquisição e vendas" purpose="Onde a audiência deixa o canal social, converte em lead, consome a recompensa, responde às réguas e avança até a compra." cadence="Atualize semanalmente durante campanhas e mantenha o valor atual como acumulado do ciclo; registre o período na observação." source="Automação de DM, landing page, RD Station, WhatsApp, analytics, checkout e plataforma de vendas." avoid="Alcance, visualizações, seguidores, compartilhamentos ou salvamentos do Instagram; essas métricas já estão na camada 02." /><KpiDashboard /></section></StrategyLayout>;
+  if (isFunnelReview) return <StrategyLayout><section id="indicadores" className="section-pad kpi-section"><SectionHeader index="12" eyebrow="REVISÃO DO FUNIL INTEGRADO" title="Aquisição e vendas" description="Modo isolado para validar a orientação de preenchimento do funil, sem repetir métricas de Instagram." /><IndicatorGuide number="03" level="DIAGNÓSTICO DO FUNIL" title="Aquisição e vendas" purpose="Onde a audiência deixa o canal social, converte em lead, consome a recompensa, responde às réguas e avança até a compra." cadence="Atualize semanalmente durante campanhas e mantenha o valor atual como acumulado do ciclo; registre o período na observação." source="Relatório geral de mensagens da Meta, landing pages, RD Station, UTMs, WhatsApp, analytics, checkout e plataforma de vendas." avoid="Resultados por palavra-chave ou automação individual da Meta, além de alcance, visualizações, seguidores, compartilhamentos ou salvamentos do Instagram." /><KpiDashboard /></section></StrategyLayout>;
 
   return (
     <StrategyLayout>
@@ -255,16 +258,21 @@ export default function Home() {
         <CalendarExplorer />
       </section>
 
+      <section id="midia-paga" className="section-pad paid-media-section">
+        <SectionHeader index="08" eyebrow="PLANO DE MÍDIA PAGA" title="O que redimensionar. O que produzir só para mídia." description="Uma fila estratégica separa os posts orgânicos que também alimentam campanhas das peças exclusivas para aquisição, segmentação e retargeting." />
+        <PaidMediaHub />
+      </section>
+
       <EmailPlan />
       <WhatsAppPlan />
       <RoadmapSection />
 
       <section id="indicadores" className="section-pad kpi-section">
-        <SectionHeader index="11" eyebrow="PAINEL DE ACOMPANHAMENTO" title="Três camadas, três perguntas diferentes" description="Comece pelo resultado principal, use o Instagram para diagnosticar atenção e consulte o funil para localizar onde a jornada avança ou trava. Cada dado deve entrar uma única vez." />
+        <SectionHeader index="12" eyebrow="PAINEL DE ACOMPANHAMENTO" title="Três camadas, três perguntas diferentes" description="Comece pelo resultado principal, use o Instagram para diagnosticar atenção e consulte o funil para localizar onde a jornada avança ou trava. Cada dado deve entrar uma única vez." />
         <IndicatorGuide number="01" level="RESULTADO PRINCIPAL" title="Lotação das salas" purpose="Quantas inscrições confirmadas cada congresso acumulou em relação à capacidade vigente da sala." cadence="Registre as vendas confirmadas no fechamento de cada mês e corrija o mês quando houver conciliação." source="Plataforma de vendas, pedidos pagos e relatório financeiro conciliado por congresso." avoid="Leads, checkouts iniciados, pagamentos pendentes, seguidores, alcance ou qualquer intenção ainda não convertida em inscrição." primary />
         <OccupancyDashboard />
         <div className="secondary-kpi-block"><IndicatorGuide number="02" level="DIAGNÓSTICO DO CANAL" title="Desempenho do Instagram" purpose="Se os conteúdos estão alcançando pessoas e gerando consumo, interação, compartilhamento, salvamento e crescimento do perfil." cadence="Faça o fechamento mensal com os totais da conta e as medianas de Reels, carrosséis e Stories publicados no período." source="Exportações do Meta Business Suite e relatório da mLabs, sempre usando o mesmo intervalo de datas." avoid="Leads da landing page, cliques de e-mail, compras, receita ou métricas sociais que a exportação não disponibiliza." /><SocialGoalsDashboard /></div>
-        <div className="secondary-kpi-block"><IndicatorGuide number="03" level="DIAGNÓSTICO DO FUNIL" title="Aquisição e vendas" purpose="Onde a audiência deixa o canal social, converte em lead, consome a recompensa, responde às réguas e avança até a compra." cadence="Atualize semanalmente durante campanhas e mantenha o valor atual como acumulado do ciclo; registre o período na observação." source="Automação de DM, landing page, RD Station, WhatsApp, analytics, checkout e plataforma de vendas." avoid="Alcance, visualizações, seguidores, compartilhamentos ou salvamentos do Instagram; essas métricas já estão na camada 02." /><KpiDashboard /></div>
+        <div className="secondary-kpi-block"><IndicatorGuide number="03" level="DIAGNÓSTICO DO FUNIL" title="Aquisição e vendas" purpose="Onde a audiência deixa o canal social, converte em lead, consome a recompensa, responde às réguas e avança até a compra." cadence="Atualize semanalmente durante campanhas e mantenha o valor atual como acumulado do ciclo; registre o período na observação." source="Relatório geral de mensagens da Meta, landing pages, RD Station, UTMs, WhatsApp, analytics, checkout e plataforma de vendas." avoid="Resultados por palavra-chave ou automação individual da Meta, além de alcance, visualizações, seguidores, compartilhamentos ou salvamentos do Instagram." /><KpiDashboard /></div>
       </section>
 
       <footer className="site-footer">

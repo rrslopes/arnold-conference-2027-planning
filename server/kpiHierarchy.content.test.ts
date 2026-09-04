@@ -6,7 +6,7 @@ describe("hierarquia didática de indicadores", () => {
   it("remove a camada genérica de conteúdo do funil integrado", () => {
     expect(kpiLayers.map(layer => layer.id)).not.toContain("conteudo");
     expect(kpiLayers.map(layer => layer.layer)).toEqual([
-      "DM e automação",
+      "Mensagens da Meta",
       "Landing page",
       "Consumo da recompensa",
       "E-mail",
@@ -38,9 +38,14 @@ describe("hierarquia didática de indicadores", () => {
     });
   });
 
-  it("preserva as chaves antigas para não perder dados compartilhados", () => {
-    expect(kpiLayers.find(layer => layer.id === "dm")?.metrics.map(metric => metric.key)).toContain("Gatilhos");
+  it("remove da interface a granularidade que a Meta não fornece e preserva as demais chaves", () => {
+    const dmLayer = kpiLayers.find(layer => layer.id === "dm");
+    expect(dmLayer?.metrics.map(metric => metric.key)).toEqual(["Mensagens enviadas"]);
+    expect(dmLayer?.avoid).toContain("não oferece essa granularidade");
+    expect("constraint" in (dmLayer ?? {}) ? dmLayer?.constraint : "").toContain("não permite comparar individualmente");
     expect(kpiLayers.find(layer => layer.id === "landing")?.metrics.map(metric => metric.key)).toContain("Conversões");
+    expect(kpiLayers.find(layer => layer.id === "landing")?.metrics.map(metric => metric.key)).toContain("Sessões via DM");
+    expect(kpiLayers.find(layer => layer.id === "landing")?.metrics.map(metric => metric.key)).toContain("Conversões via DM");
     expect(kpiLayers.find(layer => layer.id === "comercial")?.metrics.map(metric => metric.key)).toContain("Compras");
   });
 

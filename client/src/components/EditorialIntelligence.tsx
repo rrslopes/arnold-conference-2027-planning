@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Archive, CalendarDays, CheckCircle2, CircleAlert, FileVideo2, ListChecks, Radar, UsersRound } from "lucide-react";
+import { Archive, CalendarDays, CheckCircle2, CircleAlert, FileVideo2, ListChecks, Radar, UserRoundCheck, UsersRound } from "lucide-react";
 import {
   audienceAttractionAxes,
   conferencePrograms2027,
@@ -42,6 +42,7 @@ export default function EditorialIntelligence() {
               <div className="program-meta"><span>{selectedProgram.date ?? "Data a confirmar"}</span><span>{selectedProgram.room ?? "Sala a confirmar"}</span></div>
             </div>
             <div className="program-source"><FileVideo2 size={17} /><div><strong>FONTE ATUAL</strong><p>{selectedProgram.source}</p></div></div>
+            {selectedProgram.coordination ? <div className="program-coordination"><UserRoundCheck size={19} /><div><strong>{selectedProgram.coordination.statusLabel}</strong><h4>{selectedProgram.coordination.names.join(" · ")}</h4><p>{selectedProgram.coordination.source}</p></div></div> : null}
             {selectedProgram.sessions.length ? (
               <div className="program-sessions">
                 {selectedProgram.sessions.map(session => (

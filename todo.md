@@ -289,3 +289,19 @@
 - [x] Atualizar testes para a interface simplificada e garantir que os controles removidos não retornem.
 - [x] Validar desktop, mobile, compilação e ausência de regressões.
 - [x] Salvar checkpoint e entregar a versão simplificada.
+
+## Ajustes estratégicos de setembro — conteúdo, mensuração, links e mídia paga
+
+- [x] Auditar todas as ocorrências de WTTC, SONAFE, automações da Meta, landing pages, mídia paga e coordenadores.
+- [x] Reforçar no WTTC a validade internacional da certificação e a possibilidade de atuação profissional fora do Brasil.
+- [x] Incluir prevenção como eixo prioritário da SONAFE, ao lado de recuperação, reabilitação e retorno ao esporte.
+- [x] Remover qualquer promessa de mensuração por palavra-chave ou automação individual da Meta.
+- [x] Orientar o acompanhamento das mensagens da Meta somente pelos dados gerais disponíveis e por sinais externos rastreáveis.
+- [x] Inserir links clicáveis da LP das masterclasses e da LP geral de novidades em todas as menções compatíveis.
+- [x] Manter destinos ainda não definidos explicitamente como pendentes, sem links fictícios.
+- [x] Criar item exclusivo no menu para Mídia Paga, separado do calendário editorial orgânico.
+- [x] Reunir no módulo de Mídia Paga os posts que exigem redimensionamento e as peças exclusivas que não serão publicadas no feed.
+- [x] Identificar e exibir os coordenadores já confirmados em Programação e Conteúdo.
+- [x] Criar testes para as correções estratégicas, links, limites de mensuração, módulo de mídia paga e coordenadores.
+- [x] Validar navegação, conteúdo, desktop, mobile, compilação e ausência de regressões.
+- [ ] Salvar checkpoint e entregar a versão atualizada.
