@@ -315,4 +315,4 @@
 - [x] Remover todos os nomes e blocos de coordenadores de Programação e Conteúdo até confirmação oficial.
 - [x] Atualizar testes para impedir a reintrodução de peças inéditas e coordenadores não confirmados.
 - [x] Validar conteúdo, navegação, desktop, mobile, compilação e ausência de regressões.
-- [ ] Salvar checkpoint e entregar a versão corrigida.
+- [x] Salvar checkpoint e entregar a versão corrigida.
