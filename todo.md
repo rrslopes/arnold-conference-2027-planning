@@ -304,4 +304,4 @@
 - [x] Identificar e exibir os coordenadores já confirmados em Programação e Conteúdo.
 - [x] Criar testes para as correções estratégicas, links, limites de mensuração, módulo de mídia paga e coordenadores.
 - [x] Validar navegação, conteúdo, desktop, mobile, compilação e ausência de regressões.
-- [ ] Salvar checkpoint e entregar a versão atualizada.
+- [x] Salvar checkpoint e entregar a versão atualizada.
