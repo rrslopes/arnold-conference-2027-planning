@@ -305,3 +305,14 @@
 - [x] Criar testes para as correções estratégicas, links, limites de mensuração, módulo de mídia paga e coordenadores.
 - [x] Validar navegação, conteúdo, desktop, mobile, compilação e ausência de regressões.
 - [x] Salvar checkpoint e entregar a versão atualizada.
+
+## Correção de escopo — Mídia Paga e coordenadores
+
+- [x] Auditar quais solicitações de Mídia Paga já estavam previstas no calendário e nos marcos aprovados.
+- [x] Remover todas as sugestões de peças exclusivas ainda não analisadas pelo cliente.
+- [x] Manter no módulo somente os redimensionamentos e packs já explicitamente previstos.
+- [x] Ajustar títulos, filtros, contadores e orientações do módulo ao escopo conservador.
+- [x] Remover todos os nomes e blocos de coordenadores de Programação e Conteúdo até confirmação oficial.
+- [x] Atualizar testes para impedir a reintrodução de peças inéditas e coordenadores não confirmados.
+- [x] Validar conteúdo, navegação, desktop, mobile, compilação e ausência de regressões.
+- [ ] Salvar checkpoint e entregar a versão corrigida.

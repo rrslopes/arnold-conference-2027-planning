@@ -9,8 +9,8 @@ import {
   navigation,
 } from "../client/src/data/planData";
 import { operationalBriefs } from "../client/src/data/calendarBriefs";
+import { calendarMilestones } from "../client/src/data/calendarMilestones";
 import { paidMediaAssets } from "../client/src/data/paidMedia";
-import { conferencePrograms2027 } from "../client/src/data/editorialIntelligence";
 
 describe("ajustes estratégicos da plataforma em setembro", () => {
   it("trata validade internacional como diferencial central do WTTC", () => {
@@ -37,32 +37,32 @@ describe("ajustes estratégicos da plataforma em setembro", () => {
     expect(keywords.filter(item => !("url" in item)).every(item => item.destination.includes("pendente"))).toBe(true);
   });
 
-  it("cria Mídia Paga como módulo próprio com redimensionamentos e exclusivas", () => {
+  it("mantém Mídia Paga somente com os quatro packs já previstos nos marcos", () => {
     expect(navigation.some(item => item.id === "midia-paga" && item.label === "Mídia paga")).toBe(true);
-    expect(paidMediaAssets).toHaveLength(8);
+    expect(paidMediaAssets).toHaveLength(4);
     expect(paidMediaAssets.filter(item => item.category === "redimensionamento")).toHaveLength(4);
-    expect(paidMediaAssets.filter(item => item.category === "exclusiva")).toHaveLength(4);
+    expect(paidMediaAssets.filter(item => item.category === "exclusiva")).toHaveLength(0);
+    expect(paidMediaAssets.map(item => item.id).sort()).toEqual(["resize-0908", "resize-0923a", "resize-0923b", "resize-0923c"]);
+    expect(Object.keys(calendarMilestones).sort()).toEqual(["0908", "0923a", "0923b", "0923c"]);
     expect(paidMediaAssets.filter(item => item.status === "liberada").every(item => item.destination)).toBe(true);
     expect(paidMediaAssets.filter(item => item.phase === "Abertura").every(item => item.status === "condicionada" && !item.destination)).toBe(true);
   });
 
-  it("expõe somente coordenadores publicados e preserva o alerta de confirmação 2027", () => {
-    const coordinations = conferencePrograms2027.filter(item => item.coordination).map(item => item.coordination!);
-    expect(coordinations.flatMap(item => item.names).sort()).toEqual(["Luísa Wolpe", "Rodolfo Peres"].sort());
-    coordinations.forEach(item => {
-      expect(item.statusLabel).toContain("vínculo 2027 a confirmar");
-      expect(item.source.length).toBeGreaterThan(50);
-    });
+  it("não exibe coordenadores enquanto não houver confirmação oficial", () => {
+    const intelligenceData = readFileSync(new URL("../client/src/data/editorialIntelligence.ts", import.meta.url), "utf8");
+    const intelligenceSource = readFileSync(new URL("../client/src/components/EditorialIntelligence.tsx", import.meta.url), "utf8");
+    expect(intelligenceData).not.toContain("coordination");
+    expect(intelligenceSource).not.toContain("program-coordination");
+    expect(intelligenceSource).not.toContain("UserRoundCheck");
   });
 
   it("renderiza links, bloqueios e fontes sem reintroduzir controles operacionais", () => {
     const calendarSource = readFileSync(new URL("../client/src/components/CalendarExplorer.tsx", import.meta.url), "utf8");
     const paidSource = readFileSync(new URL("../client/src/components/PaidMediaHub.tsx", import.meta.url), "utf8");
-    const intelligenceSource = readFileSync(new URL("../client/src/components/EditorialIntelligence.tsx", import.meta.url), "utf8");
     expect(calendarSource).toContain("Abrir destino de");
     expect(paidSource).toContain("Peças exclusivas");
     expect(paidSource).toContain("URL COMERCIAL PENDENTE");
-    expect(intelligenceSource).toContain("program-coordination");
+    expect(paidSource).toContain("Nenhuma peça exclusiva aprovada");
     expect(paidSource).not.toContain("<input");
     expect(paidSource).not.toContain("<select");
   });

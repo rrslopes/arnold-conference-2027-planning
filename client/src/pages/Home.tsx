@@ -222,7 +222,7 @@ export default function Home() {
   const isIntelligenceReview = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("intelligence-review");
   if (isIntelligenceReview) return <StrategyLayout><section id="inteligencia" className="section-pad intelligence-section"><SectionHeader index="04" eyebrow="INTELIGÊNCIA DE PROGRAMAÇÃO E CONTEÚDO" title="Uma fonte única para decidir quem atrair e o que produzir" description="A programação oficial organiza a promessa de 2027; o acervo de 2026 fornece matéria-prima." /><EditorialIntelligence /></section></StrategyLayout>;
   const isPaidMediaReview = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("paid-media-review");
-  if (isPaidMediaReview) return <StrategyLayout><section id="midia-paga" className="section-pad paid-media-section"><SectionHeader index="08" eyebrow="REVISÃO DO PLANO DE MÍDIA PAGA" title="O que redimensionar. O que produzir só para mídia." description="Modo isolado para validar posts derivados, peças exclusivas, formatos, destinos e bloqueios comerciais." /><PaidMediaHub /></section></StrategyLayout>;
+  if (isPaidMediaReview) return <StrategyLayout><section id="midia-paga" className="section-pad paid-media-section"><SectionHeader index="08" eyebrow="REVISÃO DO PLANO DE MÍDIA PAGA" title="Packs de mídia já previstos no calendário" description="Modo isolado para validar somente os desdobramentos previamente solicitados nos grandes marcos, sem antecipar novas peças exclusivas." /><PaidMediaHub /></section></StrategyLayout>;
   const isSocialReview = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("social-review");
   if (isSocialReview) return <StrategyLayout><section id="indicadores" className="section-pad kpi-section"><SectionHeader index="12" eyebrow="REVISÃO DO PAINEL SOCIAL" title="Metas de referência do Instagram" description="Modo isolado para validar resultados mensais, referências por formato e limites de interpretação." /><SocialGoalsDashboard /></section></StrategyLayout>;
   const isFunnelReview = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("funnel-review");
@@ -259,7 +259,7 @@ export default function Home() {
       </section>
 
       <section id="midia-paga" className="section-pad paid-media-section">
-        <SectionHeader index="08" eyebrow="PLANO DE MÍDIA PAGA" title="O que redimensionar. O que produzir só para mídia." description="Uma fila estratégica separa os posts orgânicos que também alimentam campanhas das peças exclusivas para aquisição, segmentação e retargeting." />
+        <SectionHeader index="08" eyebrow="PLANO DE MÍDIA PAGA" title="Packs de mídia já previstos no calendário" description="O módulo reúne somente os desdobramentos solicitados nos grandes marcos. Peças exclusivas serão incluídas apenas depois de análise e validação do cliente." />
         <PaidMediaHub />
       </section>
 

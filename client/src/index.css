@@ -838,6 +838,10 @@ img { max-width: 100%; }
 .paid-media-card > footer { display: grid; grid-template-columns: 18px 1fr; gap: 7px; align-items: start; margin-top: auto; padding: 13px 20px; background: rgba(203,219,42,.18); color: #4f580b; }
 .paid-media-card.status-condicionada > footer { background: #fff0cf; color: #725410; }
 .paid-media-card > footer p { margin: 0; font-size: 7px; font-weight: 700; line-height: 1.5; }
+.paid-media-empty { grid-column: 1 / -1; display: grid; grid-template-columns: 38px 1fr; gap: 12px; align-items: start; padding: 30px; background: white; color: var(--charcoal); }
+.paid-media-empty svg { color: var(--purple); }
+.paid-media-empty strong { display: block; font: 600 23px/1 "Teko Arnold"; text-transform: uppercase; }
+.paid-media-empty p { max-width: 620px; margin: 7px 0 0; color: #716c6e; font-size: 9px; line-height: 1.55; }
 .metric-table-head, .metric-row { display: grid; grid-template-columns: 1.05fr .7fr .7fr 1.3fr .55fr; gap: 12px; align-items: center; }
 .metric-table-head { background: #f7f6f2; padding: 11px 18px; color: #777274; font-size: 7px; font-weight: 800; text-transform: uppercase; letter-spacing: .12em; }
 .metric-row { padding: 12px 18px; border-top: 1px solid rgba(51,49,50,.09); transition: 160ms; }
@@ -1026,8 +1030,8 @@ img { max-width: 100%; }
   .paid-media-stats strong { font-size: 34px; }
   .paid-media-rules, .paid-media-grid { grid-template-columns: 1fr; }
   .paid-media-rules article { border-right: 0; border-bottom: 1px solid rgba(51,49,50,.1); }
-  .paid-media-filters { overflow-x: auto; }
-  .paid-media-filters button { flex: 0 0 auto; }
+  .paid-media-filters { display: grid; grid-template-columns: 1fr; overflow-x: visible; }
+  .paid-media-filters button { width: 100%; }
   .paid-media-card-body { grid-template-columns: 1fr; }
   .paid-media-cta { grid-template-columns: 1fr; }
   .channel-principles, .nurture-grid { grid-template-columns: 1fr; }
@@ -1071,11 +1075,6 @@ img { max-width: 100%; }
 .program-source { display: grid; grid-template-columns: 28px 1fr; gap: 8px; margin: 16px 0; padding: 12px 14px; background: rgba(77,70,156,.08); border-left: 3px solid var(--purple); color: var(--purple); }
 .program-source strong { font-size: 7px; letter-spacing: .12em; }
 .program-source p { margin: 3px 0 0; color: var(--charcoal); font-size: 9px; line-height: 1.5; }
-.program-coordination { display: grid; grid-template-columns: 30px 1fr; gap: 9px; margin: -4px 0 16px; padding: 13px 14px; border: 1px solid rgba(77,70,156,.18); background: white; }
-.program-coordination > svg { color: var(--purple); }
-.program-coordination strong { display: block; color: var(--purple); font-size: 6px; font-weight: 900; letter-spacing: .11em; text-transform: uppercase; }
-.program-coordination h4 { margin: 4px 0 0; font: 600 22px/1 "Teko Arnold"; text-transform: uppercase; }
-.program-coordination p { margin: 5px 0 0; color: #716c6e; font-size: 8px; line-height: 1.5; }
 .program-sessions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: rgba(51,49,50,.12); border: 1px solid rgba(51,49,50,.12); }
 .program-sessions article { display: grid; grid-template-columns: 54px 1fr; gap: 12px; background: white; padding: 15px; min-width: 0; }
 .program-sessions time { color: var(--purple); font: 600 19px/1 "Teko Arnold"; }

@@ -12,11 +12,6 @@ export type CongressProgram = {
   date?: string;
   room?: string;
   source: string;
-  coordination?: {
-    names: string[];
-    statusLabel: string;
-    source: string;
-  };
   note: string;
   sessions: ProgramSession[];
 };
@@ -57,11 +52,6 @@ export const conferencePrograms2027: CongressProgram[] = [
     date: "23 de abril de 2027",
     room: "Sala a confirmar",
     source: "Programação_Conference_Nutrição Estética_2027.xlsx",
-    coordination: {
-      names: ["Luísa Wolpe"],
-      statusLabel: "Coordenação publicada · vínculo 2027 a confirmar",
-      source: "Página institucional do congresso. A planilha oficial de 2027 ainda não possui campo de coordenação.",
-    },
     note: "Dez sessões de conteúdo confirmadas no arquivo atual. Descritivos, minibiografias, fotos e redes sociais ainda precisam ser preenchidos.",
     sessions: [
       { time: "9h00", speakers: "Marília Lacerda", title: "Preparação metabólica para cirurgia plástica: reduzindo complicações e potencializando resultados" },
@@ -82,11 +72,6 @@ export const conferencePrograms2027: CongressProgram[] = [
     status: "aguardando",
     statusLabel: "Aguardando programação 2027",
     source: "Programação e oito íntegras de 2026 disponíveis como referência",
-    coordination: {
-      names: ["Rodolfo Peres"],
-      statusLabel: "Coordenação publicada · vínculo 2027 a confirmar",
-      source: "Página institucional do congresso, que ainda mistura referências de 2026 e 2027.",
-    },
     note: "O acervo sustenta conteúdos sobre endurance, carboidratos, microbiota, antioxidantes, GLP-1 e massa muscular, mas não substitui a confirmação da grade de 2027.",
     sessions: [],
   },

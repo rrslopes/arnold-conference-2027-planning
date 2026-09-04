@@ -11,22 +11,26 @@ const filters: Array<{ id: Filter; label: string }> = [
 ];
 
 export default function PaidMediaHub() {
-  const [filter, setFilter] = useState<Filter>("todas");
+  const [filter, setFilter] = useState<Filter>(() => {
+    if (typeof window === "undefined") return "todas";
+    const requested = new URLSearchParams(window.location.search).get("paid-media-filter");
+    return requested === "redimensionamento" || requested === "exclusiva" ? requested : "todas";
+  });
   const visible = useMemo(() => paidMediaAssets.filter(item => filter === "todas" || item.category === filter), [filter]);
   const resized = paidMediaAssets.filter(item => item.category === "redimensionamento").length;
   const exclusive = paidMediaAssets.filter(item => item.category === "exclusiva").length;
-  const available = paidMediaAssets.filter(item => item.status === "liberada").length;
+  const milestones = new Set(paidMediaAssets.map(item => item.date.split(" · ")[0])).size;
 
   return (
     <div className="paid-media-hub">
       <div className="paid-media-command">
-        <div><Megaphone size={28} /><span>ESCOPO DE PRODUÇÃO PARA MÍDIA</span><h3>Orgânico alimenta a mídia.<br />Mídia também pede peças próprias.</h3><p>Este módulo não controla aprovação nem tráfego. Ele especifica o que precisa ser redimensionado e o que deve ser produzido exclusivamente para campanhas pagas.</p></div>
-        <div className="paid-media-stats"><article><strong>{resized}</strong><span>REDIMENSIONAMENTOS</span></article><article><strong>{exclusive}</strong><span>PEÇAS EXCLUSIVAS</span></article><article><strong>{available}</strong><span>LIBERADAS AGORA</span></article></div>
+        <div><Megaphone size={28} /><span>ESCOPO JÁ PREVISTO PARA MÍDIA</span><h3>Somente os packs já solicitados no calendário.</h3><p>Este módulo não cria novas peças. Ele reúne exclusivamente os desdobramentos de mídia paga já previstos para os grandes marcos de 08/09 e 23/09.</p></div>
+        <div className="paid-media-stats"><article><strong>{resized}</strong><span>PACKS PREVISTOS</span></article><article><strong>{milestones}</strong><span>MARCOS DO CALENDÁRIO</span></article><article><strong>{exclusive}</strong><span>PEÇAS EXCLUSIVAS APROVADAS</span></article></div>
       </div>
 
       <div className="paid-media-rules">
-        <article><PanelsTopLeft size={21} /><div><strong>Redimensionamento</strong><p>Parte de uma publicação orgânica já prevista e adapta mensagem, enquadramento e duração aos formatos da campanha.</p></div></article>
-        <article><Layers3 size={21} /><div><strong>Peça exclusiva</strong><p>Nasce para segmentação, retargeting ou teste de variação e não precisa ser publicada no feed.</p></div></article>
+        <article><PanelsTopLeft size={21} /><div><strong>Redimensionamento previsto</strong><p>Parte de uma publicação orgânica já aprovada no calendário e segue somente os formatos explicitamente solicitados no marco.</p></div></article>
+        <article><Layers3 size={21} /><div><strong>Peça exclusiva</strong><p>Nenhuma peça exclusiva foi aprovada. Novas solicitações só entrarão após análise e validação do cliente.</p></div></article>
         <article><ShieldCheck size={21} /><div><strong>Regra de ativação</strong><p>Produzir pode começar antes; veicular só quando destino, rastreamento, condição comercial e supressões estiverem validados.</p></div></article>
       </div>
 
@@ -46,6 +50,7 @@ export default function PaidMediaHub() {
             <footer>{item.status === "liberada" ? <CheckCircle2 size={17} /> : <Ban size={17} />}<p>{item.gate}</p></footer>
           </article>
         ))}
+        {!visible.length ? <div className="paid-media-empty"><Layers3 size={28} /><div><strong>Nenhuma peça exclusiva aprovada</strong><p>Esta área permanecerá vazia até que novas peças sejam analisadas e formalmente validadas pelo cliente.</p></div></div> : null}
       </div>
     </div>
   );
