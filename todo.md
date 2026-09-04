@@ -331,4 +331,4 @@
 - [x] Exibir estado vazio e orientar preenchimento progressivo conforme cada disparo.
 - [x] Criar testes determinísticos de score, desempate, validações e persistência.
 - [x] Validar colaboração anônima, desktop, mobile, logs, compilação e build.
-- [ ] Salvar checkpoint e entregar o painel de performance de e-mail.
+- [x] Salvar checkpoint e entregar o painel de performance de e-mail.
