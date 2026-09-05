@@ -347,4 +347,4 @@
 - [x] Integrar ao funil somente o total mais recente dessa LP, com rótulo de origem explícito.
 - [x] Criar testes de cálculos, validações, persistência, origem e ausência de duplicidade.
 - [x] Validar colaboração anônima, desktop, mobile, logs, compilação e build.
-- [ ] Salvar checkpoint reversível e entregar a versão.
+- [x] Salvar checkpoint reversível e entregar a versão.
