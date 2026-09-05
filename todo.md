@@ -332,3 +332,19 @@
 - [x] Criar testes determinísticos de score, desempate, validações e persistência.
 - [x] Validar colaboração anônima, desktop, mobile, logs, compilação e build.
 - [x] Salvar checkpoint e entregar o painel de performance de e-mail.
+
+## Leads e perfil — LP de novidades
+
+- [x] Revisar indicadores, persistência e composição atual da seção de KPIs.
+- [x] Definir fotografias agregadas da base com origem fixa na LP de novidades.
+- [x] Modelar total acumulado, novos leads, histórico de participação, interesses e principais cidades.
+- [x] Explicar que interesses são múltiplos e podem somar mais de 100%.
+- [x] Mapear Fisioterapia Esportiva para SONAFE, Educação Física e Personal Training para WTTC e Gestão de Negócios para Gestão de Academias.
+- [x] Criar tabela não destrutiva e rotas públicas para salvar, editar e excluir fotografias.
+- [x] Construir a aba “Leads e perfil” dentro de Indicadores, sem novo item no menu.
+- [x] Exibir evolução da captação, composição do público, ranking de interesses e afinidade única/múltipla.
+- [x] Identificar visualmente a origem exclusiva da LP de novidades e impedir mistura com outras fontes.
+- [x] Integrar ao funil somente o total mais recente dessa LP, com rótulo de origem explícito.
+- [x] Criar testes de cálculos, validações, persistência, origem e ausência de duplicidade.
+- [x] Validar colaboração anônima, desktop, mobile, logs, compilação e build.
+- [ ] Salvar checkpoint reversível e entregar a versão.

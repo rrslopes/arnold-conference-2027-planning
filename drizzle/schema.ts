@@ -145,6 +145,30 @@ export const emailPerformance = mysqlTable("email_performance", {
   updatedAt: bigint("updatedAt", { mode: "number" }).notNull(),
 });
 
+export const leadProfileSnapshots = mysqlTable("lead_profile_snapshots", {
+  id: int("id").autoincrement().primaryKey(),
+  sourceKey: varchar("sourceKey", { length: 64 }).notNull(),
+  periodStartAt: bigint("periodStartAt", { mode: "number" }).notNull(),
+  periodEndAt: bigint("periodEndAt", { mode: "number" }).notNull(),
+  totalLeads: int("totalLeads").notNull(),
+  newLeads: int("newLeads").notNull(),
+  firstTimeCount: int("firstTimeCount"),
+  attended2026Count: int("attended2026Count"),
+  attendedPastCount: int("attendedPastCount"),
+  nutritionAestheticsCount: int("nutritionAestheticsCount"),
+  sportsNutritionCount: int("sportsNutritionCount"),
+  sportsPhysioCount: int("sportsPhysioCount"),
+  businessManagementCount: int("businessManagementCount"),
+  physicalEducationCount: int("physicalEducationCount"),
+  bodybuildingCount: int("bodybuildingCount"),
+  otherInterestCount: int("otherInterestCount"),
+  singleInterestCount: int("singleInterestCount"),
+  multipleInterestsCount: int("multipleInterestsCount"),
+  topCitiesJson: text("topCitiesJson").notNull(),
+  note: text("note").notNull(),
+  updatedAt: bigint("updatedAt", { mode: "number" }).notNull(),
+});
+
 export type ObjectiveProgress = typeof objectiveProgress.$inferSelect;
 export type InsertObjectiveProgress = typeof objectiveProgress.$inferInsert;
 export type MetricProgress = typeof metricProgress.$inferSelect;
@@ -162,3 +186,5 @@ export type EmailWorkflow = typeof emailWorkflow.$inferSelect;
 export type InsertEmailWorkflow = typeof emailWorkflow.$inferInsert;
 export type EmailPerformance = typeof emailPerformance.$inferSelect;
 export type InsertEmailPerformance = typeof emailPerformance.$inferInsert;
+export type LeadProfileSnapshotRow = typeof leadProfileSnapshots.$inferSelect;
+export type InsertLeadProfileSnapshotRow = typeof leadProfileSnapshots.$inferInsert;

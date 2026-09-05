@@ -7,7 +7,7 @@ describe("hierarquia didática de indicadores", () => {
     expect(kpiLayers.map(layer => layer.id)).not.toContain("conteudo");
     expect(kpiLayers.map(layer => layer.layer)).toEqual([
       "Mensagens da Meta",
-      "Landing page",
+      "Landing pages",
       "Consumo da recompensa",
       "E-mail",
       "WhatsApp",

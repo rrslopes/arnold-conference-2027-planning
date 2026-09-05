@@ -11,6 +11,8 @@ const mocks = vi.hoisted(() => ({
   saveEmailWorkflow: vi.fn(),
   saveEmailPerformance: vi.fn(),
   deleteEmailPerformance: vi.fn(),
+  saveLeadProfileSnapshot: vi.fn(),
+  deleteLeadProfileSnapshot: vi.fn(),
   clearObjectiveProgress: vi.fn(),
   clearMetricProgress: vi.fn(),
 }));
@@ -299,6 +301,45 @@ describe("planning router", () => {
     const caller = appRouter.createCaller(ctx);
     await caller.planning.deleteEmailPerformance({ id: 17 });
     expect(mocks.deleteEmailPerformance).toHaveBeenCalledWith(17);
+  });
+
+  it("saves a news landing page snapshot without authentication", async () => {
+    mocks.saveLeadProfileSnapshot.mockResolvedValue({ updatedAt: 990 });
+    const ctx = createContext();
+    ctx.user = null;
+    const caller = appRouter.createCaller(ctx);
+    const entry = {
+      periodStartAt: Date.UTC(2026, 8, 1, 12), periodEndAt: Date.UTC(2026, 8, 4, 12), totalLeads: 100, newLeads: 20,
+      firstTimeCount: 50, attended2026Count: 30, attendedPastCount: 20,
+      nutritionAestheticsCount: 55, sportsNutritionCount: 50, sportsPhysioCount: 25, businessManagementCount: 20,
+      physicalEducationCount: 30, bodybuildingCount: 15, otherInterestCount: 5,
+      singleInterestCount: 40, multipleInterestsCount: 60,
+      topCities: [{ city: "São Paulo", count: 45 }], note: "Relatório filtrado da LP",
+    };
+    await caller.planning.saveLeadProfileSnapshot(entry);
+    expect(mocks.saveLeadProfileSnapshot).toHaveBeenCalledWith(entry);
+  });
+
+  it("rejects inconsistent lead snapshots", async () => {
+    const caller = appRouter.createCaller(createContext());
+    const entry = {
+      periodStartAt: Date.UTC(2026, 8, 1, 12), periodEndAt: Date.UTC(2026, 8, 4, 12), totalLeads: 100, newLeads: 120,
+      firstTimeCount: 101, attended2026Count: null, attendedPastCount: null,
+      nutritionAestheticsCount: null, sportsNutritionCount: null, sportsPhysioCount: null, businessManagementCount: null,
+      physicalEducationCount: null, bodybuildingCount: null, otherInterestCount: null,
+      singleInterestCount: null, multipleInterestsCount: null, topCities: [], note: "",
+    };
+    await expect(caller.planning.saveLeadProfileSnapshot(entry)).rejects.toThrow();
+    expect(mocks.saveLeadProfileSnapshot).not.toHaveBeenCalled();
+  });
+
+  it("deletes a lead profile snapshot without authentication", async () => {
+    mocks.deleteLeadProfileSnapshot.mockResolvedValue({ deletedId: 18 });
+    const ctx = createContext();
+    ctx.user = null;
+    const caller = appRouter.createCaller(ctx);
+    await caller.planning.deleteLeadProfileSnapshot({ id: 18 });
+    expect(mocks.deleteLeadProfileSnapshot).toHaveBeenCalledWith(18);
   });
 
   it("allows shared reading without an authenticated user", async () => {

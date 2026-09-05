@@ -3,7 +3,7 @@ import { eq, or } from "drizzle-orm";
 import type { TrpcContext } from "./_core/context";
 import { getDb, saveOccupancyProgress, saveSocialMonthlyResults } from "./db";
 import { appRouter } from "./routers";
-import { calendarWorkflow, emailPerformance, emailWorkflow, monthlyCongressSales, monthlySocialResults, objectiveProgress, planningActivity, roomOccupancy } from "../drizzle/schema";
+import { calendarWorkflow, emailPerformance, emailWorkflow, leadProfileSnapshots, monthlyCongressSales, monthlySocialResults, objectiveProgress, planningActivity, roomOccupancy } from "../drizzle/schema";
 
 const runId = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 const objectiveKey = `qa-sync-${runId}`;
@@ -12,6 +12,7 @@ const workflowKey = "9999";
 const emailWorkflowKey = `email-base-qa-sync-${runId}`;
 const socialMonthKey = "2099-99";
 const emailCampaignName = `QA Performance ${runId}`;
+const leadSnapshotNote = `QA LP ${runId}`;
 const actorAName = `QA Navegador A ${runId}`;
 const actorBName = `QA Navegador B ${runId}`;
 
@@ -34,6 +35,7 @@ describe.sequential("shared planning persistence", () => {
     await db.delete(emailWorkflow).where(eq(emailWorkflow.emailItemId, emailWorkflowKey));
     await db.delete(monthlySocialResults).where(eq(monthlySocialResults.monthKey, socialMonthKey));
     await db.delete(emailPerformance).where(eq(emailPerformance.campaignName, emailCampaignName));
+    await db.delete(leadProfileSnapshots).where(eq(leadProfileSnapshots.note, leadSnapshotNote));
     await db.delete(planningActivity).where(or(eq(planningActivity.actorName, actorAName), eq(planningActivity.actorName, actorBName)));
   });
 
@@ -213,5 +215,30 @@ describe.sequential("shared planning persistence", () => {
     await anonymousBrowserA.planning.deleteEmailPerformance({ id: created!.id });
     const afterDelete = await anonymousBrowserB.planning.getState();
     expect(afterDelete.emailPerformanceResults.some(item => item.id === created!.id)).toBe(false);
+  });
+
+  it("creates, updates, reads and deletes a news LP snapshot between anonymous browsers", async () => {
+    const browserA = appRouter.createCaller(createAnonymousContext());
+    const browserB = appRouter.createCaller(createAnonymousContext());
+    const initial = {
+      periodStartAt: Date.UTC(2026, 8, 1, 12), periodEndAt: Date.UTC(2026, 8, 4, 12), totalLeads: 100, newLeads: 20,
+      firstTimeCount: 50, attended2026Count: 30, attendedPastCount: 20,
+      nutritionAestheticsCount: 55, sportsNutritionCount: 50, sportsPhysioCount: 25, businessManagementCount: 20,
+      physicalEducationCount: 30, bodybuildingCount: 15, otherInterestCount: 5,
+      singleInterestCount: 40, multipleInterestsCount: 60,
+      topCities: [{ city: "São Paulo", count: 45 }], note: leadSnapshotNote,
+    };
+    await browserA.planning.saveLeadProfileSnapshot(initial);
+    const readInB = await browserB.planning.getState();
+    const created = readInB.leadProfileResults.find(item => item.note === leadSnapshotNote);
+    expect(created).toMatchObject({ sourceKey: "conference-news-lp", totalLeads: 100, topCitiesJson: '[{"city":"São Paulo","count":45}]' });
+
+    await browserB.planning.saveLeadProfileSnapshot({ ...initial, id: created!.id, totalLeads: 120, newLeads: 40 });
+    const readBackInA = await browserA.planning.getState();
+    expect(readBackInA.leadProfileResults.find(item => item.id === created!.id)).toMatchObject({ totalLeads: 120, newLeads: 40 });
+
+    await browserA.planning.deleteLeadProfileSnapshot({ id: created!.id });
+    const afterDelete = await browserB.planning.getState();
+    expect(afterDelete.leadProfileResults.some(item => item.id === created!.id)).toBe(false);
   });
 });

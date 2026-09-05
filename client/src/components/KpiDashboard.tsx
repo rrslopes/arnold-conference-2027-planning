@@ -1,9 +1,10 @@
 /** Indicadores secundários compartilhados entre todos os colaboradores com acesso ao link. */
 import { useEffect, useMemo, useState } from "react";
-import { CheckCircle2, Cloud, CloudOff, Download, RefreshCw, Save, Trash2, TriangleAlert, Upload } from "lucide-react";
+import { CheckCircle2, Cloud, CloudOff, Download, ExternalLink, RefreshCw, Save, Trash2, TriangleAlert, Upload } from "lucide-react";
 import { toast } from "sonner";
 import { kpiLayers } from "@/data/planData";
 import { trpc } from "@/lib/trpc";
+import { NEWS_LP_SOURCE, getLatestLeadProfileSnapshot } from "@shared/leadProfile";
 
 type MetricState = Record<string, { target: string; actual: string; note: string; done: boolean }>;
 
@@ -19,7 +20,8 @@ export default function KpiDashboard() {
   const utils = trpc.useUtils();
   const planning = trpc.planning.getState.useQuery(undefined, { refetchOnWindowFocus: true, retry: 1 });
   const [state, setState] = useState<MetricState>(blankState);
-  const [active, setActive] = useState(kpiLayers[0].id);
+  const reviewLayer = typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("funnel-review") : null;
+  const [active, setActive] = useState(kpiLayers.some(layer => layer.id === reviewLayer) ? reviewLayer! : kpiLayers[0].id);
   const [localAvailable, setLocalAvailable] = useState(false);
 
   useEffect(() => setLocalAvailable(Boolean(localStorage.getItem("arnold-kpis"))), []);
@@ -54,6 +56,7 @@ export default function KpiDashboard() {
   const completed = useMemo(() => Object.values(state).filter(item => item.done).length, [state]);
   const total = Object.keys(blankState).length;
   const latest = useMemo(() => [...(planning.data?.metrics ?? [])].sort((a, b) => b.updatedAt - a.updatedAt)[0], [planning.data]);
+  const latestNewsLeadSnapshot = useMemo(() => getLatestLeadProfileSnapshot(planning.data?.leadProfileResults ?? []), [planning.data?.leadProfileResults]);
 
   const update = (key: string, field: keyof MetricState[string], value: string | boolean) => setState(current => ({ ...current, [key]: { ...current[key], [field]: value } }));
   const save = (nextState = state) => saveMutation.mutate({ entries: toEntries(nextState) });
@@ -105,6 +108,7 @@ export default function KpiDashboard() {
         <div><span>NÃO REGISTRAR AQUI</span><p>{currentLayer.avoid}</p></div>
       </div>
       {"constraint" in currentLayer && currentLayer.constraint ? <div className="kpi-source-constraint"><TriangleAlert size={19} /><p>{currentLayer.constraint}</p></div> : null}
+      {currentLayer.id === "landing" ? <div className="kpi-lead-source-reference"><div><span>REFERÊNCIA AUTOMÁTICA · NÃO SOMAR DUAS VEZES</span><strong>{latestNewsLeadSnapshot ? `${latestNewsLeadSnapshot.totalLeads.toLocaleString("pt-BR")} leads da LP de novidades` : "LP de novidades ainda sem fotografia"}</strong><p>{latestNewsLeadSnapshot ? `Fotografia acumulada até ${new Date(latestNewsLeadSnapshot.periodEndAt).toLocaleDateString("pt-BR", { timeZone: "UTC" })}. Ao consolidar todas as páginas no campo “Leads convertidos”, inclua esta origem uma única vez.` : "Quando a primeira fotografia for registrada, o total desta LP aparecerá aqui como fonte identificada. Outros canais permanecem separados."}</p></div><a href={NEWS_LP_SOURCE.url} target="_blank" rel="noreferrer">Abrir origem <ExternalLink size={13} /></a></div> : null}
       <div className="metric-table" aria-busy={planning.isLoading}>
         <div className="metric-table-head"><span>Métrica</span><span>Meta</span><span>Valor atual</span><span>Observação</span><span>Status</span></div>
         {currentLayer.metrics.map(metric => {

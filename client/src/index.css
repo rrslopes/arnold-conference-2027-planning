@@ -864,6 +864,101 @@ img { max-width: 100%; }
 .kpi-source-constraint { display: grid; grid-template-columns: 22px 1fr; gap: 9px; align-items: start; padding: 13px 16px; border-bottom: 1px solid rgba(51,49,50,.1); background: #fff4d6; color: #6d5312; }
 .kpi-source-constraint svg { color: #b78300; }
 .kpi-source-constraint p { margin: 0; font-size: 8px; font-weight: 650; line-height: 1.55; }
+.kpi-lead-source-reference { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 15px 17px; border-bottom: 1px solid rgba(51,49,50,.1); background: #eef1c9; }
+.kpi-lead-source-reference span { display: block; color: var(--purple); font-size: 6px; font-weight: 900; letter-spacing: .11em; }
+.kpi-lead-source-reference strong { display: block; margin-top: 4px; font: 600 20px/1 "Teko Arnold"; text-transform: uppercase; }
+.kpi-lead-source-reference p { margin: 4px 0 0; color: #656062; font-size: 7px; line-height: 1.5; }
+.kpi-lead-source-reference a { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 5px; color: var(--purple); font-size: 7px; font-weight: 850; text-decoration: none; }
+
+.lead-profile-console { border: 1px solid rgba(51,49,50,.16); background: #f3f2ec; }
+.lead-profile-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; padding: 28px 30px; background: var(--charcoal); color: white; }
+.lead-profile-head > div > svg { color: var(--lime); }
+.lead-profile-head span { display: block; margin-top: 12px; color: var(--lime); font-size: 7px; font-weight: 900; letter-spacing: .14em; }
+.lead-profile-head h3 { margin: 6px 0 7px; font: 600 37px/.95 "Teko Arnold"; text-transform: uppercase; }
+.lead-profile-head p { max-width: 760px; margin: 0; color: rgba(255,255,255,.63); font-size: 9px; line-height: 1.6; }
+.lead-profile-head a { display: inline-flex; align-items: center; gap: 5px; margin-top: 11px; color: var(--lime); font-size: 7px; font-weight: 850; text-decoration: none; }
+.lead-profile-head small { display: flex; align-items: center; gap: 5px; margin-top: 8px; color: rgba(255,255,255,.52); font-size: 7px; }
+.lead-profile-head .secondary-button { flex: 0 0 auto; border-color: rgba(255,255,255,.25); color: white; }
+.lead-profile-tabs { display: grid; grid-template-columns: repeat(3, 1fr); background: #e8e6df; }
+.lead-profile-tabs button { min-height: 45px; border: 0; border-right: 1px solid rgba(51,49,50,.1); background: transparent; color: #6c6769; font-size: 8px; font-weight: 800; }
+.lead-profile-tabs button.active { background: var(--purple); color: white; box-shadow: inset 0 -4px 0 var(--lime); }
+.lead-profile-current { padding-bottom: 1px; }
+.lead-profile-summary { display: grid; grid-template-columns: repeat(4, 1fr); background: var(--purple); color: white; }
+.lead-profile-summary article { min-width: 0; padding: 18px 20px; border-right: 1px solid rgba(255,255,255,.13); }
+.lead-profile-summary article:last-child { border-right: 0; }
+.lead-profile-summary strong { display: block; color: var(--lime); font: 600 35px/1 "Teko Arnold"; }
+.lead-profile-summary span { display: block; margin-top: 4px; color: rgba(255,255,255,.7); font-size: 6px; font-weight: 850; letter-spacing: .08em; }
+.lead-profile-notice { display: grid; grid-template-columns: 24px 1fr; gap: 9px; align-items: start; padding: 14px 18px; border-bottom: 1px solid rgba(51,49,50,.1); background: #eef1c9; color: #5d595b; }
+.lead-profile-notice svg { color: var(--purple); }
+.lead-profile-notice p { margin: 0; font-size: 8px; line-height: 1.55; }
+.lead-profile-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(290px, .65fr); gap: 14px; padding: 14px; }
+.lead-interest-panel, .lead-profile-side > section, .lead-profile-form, .lead-profile-history { border: 1px solid rgba(51,49,50,.13); background: white; }
+.lead-interest-panel > header, .lead-profile-side section > header { display: flex; align-items: center; gap: 9px; min-height: 49px; padding: 0 16px; border-bottom: 1px solid rgba(51,49,50,.1); color: var(--purple); }
+.lead-interest-panel > header span, .lead-profile-side section > header span { font-size: 7px; font-weight: 900; letter-spacing: .11em; }
+.lead-interest-panel > header p { margin: 3px 0 0; color: #827d7f; font-size: 6px; }
+.lead-interest-panel > div > article { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 12px; padding: 12px 16px; border-bottom: 1px solid rgba(51,49,50,.08); }
+.lead-interest-panel article:last-child { border-bottom: 0; }
+.lead-interest-panel article strong { display: block; font-size: 9px; }
+.lead-interest-panel article small { display: block; margin-top: 3px; color: var(--purple); font-size: 6px; }
+.lead-interest-value { display: flex; gap: 8px; align-items: baseline; }
+.lead-interest-value b { font-size: 10px; }
+.lead-interest-value span { color: var(--purple); font-size: 8px; font-weight: 800; }
+.lead-interest-bar { grid-column: 1 / -1; height: 5px; overflow: hidden; background: #e9e7e1; }
+.lead-interest-bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--purple), var(--lime-dark)); }
+.lead-profile-side { display: grid; align-content: start; gap: 14px; }
+.lead-profile-side section > article { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 14px; border-bottom: 1px solid rgba(51,49,50,.08); }
+.lead-profile-side section > article:last-child { border-bottom: 0; }
+.lead-profile-side article strong { display: block; font-size: 8px; }
+.lead-profile-side article div small { display: block; max-width: 190px; margin-top: 3px; color: #858082; font-size: 5px; line-height: 1.35; }
+.lead-profile-side article > b { flex: 0 0 auto; color: var(--purple); font-size: 10px; text-align: right; }
+.lead-profile-side article > b small { display: block; margin-top: 2px; color: #817b7e; font-size: 6px; }
+.lead-profile-missing { margin: 0; padding: 18px; color: #817c7e; font-size: 8px; line-height: 1.5; }
+.lead-profile-note { margin: 0 14px 14px; padding: 13px 16px; border-left: 4px solid var(--purple); background: white; }
+.lead-profile-note strong { color: var(--purple); font-size: 6px; letter-spacing: .1em; }
+.lead-profile-note p { margin: 5px 0 0; color: #686365; font-size: 8px; line-height: 1.5; }
+.lead-profile-empty { display: grid; grid-template-columns: 44px 1fr; gap: 14px; align-items: start; margin: 14px; padding: 28px; border: 1px dashed rgba(51,49,50,.25); background: white; }
+.lead-profile-empty svg { color: var(--purple); }
+.lead-profile-empty strong { display: block; font: 600 24px/1 "Teko Arnold"; text-transform: uppercase; }
+.lead-profile-empty p { margin: 7px 0 14px; color: #706b6d; font-size: 9px; line-height: 1.55; }
+.lead-profile-form { margin: 14px; }
+.lead-profile-form > header { display: flex; align-items: center; justify-content: space-between; min-height: 49px; padding: 0 17px; border-bottom: 1px solid rgba(51,49,50,.1); }
+.lead-profile-form > header > div { display: flex; align-items: center; gap: 8px; color: var(--purple); }
+.lead-profile-form > header span { font-size: 7px; font-weight: 900; letter-spacing: .12em; }
+.lead-profile-form > header button { border: 0; background: transparent; color: var(--purple); font-size: 7px; font-weight: 800; text-decoration: underline; }
+.lead-form-source { padding: 14px 17px; background: #eef1c9; }
+.lead-form-source strong { display: block; color: var(--purple); font-size: 6px; letter-spacing: .1em; }
+.lead-form-source span { display: block; margin-top: 4px; font: 600 20px/1 "Teko Arnold"; text-transform: uppercase; }
+.lead-form-source p { margin: 5px 0 0; color: #656062; font-size: 7px; }
+.lead-form-core { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(51,49,50,.1); }
+.lead-form-core label, .lead-form-groups label { display: grid; gap: 6px; min-width: 0; padding: 14px; background: white; }
+.lead-form-core span, .lead-form-groups label > span, .lead-form-cities legend, .lead-form-note > span { color: var(--purple); font-size: 6px; font-weight: 850; letter-spacing: .06em; text-transform: uppercase; }
+.lead-form-core input, .lead-form-groups input, .lead-form-cities input, .lead-form-note textarea { width: 100%; min-width: 0; border: 1px solid rgba(51,49,50,.18); background: #faf9f5; color: var(--charcoal); padding: 0 10px; font: 550 9px/1.2 "Montserrat Arnold"; }
+.lead-form-core input, .lead-form-groups input, .lead-form-cities input { height: 37px; }
+.lead-form-core input:focus, .lead-form-groups input:focus, .lead-form-cities input:focus, .lead-form-note textarea:focus { border-color: var(--purple); outline: 2px solid rgba(77,70,156,.15); }
+.lead-form-groups { display: grid; grid-template-columns: .8fr 1.35fr .85fr; gap: 1px; border-top: 1px solid rgba(51,49,50,.1); border-bottom: 1px solid rgba(51,49,50,.1); background: rgba(51,49,50,.1); }
+.lead-form-groups fieldset, .lead-form-cities { min-width: 0; margin: 0; padding: 13px; border: 0; background: #f4f3ed; }
+.lead-form-groups legend, .lead-form-cities legend { padding: 0 4px; color: var(--charcoal); font: 600 19px/1 "Teko Arnold"; text-transform: uppercase; }
+.lead-form-groups label { grid-template-columns: minmax(0, 1fr) 80px; align-items: center; margin-top: 7px; padding: 9px; }
+.lead-form-groups label span small { display: block; margin-top: 3px; color: #858082; font-size: 5px; font-weight: 500; letter-spacing: 0; line-height: 1.35; text-transform: none; }
+.lead-form-cities { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; padding: 16px; background: white; }
+.lead-form-cities legend { grid-column: 1 / -1; }
+.lead-form-cities > div { display: grid; grid-template-columns: minmax(0, 1fr) 64px; gap: 5px; }
+.lead-form-note { display: grid; gap: 7px; padding: 15px 17px; }
+.lead-form-note textarea { min-height: 70px; padding: 10px; resize: vertical; }
+.lead-profile-form > footer { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 17px; border-top: 1px solid rgba(51,49,50,.1); }
+.lead-profile-form > footer p { margin: 0; color: #797476; font-size: 7px; line-height: 1.45; }
+.lead-profile-form > footer .primary-button { flex: 0 0 auto; }
+.lead-profile-history { margin: 14px; }
+.lead-profile-history > header { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 15px 17px; border-bottom: 1px solid rgba(51,49,50,.1); }
+.lead-profile-history > header span { color: var(--purple); font-size: 7px; font-weight: 900; letter-spacing: .11em; }
+.lead-profile-history > header p { margin: 0; color: #817c7e; font-size: 7px; }
+.lead-profile-history > article { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 13px 17px; border-bottom: 1px solid rgba(51,49,50,.08); }
+.lead-profile-history article small { display: block; color: var(--purple); font-size: 6px; font-weight: 800; }
+.lead-profile-history article strong { display: block; margin-top: 4px; font: 600 19px/1 "Teko Arnold"; text-transform: uppercase; }
+.lead-profile-history article span { display: block; margin-top: 3px; color: #716c6e; font-size: 7px; }
+.lead-profile-history article > div:last-child { display: flex; gap: 5px; }
+.lead-profile-history article button { display: grid; width: 31px; height: 31px; place-items: center; border: 1px solid rgba(51,49,50,.14); background: white; color: var(--purple); }
+.lead-profile-history article button:last-child { color: #9c3b3b; }
 
 .paid-media-section { background: #e8e6df; }
 .paid-media-hub { border: 1px solid rgba(51,49,50,.16); background: #f7f6f1; box-shadow: 0 22px 55px rgba(51,49,50,.09); }
@@ -1237,6 +1332,26 @@ img { max-width: 100%; }
   .email-rank-score { grid-column: 1; grid-row: 2; }
   .email-rank-rates { grid-column: 2 / -1; grid-row: 2; }
   .email-rank-actions { grid-column: 3; grid-row: 1; }
+}
+
+@media (max-width: 860px) {
+  .lead-profile-grid { grid-template-columns: 1fr; }
+  .lead-form-core { grid-template-columns: repeat(2, 1fr); }
+  .lead-form-groups { grid-template-columns: 1fr; }
+  .lead-form-cities { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 620px) {
+  .lead-profile-head { align-items: flex-start; flex-direction: column; padding: 23px 19px; }
+  .lead-profile-head .secondary-button { width: 100%; justify-content: center; }
+  .lead-profile-tabs, .lead-profile-summary { grid-template-columns: 1fr; }
+  .lead-profile-tabs button { border-right: 0; border-bottom: 1px solid rgba(51,49,50,.1); }
+  .lead-profile-summary article { border-right: 0; border-bottom: 1px solid rgba(255,255,255,.13); }
+  .lead-form-core, .lead-form-cities { grid-template-columns: 1fr; }
+  .lead-form-groups label { grid-template-columns: minmax(0, 1fr) 72px; }
+  .lead-profile-form > footer, .lead-profile-history > header { align-items: flex-start; flex-direction: column; }
+  .lead-profile-form > footer .primary-button { width: 100%; justify-content: center; }
+  .lead-profile-history > article { align-items: flex-start; }
 }
 
 @media (prefers-reduced-motion: reduce) {

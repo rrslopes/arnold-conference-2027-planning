@@ -1,0 +1,217 @@
+import { useMemo, useState } from "react";
+import { BarChart3, CircleAlert, Cloud, CloudOff, Edit3, ExternalLink, MapPin, Plus, RefreshCw, Save, Trash2, TrendingUp, UserRoundCheck, Users } from "lucide-react";
+import { toast } from "sonner";
+import { trpc } from "@/lib/trpc";
+import {
+  INTEREST_FIELDS,
+  NEWS_LP_SOURCE,
+  PARTICIPATION_FIELDS,
+  getLatestLeadProfileSnapshot,
+  parseCities,
+  percentageOfLeads,
+  sortInterestProfile,
+  validateLeadProfileSnapshot,
+  type LeadProfileCountField,
+  type LeadProfileSnapshot,
+  type LeadProfileSnapshotDraft,
+} from "@shared/leadProfile";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+
+type View = "profile" | "form" | "history";
+type FormState = {
+  id?: number;
+  periodStart: string;
+  periodEnd: string;
+  totalLeads: string;
+  newLeads: string;
+  topCities: Array<{ city: string; count: string }>;
+  note: string;
+} & Record<LeadProfileCountField, string>;
+
+const countKeys: LeadProfileCountField[] = [
+  ...PARTICIPATION_FIELDS.map(field => field.key),
+  ...INTEREST_FIELDS.map(field => field.key),
+  "singleInterestCount",
+  "multipleInterestsCount",
+];
+
+function createBlankForm(): FormState {
+  return {
+    periodStart: "",
+    periodEnd: "",
+    totalLeads: "",
+    newLeads: "",
+    topCities: Array.from({ length: 5 }, () => ({ city: "", count: "" })),
+    note: "",
+    ...Object.fromEntries(countKeys.map(key => [key, ""])),
+  } as FormState;
+}
+
+function parseCount(value: string) {
+  if (!value.trim()) return null;
+  const parsed = Number(value);
+  return Number.isInteger(parsed) && parsed >= 0 ? parsed : null;
+}
+
+function toDateInput(value: number) {
+  return new Date(value).toISOString().slice(0, 10);
+}
+
+function formatDate(value: number) {
+  return new Intl.DateTimeFormat("pt-BR", { timeZone: "UTC" }).format(new Date(value));
+}
+
+function formatPercent(value: number | null) {
+  return value === null ? "Sem dado" : `${value.toLocaleString("pt-BR", { maximumFractionDigits: 1 })}%`;
+}
+
+function countValue(value: number | null) {
+  return value === null ? "—" : value.toLocaleString("pt-BR");
+}
+
+export default function LeadProfileDashboard() {
+  const utils = trpc.useUtils();
+  const planning = trpc.planning.getState.useQuery(undefined, { refetchOnWindowFocus: true, retry: 1 });
+  const reviewView = typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("lead-profile-review") : null;
+  const [view, setView] = useState<View>(reviewView === "form" || reviewView === "history" ? reviewView : "profile");
+  const [form, setForm] = useState<FormState>(() => createBlankForm());
+  const [deleteCandidate, setDeleteCandidate] = useState<LeadProfileSnapshot | null>(null);
+
+  const snapshots = useMemo<LeadProfileSnapshot[]>(() => (planning.data?.leadProfileResults ?? []).map(row => ({
+    ...row,
+    sourceKey: NEWS_LP_SOURCE.key,
+    topCities: parseCities(row.topCitiesJson),
+  })), [planning.data?.leadProfileResults]);
+  const latest = useMemo(() => getLatestLeadProfileSnapshot(snapshots), [snapshots]);
+  const interests = useMemo(() => latest ? sortInterestProfile(latest) : [], [latest]);
+  const multipleRate = latest ? percentageOfLeads(latest.multipleInterestsCount, latest.totalLeads) : null;
+
+  const saveMutation = trpc.planning.saveLeadProfileSnapshot.useMutation({
+    onSuccess: async () => {
+      await utils.planning.getState.invalidate();
+      setForm(createBlankForm());
+      setView("profile");
+      toast.success("Fotografia da LP sincronizada com a equipe.");
+    },
+    onError: error => toast.error(`Não foi possível salvar a fotografia: ${error.message}`),
+  });
+  const deleteMutation = trpc.planning.deleteLeadProfileSnapshot.useMutation({
+    onSuccess: async () => {
+      await utils.planning.getState.invalidate();
+      setDeleteCandidate(null);
+      toast.success("Fotografia removida do histórico.");
+    },
+    onError: error => toast.error(`Não foi possível excluir a fotografia: ${error.message}`),
+  });
+
+  const update = (key: keyof FormState, value: string) => setForm(current => ({ ...current, [key]: value.replace(/\D/g, "") }));
+  const updateCity = (index: number, key: "city" | "count", value: string) => setForm(current => ({
+    ...current,
+    topCities: current.topCities.map((item, position) => position === index ? { ...item, [key]: key === "count" ? value.replace(/\D/g, "") : value } : item),
+  }));
+
+  const draft = (): LeadProfileSnapshotDraft => ({
+    id: form.id,
+    periodStartAt: Date.parse(`${form.periodStart}T12:00:00.000Z`),
+    periodEndAt: Date.parse(`${form.periodEnd}T12:00:00.000Z`),
+    totalLeads: parseCount(form.totalLeads) ?? -1,
+    newLeads: parseCount(form.newLeads) ?? -1,
+    ...Object.fromEntries(countKeys.map(key => [key, parseCount(form[key])])),
+    topCities: form.topCities.map(item => ({ city: item.city, count: parseCount(item.count) ?? 0 })).filter(item => item.city.trim() || item.count > 0),
+    note: form.note.trim(),
+  }) as LeadProfileSnapshotDraft;
+
+  const save = () => {
+    if (!form.periodStart || !form.periodEnd || !form.totalLeads || !form.newLeads) {
+      toast.error("Preencha período, total acumulado e novos leads.");
+      return;
+    }
+    const next = draft();
+    const issues = validateLeadProfileSnapshot(next);
+    if (issues.length) {
+      toast.error(issues[0].message);
+      return;
+    }
+    saveMutation.mutate(next);
+  };
+
+  const edit = (snapshot: LeadProfileSnapshot) => {
+    setForm({
+      id: snapshot.id,
+      periodStart: toDateInput(snapshot.periodStartAt),
+      periodEnd: toDateInput(snapshot.periodEndAt),
+      totalLeads: String(snapshot.totalLeads),
+      newLeads: String(snapshot.newLeads),
+      topCities: Array.from({ length: 5 }, (_, index) => ({ city: snapshot.topCities[index]?.city ?? "", count: snapshot.topCities[index] ? String(snapshot.topCities[index].count) : "" })),
+      note: snapshot.note,
+      ...Object.fromEntries(countKeys.map(key => [key, snapshot[key] === null ? "" : String(snapshot[key])])),
+    } as FormState);
+    setView("form");
+  };
+
+  return (
+    <div className="lead-profile-console" aria-busy={planning.isLoading || saveMutation.isPending || deleteMutation.isPending}>
+      <header className="lead-profile-head">
+        <div><Users size={28} /><span>FONTE EXCLUSIVA · QUALIFICAÇÃO DE AUDIÊNCIA</span><h3>Leads e perfil — LP de novidades</h3><p>Fotografias agregadas da base captada somente por esta página. Não inclua leads de masterclasses, páginas de vendas, outras landing pages ou importações.</p><a href={NEWS_LP_SOURCE.url} target="_blank" rel="noreferrer">Abrir LP de origem <ExternalLink size={13} /></a>{planning.isError ? <small className="sync-error"><CloudOff size={13} /> Falha de sincronização.</small> : latest ? <small><Cloud size={13} /> Atualizado em {new Date(latest.updatedAt).toLocaleString("pt-BR")}</small> : <small><Cloud size={13} /> Pronto para a primeira fotografia.</small>}</div>
+        <button type="button" className="secondary-button" onClick={() => planning.refetch()} disabled={planning.isFetching}><RefreshCw size={16} className={planning.isFetching ? "spin" : ""} /> Atualizar</button>
+      </header>
+
+      <div className="lead-profile-tabs" role="tablist">
+        <button type="button" role="tab" aria-selected={view === "profile"} className={view === "profile" ? "active" : ""} onClick={() => setView("profile")}>Perfil atual</button>
+        <button type="button" role="tab" aria-selected={view === "form"} className={view === "form" ? "active" : ""} onClick={() => setView("form")}>{form.id ? "Editar fotografia" : "Nova fotografia"}</button>
+        <button type="button" role="tab" aria-selected={view === "history"} className={view === "history" ? "active" : ""} onClick={() => setView("history")}>Histórico ({snapshots.length})</button>
+      </div>
+
+      {view === "profile" ? latest ? <div className="lead-profile-current">
+        <div className="lead-profile-summary">
+          <article><strong>{latest.totalLeads.toLocaleString("pt-BR")}</strong><span>LEADS ACUMULADOS NESTA LP</span></article>
+          <article><strong>+{latest.newLeads.toLocaleString("pt-BR")}</strong><span>NOVOS NO PERÍODO</span></article>
+          <article><strong>{formatPercent(multipleRate)}</strong><span>COM MÚLTIPLOS INTERESSES</span></article>
+          <article><strong>{formatDate(latest.periodEndAt)}</strong><span>DATA DE REFERÊNCIA</span></article>
+        </div>
+        <div className="lead-profile-notice"><CircleAlert size={20} /><p><strong>Leitura correta:</strong> as áreas permitem múltiplas escolhas. A soma dos percentuais de interesse pode ultrapassar 100% e representa menções, não pessoas únicas.</p></div>
+        <div className="lead-profile-grid">
+          <section className="lead-interest-panel"><header><BarChart3 size={20} /><div><span>RANKING DE INTERESSES</span><p>Opção do formulário → congresso relacionado</p></div></header><div>{interests.map(item => <article key={item.key}><div><strong>{item.label}</strong><small>{item.congress !== item.label ? `Leitura: ${item.congress}` : item.congress}</small></div><div className="lead-interest-value"><b>{countValue(item.count)}</b><span>{formatPercent(item.percentage)}</span></div><div className="lead-interest-bar"><i style={{ width: `${Math.min(item.percentage ?? 0, 100)}%` }} /></div></article>)}</div></section>
+          <div className="lead-profile-side">
+            <section><header><UserRoundCheck size={19} /><span>HISTÓRICO NO ARNOLD</span></header>{PARTICIPATION_FIELDS.map(field => <article key={field.key}><div><strong>{field.label}</strong><small>{field.sourceLabel}</small></div><b>{countValue(latest[field.key])}<small>{formatPercent(percentageOfLeads(latest[field.key], latest.totalLeads))}</small></b></article>)}</section>
+            <section><header><TrendingUp size={19} /><span>AFINIDADE DECLARADA</span></header><article><div><strong>Um interesse</strong><small>Uma única área marcada</small></div><b>{countValue(latest.singleInterestCount)}<small>{formatPercent(percentageOfLeads(latest.singleInterestCount, latest.totalLeads))}</small></b></article><article><div><strong>Múltiplos interesses</strong><small>Duas ou mais áreas marcadas</small></div><b>{countValue(latest.multipleInterestsCount)}<small>{formatPercent(multipleRate)}</small></b></article></section>
+            <section><header><MapPin size={19} /><span>PRINCIPAIS CIDADES</span></header>{latest.topCities.length ? latest.topCities.map(item => <article key={item.city}><strong>{item.city}</strong><b>{item.count.toLocaleString("pt-BR")}</b></article>) : <p className="lead-profile-missing">Sem consolidação geográfica nesta fotografia.</p>}</section>
+          </div>
+        </div>
+        {latest.note ? <div className="lead-profile-note"><strong>NOTA DO FECHAMENTO</strong><p>{latest.note}</p></div> : null}
+      </div> : <div className="lead-profile-empty"><Users size={34} /><div><strong>Nenhuma fotografia registrada</strong><p>Faça o primeiro fechamento agregado da LP de novidades. Nenhum dado pessoal deve ser inserido.</p><button type="button" className="primary-button" onClick={() => setView("form")}><Plus size={16} /> Registrar primeira fotografia</button></div></div> : null}
+
+      {view === "form" ? <section className="lead-profile-form">
+        <header><div><Plus size={20} /><span>{form.id ? "EDITAR FOTOGRAFIA" : "NOVA FOTOGRAFIA DA LP"}</span></div>{form.id ? <button type="button" onClick={() => { setForm(createBlankForm()); setView("profile"); }}>Cancelar edição</button> : null}</header>
+        <div className="lead-form-source"><strong>ORIGEM FIXA</strong><span>{NEWS_LP_SOURCE.label}</span><p>Use o relatório filtrado desta conversão. Não some outras páginas.</p></div>
+        <div className="lead-form-core">
+          <label><span>Início do período</span><input type="date" max={new Date().toISOString().slice(0, 10)} value={form.periodStart} onChange={event => setForm(current => ({ ...current, periodStart: event.target.value }))} /></label>
+          <label><span>Data de referência</span><input type="date" max={new Date().toISOString().slice(0, 10)} value={form.periodEnd} onChange={event => setForm(current => ({ ...current, periodEnd: event.target.value }))} /></label>
+          <label><span>Total acumulado de leads</span><input inputMode="numeric" value={form.totalLeads} onChange={event => update("totalLeads", event.target.value)} placeholder="Obrigatório" /></label>
+          <label><span>Novos leads no período</span><input inputMode="numeric" value={form.newLeads} onChange={event => update("newLeads", event.target.value)} placeholder="Obrigatório" /></label>
+        </div>
+        <div className="lead-form-groups">
+          <fieldset><legend>Histórico de participação</legend>{PARTICIPATION_FIELDS.map(field => <label key={field.key}><span>{field.label}<small>{field.sourceLabel}</small></span><input inputMode="numeric" value={form[field.key]} onChange={event => update(field.key, event.target.value)} placeholder="—" /></label>)}</fieldset>
+          <fieldset className="lead-form-interests"><legend>Áreas de interesse</legend>{INTEREST_FIELDS.map(field => <label key={field.key}><span>{field.label}<small>{field.congress !== field.label ? `Mapeado para ${field.congress}` : field.congress}</small></span><input inputMode="numeric" value={form[field.key]} onChange={event => update(field.key, event.target.value)} placeholder="—" /></label>)}</fieldset>
+          <fieldset><legend>Afinidade declarada</legend><label><span>Um interesse<small>Uma área marcada</small></span><input inputMode="numeric" value={form.singleInterestCount} onChange={event => update("singleInterestCount", event.target.value)} placeholder="—" /></label><label><span>Múltiplos interesses<small>Duas ou mais áreas</small></span><input inputMode="numeric" value={form.multipleInterestsCount} onChange={event => update("multipleInterestsCount", event.target.value)} placeholder="—" /></label></fieldset>
+        </div>
+        <fieldset className="lead-form-cities"><legend>Até cinco cidades com maior volume</legend>{form.topCities.map((item, index) => <div key={index}><input value={item.city} onChange={event => updateCity(index, "city", event.target.value.slice(0, 120))} placeholder={`Cidade ${index + 1}`} /><input inputMode="numeric" value={item.count} onChange={event => updateCity(index, "count", event.target.value)} placeholder="Leads" /></div>)}</fieldset>
+        <label className="lead-form-note"><span>Nota do fechamento</span><textarea value={form.note} onChange={event => setForm(current => ({ ...current, note: event.target.value.slice(0, 2000) }))} placeholder="Critério do relatório, filtros aplicados ou ressalvas de leitura" /></label>
+        <footer><p>Campos de perfil podem ficar vazios até o relatório permitir a consolidação. Não estime dados ausentes.</p><button type="button" className="primary-button" onClick={save} disabled={saveMutation.isPending}>{saveMutation.isPending ? <RefreshCw size={16} className="spin" /> : <Save size={16} />}{form.id ? "Salvar alterações" : "Adicionar fotografia"}</button></footer>
+      </section> : null}
+
+      {view === "history" ? <section className="lead-profile-history"><header><span>FOTOGRAFIAS DA MESMA ORIGEM</span><p>Compare fechamentos sem somar as linhas: cada registro é uma visão acumulada da LP.</p></header>{snapshots.length ? snapshots.map(snapshot => <article key={snapshot.id}><div><small>{formatDate(snapshot.periodStartAt)} — {formatDate(snapshot.periodEndAt)}</small><strong>{snapshot.totalLeads.toLocaleString("pt-BR")} leads acumulados</strong><span>+{snapshot.newLeads.toLocaleString("pt-BR")} no período</span></div><div><button type="button" onClick={() => edit(snapshot)} aria-label={`Editar fotografia de ${formatDate(snapshot.periodEndAt)}`}><Edit3 size={15} /></button><button type="button" onClick={() => setDeleteCandidate(snapshot)} aria-label={`Excluir fotografia de ${formatDate(snapshot.periodEndAt)}`}><Trash2 size={15} /></button></div></article>) : <p className="lead-profile-missing">Nenhuma fotografia registrada.</p>}</section> : null}
+
+      <AlertDialog open={Boolean(deleteCandidate)} onOpenChange={open => !open && setDeleteCandidate(null)}><AlertDialogContent><AlertDialogHeader><AlertDialogTitle>Excluir fotografia da LP?</AlertDialogTitle><AlertDialogDescription>O fechamento de {deleteCandidate ? formatDate(deleteCandidate.periodEndAt) : ""} será removido para toda a equipe. Esta ação não pode ser desfeita.</AlertDialogDescription></AlertDialogHeader><AlertDialogFooter><AlertDialogCancel>Cancelar</AlertDialogCancel><AlertDialogAction onClick={() => deleteCandidate && deleteMutation.mutate({ id: deleteCandidate.id })}>Excluir fotografia</AlertDialogAction></AlertDialogFooter></AlertDialogContent></AlertDialog>
+    </div>
+  );
+}

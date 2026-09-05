@@ -5,6 +5,7 @@ import {
   emailPerformance,
   emailWorkflow,
   InsertUser,
+  leadProfileSnapshots,
   metricProgress,
   monthlyCongressSales,
   monthlySocialResults,
@@ -15,6 +16,7 @@ import {
 } from "../drizzle/schema";
 import type { SocialMonthlyResult } from "../shared/socialMetrics";
 import { toStoredRate, type EmailPerformanceDraft } from "../shared/emailPerformance";
+import { NEWS_LP_SOURCE, normalizeCities, type LeadProfileSnapshotDraft } from "../shared/leadProfile";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -151,10 +153,11 @@ export type EmailWorkflowInput = {
 
 export type SocialMonthlyResultInput = SocialMonthlyResult;
 export type EmailPerformanceInput = EmailPerformanceDraft;
+export type LeadProfileSnapshotInput = LeadProfileSnapshotDraft;
 
 export async function getSharedPlanningState() {
   const db = await requireDb();
-  const [objectives, metrics, activity, occupancy, monthlySales, socialResults, editorialWorkflow, emailApprovals, emailPerformanceResults] = await Promise.all([
+  const [objectives, metrics, activity, occupancy, monthlySales, socialResults, editorialWorkflow, emailApprovals, emailPerformanceResults, leadProfileResults] = await Promise.all([
     db.select().from(objectiveProgress),
     db.select().from(metricProgress),
     db.select().from(planningActivity).orderBy(desc(planningActivity.createdAt)).limit(20),
@@ -164,8 +167,45 @@ export async function getSharedPlanningState() {
     db.select().from(calendarWorkflow),
     db.select().from(emailWorkflow),
     db.select().from(emailPerformance).orderBy(desc(emailPerformance.sentAt)),
+    db.select().from(leadProfileSnapshots).where(eq(leadProfileSnapshots.sourceKey, NEWS_LP_SOURCE.key)).orderBy(desc(leadProfileSnapshots.periodEndAt)),
   ]);
-  return { objectives, metrics, activity, occupancy, monthlySales, socialResults, editorialWorkflow, emailApprovals, emailPerformanceResults };
+  return { objectives, metrics, activity, occupancy, monthlySales, socialResults, editorialWorkflow, emailApprovals, emailPerformanceResults, leadProfileResults };
+}
+
+export async function saveLeadProfileSnapshot(entry: LeadProfileSnapshotInput) {
+  const db = await requireDb();
+  const now = Date.now();
+  const values = {
+    sourceKey: NEWS_LP_SOURCE.key,
+    periodStartAt: entry.periodStartAt,
+    periodEndAt: entry.periodEndAt,
+    totalLeads: entry.totalLeads,
+    newLeads: entry.newLeads,
+    firstTimeCount: entry.firstTimeCount,
+    attended2026Count: entry.attended2026Count,
+    attendedPastCount: entry.attendedPastCount,
+    nutritionAestheticsCount: entry.nutritionAestheticsCount,
+    sportsNutritionCount: entry.sportsNutritionCount,
+    sportsPhysioCount: entry.sportsPhysioCount,
+    businessManagementCount: entry.businessManagementCount,
+    physicalEducationCount: entry.physicalEducationCount,
+    bodybuildingCount: entry.bodybuildingCount,
+    otherInterestCount: entry.otherInterestCount,
+    singleInterestCount: entry.singleInterestCount,
+    multipleInterestsCount: entry.multipleInterestsCount,
+    topCitiesJson: JSON.stringify(normalizeCities(entry.topCities)),
+    note: entry.note,
+    updatedAt: now,
+  };
+  if (entry.id) await db.update(leadProfileSnapshots).set(values).where(eq(leadProfileSnapshots.id, entry.id));
+  else await db.insert(leadProfileSnapshots).values(values);
+  return { updatedAt: now };
+}
+
+export async function deleteLeadProfileSnapshot(id: number) {
+  const db = await requireDb();
+  await db.delete(leadProfileSnapshots).where(eq(leadProfileSnapshots.id, id));
+  return { deletedId: id };
 }
 
 export async function saveEmailPerformance(entry: EmailPerformanceInput) {
