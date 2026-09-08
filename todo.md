@@ -401,4 +401,4 @@
 - [x] Exibir uma visão de performance dentro da isca das masterclasses sem duplicar o preenchimento.
 - [x] Manter métricas indisponíveis como aguardando rastreamento, sem estimativas.
 - [x] Atualizar testes e validar persistência, colaboração, desktop, mobile, logs, compilação e build.
-- [ ] Salvar checkpoint reversível e entregar a Central de Landing Pages.
+- [x] Salvar checkpoint reversível e entregar a Central de Landing Pages.
