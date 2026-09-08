@@ -359,4 +359,4 @@
 - [x] Preencher automaticamente no funil a contribuição mais recente da LP de novidades.
 - [x] Impedir que a contribuição da LP seja apresentada como total mensal consolidado de todos os canais.
 - [x] Atualizar testes, validar persistência, desktop, mobile, logs, compilação e build.
-- [ ] Salvar checkpoint reversível e entregar a versão simplificada.
+- [x] Salvar checkpoint reversível e entregar a versão simplificada.
