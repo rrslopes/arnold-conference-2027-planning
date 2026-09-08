@@ -31,9 +31,11 @@ describe("news landing page lead profile UI", () => {
   });
 
   it("integrates the latest LP contribution without calling it the consolidated total", () => {
-    expect(kpis).toContain("CONTRIBUIÇÃO AUTOMÁTICA DA LP · ORIGEM IDENTIFICADA");
-    expect(kpis).toContain("Use esta contribuição uma única vez no total mensal consolidado");
-    expect(kpis).toContain("O total mensal de todos os canais continua separado");
+    expect(kpis).toContain("Leads convertidos — LP de novidades");
+    expect(kpis).toContain("latestNewsLeadSnapshot.newLeads.toLocaleString");
+    expect(kpis).toContain("Campo automático e não editável");
+    expect(kpis).toContain("O consolidado permanece separado");
+    expect(kpis).toContain("metric-auto-status");
     expect(home).toContain('number="04" level="DIAGNÓSTICO DO FUNIL"');
   });
 

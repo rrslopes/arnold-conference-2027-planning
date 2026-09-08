@@ -360,3 +360,13 @@
 - [x] Impedir que a contribuição da LP seja apresentada como total mensal consolidado de todos os canais.
 - [x] Atualizar testes, validar persistência, desktop, mobile, logs, compilação e build.
 - [x] Salvar checkpoint reversível e entregar a versão simplificada.
+
+## Correção da métrica automática da LP no funil
+
+- [x] Revisar como a contribuição automática da LP aparece ao lado das métricas editáveis.
+- [x] Criar uma linha própria e somente leitura para “Leads convertidos — LP de novidades”.
+- [x] Preencher automaticamente valor, período, origem e status dessa linha com a fotografia mais recente.
+- [x] Manter “Leads convertidos — consolidado” separado para o total de todas as origens.
+- [x] Bloquear edição e impedir dupla contagem da linha automática.
+- [x] Atualizar testes e validar desktop, mobile, logs, compilação e build.
+- [ ] Salvar checkpoint reversível e entregar a correção.

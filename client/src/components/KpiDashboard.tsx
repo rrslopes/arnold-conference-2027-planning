@@ -77,10 +77,22 @@ export default function KpiDashboard() {
   };
   const exportData = () => {
     const rows = [["Camada", "Métrica", "Meta", "Atual", "Status", "Observação"]];
-    kpiLayers.forEach(layer => layer.metrics.forEach(metric => {
-      const row = state[`${layer.id}::${metric.key}`];
-      rows.push([layer.layer, metric.label, row.target, row.actual, row.done ? "Validado" : "Em aberto", row.note]);
-    }));
+    kpiLayers.forEach(layer => {
+      if (layer.id === "landing" && latestNewsLeadSnapshot) {
+        rows.push([
+          layer.layer,
+          "Leads convertidos — LP de novidades",
+          "—",
+          String(latestNewsLeadSnapshot.newLeads),
+          "Sincronizado automaticamente",
+          `${new Date(latestNewsLeadSnapshot.periodStartAt).toLocaleDateString("pt-BR", { timeZone: "UTC" })} a ${new Date(latestNewsLeadSnapshot.periodEndAt).toLocaleDateString("pt-BR", { timeZone: "UTC" })}; acumulado da LP: ${latestNewsLeadSnapshot.totalLeads}`,
+        ]);
+      }
+      layer.metrics.forEach(metric => {
+        const row = state[`${layer.id}::${metric.key}`];
+        rows.push([layer.layer, metric.label, row.target, row.actual, row.done ? "Validado" : "Em aberto", row.note]);
+      });
+    });
     const csv = rows.map(row => row.map(cell => `"${String(cell).replaceAll('"', '""')}"`).join(",")).join("\n");
     const blob = new Blob([`\uFEFF${csv}`], { type: "text/csv;charset=utf-8" });
     const link = document.createElement("a");
@@ -108,9 +120,16 @@ export default function KpiDashboard() {
         <div><span>NÃO REGISTRAR AQUI</span><p>{currentLayer.avoid}</p></div>
       </div>
       {"constraint" in currentLayer && currentLayer.constraint ? <div className="kpi-source-constraint"><TriangleAlert size={19} /><p>{currentLayer.constraint}</p></div> : null}
-      {currentLayer.id === "landing" ? <div className="kpi-lead-source-reference"><div><span>CONTRIBUIÇÃO AUTOMÁTICA DA LP · ORIGEM IDENTIFICADA</span><strong>{latestNewsLeadSnapshot ? `+${latestNewsLeadSnapshot.newLeads.toLocaleString("pt-BR")} leads desta LP no período` : "LP de novidades ainda sem fotografia"}</strong><p>{latestNewsLeadSnapshot ? `${new Date(latestNewsLeadSnapshot.periodStartAt).toLocaleDateString("pt-BR", { timeZone: "UTC" })} a ${new Date(latestNewsLeadSnapshot.periodEndAt).toLocaleDateString("pt-BR", { timeZone: "UTC" })}; acumulado da LP: ${latestNewsLeadSnapshot.totalLeads.toLocaleString("pt-BR")}. Use esta contribuição uma única vez no total mensal consolidado e some separadamente as demais origens.` : "Quando a primeira fotografia for registrada, os novos leads desta LP aparecerão automaticamente aqui. O total mensal de todos os canais continua separado."}</p></div><a href={NEWS_LP_SOURCE.url} target="_blank" rel="noreferrer">Abrir origem <ExternalLink size={13} /></a></div> : null}
+      {currentLayer.id === "landing" ? <div className="kpi-lead-source-reference"><div><span>ORIGEM CONECTADA AO FUNIL</span><strong>{latestNewsLeadSnapshot ? "Fotografia mais recente sincronizada" : "LP de novidades ainda sem fotografia"}</strong><p>{latestNewsLeadSnapshot ? "A linha automática abaixo recebe os novos leads do período. O consolidado permanece separado para reunir todas as origens sem dupla contagem." : "Quando a primeira fotografia for registrada, uma linha automática aparecerá abaixo. O total mensal de todos os canais continuará separado."}</p></div><a href={NEWS_LP_SOURCE.url} target="_blank" rel="noreferrer">Abrir origem <ExternalLink size={13} /></a></div> : null}
       <div className="metric-table" aria-busy={planning.isLoading}>
         <div className="metric-table-head"><span>Métrica</span><span>Meta</span><span>Valor atual</span><span>Observação</span><span>Status</span></div>
+        {currentLayer.id === "landing" ? <div className="metric-row metric-row-automatic" aria-label="Leads convertidos automaticamente pela LP de novidades">
+          <div className="metric-name"><strong>Leads convertidos — LP de novidades</strong><small>Novos leads da fotografia mais recente desta origem. Campo automático e não editável.</small></div>
+          <div className="metric-readonly-field"><small>Meta</small><strong>—</strong></div>
+          <div className="metric-readonly-field metric-readonly-value"><small>Valor atual</small><strong>{latestNewsLeadSnapshot ? latestNewsLeadSnapshot.newLeads.toLocaleString("pt-BR") : "—"}</strong></div>
+          <div className="metric-readonly-field"><small>Período e origem</small><strong>{latestNewsLeadSnapshot ? `${new Date(latestNewsLeadSnapshot.periodStartAt).toLocaleDateString("pt-BR", { timeZone: "UTC" })} a ${new Date(latestNewsLeadSnapshot.periodEndAt).toLocaleDateString("pt-BR", { timeZone: "UTC" })}` : "Aguardando fotografia"}</strong><span>{latestNewsLeadSnapshot ? `Acumulado da LP: ${latestNewsLeadSnapshot.totalLeads.toLocaleString("pt-BR")}` : "LP de novidades"}</span></div>
+          <div className={`metric-auto-status ${latestNewsLeadSnapshot ? "ready" : "waiting"}`}>{latestNewsLeadSnapshot ? <CheckCircle2 size={17} /> : <RefreshCw size={17} />}{latestNewsLeadSnapshot ? "Sincronizado" : "Aguardando"}</div>
+        </div> : null}
         {currentLayer.metrics.map(metric => {
           const key = `${currentLayer.id}::${metric.key}`;
           const row = state[key] ?? blankState[key];
