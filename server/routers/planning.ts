@@ -4,11 +4,13 @@ import {
   clearObjectiveProgress,
   deleteEmailPerformance,
   deleteLeadProfileSnapshot,
+  deleteMasterclassLandingSnapshot,
   getSharedPlanningState,
   saveCalendarWorkflow,
   saveEmailPerformance,
   saveEmailWorkflow,
   saveLeadProfileSnapshot,
+  saveMasterclassLandingSnapshot,
   saveMetricProgress,
   saveObjectiveProgress,
   saveOccupancyProgress,
@@ -162,6 +164,46 @@ const leadProfileEntry = z.object({
   if ((entry.firstTimeCount ?? 0) + (entry.attended2026Count ?? 0) + (entry.attendedPastCount ?? 0) > entry.totalLeads) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["firstTimeCount"], message: "O histórico de participação não pode ultrapassar o total de leads." });
 });
 
+const masterclassLandingEntry = z.object({
+  id: z.number().int().positive().optional(),
+  periodStartAt: z.number().int().positive(),
+  periodEndAt: z.number().int().positive(),
+  totalLeads: z.number().int().min(0).max(100_000_000),
+  newLeads: z.number().int().min(0).max(100_000_000),
+  sessions: optionalCount,
+  dmSessions: optionalCount,
+  formStarts: optionalCount,
+  dmConversions: optionalCount,
+  thankYouPageAccesses: optionalCount,
+  anaLessonStarts: optionalCount,
+  anaLessonCompletions: optionalCount,
+  andreiaLessonStarts: optionalCount,
+  andreiaLessonCompletions: optionalCount,
+  robertoLessonStarts: optionalCount,
+  robertoLessonCompletions: optionalCount,
+  congressHubClicks: optionalCount,
+  newsLpClicks: optionalCount,
+  salesPageClicks: optionalCount,
+  note: z.string().max(2000),
+}).superRefine((entry, ctx) => {
+  if (entry.periodStartAt > entry.periodEndAt) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["periodStartAt"], message: "O início do período deve ser anterior ao fechamento." });
+  if (entry.periodEndAt > Date.now() + 86_400_000) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["periodEndAt"], message: "A data de referência não pode estar no futuro." });
+  if (entry.newLeads > entry.totalLeads) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["newLeads"], message: "Novos leads não podem ultrapassar o total acumulado." });
+  if (entry.dmSessions !== null && entry.sessions !== null && entry.dmSessions > entry.sessions) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["dmSessions"], message: "Sessões via DM não podem ultrapassar as sessões totais." });
+  if (entry.formStarts !== null && entry.formStarts < entry.newLeads) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["formStarts"], message: "Inícios de formulário não podem ser menores que os novos leads." });
+  if (entry.dmConversions !== null && entry.dmConversions > entry.newLeads) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["dmConversions"], message: "Conversões via DM não podem ultrapassar os novos leads." });
+  const lessons = [
+    ["anaLessonStarts", "anaLessonCompletions"],
+    ["andreiaLessonStarts", "andreiaLessonCompletions"],
+    ["robertoLessonStarts", "robertoLessonCompletions"],
+  ] as const;
+  lessons.forEach(([startsKey, completionsKey]) => {
+    const starts = entry[startsKey];
+    const completions = entry[completionsKey];
+    if (starts !== null && completions !== null && completions > starts) ctx.addIssue({ code: z.ZodIssueCode.custom, path: [completionsKey], message: "Conclusões não podem ultrapassar os inícios da aula." });
+  });
+});
+
 const whatsappMonthlyEntry = z.object({
   monthKey,
   delivered: optionalCount,
@@ -208,6 +250,12 @@ export const planningRouter = router({
   deleteLeadProfileSnapshot: publicProcedure
     .input(z.object({ id: z.number().int().positive() }))
     .mutation(({ input }) => deleteLeadProfileSnapshot(input.id)),
+  saveMasterclassLandingSnapshot: publicProcedure
+    .input(masterclassLandingEntry)
+    .mutation(({ input }) => saveMasterclassLandingSnapshot(input)),
+  deleteMasterclassLandingSnapshot: publicProcedure
+    .input(z.object({ id: z.number().int().positive() }))
+    .mutation(({ input }) => deleteMasterclassLandingSnapshot(input.id)),
   clearObjectives: publicProcedure
     .input(z.object({ actorName }))
     .mutation(({ input }) => clearObjectiveProgress({ id: 0, name: input.actorName || null })),

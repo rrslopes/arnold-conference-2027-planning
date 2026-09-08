@@ -1,4 +1,5 @@
 import { calculateLpAbandonments, calculateLpConversionRate, getLatestLeadProfileSnapshot } from "./leadProfile";
+import { calculateAbandonments as calculateMasterclassAbandonments, calculateRate as calculateMasterclassRate, getLatestMasterclassSnapshot } from "./masterclassLanding";
 
 export type AutomaticKpiFormat = "number" | "percent" | "currency";
 export type AutomaticKpiRow = {
@@ -12,81 +13,31 @@ export type AutomaticKpiRow = {
   mode: "automatic" | "calculated";
 };
 
-type SocialRow = {
-  monthKey: string;
-  accountsReached: number | null;
-  views: number | null;
-  interactions: number | null;
-  netFollowers: number | null;
-  metaMessagesSent: number | null;
-};
-
-type EmailRow = {
-  campaignName: string;
-  sentAt: number;
-  openRateMilli: number | null;
-  clickRateMilli: number | null;
-  unsubscribeRateMilli: number | null;
-  spamRateMilli: number | null;
-  deliveredCount: number | null;
-  uniqueClicks: number | null;
-  attributedConversions: number | null;
-  attributedRevenueCents: number | null;
-};
-
-type LeadRow = {
-  periodStartAt: number;
-  periodEndAt: number;
-  totalLeads: number;
-  newLeads: number;
-  sessions: number | null;
-  dmSessions: number | null;
-  formStarts: number | null;
-  dmConversions: number | null;
-  updatedAt: number;
-};
-
-type WhatsAppRow = {
-  monthKey: string;
-  delivered: number | null;
-  linkClicks: number | null;
-  replies: number | null;
-  optOuts: number | null;
-  attributedPurchases: number | null;
-  humanHandoffs: number | null;
-};
-
+type SocialRow = { monthKey: string; accountsReached: number | null; views: number | null; interactions: number | null; netFollowers: number | null; metaMessagesSent: number | null };
+type EmailRow = { campaignName: string; sentAt: number; openRateMilli: number | null; clickRateMilli: number | null; unsubscribeRateMilli: number | null; spamRateMilli: number | null; deliveredCount: number | null; uniqueClicks: number | null; attributedConversions: number | null; attributedRevenueCents: number | null };
+type LeadRow = { periodStartAt: number; periodEndAt: number; totalLeads: number; newLeads: number; sessions: number | null; dmSessions: number | null; formStarts: number | null; dmConversions: number | null; updatedAt: number };
+type MasterclassLeadRow = { periodStartAt: number; periodEndAt: number; totalLeads: number; newLeads: number; sessions: number | null; dmSessions: number | null; formStarts: number | null; dmConversions: number | null; thankYouPageAccesses: number | null; anaLessonStarts: number | null; anaLessonCompletions: number | null; andreiaLessonStarts: number | null; andreiaLessonCompletions: number | null; robertoLessonStarts: number | null; robertoLessonCompletions: number | null; congressHubClicks: number | null; newsLpClicks: number | null; salesPageClicks: number | null; updatedAt: number };
+type WhatsAppRow = { monthKey: string; delivered: number | null; linkClicks: number | null; replies: number | null; optOuts: number | null; attributedPurchases: number | null; humanHandoffs: number | null };
 type SaleRow = { monthKey: string; sold: number };
 
 export type KpiIntegrationState = {
   socialResults: SocialRow[];
   emailPerformanceResults: EmailRow[];
   leadProfileResults: LeadRow[];
+  masterclassLandingResults: MasterclassLeadRow[];
   whatsappResults: WhatsAppRow[];
   monthlySales: SaleRow[];
 };
 
 const dateFormatter = new Intl.DateTimeFormat("pt-BR", { timeZone: "UTC" });
-
-function hasValue(value: number | null) {
-  return value !== null && Number.isFinite(value);
-}
-
-function latestByMonth<T extends { monthKey: string }>(rows: T[], fields: Array<keyof T>) {
-  return [...rows]
-    .filter(row => fields.some(field => typeof row[field] === "number"))
-    .sort((a, b) => b.monthKey.localeCompare(a.monthKey))[0] ?? null;
-}
-
-function rateFromMilli(value: number | null) {
-  return value === null ? null : value / 1000;
-}
+function latestByMonth<T extends { monthKey: string }>(rows: T[], fields: Array<keyof T>) { return [...rows].filter(row => fields.some(field => typeof row[field] === "number")).sort((a, b) => b.monthKey.localeCompare(a.monthKey))[0] ?? null; }
+function rateFromMilli(value: number | null) { return value === null ? null : value / 1000; }
+function periodOf(row: { periodStartAt: number; periodEndAt: number } | null) { return row ? `${dateFormatter.format(new Date(row.periodStartAt))} a ${dateFormatter.format(new Date(row.periodEndAt))}` : "Aguardando fotografia"; }
 
 export function buildAutomaticKpis(layerId: string, state: KpiIntegrationState): AutomaticKpiRow[] {
   if (layerId === "dm") {
     const latest = latestByMonth(state.socialResults, ["accountsReached", "views", "interactions", "netFollowers", "metaMessagesSent"]);
-    const period = latest?.monthKey ?? "Aguardando fechamento";
-    const source = "Social · resultado mensal";
+    const period = latest?.monthKey ?? "Aguardando fechamento"; const source = "Social · resultado mensal";
     return [
       { key: "social-reach", label: "Contas alcançadas", description: "Alcance registrado no fechamento social mais recente.", value: latest?.accountsReached ?? null, format: "number", source, period, mode: "automatic" },
       { key: "social-views", label: "Visualizações", description: "Visualizações registradas no fechamento social mais recente.", value: latest?.views ?? null, format: "number", source, period, mode: "automatic" },
@@ -97,22 +48,48 @@ export function buildAutomaticKpis(layerId: string, state: KpiIntegrationState):
   }
 
   if (layerId === "landing") {
-    const latest = getLatestLeadProfileSnapshot(state.leadProfileResults);
-    const period = latest ? `${dateFormatter.format(new Date(latest.periodStartAt))} a ${dateFormatter.format(new Date(latest.periodEndAt))}` : "Aguardando fotografia";
+    const news = getLatestLeadProfileSnapshot(state.leadProfileResults); const masterclass = getLatestMasterclassSnapshot(state.masterclassLandingResults ?? []);
+    const newsPeriod = periodOf(news); const masterclassPeriod = periodOf(masterclass);
     return [
-      { key: "lp-sessions", label: "Sessões — LP de novidades", description: "Sessões informadas na fotografia mais recente desta LP.", value: latest?.sessions ?? null, format: "number", source: "Leads e perfil · LP de novidades", period, mode: "automatic" },
-      { key: "lp-dm-sessions", label: "Sessões com origem DM — LP de novidades", description: "Sessões com UTM agregada de DM, sem atribuição por palavra-chave.", value: latest?.dmSessions ?? null, format: "number", source: "Leads e perfil · LP de novidades", period, mode: "automatic" },
-      { key: "lp-form-starts", label: "Inícios de formulário — LP de novidades", description: "Evento de início informado na fotografia da LP.", value: latest?.formStarts ?? null, format: "number", source: "Leads e perfil · LP de novidades", period, mode: "automatic" },
-      { key: "lp-leads", label: "Leads convertidos — LP de novidades", description: "Novos leads do período da fotografia mais recente.", value: latest?.newLeads ?? null, format: "number", source: "Leads e perfil · LP de novidades", period, mode: "automatic" },
-      { key: "lp-dm-conversions", label: "Conversões com origem DM — LP de novidades", description: "Conversões atribuídas à origem DM por UTM agregada.", value: latest?.dmConversions ?? null, format: "number", source: "Leads e perfil · LP de novidades", period, mode: "automatic" },
-      { key: "lp-conversion-rate", label: "Taxa de conversão — LP de novidades", description: "Novos leads ÷ sessões do mesmo período.", value: latest ? calculateLpConversionRate(latest.newLeads, latest.sessions) : null, format: "percent", source: "Cálculo da plataforma", period, mode: "calculated" },
-      { key: "lp-abandonments", label: "Abandonos de formulário — LP de novidades", description: "Inícios de formulário − novos leads; só aparece com o evento de início.", value: latest ? calculateLpAbandonments(latest.formStarts, latest.newLeads) : null, format: "number", source: "Cálculo da plataforma", period, mode: "calculated" },
+      { key: "lp-sessions", label: "Sessões — LP de novidades", description: "Sessões informadas na fotografia mais recente desta LP.", value: news?.sessions ?? null, format: "number", source: "Central de LPs · Novidades", period: newsPeriod, mode: "automatic" },
+      { key: "lp-dm-sessions", label: "Sessões com origem DM — LP de novidades", description: "Sessões com UTM agregada de DM, sem atribuição por palavra-chave.", value: news?.dmSessions ?? null, format: "number", source: "Central de LPs · Novidades", period: newsPeriod, mode: "automatic" },
+      { key: "lp-form-starts", label: "Inícios de formulário — LP de novidades", description: "Evento de início informado na fotografia desta LP.", value: news?.formStarts ?? null, format: "number", source: "Central de LPs · Novidades", period: newsPeriod, mode: "automatic" },
+      { key: "lp-leads", label: "Leads convertidos — LP de novidades", description: "Novos leads do período da fotografia mais recente.", value: news?.newLeads ?? null, format: "number", source: "Central de LPs · Novidades", period: newsPeriod, mode: "automatic" },
+      { key: "lp-dm-conversions", label: "Conversões com origem DM — LP de novidades", description: "Conversões atribuídas à origem DM por UTM agregada.", value: news?.dmConversions ?? null, format: "number", source: "Central de LPs · Novidades", period: newsPeriod, mode: "automatic" },
+      { key: "lp-conversion-rate", label: "Taxa de conversão — LP de novidades", description: "Novos leads ÷ sessões do mesmo período.", value: news ? calculateLpConversionRate(news.newLeads, news.sessions) : null, format: "percent", source: "Cálculo da plataforma", period: newsPeriod, mode: "calculated" },
+      { key: "lp-abandonments", label: "Abandonos de formulário — LP de novidades", description: "Inícios de formulário − novos leads; só aparece com o evento de início.", value: news ? calculateLpAbandonments(news.formStarts, news.newLeads) : null, format: "number", source: "Cálculo da plataforma", period: newsPeriod, mode: "calculated" },
+      { key: "masterclass-sessions", label: "Sessões — LP das masterclasses", description: "Sessões informadas na fotografia mais recente desta LP.", value: masterclass?.sessions ?? null, format: "number", source: "Central de LPs · Masterclasses", period: masterclassPeriod, mode: "automatic" },
+      { key: "masterclass-dm-sessions", label: "Sessões com origem DM — Masterclasses", description: "Sessões com UTM agregada de DM, sem atribuição por palavra-chave.", value: masterclass?.dmSessions ?? null, format: "number", source: "Central de LPs · Masterclasses", period: masterclassPeriod, mode: "automatic" },
+      { key: "masterclass-form-starts", label: "Inícios de formulário — Masterclasses", description: "Evento de início informado na fotografia desta LP.", value: masterclass?.formStarts ?? null, format: "number", source: "Central de LPs · Masterclasses", period: masterclassPeriod, mode: "automatic" },
+      { key: "masterclass-leads", label: "Leads convertidos — LP das masterclasses", description: "Novos leads do período da fotografia mais recente.", value: masterclass?.newLeads ?? null, format: "number", source: "Central de LPs · Masterclasses", period: masterclassPeriod, mode: "automatic" },
+      { key: "masterclass-dm-conversions", label: "Conversões com origem DM — Masterclasses", description: "Conversões atribuídas à origem DM por UTM agregada.", value: masterclass?.dmConversions ?? null, format: "number", source: "Central de LPs · Masterclasses", period: masterclassPeriod, mode: "automatic" },
+      { key: "masterclass-conversion-rate", label: "Taxa de conversão — LP das masterclasses", description: "Novos leads ÷ sessões do mesmo período.", value: masterclass ? calculateMasterclassRate(masterclass.newLeads, masterclass.sessions) : null, format: "percent", source: "Cálculo da plataforma", period: masterclassPeriod, mode: "calculated" },
+      { key: "masterclass-abandonments", label: "Abandonos de formulário — Masterclasses", description: "Inícios de formulário − novos leads; só aparece com o evento de início.", value: masterclass ? calculateMasterclassAbandonments(masterclass.formStarts, masterclass.newLeads) : null, format: "number", source: "Cálculo da plataforma", period: masterclassPeriod, mode: "calculated" },
+    ];
+  }
+
+  if (layerId === "recompensa") {
+    const latest = getLatestMasterclassSnapshot(state.masterclassLandingResults ?? []); const period = periodOf(latest); const source = "Central de LPs · Masterclasses";
+    return [
+      { key: "reward-accesses", label: "Acessos à página de obrigado", description: "Acessos informados para a página que entrega as três aulas.", value: latest?.thankYouPageAccesses ?? null, format: "number", source, period, mode: "automatic" },
+      { key: "reward-access-rate", label: "Taxa de acesso à recompensa", description: "Acessos à página de obrigado ÷ novos leads do período.", value: latest ? calculateMasterclassRate(latest.thankYouPageAccesses, latest.newLeads) : null, format: "percent", source: "Cálculo da plataforma", period, mode: "calculated" },
+      { key: "reward-ana-starts", label: "Inícios · Ana Paula Pujol", description: "Reproduções iniciadas na aula de Nutrição Estética.", value: latest?.anaLessonStarts ?? null, format: "number", source, period, mode: "automatic" },
+      { key: "reward-ana-completions", label: "Conclusões · Ana Paula Pujol", description: "Conclusões registradas pelo player para a aula.", value: latest?.anaLessonCompletions ?? null, format: "number", source, period, mode: "automatic" },
+      { key: "reward-ana-rate", label: "Taxa de conclusão · Ana Paula Pujol", description: "Conclusões ÷ inícios da aula.", value: latest ? calculateMasterclassRate(latest.anaLessonCompletions, latest.anaLessonStarts) : null, format: "percent", source: "Cálculo da plataforma", period, mode: "calculated" },
+      { key: "reward-andreia-starts", label: "Inícios · Andreia Naves", description: "Reproduções iniciadas na aula de Nutrição Esportiva.", value: latest?.andreiaLessonStarts ?? null, format: "number", source, period, mode: "automatic" },
+      { key: "reward-andreia-completions", label: "Conclusões · Andreia Naves", description: "Conclusões registradas pelo player para a aula.", value: latest?.andreiaLessonCompletions ?? null, format: "number", source, period, mode: "automatic" },
+      { key: "reward-andreia-rate", label: "Taxa de conclusão · Andreia Naves", description: "Conclusões ÷ inícios da aula.", value: latest ? calculateMasterclassRate(latest.andreiaLessonCompletions, latest.andreiaLessonStarts) : null, format: "percent", source: "Cálculo da plataforma", period, mode: "calculated" },
+      { key: "reward-roberto-starts", label: "Inícios · Roberto Tranjan", description: "Reproduções iniciadas na aula de Gestão de Academias.", value: latest?.robertoLessonStarts ?? null, format: "number", source, period, mode: "automatic" },
+      { key: "reward-roberto-completions", label: "Conclusões · Roberto Tranjan", description: "Conclusões registradas pelo player para a aula.", value: latest?.robertoLessonCompletions ?? null, format: "number", source, period, mode: "automatic" },
+      { key: "reward-roberto-rate", label: "Taxa de conclusão · Roberto Tranjan", description: "Conclusões ÷ inícios da aula.", value: latest ? calculateMasterclassRate(latest.robertoLessonCompletions, latest.robertoLessonStarts) : null, format: "percent", source: "Cálculo da plataforma", period, mode: "calculated" },
+      { key: "reward-congress-clicks", label: "Cliques para os congressos", description: "Avanços da recompensa para o hub institucional dos congressos.", value: latest?.congressHubClicks ?? null, format: "number", source, period, mode: "automatic" },
+      { key: "reward-news-clicks", label: "Cliques para a LP de novidades", description: "Avanços da recompensa para a captação geral de novidades.", value: latest?.newsLpClicks ?? null, format: "number", source, period, mode: "automatic" },
+      { key: "reward-sales-clicks", label: "Cliques para compra", description: "Somente quando houver destino de vendas e rastreamento compatível.", value: latest?.salesPageClicks ?? null, format: "number", source, period, mode: "automatic" },
     ];
   }
 
   if (layerId === "email") {
-    const latest = [...state.emailPerformanceResults].sort((a, b) => b.sentAt - a.sentAt)[0] ?? null;
-    const period = latest ? `${latest.campaignName} · ${dateFormatter.format(new Date(latest.sentAt))}` : "Aguardando campanha";
+    const latest = [...state.emailPerformanceResults].sort((a, b) => b.sentAt - a.sentAt)[0] ?? null; const period = latest ? `${latest.campaignName} · ${dateFormatter.format(new Date(latest.sentAt))}` : "Aguardando campanha";
     return [
       { key: "email-delivered", label: "E-mails entregues", description: "Volume informado na campanha mais recente.", value: latest?.deliveredCount ?? null, format: "number", source: "E-mail · Performance e ranking", period, mode: "automatic" },
       { key: "email-unique-clicks", label: "Cliques únicos", description: "Cliques únicos informados na campanha mais recente.", value: latest?.uniqueClicks ?? null, format: "number", source: "E-mail · Performance e ranking", period, mode: "automatic" },
@@ -126,8 +103,7 @@ export function buildAutomaticKpis(layerId: string, state: KpiIntegrationState):
   }
 
   if (layerId === "whatsapp") {
-    const latest = latestByMonth(state.whatsappResults, ["delivered", "linkClicks", "replies", "optOuts", "attributedPurchases", "humanHandoffs"]);
-    const period = latest?.monthKey ?? "Aguardando fechamento";
+    const latest = latestByMonth(state.whatsappResults, ["delivered", "linkClicks", "replies", "optOuts", "attributedPurchases", "humanHandoffs"]); const period = latest?.monthKey ?? "Aguardando fechamento";
     return [
       { key: "whatsapp-delivered", label: "Mensagens entregues", description: "Fechamento mensal mais recente do canal.", value: latest?.delivered ?? null, format: "number", source: "WhatsApp · Performance mensal", period, mode: "automatic" },
       { key: "whatsapp-clicks", label: "Cliques nos links", description: "Cliques rastreados no fechamento mensal.", value: latest?.linkClicks ?? null, format: "number", source: "WhatsApp · Performance mensal", period, mode: "automatic" },
@@ -139,28 +115,22 @@ export function buildAutomaticKpis(layerId: string, state: KpiIntegrationState):
   }
 
   if (layerId === "comercial") {
-    const months = Array.from(new Set(state.monthlySales.map(row => row.monthKey))).sort().reverse();
-    const latestMonth = months.find(month => state.monthlySales.some(row => row.monthKey === month && row.sold > 0)) ?? months[0] ?? null;
-    const monthSold = latestMonth === null ? null : state.monthlySales.filter(row => row.monthKey === latestMonth).reduce((sum, row) => sum + Math.max(0, row.sold), 0);
-    const totalSold = state.monthlySales.reduce((sum, row) => sum + Math.max(0, row.sold), 0);
+    const months = Array.from(new Set(state.monthlySales.map(row => row.monthKey))).sort().reverse(); const latestMonth = months.find(month => state.monthlySales.some(row => row.monthKey === month && row.sold > 0)) ?? months[0] ?? null;
+    const monthSold = latestMonth === null ? null : state.monthlySales.filter(row => row.monthKey === latestMonth).reduce((sum, row) => sum + Math.max(0, row.sold), 0); const totalSold = state.monthlySales.reduce((sum, row) => sum + Math.max(0, row.sold), 0);
     return [
       { key: "sales-monthly", label: "Inscrições confirmadas no mês", description: "Somatório das vendas mensais lançadas nas seis salas.", value: monthSold, format: "number", source: "Lotação das salas", period: latestMonth ?? "Aguardando vendas", mode: "calculated" },
       { key: "sales-cumulative", label: "Inscrições confirmadas — acumulado", description: "Somatório acumulado dos lançamentos mensais por congresso.", value: state.monthlySales.length ? totalSold : null, format: "number", source: "Lotação das salas", period: latestMonth ?? "Aguardando vendas", mode: "calculated" },
     ];
   }
-
   return [];
 }
 
 export function buildSourceSummary(state: KpiIntegrationState) {
-  const latestSocial = latestByMonth(state.socialResults, ["accountsReached", "views", "interactions", "netFollowers"]);
-  const latestLead = getLatestLeadProfileSnapshot(state.leadProfileResults);
-  const latestEmail = [...state.emailPerformanceResults].sort((a, b) => b.sentAt - a.sentAt)[0] ?? null;
-  const latestWhatsApp = latestByMonth(state.whatsappResults, ["delivered", "linkClicks", "replies"]);
-  const sales = state.monthlySales.reduce((sum, row) => sum + Math.max(0, row.sold), 0);
+  const latestSocial = latestByMonth(state.socialResults, ["accountsReached", "views", "interactions", "netFollowers"]); const latestNews = getLatestLeadProfileSnapshot(state.leadProfileResults); const latestMasterclass = getLatestMasterclassSnapshot(state.masterclassLandingResults ?? []);
+  const latestEmail = [...state.emailPerformanceResults].sort((a, b) => b.sentAt - a.sentAt)[0] ?? null; const latestWhatsApp = latestByMonth(state.whatsappResults, ["delivered", "linkClicks", "replies"]); const sales = state.monthlySales.reduce((sum, row) => sum + Math.max(0, row.sold), 0);
   return [
     { key: "social", label: "Social", value: latestSocial?.interactions ?? null, detail: latestSocial ? `${latestSocial.monthKey} · interações` : "Aguardando fechamento" },
-    { key: "landing", label: "LP de novidades", value: latestLead?.newLeads ?? null, detail: latestLead ? "novos leads no período" : "Aguardando fotografia" },
+    { key: "landing", label: "Landing pages", value: latestNews || latestMasterclass ? (latestNews?.newLeads ?? 0) + (latestMasterclass?.newLeads ?? 0) : null, detail: latestNews || latestMasterclass ? `${latestNews?.newLeads ?? 0} novidades + ${latestMasterclass?.newLeads ?? 0} masterclasses` : "Aguardando fotografias" },
     { key: "email", label: "E-mail", value: latestEmail ? rateFromMilli(latestEmail.clickRateMilli) : null, detail: latestEmail ? "taxa de clique mais recente" : "Aguardando campanha", format: "percent" as const },
     { key: "whatsapp", label: "WhatsApp", value: latestWhatsApp?.linkClicks ?? null, detail: latestWhatsApp ? `${latestWhatsApp.monthKey} · cliques` : "Aguardando fechamento" },
     { key: "sales", label: "Vendas", value: state.monthlySales.length ? sales : null, detail: "inscrições acumuladas" },
@@ -168,8 +138,5 @@ export function buildSourceSummary(state: KpiIntegrationState) {
 }
 
 export function formatAutomaticKpi(value: number | null, format: AutomaticKpiFormat) {
-  if (value === null) return "—";
-  if (format === "percent") return `${value.toLocaleString("pt-BR", { maximumFractionDigits: 2 })}%`;
-  if (format === "currency") return value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-  return value.toLocaleString("pt-BR");
+  if (value === null) return "—"; if (format === "percent") return `${value.toLocaleString("pt-BR", { maximumFractionDigits: 2 })}%`; if (format === "currency") return value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" }); return value.toLocaleString("pt-BR");
 }

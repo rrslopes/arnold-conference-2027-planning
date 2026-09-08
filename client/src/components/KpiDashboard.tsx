@@ -61,6 +61,7 @@ export default function KpiDashboard() {
     socialResults: planning.data.socialResults,
     emailPerformanceResults: planning.data.emailPerformanceResults,
     leadProfileResults: planning.data.leadProfileResults,
+    masterclassLandingResults: planning.data.masterclassLandingResults,
     whatsappResults: planning.data.whatsappResults,
     monthlySales: planning.data.monthlySales,
   } : null, [planning.data]);

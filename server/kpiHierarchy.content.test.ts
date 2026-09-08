@@ -50,7 +50,8 @@ describe("hierarquia didática de indicadores", () => {
   });
 
   it("mantém manual somente o que ainda não possui fonte específica", () => {
-    expect(kpiLayers.find(layer => layer.id === "recompensa")?.metrics).toHaveLength(5);
+    expect(kpiLayers.find(layer => layer.id === "recompensa")?.metrics).toEqual([]);
+    expect(kpiLayers.find(layer => layer.id === "recompensa")?.source).toContain("Central de Landing Pages");
     expect(kpiLayers.find(layer => layer.id === "landing")?.metrics[0]?.label).toContain("todas as origens");
     expect(kpiLayers.find(layer => layer.id === "comercial")?.metrics.find(metric => metric.key === "Compras")?.label).toContain("transações");
   });

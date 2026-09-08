@@ -6,6 +6,7 @@ import {
   emailWorkflow,
   InsertUser,
   leadProfileSnapshots,
+  masterclassLandingSnapshots,
   metricProgress,
   monthlyCongressSales,
   monthlySocialResults,
@@ -18,6 +19,7 @@ import {
 import type { SocialMonthlyResult } from "../shared/socialMetrics";
 import { toStoredRate, type EmailPerformanceDraft } from "../shared/emailPerformance";
 import { NEWS_LP_SOURCE, type LeadProfileSnapshotDraft } from "../shared/leadProfile";
+import type { MasterclassLandingSnapshotDraft } from "../shared/masterclassLanding";
 import type { WhatsAppMonthlyResult } from "../shared/whatsappPerformance";
 import { ENV } from './_core/env';
 
@@ -156,11 +158,12 @@ export type EmailWorkflowInput = {
 export type SocialMonthlyResultInput = SocialMonthlyResult;
 export type EmailPerformanceInput = EmailPerformanceDraft;
 export type LeadProfileSnapshotInput = LeadProfileSnapshotDraft;
+export type MasterclassLandingSnapshotInput = MasterclassLandingSnapshotDraft;
 export type WhatsAppMonthlyResultInput = WhatsAppMonthlyResult;
 
 export async function getSharedPlanningState() {
   const db = await requireDb();
-  const [objectives, metrics, activity, occupancy, monthlySales, socialResults, whatsappResults, editorialWorkflow, emailApprovals, emailPerformanceResults, leadProfileResults] = await Promise.all([
+  const [objectives, metrics, activity, occupancy, monthlySales, socialResults, whatsappResults, editorialWorkflow, emailApprovals, emailPerformanceResults, leadProfileResults, masterclassLandingResults] = await Promise.all([
     db.select().from(objectiveProgress),
     db.select().from(metricProgress),
     db.select().from(planningActivity).orderBy(desc(planningActivity.createdAt)).limit(20),
@@ -172,8 +175,9 @@ export async function getSharedPlanningState() {
     db.select().from(emailWorkflow),
     db.select().from(emailPerformance).orderBy(desc(emailPerformance.sentAt)),
     db.select().from(leadProfileSnapshots).where(eq(leadProfileSnapshots.sourceKey, NEWS_LP_SOURCE.key)).orderBy(desc(leadProfileSnapshots.periodEndAt)),
+    db.select().from(masterclassLandingSnapshots).orderBy(desc(masterclassLandingSnapshots.periodEndAt)),
   ]);
-  return { objectives, metrics, activity, occupancy, monthlySales, socialResults, whatsappResults, editorialWorkflow, emailApprovals, emailPerformanceResults, leadProfileResults };
+  return { objectives, metrics, activity, occupancy, monthlySales, socialResults, whatsappResults, editorialWorkflow, emailApprovals, emailPerformanceResults, leadProfileResults, masterclassLandingResults };
 }
 
 export async function saveLeadProfileSnapshot(entry: LeadProfileSnapshotInput) {
@@ -210,6 +214,42 @@ export async function saveLeadProfileSnapshot(entry: LeadProfileSnapshotInput) {
 export async function deleteLeadProfileSnapshot(id: number) {
   const db = await requireDb();
   await db.delete(leadProfileSnapshots).where(eq(leadProfileSnapshots.id, id));
+  return { deletedId: id };
+}
+
+export async function saveMasterclassLandingSnapshot(entry: MasterclassLandingSnapshotInput) {
+  const db = await requireDb();
+  const now = Date.now();
+  const values = {
+    periodStartAt: entry.periodStartAt,
+    periodEndAt: entry.periodEndAt,
+    totalLeads: entry.totalLeads,
+    newLeads: entry.newLeads,
+    sessions: entry.sessions,
+    dmSessions: entry.dmSessions,
+    formStarts: entry.formStarts,
+    dmConversions: entry.dmConversions,
+    thankYouPageAccesses: entry.thankYouPageAccesses,
+    anaLessonStarts: entry.anaLessonStarts,
+    anaLessonCompletions: entry.anaLessonCompletions,
+    andreiaLessonStarts: entry.andreiaLessonStarts,
+    andreiaLessonCompletions: entry.andreiaLessonCompletions,
+    robertoLessonStarts: entry.robertoLessonStarts,
+    robertoLessonCompletions: entry.robertoLessonCompletions,
+    congressHubClicks: entry.congressHubClicks,
+    newsLpClicks: entry.newsLpClicks,
+    salesPageClicks: entry.salesPageClicks,
+    note: entry.note,
+    updatedAt: now,
+  };
+  if (entry.id) await db.update(masterclassLandingSnapshots).set(values).where(eq(masterclassLandingSnapshots.id, entry.id));
+  else await db.insert(masterclassLandingSnapshots).values(values);
+  return { updatedAt: now };
+}
+
+export async function deleteMasterclassLandingSnapshot(id: number) {
+  const db = await requireDb();
+  await db.delete(masterclassLandingSnapshots).where(eq(masterclassLandingSnapshots.id, id));
   return { deletedId: id };
 }
 

@@ -178,6 +178,30 @@ export const leadProfileSnapshots = mysqlTable("lead_profile_snapshots", {
   updatedAt: bigint("updatedAt", { mode: "number" }).notNull(),
 });
 
+export const masterclassLandingSnapshots = mysqlTable("masterclass_landing_snapshots", {
+  id: int("id").autoincrement().primaryKey(),
+  periodStartAt: bigint("periodStartAt", { mode: "number" }).notNull(),
+  periodEndAt: bigint("periodEndAt", { mode: "number" }).notNull(),
+  totalLeads: int("totalLeads").notNull(),
+  newLeads: int("newLeads").notNull(),
+  sessions: int("sessions"),
+  dmSessions: int("dmSessions"),
+  formStarts: int("formStarts"),
+  dmConversions: int("dmConversions"),
+  thankYouPageAccesses: int("thankYouPageAccesses"),
+  anaLessonStarts: int("anaLessonStarts"),
+  anaLessonCompletions: int("anaLessonCompletions"),
+  andreiaLessonStarts: int("andreiaLessonStarts"),
+  andreiaLessonCompletions: int("andreiaLessonCompletions"),
+  robertoLessonStarts: int("robertoLessonStarts"),
+  robertoLessonCompletions: int("robertoLessonCompletions"),
+  congressHubClicks: int("congressHubClicks"),
+  newsLpClicks: int("newsLpClicks"),
+  salesPageClicks: int("salesPageClicks"),
+  note: text("note").notNull(),
+  updatedAt: bigint("updatedAt", { mode: "number" }).notNull(),
+});
+
 export const monthlyWhatsAppResults = mysqlTable("monthly_whatsapp_results", {
   id: int("id").autoincrement().primaryKey(),
   monthKey: varchar("monthKey", { length: 7 }).notNull().unique(),
@@ -210,5 +234,7 @@ export type EmailPerformance = typeof emailPerformance.$inferSelect;
 export type InsertEmailPerformance = typeof emailPerformance.$inferInsert;
 export type LeadProfileSnapshotRow = typeof leadProfileSnapshots.$inferSelect;
 export type InsertLeadProfileSnapshotRow = typeof leadProfileSnapshots.$inferInsert;
+export type MasterclassLandingSnapshotRow = typeof masterclassLandingSnapshots.$inferSelect;
+export type InsertMasterclassLandingSnapshotRow = typeof masterclassLandingSnapshots.$inferInsert;
 export type MonthlyWhatsAppResult = typeof monthlyWhatsAppResults.$inferSelect;
 export type InsertMonthlyWhatsAppResult = typeof monthlyWhatsAppResults.$inferInsert;

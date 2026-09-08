@@ -1409,6 +1409,128 @@ img { max-width: 100%; }
   .whatsapp-month-tabs button { flex: 0 0 72px; }
 }
 
+.landing-center { border: 1px solid rgba(51,49,50,.18); background: #f5f4f1; box-shadow: 0 18px 50px rgba(30,25,42,.08); }
+.landing-center-head { display: flex; padding: 24px 28px; background: linear-gradient(120deg, #30295f, #51489c); color: white; }
+.landing-center-head > div { display: grid; grid-template-columns: 32px 1fr; column-gap: 11px; align-items: center; }
+.landing-center-head svg { grid-row: 1 / 4; color: var(--lime); }
+.landing-center-head span { color: var(--lime); font-size: 8px; font-weight: 900; letter-spacing: .15em; }
+.landing-center-head h3 { margin: 3px 0 0; font: 600 34px/1 "Teko Arnold"; text-transform: uppercase; }
+.landing-center-head p { margin: 7px 0 0; max-width: 720px; color: rgba(255,255,255,.73); font-size: 10px; line-height: 1.55; }
+.landing-source-switch { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); background: var(--charcoal); }
+.landing-source-switch button { display: flex; align-items: center; gap: 12px; padding: 18px 22px; border: 0; border-right: 1px solid rgba(255,255,255,.11); background: transparent; color: rgba(255,255,255,.62); text-align: left; cursor: pointer; }
+.landing-source-switch button:last-child { border-right: 0; }
+.landing-source-switch button.active { background: var(--lime); color: var(--charcoal); }
+.landing-source-switch strong, .landing-source-switch small { display: block; }
+.landing-source-switch strong { font: 600 19px/1 "Teko Arnold"; text-transform: uppercase; }
+.landing-source-switch small { margin-top: 4px; font-size: 8px; }
+.landing-source-context { display: flex; align-items: center; gap: 11px; padding: 11px 22px; background: white; border-bottom: 1px solid rgba(51,49,50,.11); }
+.landing-source-context > span { color: #888184; font-size: 7px; font-weight: 900; letter-spacing: .13em; }
+.landing-source-context > strong { font-size: 9px; }
+.landing-source-context a { display: inline-flex; align-items: center; gap: 5px; margin-left: auto; color: var(--purple); font-size: 8px; font-weight: 800; }
+.landing-center .lead-profile-console, .landing-center .masterclass-lp-console { border: 0; box-shadow: none; }
+
+.masterclass-lp-console { background: white; border: 1px solid rgba(51,49,50,.16); }
+.masterclass-lp-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; padding: 25px 28px; background: #f0efeb; border-bottom: 1px solid rgba(51,49,50,.12); }
+.masterclass-lp-head > div:first-child { display: grid; grid-template-columns: 34px 1fr; column-gap: 10px; align-items: center; }
+.masterclass-lp-head > div:first-child > svg { grid-row: 1 / 6; color: var(--purple); }
+.masterclass-lp-head span { color: var(--purple); font-size: 7px; font-weight: 900; letter-spacing: .13em; }
+.masterclass-lp-head h3 { margin: 4px 0 0; font: 600 28px/1 "Teko Arnold"; text-transform: uppercase; }
+.masterclass-lp-head p { margin: 6px 0 0; color: #706a6c; font-size: 9px; line-height: 1.55; }
+.masterclass-lp-head small { display: flex; align-items: center; gap: 5px; margin-top: 8px; color: #777174; font-size: 7px; }
+.masterclass-lp-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+.masterclass-lp-links a { display: inline-flex; align-items: center; gap: 4px; color: var(--purple); font-size: 8px; font-weight: 800; }
+.masterclass-lp-tabs { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid rgba(51,49,50,.13); }
+.masterclass-lp-tabs button { min-height: 48px; border: 0; border-right: 1px solid rgba(51,49,50,.1); background: white; color: #6d6769; font-size: 8px; font-weight: 850; text-transform: uppercase; cursor: pointer; }
+.masterclass-lp-tabs button:last-child { border-right: 0; }
+.masterclass-lp-tabs button.active { background: var(--purple); color: white; }
+.masterclass-lp-summary { display: grid; grid-template-columns: repeat(4, 1fr); background: var(--charcoal); color: white; }
+.masterclass-lp-summary article { padding: 18px 20px; border-right: 1px solid rgba(255,255,255,.12); }
+.masterclass-lp-summary article:last-child { border-right: 0; }
+.masterclass-lp-summary strong, .masterclass-lp-summary span { display: block; }
+.masterclass-lp-summary strong { color: var(--lime); font: 600 29px/1 "Teko Arnold"; }
+.masterclass-lp-summary span { margin-top: 5px; font-size: 7px; font-weight: 850; letter-spacing: .08em; }
+.masterclass-lp-funnel { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); background: #f2f1ed; border-bottom: 1px solid rgba(51,49,50,.1); }
+.masterclass-lp-funnel article { padding: 16px; border-right: 1px solid rgba(51,49,50,.09); }
+.masterclass-lp-funnel article:last-child { border-right: 0; }
+.masterclass-lp-funnel strong, .masterclass-lp-funnel span, .masterclass-lp-funnel small { display: block; }
+.masterclass-lp-funnel strong { font: 600 25px/1 "Teko Arnold"; }
+.masterclass-lp-funnel span { margin-top: 5px; font-size: 7px; font-weight: 900; text-transform: uppercase; }
+.masterclass-lp-funnel small { margin-top: 4px; color: #7f797b; font-size: 7px; }
+.masterclass-lesson-performance, .masterclass-advance { margin: 18px; border: 1px solid rgba(51,49,50,.12); }
+.masterclass-lesson-performance > header, .masterclass-advance > header { display: flex; align-items: center; gap: 9px; padding: 13px 16px; background: var(--charcoal); color: white; }
+.masterclass-lesson-performance > header svg, .masterclass-advance > header svg { color: var(--lime); }
+.masterclass-lesson-performance > header span, .masterclass-advance > header span { font-size: 8px; font-weight: 900; letter-spacing: .1em; }
+.masterclass-lesson-performance > header p { margin: 3px 0 0; color: rgba(255,255,255,.6); font-size: 7px; }
+.masterclass-lesson-performance > div, .masterclass-advance > div { display: grid; grid-template-columns: repeat(3, 1fr); }
+.masterclass-lesson-performance article, .masterclass-advance article { padding: 16px; border-right: 1px solid rgba(51,49,50,.1); }
+.masterclass-lesson-performance article:last-child, .masterclass-advance article:last-child { border-right: 0; }
+.masterclass-lesson-performance small { color: var(--purple); font-size: 7px; font-weight: 850; text-transform: uppercase; }
+.masterclass-lesson-performance h4 { margin: 5px 0 12px; font: 600 20px/1 "Teko Arnold"; text-transform: uppercase; }
+.masterclass-lesson-performance article > div { display: grid; gap: 5px; }
+.masterclass-lesson-performance article span { color: #6d6769; font-size: 8px; }
+.masterclass-lesson-performance article b { color: var(--charcoal); }
+.masterclass-advance article strong, .masterclass-advance article span { display: block; }
+.masterclass-advance article strong { font: 600 26px/1 "Teko Arnold"; }
+.masterclass-advance article span { margin-top: 5px; color: #6d6769; font-size: 8px; }
+.masterclass-tracking-note { display: flex; align-items: flex-start; gap: 10px; margin: 18px; padding: 14px 16px; background: rgba(203,219,42,.2); }
+.masterclass-tracking-note svg { flex: 0 0 auto; color: var(--purple); }
+.masterclass-tracking-note p { margin: 0; color: #605b5d; font-size: 9px; line-height: 1.55; }
+.masterclass-lp-form { padding: 19px; }
+.masterclass-lp-form > header { display: flex; justify-content: space-between; align-items: center; padding: 13px 16px; background: var(--charcoal); color: white; }
+.masterclass-lp-form > header > div { display: flex; align-items: center; gap: 8px; }
+.masterclass-lp-form > header span { color: var(--lime); font-size: 8px; font-weight: 900; letter-spacing: .1em; }
+.masterclass-lp-form > header button { border: 0; background: transparent; color: white; font-size: 8px; cursor: pointer; }
+.masterclass-form-core { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid rgba(51,49,50,.12); border-top: 0; }
+.masterclass-form-core label { padding: 13px; border-right: 1px solid rgba(51,49,50,.1); }
+.masterclass-form-core label:last-child { border-right: 0; }
+.masterclass-form-core span, .masterclass-form-groups label > span { display: block; margin-bottom: 6px; font-size: 7px; font-weight: 850; text-transform: uppercase; }
+.masterclass-form-core input, .masterclass-form-groups input { width: 100%; height: 38px; border: 1px solid rgba(51,49,50,.18); background: white; padding: 0 9px; font-size: 9px; }
+.masterclass-form-groups { display: grid; grid-template-columns: .9fr 1.2fr .9fr; gap: 14px; margin-top: 15px; }
+.masterclass-form-groups fieldset { min-width: 0; padding: 13px; border: 1px solid rgba(51,49,50,.13); }
+.masterclass-form-groups legend { padding: 0 5px; color: var(--purple); font-size: 8px; font-weight: 900; text-transform: uppercase; }
+.masterclass-form-groups label { display: grid; grid-template-columns: minmax(0, 1fr) 88px; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid rgba(51,49,50,.08); }
+.masterclass-lp-form > footer { display: flex; justify-content: space-between; align-items: center; gap: 15px; margin-top: 15px; }
+.masterclass-lp-form > footer p { margin: 0; color: #746f70; font-size: 8px; }
+
+.magnet-performance { margin: 0; padding: 23px 28px; background: #eeede9; border-top: 1px solid rgba(51,49,50,.12); }
+.magnet-performance-summary, .magnet-lesson-summary { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 15px; background: white; border: 1px solid rgba(51,49,50,.12); }
+.magnet-performance-summary article, .magnet-lesson-summary article { padding: 14px; border-right: 1px solid rgba(51,49,50,.1); }
+.magnet-performance-summary article:last-child, .magnet-lesson-summary article:last-child { border-right: 0; }
+.magnet-performance-summary strong, .magnet-performance-summary span, .magnet-lesson-summary strong, .magnet-lesson-summary span, .magnet-lesson-summary small { display: block; }
+.magnet-performance-summary strong { color: var(--purple); font: 600 27px/1 "Teko Arnold"; }
+.magnet-performance-summary span { margin-top: 4px; font-size: 7px; font-weight: 900; text-transform: uppercase; }
+.magnet-lesson-summary { grid-template-columns: repeat(3, 1fr); margin-top: 10px; }
+.magnet-lesson-summary small { color: var(--purple); font-size: 7px; font-weight: 850; text-transform: uppercase; }
+.magnet-lesson-summary strong { margin-top: 5px; font: 600 18px/1 "Teko Arnold"; text-transform: uppercase; }
+.magnet-lesson-summary span { margin-top: 8px; color: #706a6c; font-size: 8px; }
+.magnet-performance-empty { display: flex; align-items: center; gap: 12px; margin-top: 15px; padding: 16px; background: white; border: 1px dashed rgba(77,70,156,.4); }
+.magnet-performance-empty svg { color: var(--purple); }
+.magnet-performance-empty p { margin: 0; color: #6d6769; font-size: 9px; }
+.magnet-performance-empty strong { color: var(--charcoal); }
+.magnet-performance-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 14px; color: var(--purple); font-size: 8px; font-weight: 900; text-transform: uppercase; }
+
+@media (max-width: 860px) {
+  .masterclass-lp-funnel { grid-template-columns: repeat(3, 1fr); }
+  .masterclass-lp-funnel article:nth-child(3) { border-right: 0; }
+  .masterclass-form-core { grid-template-columns: repeat(2, 1fr); }
+  .masterclass-form-groups { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 620px) {
+  .landing-center-head, .masterclass-lp-head { padding: 21px 18px; }
+  .landing-source-switch, .masterclass-lp-tabs, .masterclass-lp-summary, .masterclass-lp-funnel, .masterclass-lesson-performance > div, .masterclass-advance > div, .masterclass-form-core, .magnet-performance-summary, .magnet-lesson-summary { grid-template-columns: 1fr; }
+  .landing-source-switch button, .masterclass-lp-tabs button, .masterclass-lp-summary article, .masterclass-lp-funnel article, .masterclass-lesson-performance article, .masterclass-advance article, .masterclass-form-core label, .magnet-performance-summary article, .magnet-lesson-summary article { border-right: 0; border-bottom: 1px solid rgba(51,49,50,.1); }
+  .landing-source-context { align-items: flex-start; flex-direction: column; }
+  .landing-source-context a { margin-left: 0; }
+  .masterclass-lp-head { flex-direction: column; }
+  .masterclass-lp-head .secondary-button { width: 100%; justify-content: center; }
+  .masterclass-lp-form { padding: 13px; }
+  .masterclass-lp-form > footer { align-items: flex-start; flex-direction: column; }
+  .masterclass-lp-form > footer .primary-button { width: 100%; justify-content: center; }
+  .masterclass-form-groups label { grid-template-columns: minmax(0, 1fr) 75px; }
+  .magnet-performance { padding: 20px 17px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }

@@ -14,6 +14,8 @@ const mocks = vi.hoisted(() => ({
   deleteEmailPerformance: vi.fn(),
   saveLeadProfileSnapshot: vi.fn(),
   deleteLeadProfileSnapshot: vi.fn(),
+  saveMasterclassLandingSnapshot: vi.fn(),
+  deleteMasterclassLandingSnapshot: vi.fn(),
   clearObjectiveProgress: vi.fn(),
   clearMetricProgress: vi.fn(),
 }));
@@ -360,6 +362,35 @@ describe("planning router", () => {
     const caller = appRouter.createCaller(ctx);
     await caller.planning.deleteLeadProfileSnapshot({ id: 18 });
     expect(mocks.deleteLeadProfileSnapshot).toHaveBeenCalledWith(18);
+  });
+
+  it("saves a masterclass landing snapshot without authentication", async () => {
+    mocks.saveMasterclassLandingSnapshot.mockResolvedValue({ updatedAt: 991 });
+    const ctx = createContext(); ctx.user = null;
+    const caller = appRouter.createCaller(ctx);
+    const entry = {
+      periodStartAt: Date.UTC(2026, 8, 1, 12), periodEndAt: Date.UTC(2026, 8, 8, 12), totalLeads: 120, newLeads: 30,
+      sessions: 200, dmSessions: 40, formStarts: 50, dmConversions: 8, thankYouPageAccesses: 24,
+      anaLessonStarts: 12, anaLessonCompletions: 6, andreiaLessonStarts: 10, andreiaLessonCompletions: 4,
+      robertoLessonStarts: 8, robertoLessonCompletions: 3, congressHubClicks: 7, newsLpClicks: 2, salesPageClicks: null, note: "Eventos validados",
+    };
+    await caller.planning.saveMasterclassLandingSnapshot(entry);
+    expect(mocks.saveMasterclassLandingSnapshot).toHaveBeenCalledWith(entry);
+  });
+
+  it("rejects inconsistent masterclass consumption and allows anonymous deletion", async () => {
+    const caller = appRouter.createCaller(createContext());
+    const entry = {
+      periodStartAt: 1, periodEndAt: 2, totalLeads: 10, newLeads: 5, sessions: 20, dmSessions: 2, formStarts: 8, dmConversions: 1,
+      thankYouPageAccesses: 5, anaLessonStarts: 3, anaLessonCompletions: 4, andreiaLessonStarts: null, andreiaLessonCompletions: null,
+      robertoLessonStarts: null, robertoLessonCompletions: null, congressHubClicks: null, newsLpClicks: null, salesPageClicks: null, note: "",
+    };
+    await expect(caller.planning.saveMasterclassLandingSnapshot(entry)).rejects.toThrow();
+    expect(mocks.saveMasterclassLandingSnapshot).not.toHaveBeenCalled();
+    mocks.deleteMasterclassLandingSnapshot.mockResolvedValue({ deletedId: 19 });
+    const anonymous = createContext(); anonymous.user = null;
+    await appRouter.createCaller(anonymous).planning.deleteMasterclassLandingSnapshot({ id: 19 });
+    expect(mocks.deleteMasterclassLandingSnapshot).toHaveBeenCalledWith(19);
   });
 
   it("allows shared reading without an authenticated user", async () => {

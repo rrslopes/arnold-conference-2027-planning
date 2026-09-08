@@ -439,17 +439,11 @@ export const kpiLayers = [
   {
     id: "recompensa",
     layer: "Consumo da recompensa",
-    purpose: "Indica se o lead acessou e consumiu as masterclasses ou o material entregue após a conversão.",
-    cadence: "Consolide semanalmente enquanto a isca estiver ativa e compare campanhas equivalentes.",
-    source: "Página de obrigado, player de vídeo e eventos de analytics configurados.",
-    avoid: "Não estime profundidade ou escolha de aula quando esses eventos não estiverem rastreados.",
-    metrics: [
-      { key: "Visitas à página de obrigado", label: "Visitas à página de obrigado", description: "Acessos à página que libera a recompensa após a conversão." },
-      { key: "Aula escolhida", label: "Escolhas de aula", description: "Cliques para selecionar uma das masterclasses disponíveis." },
-      { key: "Início de aula", label: "Inícios de reprodução", description: "Reproduções iniciadas no player, se o evento estiver integrado." },
-      { key: "Profundidade", label: "Profundidade de consumo", description: "Percentual ou marco de vídeo assistido; informe o critério na observação." },
-      { key: "Segunda aula", label: "Acesso a uma segunda aula", description: "Leads que iniciaram mais de uma masterclass, quando rastreável." },
-    ],
+    purpose: "Indica se o lead acessou a página de obrigado, iniciou ou concluiu cada masterclass e avançou para os congressos.",
+    cadence: "Atualize a fotografia da LP das masterclasses; esta camada será recalculada automaticamente.",
+    source: "Central de Landing Pages · LP das masterclasses, página de obrigado e eventos reais do player.",
+    avoid: "Não redigite os dados nesta camada nem estime consumo quando o evento não estiver configurado.",
+    metrics: [],
   },
   {
     id: "email",

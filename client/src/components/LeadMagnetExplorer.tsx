@@ -2,9 +2,11 @@
  * Design philosophy: "Sala de Comando da Campanha" — as seis iscas aparecem
  * como entregas estratégicas conectadas, não como uma coleção genérica de downloads.
  */
-import { useEffect, useState } from "react";
-import { ArrowRight, ArrowUpRight, CheckCircle2, Clock3, FileWarning, PackageOpen, X } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { ArrowRight, ArrowUpRight, BarChart3, CheckCircle2, Clock3, FileWarning, PackageOpen, X } from "lucide-react";
 import { brandAssets, leadMagnets, type LeadMagnet } from "@/data/planData";
+import { trpc } from "@/lib/trpc";
+import { calculateRate, getLatestMasterclassSnapshot, getLessonPerformance } from "@shared/masterclassLanding";
 
 const statusMeta = {
   pronto: { label: "Ativo disponível", icon: CheckCircle2 },
@@ -13,6 +15,9 @@ const statusMeta = {
 };
 
 export default function LeadMagnetExplorer() {
+  const planning = trpc.planning.getState.useQuery(undefined, { refetchOnWindowFocus: true, retry: 1 });
+  const masterclassSnapshot = useMemo(() => getLatestMasterclassSnapshot(planning.data?.masterclassLandingResults ?? []), [planning.data?.masterclassLandingResults]);
+  const masterclassLessons = useMemo(() => masterclassSnapshot ? getLessonPerformance(masterclassSnapshot) : [], [masterclassSnapshot]);
   const [selected, setSelected] = useState<LeadMagnet | null>(() => {
     if (typeof window === "undefined") return leadMagnets[0];
     const reviewId = Number(new URLSearchParams(window.location.search).get("isca-review"));
@@ -73,6 +78,21 @@ export default function LeadMagnetExplorer() {
                 </article>
               ))}
             </div>
+          ) : null}
+          {selected.id === 1 ? (
+            <section className="magnet-performance">
+              <div className="magnet-section-intro"><span>PERFORMANCE DA ISCA</span><h4>Leitura automática da LP das masterclasses</h4><p>Os dados são preenchidos uma única vez na Central de Landing Pages e aparecem aqui apenas para leitura.</p></div>
+              {masterclassSnapshot ? <>
+                <div className="magnet-performance-summary">
+                  <article><strong>{masterclassSnapshot.sessions?.toLocaleString("pt-BR") ?? "—"}</strong><span>Sessões</span></article>
+                  <article><strong>{masterclassSnapshot.newLeads.toLocaleString("pt-BR")}</strong><span>Novos leads</span></article>
+                  <article><strong>{calculateRate(masterclassSnapshot.newLeads, masterclassSnapshot.sessions)?.toLocaleString("pt-BR", { maximumFractionDigits: 1 }) ?? "—"}%</strong><span>Conversão da LP</span></article>
+                  <article><strong>{masterclassSnapshot.thankYouPageAccesses?.toLocaleString("pt-BR") ?? "—"}</strong><span>Acessos à recompensa</span></article>
+                </div>
+                <div className="magnet-lesson-summary">{masterclassLessons.map(lesson => <article key={lesson.key}><small>{lesson.congress}</small><strong>{lesson.speaker}</strong><span>{lesson.starts?.toLocaleString("pt-BR") ?? "—"} inícios · {lesson.completions?.toLocaleString("pt-BR") ?? "—"} conclusões</span></article>)}</div>
+              </> : <div className="magnet-performance-empty"><BarChart3 size={24} /><p><strong>Aguardando a primeira fotografia.</strong> Cadastre tráfego, leads, entrega e consumo na Central de Landing Pages.</p></div>}
+              <a className="magnet-performance-link" href="#landing-pages-center">Atualizar na Central de Landing Pages <ArrowRight size={15} /></a>
+            </section>
           ) : null}
           {selected.questions ? (
             <section className="magnet-deep-dive diagnostic-blueprint">

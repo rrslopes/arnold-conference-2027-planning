@@ -3,7 +3,7 @@ import { eq, or } from "drizzle-orm";
 import type { TrpcContext } from "./_core/context";
 import { getDb, saveOccupancyProgress, saveSocialMonthlyResults, saveWhatsAppMonthlyResults } from "./db";
 import { appRouter } from "./routers";
-import { calendarWorkflow, emailPerformance, emailWorkflow, leadProfileSnapshots, monthlyCongressSales, monthlySocialResults, monthlyWhatsAppResults, objectiveProgress, planningActivity, roomOccupancy } from "../drizzle/schema";
+import { calendarWorkflow, emailPerformance, emailWorkflow, leadProfileSnapshots, masterclassLandingSnapshots, monthlyCongressSales, monthlySocialResults, monthlyWhatsAppResults, objectiveProgress, planningActivity, roomOccupancy } from "../drizzle/schema";
 
 const runId = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 const objectiveKey = `qa-sync-${runId}`;
@@ -14,6 +14,7 @@ const socialMonthKey = "2099-99";
 const whatsappMonthKey = "2099-98";
 const emailCampaignName = `QA Performance ${runId}`;
 const leadSnapshotNote = `QA LP ${runId}`;
+const masterclassSnapshotNote = `QA Masterclass LP ${runId}`;
 const actorAName = `QA Navegador A ${runId}`;
 const actorBName = `QA Navegador B ${runId}`;
 
@@ -38,6 +39,7 @@ describe.sequential("shared planning persistence", () => {
     await db.delete(monthlyWhatsAppResults).where(eq(monthlyWhatsAppResults.monthKey, whatsappMonthKey));
     await db.delete(emailPerformance).where(eq(emailPerformance.campaignName, emailCampaignName));
     await db.delete(leadProfileSnapshots).where(eq(leadProfileSnapshots.note, leadSnapshotNote));
+    await db.delete(masterclassLandingSnapshots).where(eq(masterclassLandingSnapshots.note, masterclassSnapshotNote));
     await db.delete(planningActivity).where(or(eq(planningActivity.actorName, actorAName), eq(planningActivity.actorName, actorBName)));
   });
 
@@ -255,5 +257,28 @@ describe.sequential("shared planning persistence", () => {
     const browserB = appRouter.createCaller(createAnonymousContext());
     const state = await browserB.planning.getState();
     expect(state.whatsappResults.find(item => item.monthKey === whatsappMonthKey)).toMatchObject({ delivered: 480, linkClicks: 42, replies: 18, attributedPurchases: 3, humanHandoffs: 9 });
+  });
+
+  it("persists, edits and deletes the masterclass landing source across anonymous browsers", async () => {
+    const browserA = appRouter.createCaller(createAnonymousContext());
+    const browserB = appRouter.createCaller(createAnonymousContext());
+    const initial = {
+      periodStartAt: Date.UTC(2026, 8, 1, 12), periodEndAt: Date.UTC(2026, 8, 8, 12), totalLeads: 80, newLeads: 20,
+      sessions: 160, dmSessions: 30, formStarts: 35, dmConversions: 6, thankYouPageAccesses: 18,
+      anaLessonStarts: 10, anaLessonCompletions: 5, andreiaLessonStarts: 8, andreiaLessonCompletions: 3,
+      robertoLessonStarts: 6, robertoLessonCompletions: 2, congressHubClicks: 4, newsLpClicks: 2, salesPageClicks: null, note: masterclassSnapshotNote,
+    };
+    await browserA.planning.saveMasterclassLandingSnapshot(initial);
+    const readInB = await browserB.planning.getState();
+    const created = readInB.masterclassLandingResults.find(item => item.note === masterclassSnapshotNote);
+    expect(created).toMatchObject({ totalLeads: 80, newLeads: 20, sessions: 160, thankYouPageAccesses: 18, anaLessonStarts: 10 });
+
+    await browserB.planning.saveMasterclassLandingSnapshot({ ...initial, id: created!.id, totalLeads: 95, newLeads: 35 });
+    const readBackInA = await browserA.planning.getState();
+    expect(readBackInA.masterclassLandingResults.find(item => item.id === created!.id)).toMatchObject({ totalLeads: 95, newLeads: 35 });
+
+    await browserA.planning.deleteMasterclassLandingSnapshot({ id: created!.id });
+    const afterDelete = await browserB.planning.getState();
+    expect(afterDelete.masterclassLandingResults.some(item => item.id === created!.id)).toBe(false);
   });
 });

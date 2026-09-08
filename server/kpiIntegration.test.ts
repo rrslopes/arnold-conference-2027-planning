@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { buildAutomaticKpis, buildSourceSummary, type KpiIntegrationState } from "../shared/kpiIntegration";
 
 function state(overrides: Partial<KpiIntegrationState> = {}): KpiIntegrationState {
-  return { socialResults: [], emailPerformanceResults: [], leadProfileResults: [], whatsappResults: [], monthlySales: [], ...overrides };
+  return { socialResults: [], emailPerformanceResults: [], leadProfileResults: [], masterclassLandingResults: [], whatsappResults: [], monthlySales: [], ...overrides };
 }
 
 describe("consolidação automática dos KPIs", () => {
@@ -10,7 +10,7 @@ describe("consolidação automática dos KPIs", () => {
     const rows = buildAutomaticKpis("landing", state({ leadProfileResults: [{ periodStartAt: Date.UTC(2026, 8, 1), periodEndAt: Date.UTC(2026, 8, 30), totalLeads: 140, newLeads: 40, sessions: 200, dmSessions: 35, formStarts: 60, dmConversions: 8, updatedAt: Date.UTC(2026, 8, 30) }] }));
     expect(rows.find(row => row.key === "lp-conversion-rate")?.value).toBe(20);
     expect(rows.find(row => row.key === "lp-abandonments")?.value).toBe(20);
-    expect(rows.find(row => row.key === "lp-leads")?.source).toContain("LP de novidades");
+    expect(rows.find(row => row.key === "lp-leads")?.source).toContain("Novidades");
   });
 
   it("não estima taxa ou abandono quando sessões e inícios não foram medidos", () => {
@@ -38,10 +38,14 @@ describe("consolidação automática dos KPIs", () => {
     expect(rows.find(row => row.key === "sales-cumulative")?.value).toBe(23);
   });
 
-  it("mantém consumo da recompensa manual e resume as fontes conectadas", () => {
-    const base = state({ socialResults: [{ monthKey: "2026-09", accountsReached: 30000, views: 50000, interactions: 2200, netFollowers: 90, metaMessagesSent: 700 }] });
-    expect(buildAutomaticKpis("recompensa", base)).toEqual([]);
+  it("automatiza consumo da recompensa sem estimar eventos ausentes e resume as fontes", () => {
+    const base = state({ socialResults: [{ monthKey: "2026-09", accountsReached: 30000, views: 50000, interactions: 2200, netFollowers: 90, metaMessagesSent: 700 }], masterclassLandingResults: [{ periodStartAt: 1, periodEndAt: 2, totalLeads: 120, newLeads: 30, sessions: 100, dmSessions: 10, formStarts: 40, dmConversions: 5, thankYouPageAccesses: 24, anaLessonStarts: 12, anaLessonCompletions: 6, andreiaLessonStarts: null, andreiaLessonCompletions: null, robertoLessonStarts: 8, robertoLessonCompletions: 4, congressHubClicks: 7, newsLpClicks: 3, salesPageClicks: null, updatedAt: 3 }] });
+    const reward = buildAutomaticKpis("recompensa", base);
+    expect(reward.find(row => row.key === "reward-access-rate")?.value).toBe(80);
+    expect(reward.find(row => row.key === "reward-ana-rate")?.value).toBe(50);
+    expect(reward.find(row => row.key === "reward-andreia-rate")?.value).toBeNull();
     expect(buildAutomaticKpis("dm", base).map(row => row.value)).toEqual([30000, 50000, 2200, 90, 700]);
     expect(buildSourceSummary(base).find(item => item.key === "social")?.value).toBe(2200);
+    expect(buildSourceSummary(base).find(item => item.key === "landing")?.value).toBe(30);
   });
 });

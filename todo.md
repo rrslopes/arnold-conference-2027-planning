@@ -385,3 +385,20 @@
 - [x] Exibir origem, período e regra de cálculo em todo KPI automático ou calculado.
 - [x] Atualizar testes e validar persistência, colaboração, desktop, mobile, logs, compilação e build.
 - [x] Salvar checkpoint reversível e entregar a integração automática.
+
+## Central de Landing Pages e performance das masterclasses
+
+- [x] Auditar a área atual da LP de novidades, os KPIs de recompensa e a isca das masterclasses.
+- [x] Definir fontes separadas para LP de novidades e LP das masterclasses dentro de uma única central.
+- [x] Modelar a fotografia da LP das masterclasses com tráfego, captação, entrega, consumo e avanço.
+- [x] Registrar sessões, inícios de formulário, leads, acessos à página de obrigado e cliques ou reproduções por aula.
+- [x] Registrar conclusões e cliques de avanço somente quando houver rastreamento confiável.
+- [x] Calcular automaticamente conversão da LP, acesso à recompensa e distribuição de interesse por aula.
+- [x] Criar tabela não destrutiva e rotas públicas para salvar, editar e excluir fotografias das masterclasses.
+- [x] Transformar “Leads e perfil” em Central de Landing Pages sem criar novo item no menu.
+- [x] Manter perfil e interesses somente na LP de novidades e métricas de consumo somente na LP das masterclasses.
+- [x] Alimentar automaticamente Landing pages, Consumo da recompensa e consolidado de leads com origem explícita.
+- [x] Exibir uma visão de performance dentro da isca das masterclasses sem duplicar o preenchimento.
+- [x] Manter métricas indisponíveis como aguardando rastreamento, sem estimativas.
+- [x] Atualizar testes e validar persistência, colaboração, desktop, mobile, logs, compilação e build.
+- [ ] Salvar checkpoint reversível e entregar a Central de Landing Pages.
