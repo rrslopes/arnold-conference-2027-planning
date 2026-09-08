@@ -71,6 +71,13 @@
       "when": 1788572844100,
       "tag": "0009_illegal_metal_master",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "5",
+      "when": 1788876436882,
+      "tag": "0010_brown_franklin_storm",
+      "breakpoints": true
     }
   ]
 }

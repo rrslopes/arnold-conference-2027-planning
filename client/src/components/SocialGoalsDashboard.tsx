@@ -28,6 +28,7 @@ function getInitialView(): SocialView {
 }
 
 const fieldLabels: Partial<Record<SocialResultField, string>> = {
+  metaMessagesSent: "Mensagens automáticas enviadas — total geral",
   reelsPublished: "Reels publicados",
   reelsMedianReach: "Alcance mediano",
   reelsMedianViews: "Visualizações medianas",
@@ -199,6 +200,7 @@ export default function SocialGoalsDashboard() {
           </div>
 
           <div className="social-detail-grid">
+            {renderFormatInputs("Mensagens da Meta · relatório geral", ["metaMessagesSent"])}
             {renderFormatInputs("Reels · mediana do mês", ["reelsPublished", "reelsMedianReach", "reelsMedianViews", "reelsMedianInteractions", "reelsMedianShares", "reelsMedianSaves"])}
             {renderFormatInputs("Carrosséis · mediana do mês", ["carouselsPublished", "carouselsMedianReach", "carouselsMedianViews", "carouselsMedianInteractions", "carouselsMedianShares", "carouselsMedianSaves"])}
             {renderFormatInputs("Stories · alcance e ações", ["storiesPublished", "storiesMedianReach", "storiesMedianViews", "storyReplies", "storyLinkClicks", "storyStickerTaps", "storyProfileVisits"])}

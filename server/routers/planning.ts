@@ -13,6 +13,7 @@ import {
   saveObjectiveProgress,
   saveOccupancyProgress,
   saveSocialMonthlyResults,
+  saveWhatsAppMonthlyResults,
 } from "../db";
 import { publicProcedure, router } from "../_core/trpc";
 import { EDITORIAL_STATUS_IDS, isValidArtworkUrl } from "../../shared/editorialWorkflow";
@@ -66,6 +67,7 @@ const socialMonthlyEntry = z.object({
   views: optionalCount,
   interactions: optionalCount,
   netFollowers: z.number().int().min(-100_000_000).max(100_000_000).nullable(),
+  metaMessagesSent: optionalCount.default(null),
   reelsPublished: optionalCount,
   reelsMedianReach: optionalCount,
   reelsMedianViews: optionalCount,
@@ -112,10 +114,15 @@ const emailPerformanceEntry = z.object({
   clickRate: optionalRate,
   unsubscribeRate: optionalRate,
   spamRate: optionalRate,
+  deliveredCount: optionalCount.default(null),
+  uniqueClicks: optionalCount.default(null),
+  attributedConversions: optionalCount.default(null),
+  attributedRevenueCents: optionalCount.default(null),
 }).superRefine((entry, ctx) => {
   if (entry.sentAt > Date.now() + 86_400_000) {
     ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["sentAt"], message: "A data de envio não pode estar no futuro." });
   }
+  if (entry.deliveredCount !== null && entry.uniqueClicks !== null && entry.uniqueClicks > entry.deliveredCount) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["uniqueClicks"], message: "Cliques únicos não podem ultrapassar os e-mails entregues." });
 });
 
 const leadProfileCountFields = [
@@ -127,6 +134,10 @@ const leadProfileEntry = z.object({
   periodEndAt: z.number().int().positive(),
   totalLeads: z.number().int().min(0).max(100_000_000),
   newLeads: z.number().int().min(0).max(100_000_000),
+  sessions: optionalCount.default(null),
+  dmSessions: optionalCount.default(null),
+  formStarts: optionalCount.default(null),
+  dmConversions: optionalCount.default(null),
   firstTimeCount: optionalCount,
   attended2026Count: optionalCount,
   attendedPastCount: optionalCount,
@@ -142,10 +153,24 @@ const leadProfileEntry = z.object({
   if (entry.periodStartAt > entry.periodEndAt) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["periodStartAt"], message: "O início do período deve ser anterior ao fechamento." });
   if (entry.periodEndAt > Date.now() + 86_400_000) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["periodEndAt"], message: "A data de referência não pode estar no futuro." });
   if (entry.newLeads > entry.totalLeads) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["newLeads"], message: "Novos leads não podem ultrapassar o total acumulado." });
+  if (entry.dmSessions !== null && entry.sessions !== null && entry.dmSessions > entry.sessions) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["dmSessions"], message: "Sessões via DM não podem ultrapassar as sessões totais." });
+  if (entry.formStarts !== null && entry.formStarts < entry.newLeads) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["formStarts"], message: "Inícios de formulário não podem ser menores que os novos leads." });
+  if (entry.dmConversions !== null && entry.dmConversions > entry.newLeads) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["dmConversions"], message: "Conversões via DM não podem ultrapassar os novos leads." });
   leadProfileCountFields.forEach(field => {
     if (entry[field] !== null && entry[field]! > entry.totalLeads) ctx.addIssue({ code: z.ZodIssueCode.custom, path: [field], message: "O valor não pode ultrapassar o total de leads." });
   });
   if ((entry.firstTimeCount ?? 0) + (entry.attended2026Count ?? 0) + (entry.attendedPastCount ?? 0) > entry.totalLeads) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["firstTimeCount"], message: "O histórico de participação não pode ultrapassar o total de leads." });
+});
+
+const whatsappMonthlyEntry = z.object({
+  monthKey,
+  delivered: optionalCount,
+  linkClicks: optionalCount,
+  replies: optionalCount,
+  optOuts: optionalCount,
+  attributedPurchases: optionalCount,
+  humanHandoffs: optionalCount,
+  note: z.string().max(2000),
 });
 
 export const planningRouter = router({
@@ -162,6 +187,9 @@ export const planningRouter = router({
   saveSocialResults: publicProcedure
     .input(z.object({ entries: z.array(socialMonthlyEntry).length(8) }))
     .mutation(({ input }) => saveSocialMonthlyResults(input.entries)),
+  saveWhatsAppResults: publicProcedure
+    .input(z.object({ entries: z.array(whatsappMonthlyEntry).length(8) }))
+    .mutation(({ input }) => saveWhatsAppMonthlyResults(input.entries)),
   saveCalendarWorkflow: publicProcedure
     .input(calendarWorkflowEntry)
     .mutation(({ input }) => saveCalendarWorkflow(input)),

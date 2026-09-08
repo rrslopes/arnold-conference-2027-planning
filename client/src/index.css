@@ -603,6 +603,11 @@ img { max-width: 100%; }
 .email-rate-fields label b { position: absolute; right: 11px; top: 12px; color: #777174; font-size: 9px; }
 .email-rate-fields input { padding-right: 28px; }
 .email-rate-fields small { color: #878184; font-size: 6px; }
+.email-volume-fields { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; border-bottom: 1px solid rgba(51,49,50,.1); background: rgba(51,49,50,.1); }
+.email-volume-fields label { min-width: 0; display: grid; gap: 6px; padding: 15px 18px; background: #f8f8f3; }
+.email-volume-fields label > span { color: var(--purple); font-size: 7px; font-weight: 850; letter-spacing: .06em; text-transform: uppercase; }
+.email-volume-fields input { width: 100%; min-width: 0; height: 39px; border: 1px solid rgba(51,49,50,.18); background: white; color: var(--charcoal); padding: 0 11px; font: 550 10px/1.2 "Montserrat Arnold"; }
+.email-volume-fields small { color: #878184; font-size: 6px; }
 .email-performance-form > footer { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 18px; }
 .email-performance-form > footer > div { display: flex; align-items: center; gap: 7px; color: #696466; font-size: 8px; }
 .email-performance-form > footer svg { color: var(--purple); }
@@ -658,6 +663,25 @@ img { max-width: 100%; }
 .whatsapp-rule { grid-column: 2; display: flex; gap: 12px; align-items: center; padding: 16px 20px; border: 1px solid rgba(255,255,255,.2); }
 .whatsapp-rule svg { color: var(--lime); flex: none; }
 .whatsapp-rule p { margin: 0; color: rgba(255,255,255,.72); font-size: 9px; line-height: 1.55; }
+.whatsapp-performance-console { grid-column: 1 / -1; margin-top: 18px; border: 1px solid rgba(255,255,255,.18); background: #f8f8f3; color: var(--charcoal); }
+.whatsapp-performance-console > header { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; padding: 20px 22px; background: white; border-bottom: 1px solid rgba(51,49,50,.12); }
+.whatsapp-performance-console > header > div { display: grid; grid-template-columns: 28px 1fr; gap: 2px 9px; align-items: center; }
+.whatsapp-performance-console > header svg { grid-row: 1 / 5; color: var(--purple); }
+.whatsapp-performance-console > header span { color: var(--purple); font-size: 7px; font-weight: 900; letter-spacing: .12em; }
+.whatsapp-performance-console > header h3 { margin: 3px 0; font: 600 28px/1 "Teko Arnold"; text-transform: uppercase; }
+.whatsapp-performance-console > header p, .whatsapp-performance-console > header small { margin: 0; color: #716d6f; font-size: 7px; line-height: 1.5; }
+.whatsapp-month-tabs { display: flex; overflow-x: auto; border-bottom: 1px solid rgba(51,49,50,.12); background: #ecebe5; }
+.whatsapp-month-tabs button { flex: 1; min-width: 72px; border: 0; border-right: 1px solid rgba(51,49,50,.1); background: transparent; padding: 11px 8px; color: #706b6d; font-size: 8px; font-weight: 800; }
+.whatsapp-month-tabs button.active { background: var(--purple); color: white; box-shadow: inset 0 -4px 0 var(--lime); }
+.whatsapp-performance-fields { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(51,49,50,.1); }
+.whatsapp-performance-fields label { min-width: 0; display: grid; gap: 6px; padding: 15px 17px; background: white; }
+.whatsapp-performance-fields span, .whatsapp-performance-note > span { color: var(--purple); font-size: 7px; font-weight: 850; text-transform: uppercase; }
+.whatsapp-performance-fields input { width: 100%; height: 38px; border: 1px solid rgba(51,49,50,.17); background: #faf9f5; padding: 0 11px; font-size: 10px; }
+.whatsapp-performance-fields small { color: #817c7e; font-size: 6px; }
+.whatsapp-performance-note { display: grid; gap: 7px; padding: 15px 17px; background: white; }
+.whatsapp-performance-note textarea { min-height: 74px; resize: vertical; border: 1px solid rgba(51,49,50,.17); padding: 10px; font: 500 9px/1.5 "Montserrat Arnold"; }
+.whatsapp-performance-console > footer { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 17px; border-top: 1px solid rgba(51,49,50,.1); }
+.whatsapp-performance-console > footer p { margin: 0; color: #756f72; font-size: 7px; }
 
 .roadmap-section { background: var(--paper); }
 .roadmap-stage { position: relative; min-height: 680px; background: var(--charcoal); color: white; overflow: hidden; padding: 38px; }
@@ -853,6 +877,12 @@ img { max-width: 100%; }
 .kpi-summary > div > strong small { color: rgba(255,255,255,.4); font-size: 22px; }
 .kpi-summary p { margin: 0; color: rgba(255,255,255,.55); font-size: 9px; }
 .kpi-summary .secondary-button { color: white; border-color: rgba(255,255,255,.25); }
+.kpi-source-summary { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-bottom: 1px solid rgba(51,49,50,.12); background: white; }
+.kpi-source-summary article { min-width: 0; padding: 13px 15px; border-right: 1px solid rgba(51,49,50,.1); }
+.kpi-source-summary article:last-child { border-right: 0; }
+.kpi-source-summary span { display: block; color: var(--purple); font-size: 6px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+.kpi-source-summary strong { display: block; margin: 5px 0 2px; font: 600 25px/1 "Teko Arnold"; }
+.kpi-source-summary small { display: block; color: #7a7577; font-size: 6px; line-height: 1.4; }
 .kpi-tabs { display: flex; overflow-x: auto; background: #efeee9; border-bottom: 1px solid rgba(51,49,50,.12); }
 .kpi-tabs button { flex: 1; min-width: 120px; border: 0; border-right: 1px solid rgba(51,49,50,.1); background: transparent; color: #6f6b6d; padding: 13px 10px; font-size: 9px; font-weight: 750; }
 .kpi-tabs button.active { color: white; background: var(--purple); }
@@ -888,6 +918,12 @@ img { max-width: 100%; }
 .lead-profile-summary article:last-child { border-right: 0; }
 .lead-profile-summary strong { display: block; color: var(--lime); font: 600 35px/1 "Teko Arnold"; }
 .lead-profile-summary span { display: block; margin-top: 4px; color: rgba(255,255,255,.7); font-size: 6px; font-weight: 850; letter-spacing: .08em; }
+.lead-performance-summary { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid rgba(51,49,50,.1); background: #f4f4ee; }
+.lead-performance-summary article { min-width: 0; padding: 14px 18px; border-right: 1px solid rgba(51,49,50,.1); }
+.lead-performance-summary article:last-child { border-right: 0; }
+.lead-performance-summary strong { display: block; color: var(--purple); font: 600 27px/1 "Teko Arnold"; }
+.lead-performance-summary span { display: block; margin-top: 3px; color: var(--charcoal); font-size: 6px; font-weight: 850; letter-spacing: .07em; }
+.lead-performance-summary small { display: block; margin-top: 4px; color: #827d7f; font-size: 6px; }
 .lead-profile-notice { display: grid; grid-template-columns: 24px 1fr; gap: 9px; align-items: start; padding: 14px 18px; border-bottom: 1px solid rgba(51,49,50,.1); background: #eef1c9; color: #5d595b; }
 .lead-profile-notice svg { color: var(--purple); }
 .lead-profile-notice p { margin: 0; font-size: 8px; line-height: 1.55; }
@@ -1357,6 +1393,20 @@ img { max-width: 100%; }
   .lead-profile-form > footer, .lead-profile-history > header { align-items: flex-start; flex-direction: column; }
   .lead-profile-form > footer .primary-button { width: 100%; justify-content: center; }
   .lead-profile-history > article { align-items: flex-start; }
+}
+
+@media (max-width: 860px) {
+  .email-volume-fields, .lead-performance-summary, .kpi-source-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .email-volume-fields label:nth-child(2), .lead-performance-summary article:nth-child(2), .kpi-source-summary article:nth-child(2), .kpi-source-summary article:nth-child(4) { border-right: 0; }
+  .whatsapp-performance-fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 620px) {
+  .email-volume-fields, .lead-performance-summary, .kpi-source-summary, .whatsapp-performance-fields { grid-template-columns: 1fr; }
+  .email-volume-fields label, .lead-performance-summary article, .kpi-source-summary article { border-right: 0; border-bottom: 1px solid rgba(51,49,50,.1); }
+  .whatsapp-performance-console > header, .whatsapp-performance-console > footer { align-items: flex-start; flex-direction: column; }
+  .whatsapp-performance-console > header .secondary-button, .whatsapp-performance-console > footer .primary-button { width: 100%; justify-content: center; }
+  .whatsapp-month-tabs button { flex: 0 0 72px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -9,6 +9,7 @@ import {
   metricProgress,
   monthlyCongressSales,
   monthlySocialResults,
+  monthlyWhatsAppResults,
   objectiveProgress,
   planningActivity,
   roomOccupancy,
@@ -17,6 +18,7 @@ import {
 import type { SocialMonthlyResult } from "../shared/socialMetrics";
 import { toStoredRate, type EmailPerformanceDraft } from "../shared/emailPerformance";
 import { NEWS_LP_SOURCE, type LeadProfileSnapshotDraft } from "../shared/leadProfile";
+import type { WhatsAppMonthlyResult } from "../shared/whatsappPerformance";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -154,22 +156,24 @@ export type EmailWorkflowInput = {
 export type SocialMonthlyResultInput = SocialMonthlyResult;
 export type EmailPerformanceInput = EmailPerformanceDraft;
 export type LeadProfileSnapshotInput = LeadProfileSnapshotDraft;
+export type WhatsAppMonthlyResultInput = WhatsAppMonthlyResult;
 
 export async function getSharedPlanningState() {
   const db = await requireDb();
-  const [objectives, metrics, activity, occupancy, monthlySales, socialResults, editorialWorkflow, emailApprovals, emailPerformanceResults, leadProfileResults] = await Promise.all([
+  const [objectives, metrics, activity, occupancy, monthlySales, socialResults, whatsappResults, editorialWorkflow, emailApprovals, emailPerformanceResults, leadProfileResults] = await Promise.all([
     db.select().from(objectiveProgress),
     db.select().from(metricProgress),
     db.select().from(planningActivity).orderBy(desc(planningActivity.createdAt)).limit(20),
     db.select().from(roomOccupancy),
     db.select().from(monthlyCongressSales),
     db.select().from(monthlySocialResults),
+    db.select().from(monthlyWhatsAppResults),
     db.select().from(calendarWorkflow),
     db.select().from(emailWorkflow),
     db.select().from(emailPerformance).orderBy(desc(emailPerformance.sentAt)),
     db.select().from(leadProfileSnapshots).where(eq(leadProfileSnapshots.sourceKey, NEWS_LP_SOURCE.key)).orderBy(desc(leadProfileSnapshots.periodEndAt)),
   ]);
-  return { objectives, metrics, activity, occupancy, monthlySales, socialResults, editorialWorkflow, emailApprovals, emailPerformanceResults, leadProfileResults };
+  return { objectives, metrics, activity, occupancy, monthlySales, socialResults, whatsappResults, editorialWorkflow, emailApprovals, emailPerformanceResults, leadProfileResults };
 }
 
 export async function saveLeadProfileSnapshot(entry: LeadProfileSnapshotInput) {
@@ -181,6 +185,10 @@ export async function saveLeadProfileSnapshot(entry: LeadProfileSnapshotInput) {
     periodEndAt: entry.periodEndAt,
     totalLeads: entry.totalLeads,
     newLeads: entry.newLeads,
+    sessions: entry.sessions,
+    dmSessions: entry.dmSessions,
+    formStarts: entry.formStarts,
+    dmConversions: entry.dmConversions,
     firstTimeCount: entry.firstTimeCount,
     attended2026Count: entry.attended2026Count,
     attendedPastCount: entry.attendedPastCount,
@@ -217,6 +225,10 @@ export async function saveEmailPerformance(entry: EmailPerformanceInput) {
     clickRateMilli: toStoredRate(entry.clickRate),
     unsubscribeRateMilli: toStoredRate(entry.unsubscribeRate),
     spamRateMilli: toStoredRate(entry.spamRate),
+    deliveredCount: entry.deliveredCount,
+    uniqueClicks: entry.uniqueClicks,
+    attributedConversions: entry.attributedConversions,
+    attributedRevenueCents: entry.attributedRevenueCents,
     updatedAt: now,
   };
   if (entry.id) {
@@ -244,6 +256,7 @@ export async function saveSocialMonthlyResults(entries: SocialMonthlyResultInput
         views: entry.views,
         interactions: entry.interactions,
         netFollowers: entry.netFollowers,
+        metaMessagesSent: entry.metaMessagesSent,
         reelsPublished: entry.reelsPublished,
         reelsMedianReach: entry.reelsMedianReach,
         reelsMedianViews: entry.reelsMedianViews,
@@ -267,6 +280,28 @@ export async function saveSocialMonthlyResults(entries: SocialMonthlyResultInput
         updatedAt: now,
       };
       await tx.insert(monthlySocialResults).values(values).onDuplicateKeyUpdate({ set: values });
+    }
+  });
+  return { updatedAt: now };
+}
+
+export async function saveWhatsAppMonthlyResults(entries: WhatsAppMonthlyResultInput[]) {
+  const db = await requireDb();
+  const now = Date.now();
+  await db.transaction(async tx => {
+    for (const entry of entries) {
+      const values = {
+        monthKey: entry.monthKey,
+        delivered: entry.delivered,
+        linkClicks: entry.linkClicks,
+        replies: entry.replies,
+        optOuts: entry.optOuts,
+        attributedPurchases: entry.attributedPurchases,
+        humanHandoffs: entry.humanHandoffs,
+        note: entry.note,
+        updatedAt: now,
+      };
+      await tx.insert(monthlyWhatsAppResults).values(values).onDuplicateKeyUpdate({ set: values });
     }
   });
   return { updatedAt: now };

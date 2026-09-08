@@ -31,6 +31,7 @@ import EditorialIntelligence from "@/components/EditorialIntelligence";
 import EmailPerformanceDashboard from "@/components/EmailPerformanceDashboard";
 import LeadProfileDashboard from "@/components/LeadProfileDashboard";
 import PaidMediaHub from "@/components/PaidMediaHub";
+import WhatsAppPerformanceDashboard from "@/components/WhatsAppPerformanceDashboard";
 import {
   brandAssets,
   congressLogos,
@@ -198,6 +199,7 @@ function WhatsAppPlan() {
       <div className="whatsapp-heading"><div><p className="eyebrow">PLANO DE WHATSAPP</p><h2>Alta intenção.<br /><em>Baixo ruído.</em></h2><p>O canal não repete redes sociais e e-mail. Ele entra onde há consentimento, urgência real e próximo passo claro.</p></div><MessageCircleMore size={72} /></div>
       <div className="whatsapp-flow">{whatsappPlan.map((item, index) => <article key={item.date}><span className="whatsapp-step">{index + 1}</span><div><small>{item.date}</small><h3>{item.function}</h3><p>{item.segment}</p><strong><ArrowRight size={15} /> {item.destination}</strong></div></article>)}</div>
       <div className="whatsapp-rule"><ShieldCheck size={21} /><p>Recuperação pós-abertura não é disparo em massa. Interromper após compra, resposta negativa ou pedido de saída. Pagamento pendente e abandono de checkout recebem fluxos distintos.</p></div>
+      <WhatsAppPerformanceDashboard />
     </section>
   );
 }
@@ -222,6 +224,8 @@ export default function Home() {
   if (isCalendarPlanView) return <StrategyLayout><section id="calendario" className="section-pad calendar-section"><SectionHeader index="07" eyebrow="CALENDÁRIO EDITORIAL · VISÃO ESTRATÉGICA" title="Pautas, formatos e CTAs sem fluxo operacional" description="Modo isolado para validar o calendário estratégico após a retirada de legenda, links de arte e status." /><CalendarExplorer /></section></StrategyLayout>;
   const isEmailPlanView = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("email-plan-view");
   if (isEmailPlanView) return <StrategyLayout><EmailPlan /></StrategyLayout>;
+  const isWhatsAppReview = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("whatsapp-review");
+  if (isWhatsAppReview) return <StrategyLayout><WhatsAppPlan /></StrategyLayout>;
   const isIntelligenceReview = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("intelligence-review");
   if (isIntelligenceReview) return <StrategyLayout><section id="inteligencia" className="section-pad intelligence-section"><SectionHeader index="04" eyebrow="INTELIGÊNCIA DE PROGRAMAÇÃO E CONTEÚDO" title="Uma fonte única para decidir quem atrair e o que produzir" description="A programação oficial organiza a promessa de 2027; o acervo de 2026 fornece matéria-prima." /><EditorialIntelligence /></section></StrategyLayout>;
   const isPaidMediaReview = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("paid-media-review");
@@ -231,7 +235,7 @@ export default function Home() {
   const isSocialReview = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("social-review");
   if (isSocialReview) return <StrategyLayout><section id="indicadores" className="section-pad kpi-section"><SectionHeader index="12" eyebrow="REVISÃO DO PAINEL SOCIAL" title="Metas de referência do Instagram" description="Modo isolado para validar resultados mensais, referências por formato e limites de interpretação." /><SocialGoalsDashboard /></section></StrategyLayout>;
   const isFunnelReview = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("funnel-review");
-  if (isFunnelReview) return <StrategyLayout><section id="indicadores" className="section-pad kpi-section"><SectionHeader index="12" eyebrow="REVISÃO DO FUNIL INTEGRADO" title="Aquisição e vendas" description="Modo isolado para validar a orientação de preenchimento do funil, sem repetir métricas de Instagram ou a fotografia da LP de novidades." /><IndicatorGuide number="04" level="DIAGNÓSTICO DO FUNIL" title="Aquisição e vendas" purpose="Onde a audiência deixa o canal social, converte em lead, consome a recompensa, responde às réguas e avança até a compra." cadence="Atualize semanalmente durante campanhas e mantenha o valor atual como acumulado do ciclo; registre o período na observação." source="Relatório geral de mensagens da Meta, landing pages, RD Station, UTMs, WhatsApp, analytics, checkout e plataforma de vendas." avoid="Resultados por palavra-chave ou automação individual da Meta, além de alcance, visualizações, seguidores, compartilhamentos ou salvamentos do Instagram." /><KpiDashboard /></section></StrategyLayout>;
+  if (isFunnelReview) return <StrategyLayout><section id="indicadores" className="section-pad kpi-section"><SectionHeader index="12" eyebrow="REVISÃO DO FUNIL INTEGRADO" title="Aquisição e vendas" description="Modo isolado para validar a consolidação automática de Social, LP, E-mail, WhatsApp e Vendas, mantendo manual apenas o que ainda não possui fonte interna." /><IndicatorGuide number="04" level="CONSOLIDAÇÃO DO FUNIL" title="Aquisição e vendas" purpose="Reunir automaticamente os resultados informados nas áreas específicas e manter editáveis apenas consolidações ou etapas ainda sem rastreamento." cadence="Atualize cada dado na área de origem; este painel lê o fechamento mais recente e mostra sua fonte e período." source="Social, Leads e perfil, Performance de E-mail, Performance de WhatsApp e Lotação das salas." avoid="Redigitar métricas já conectadas, somar origens duas vezes ou preencher dados ausentes por estimativa." /><KpiDashboard /></section></StrategyLayout>;
 
   return (
     <StrategyLayout>
@@ -278,7 +282,7 @@ export default function Home() {
         <OccupancyDashboard />
         <div className="secondary-kpi-block"><IndicatorGuide number="02" level="PERFIL DA CAPTAÇÃO" title="Leads e perfil — LP de novidades" purpose="Quantas pessoas esta LP específica captou e como sua base se distribui por histórico de participação e áreas de interesse." cadence="Registre uma fotografia semanal ou mensal usando sempre o relatório filtrado da mesma conversão no RD Station." source="Relatório de conversões do RD Station filtrado exclusivamente pela LP de novidades; o painel mantém o link da página de origem." avoid="Leads das masterclasses, páginas de venda, outras LPs, importações ou contatos adicionados diretamente à base." /><LeadProfileDashboard /></div>
         <div className="secondary-kpi-block"><IndicatorGuide number="03" level="DIAGNÓSTICO DO CANAL" title="Desempenho do Instagram" purpose="Se os conteúdos estão alcançando pessoas e gerando consumo, interação, compartilhamento, salvamento e crescimento do perfil." cadence="Faça o fechamento mensal com os totais da conta e as medianas de Reels, carrosséis e Stories publicados no período." source="Exportações do Meta Business Suite e relatório da mLabs, sempre usando o mesmo intervalo de datas." avoid="Leads da landing page, cliques de e-mail, compras, receita ou métricas sociais que a exportação não disponibiliza." /><SocialGoalsDashboard /></div>
-        <div className="secondary-kpi-block"><IndicatorGuide number="04" level="DIAGNÓSTICO DO FUNIL" title="Aquisição e vendas" purpose="Onde a audiência deixa o canal social, converte em lead, consome a recompensa, responde às réguas e avança até a compra." cadence="Atualize semanalmente durante campanhas e mantenha o valor atual como acumulado do ciclo; registre o período na observação." source="Relatório geral de mensagens da Meta, landing pages, RD Station, UTMs, WhatsApp, analytics, checkout e plataforma de vendas." avoid="Resultados por palavra-chave ou automação individual da Meta, além de alcance, visualizações, seguidores, compartilhamentos ou salvamentos do Instagram." /><KpiDashboard /></div>
+        <div className="secondary-kpi-block"><IndicatorGuide number="04" level="CONSOLIDAÇÃO DO FUNIL" title="Aquisição e vendas" purpose="Reunir automaticamente os resultados informados nas áreas específicas e manter editáveis apenas consolidações ou etapas ainda sem rastreamento." cadence="Atualize cada dado na área de origem; este painel lê o fechamento mais recente e mostra sua fonte e período." source="Social, Leads e perfil, Performance de E-mail, Performance de WhatsApp e Lotação das salas." avoid="Redigitar métricas já conectadas, somar origens duas vezes ou preencher dados ausentes por estimativa." /><KpiDashboard /></div>
       </section>
 
       <footer className="site-footer">

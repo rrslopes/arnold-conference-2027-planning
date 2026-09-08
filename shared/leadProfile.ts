@@ -30,6 +30,10 @@ export type LeadProfileSnapshotDraft = {
   periodEndAt: number;
   totalLeads: number;
   newLeads: number;
+  sessions: number | null;
+  dmSessions: number | null;
+  formStarts: number | null;
+  dmConversions: number | null;
   firstTimeCount: number | null;
   attended2026Count: number | null;
   attendedPastCount: number | null;
@@ -59,6 +63,16 @@ export function percentageOfLeads(count: number | null, totalLeads: number) {
   return Math.round((count / totalLeads) * 10_000) / 100;
 }
 
+export function calculateLpConversionRate(newLeads: number, sessions: number | null) {
+  if (sessions === null || sessions <= 0) return null;
+  return Math.round((newLeads / sessions) * 10_000) / 100;
+}
+
+export function calculateLpAbandonments(formStarts: number | null, newLeads: number) {
+  if (formStarts === null) return null;
+  return Math.max(0, formStarts - newLeads);
+}
+
 export function getLatestLeadProfileSnapshot<T extends Pick<LeadProfileSnapshot, "periodEndAt" | "updatedAt">>(snapshots: T[]) {
   return [...snapshots].sort((a, b) => b.periodEndAt - a.periodEndAt || b.updatedAt - a.updatedAt)[0] ?? null;
 }
@@ -74,6 +88,13 @@ export function validateLeadProfileSnapshot(snapshot: LeadProfileSnapshotDraft) 
   if (snapshot.periodStartAt > snapshot.periodEndAt) issues.push({ field: "periodStartAt", message: "O início do período deve ser anterior ao fechamento." });
   if (snapshot.totalLeads < 0) issues.push({ field: "totalLeads", message: "O total de leads não pode ser negativo." });
   if (snapshot.newLeads < 0 || snapshot.newLeads > snapshot.totalLeads) issues.push({ field: "newLeads", message: "Novos leads devem ficar entre zero e o total acumulado." });
+  (["sessions", "dmSessions", "formStarts", "dmConversions"] as const).forEach(field => {
+    const value = snapshot[field];
+    if (value !== null && value < 0) issues.push({ field, message: "O valor não pode ser negativo." });
+  });
+  if (snapshot.dmSessions !== null && snapshot.sessions !== null && snapshot.dmSessions > snapshot.sessions) issues.push({ field: "dmSessions", message: "Sessões via DM não podem ultrapassar as sessões totais." });
+  if (snapshot.formStarts !== null && snapshot.formStarts < snapshot.newLeads) issues.push({ field: "formStarts", message: "Inícios de formulário não podem ser menores que os novos leads." });
+  if (snapshot.dmConversions !== null && snapshot.dmConversions > snapshot.newLeads) issues.push({ field: "dmConversions", message: "Conversões via DM não podem ultrapassar os novos leads." });
 
   const optionalFields: LeadProfileCountField[] = [
     ...PARTICIPATION_FIELDS.map(field => field.key),

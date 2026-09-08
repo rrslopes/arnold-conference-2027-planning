@@ -1,0 +1,175 @@
+import { calculateLpAbandonments, calculateLpConversionRate, getLatestLeadProfileSnapshot } from "./leadProfile";
+
+export type AutomaticKpiFormat = "number" | "percent" | "currency";
+export type AutomaticKpiRow = {
+  key: string;
+  label: string;
+  description: string;
+  value: number | null;
+  format: AutomaticKpiFormat;
+  source: string;
+  period: string;
+  mode: "automatic" | "calculated";
+};
+
+type SocialRow = {
+  monthKey: string;
+  accountsReached: number | null;
+  views: number | null;
+  interactions: number | null;
+  netFollowers: number | null;
+  metaMessagesSent: number | null;
+};
+
+type EmailRow = {
+  campaignName: string;
+  sentAt: number;
+  openRateMilli: number | null;
+  clickRateMilli: number | null;
+  unsubscribeRateMilli: number | null;
+  spamRateMilli: number | null;
+  deliveredCount: number | null;
+  uniqueClicks: number | null;
+  attributedConversions: number | null;
+  attributedRevenueCents: number | null;
+};
+
+type LeadRow = {
+  periodStartAt: number;
+  periodEndAt: number;
+  totalLeads: number;
+  newLeads: number;
+  sessions: number | null;
+  dmSessions: number | null;
+  formStarts: number | null;
+  dmConversions: number | null;
+  updatedAt: number;
+};
+
+type WhatsAppRow = {
+  monthKey: string;
+  delivered: number | null;
+  linkClicks: number | null;
+  replies: number | null;
+  optOuts: number | null;
+  attributedPurchases: number | null;
+  humanHandoffs: number | null;
+};
+
+type SaleRow = { monthKey: string; sold: number };
+
+export type KpiIntegrationState = {
+  socialResults: SocialRow[];
+  emailPerformanceResults: EmailRow[];
+  leadProfileResults: LeadRow[];
+  whatsappResults: WhatsAppRow[];
+  monthlySales: SaleRow[];
+};
+
+const dateFormatter = new Intl.DateTimeFormat("pt-BR", { timeZone: "UTC" });
+
+function hasValue(value: number | null) {
+  return value !== null && Number.isFinite(value);
+}
+
+function latestByMonth<T extends { monthKey: string }>(rows: T[], fields: Array<keyof T>) {
+  return [...rows]
+    .filter(row => fields.some(field => typeof row[field] === "number"))
+    .sort((a, b) => b.monthKey.localeCompare(a.monthKey))[0] ?? null;
+}
+
+function rateFromMilli(value: number | null) {
+  return value === null ? null : value / 1000;
+}
+
+export function buildAutomaticKpis(layerId: string, state: KpiIntegrationState): AutomaticKpiRow[] {
+  if (layerId === "dm") {
+    const latest = latestByMonth(state.socialResults, ["accountsReached", "views", "interactions", "netFollowers", "metaMessagesSent"]);
+    const period = latest?.monthKey ?? "Aguardando fechamento";
+    const source = "Social · resultado mensal";
+    return [
+      { key: "social-reach", label: "Contas alcançadas", description: "Alcance registrado no fechamento social mais recente.", value: latest?.accountsReached ?? null, format: "number", source, period, mode: "automatic" },
+      { key: "social-views", label: "Visualizações", description: "Visualizações registradas no fechamento social mais recente.", value: latest?.views ?? null, format: "number", source, period, mode: "automatic" },
+      { key: "social-interactions", label: "Interações com o conteúdo", description: "Interações registradas no fechamento social mais recente.", value: latest?.interactions ?? null, format: "number", source, period, mode: "automatic" },
+      { key: "social-followers", label: "Crescimento líquido de seguidores", description: "Saldo de seguidores registrado no fechamento social mais recente.", value: latest?.netFollowers ?? null, format: "number", source, period, mode: "automatic" },
+      { key: "meta-messages", label: "Mensagens automáticas enviadas — total geral", description: "Consolidado do relatório geral da Meta; sem divisão por automação ou palavra-chave.", value: latest?.metaMessagesSent ?? null, format: "number", source, period, mode: "automatic" },
+    ];
+  }
+
+  if (layerId === "landing") {
+    const latest = getLatestLeadProfileSnapshot(state.leadProfileResults);
+    const period = latest ? `${dateFormatter.format(new Date(latest.periodStartAt))} a ${dateFormatter.format(new Date(latest.periodEndAt))}` : "Aguardando fotografia";
+    return [
+      { key: "lp-sessions", label: "Sessões — LP de novidades", description: "Sessões informadas na fotografia mais recente desta LP.", value: latest?.sessions ?? null, format: "number", source: "Leads e perfil · LP de novidades", period, mode: "automatic" },
+      { key: "lp-dm-sessions", label: "Sessões com origem DM — LP de novidades", description: "Sessões com UTM agregada de DM, sem atribuição por palavra-chave.", value: latest?.dmSessions ?? null, format: "number", source: "Leads e perfil · LP de novidades", period, mode: "automatic" },
+      { key: "lp-form-starts", label: "Inícios de formulário — LP de novidades", description: "Evento de início informado na fotografia da LP.", value: latest?.formStarts ?? null, format: "number", source: "Leads e perfil · LP de novidades", period, mode: "automatic" },
+      { key: "lp-leads", label: "Leads convertidos — LP de novidades", description: "Novos leads do período da fotografia mais recente.", value: latest?.newLeads ?? null, format: "number", source: "Leads e perfil · LP de novidades", period, mode: "automatic" },
+      { key: "lp-dm-conversions", label: "Conversões com origem DM — LP de novidades", description: "Conversões atribuídas à origem DM por UTM agregada.", value: latest?.dmConversions ?? null, format: "number", source: "Leads e perfil · LP de novidades", period, mode: "automatic" },
+      { key: "lp-conversion-rate", label: "Taxa de conversão — LP de novidades", description: "Novos leads ÷ sessões do mesmo período.", value: latest ? calculateLpConversionRate(latest.newLeads, latest.sessions) : null, format: "percent", source: "Cálculo da plataforma", period, mode: "calculated" },
+      { key: "lp-abandonments", label: "Abandonos de formulário — LP de novidades", description: "Inícios de formulário − novos leads; só aparece com o evento de início.", value: latest ? calculateLpAbandonments(latest.formStarts, latest.newLeads) : null, format: "number", source: "Cálculo da plataforma", period, mode: "calculated" },
+    ];
+  }
+
+  if (layerId === "email") {
+    const latest = [...state.emailPerformanceResults].sort((a, b) => b.sentAt - a.sentAt)[0] ?? null;
+    const period = latest ? `${latest.campaignName} · ${dateFormatter.format(new Date(latest.sentAt))}` : "Aguardando campanha";
+    return [
+      { key: "email-delivered", label: "E-mails entregues", description: "Volume informado na campanha mais recente.", value: latest?.deliveredCount ?? null, format: "number", source: "E-mail · Performance e ranking", period, mode: "automatic" },
+      { key: "email-unique-clicks", label: "Cliques únicos", description: "Cliques únicos informados na campanha mais recente.", value: latest?.uniqueClicks ?? null, format: "number", source: "E-mail · Performance e ranking", period, mode: "automatic" },
+      { key: "email-conversions", label: "Conversões atribuídas ao e-mail", description: "Somente quando houver atribuição rastreável.", value: latest?.attributedConversions ?? null, format: "number", source: "E-mail · Performance e ranking", period, mode: "automatic" },
+      { key: "email-revenue", label: "Receita atribuída ao e-mail", description: "Valor atribuído à campanha, sem estimativa.", value: latest?.attributedRevenueCents === null || latest?.attributedRevenueCents === undefined ? null : latest.attributedRevenueCents / 100, format: "currency", source: "E-mail · Performance e ranking", period, mode: "automatic" },
+      { key: "email-open-rate", label: "Taxa de abertura", description: "Taxa registrada para a campanha mais recente.", value: rateFromMilli(latest?.openRateMilli ?? null), format: "percent", source: "E-mail · Performance e ranking", period, mode: "automatic" },
+      { key: "email-click-rate", label: "Taxa de clique", description: "CTR sobre entregues da campanha mais recente.", value: rateFromMilli(latest?.clickRateMilli ?? null), format: "percent", source: "E-mail · Performance e ranking", period, mode: "automatic" },
+      { key: "email-unsubscribe-rate", label: "Taxa de descadastro", description: "Taxa informada na campanha mais recente.", value: rateFromMilli(latest?.unsubscribeRateMilli ?? null), format: "percent", source: "E-mail · Performance e ranking", period, mode: "automatic" },
+      { key: "email-spam-rate", label: "Taxa de spam", description: "Taxa informada na campanha mais recente.", value: rateFromMilli(latest?.spamRateMilli ?? null), format: "percent", source: "E-mail · Performance e ranking", period, mode: "automatic" },
+    ];
+  }
+
+  if (layerId === "whatsapp") {
+    const latest = latestByMonth(state.whatsappResults, ["delivered", "linkClicks", "replies", "optOuts", "attributedPurchases", "humanHandoffs"]);
+    const period = latest?.monthKey ?? "Aguardando fechamento";
+    return [
+      { key: "whatsapp-delivered", label: "Mensagens entregues", description: "Fechamento mensal mais recente do canal.", value: latest?.delivered ?? null, format: "number", source: "WhatsApp · Performance mensal", period, mode: "automatic" },
+      { key: "whatsapp-clicks", label: "Cliques nos links", description: "Cliques rastreados no fechamento mensal.", value: latest?.linkClicks ?? null, format: "number", source: "WhatsApp · Performance mensal", period, mode: "automatic" },
+      { key: "whatsapp-replies", label: "Respostas recebidas", description: "Respostas à campanha no mês.", value: latest?.replies ?? null, format: "number", source: "WhatsApp · Performance mensal", period, mode: "automatic" },
+      { key: "whatsapp-opt-outs", label: "Pedidos de saída", description: "Solicitações de interrupção registradas no mês.", value: latest?.optOuts ?? null, format: "number", source: "WhatsApp · Performance mensal", period, mode: "automatic" },
+      { key: "whatsapp-purchases", label: "Compras atribuídas ao WhatsApp", description: "Somente compras com rastreamento compatível.", value: latest?.attributedPurchases ?? null, format: "number", source: "WhatsApp · Performance mensal", period, mode: "automatic" },
+      { key: "whatsapp-handoffs", label: "Atendimentos iniciados", description: "Conversas assumidas pela equipe no mês.", value: latest?.humanHandoffs ?? null, format: "number", source: "WhatsApp · Performance mensal", period, mode: "automatic" },
+    ];
+  }
+
+  if (layerId === "comercial") {
+    const months = Array.from(new Set(state.monthlySales.map(row => row.monthKey))).sort().reverse();
+    const latestMonth = months.find(month => state.monthlySales.some(row => row.monthKey === month && row.sold > 0)) ?? months[0] ?? null;
+    const monthSold = latestMonth === null ? null : state.monthlySales.filter(row => row.monthKey === latestMonth).reduce((sum, row) => sum + Math.max(0, row.sold), 0);
+    const totalSold = state.monthlySales.reduce((sum, row) => sum + Math.max(0, row.sold), 0);
+    return [
+      { key: "sales-monthly", label: "Inscrições confirmadas no mês", description: "Somatório das vendas mensais lançadas nas seis salas.", value: monthSold, format: "number", source: "Lotação das salas", period: latestMonth ?? "Aguardando vendas", mode: "calculated" },
+      { key: "sales-cumulative", label: "Inscrições confirmadas — acumulado", description: "Somatório acumulado dos lançamentos mensais por congresso.", value: state.monthlySales.length ? totalSold : null, format: "number", source: "Lotação das salas", period: latestMonth ?? "Aguardando vendas", mode: "calculated" },
+    ];
+  }
+
+  return [];
+}
+
+export function buildSourceSummary(state: KpiIntegrationState) {
+  const latestSocial = latestByMonth(state.socialResults, ["accountsReached", "views", "interactions", "netFollowers"]);
+  const latestLead = getLatestLeadProfileSnapshot(state.leadProfileResults);
+  const latestEmail = [...state.emailPerformanceResults].sort((a, b) => b.sentAt - a.sentAt)[0] ?? null;
+  const latestWhatsApp = latestByMonth(state.whatsappResults, ["delivered", "linkClicks", "replies"]);
+  const sales = state.monthlySales.reduce((sum, row) => sum + Math.max(0, row.sold), 0);
+  return [
+    { key: "social", label: "Social", value: latestSocial?.interactions ?? null, detail: latestSocial ? `${latestSocial.monthKey} · interações` : "Aguardando fechamento" },
+    { key: "landing", label: "LP de novidades", value: latestLead?.newLeads ?? null, detail: latestLead ? "novos leads no período" : "Aguardando fotografia" },
+    { key: "email", label: "E-mail", value: latestEmail ? rateFromMilli(latestEmail.clickRateMilli) : null, detail: latestEmail ? "taxa de clique mais recente" : "Aguardando campanha", format: "percent" as const },
+    { key: "whatsapp", label: "WhatsApp", value: latestWhatsApp?.linkClicks ?? null, detail: latestWhatsApp ? `${latestWhatsApp.monthKey} · cliques` : "Aguardando fechamento" },
+    { key: "sales", label: "Vendas", value: state.monthlySales.length ? sales : null, detail: "inscrições acumuladas" },
+  ];
+}
+
+export function formatAutomaticKpi(value: number | null, format: AutomaticKpiFormat) {
+  if (value === null) return "—";
+  if (format === "percent") return `${value.toLocaleString("pt-BR", { maximumFractionDigits: 2 })}%`;
+  if (format === "currency") return value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+  return value.toLocaleString("pt-BR");
+}

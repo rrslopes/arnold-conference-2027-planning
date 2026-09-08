@@ -6,7 +6,7 @@ describe("hierarquia didática de indicadores", () => {
   it("remove a camada genérica de conteúdo do funil integrado", () => {
     expect(kpiLayers.map(layer => layer.id)).not.toContain("conteudo");
     expect(kpiLayers.map(layer => layer.layer)).toEqual([
-      "Mensagens da Meta",
+      "Social e Meta",
       "Landing pages",
       "Consumo da recompensa",
       "E-mail",
@@ -40,13 +40,19 @@ describe("hierarquia didática de indicadores", () => {
 
   it("remove da interface a granularidade que a Meta não fornece e preserva as demais chaves", () => {
     const dmLayer = kpiLayers.find(layer => layer.id === "dm");
-    expect(dmLayer?.metrics.map(metric => metric.key)).toEqual(["Mensagens enviadas"]);
+    expect(dmLayer?.metrics.map(metric => metric.key)).toEqual([]);
     expect(dmLayer?.avoid).toContain("não oferece essa granularidade");
     expect("constraint" in (dmLayer ?? {}) ? dmLayer?.constraint : "").toContain("não permite comparar individualmente");
-    expect(kpiLayers.find(layer => layer.id === "landing")?.metrics.map(metric => metric.key)).toContain("Conversões");
-    expect(kpiLayers.find(layer => layer.id === "landing")?.metrics.map(metric => metric.key)).toContain("Sessões via DM");
-    expect(kpiLayers.find(layer => layer.id === "landing")?.metrics.map(metric => metric.key)).toContain("Conversões via DM");
+    expect(kpiLayers.find(layer => layer.id === "landing")?.metrics.map(metric => metric.key)).toEqual(["Conversões"]);
+    expect(kpiLayers.find(layer => layer.id === "email")?.metrics).toEqual([]);
+    expect(kpiLayers.find(layer => layer.id === "whatsapp")?.metrics).toEqual([]);
     expect(kpiLayers.find(layer => layer.id === "comercial")?.metrics.map(metric => metric.key)).toContain("Compras");
+  });
+
+  it("mantém manual somente o que ainda não possui fonte específica", () => {
+    expect(kpiLayers.find(layer => layer.id === "recompensa")?.metrics).toHaveLength(5);
+    expect(kpiLayers.find(layer => layer.id === "landing")?.metrics[0]?.label).toContain("todas as origens");
+    expect(kpiLayers.find(layer => layer.id === "comercial")?.metrics.find(metric => metric.key === "Compras")?.label).toContain("transações");
   });
 
   it("expõe as três camadas e as quatro instruções na página", () => {

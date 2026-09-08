@@ -4,7 +4,8 @@ import { CheckCircle2, Cloud, CloudOff, Download, ExternalLink, RefreshCw, Save,
 import { toast } from "sonner";
 import { kpiLayers } from "@/data/planData";
 import { trpc } from "@/lib/trpc";
-import { NEWS_LP_SOURCE, getLatestLeadProfileSnapshot } from "@shared/leadProfile";
+import { NEWS_LP_SOURCE } from "@shared/leadProfile";
+import { buildAutomaticKpis, buildSourceSummary, formatAutomaticKpi, type KpiIntegrationState } from "@shared/kpiIntegration";
 
 type MetricState = Record<string, { target: string; actual: string; note: string; done: boolean }>;
 
@@ -56,7 +57,15 @@ export default function KpiDashboard() {
   const completed = useMemo(() => Object.values(state).filter(item => item.done).length, [state]);
   const total = Object.keys(blankState).length;
   const latest = useMemo(() => [...(planning.data?.metrics ?? [])].sort((a, b) => b.updatedAt - a.updatedAt)[0], [planning.data]);
-  const latestNewsLeadSnapshot = useMemo(() => getLatestLeadProfileSnapshot(planning.data?.leadProfileResults ?? []), [planning.data?.leadProfileResults]);
+  const integrationState = useMemo<KpiIntegrationState | null>(() => planning.data ? {
+    socialResults: planning.data.socialResults,
+    emailPerformanceResults: planning.data.emailPerformanceResults,
+    leadProfileResults: planning.data.leadProfileResults,
+    whatsappResults: planning.data.whatsappResults,
+    monthlySales: planning.data.monthlySales,
+  } : null, [planning.data]);
+  const automaticRows = useMemo(() => integrationState ? buildAutomaticKpis(currentLayer.id, integrationState) : [], [currentLayer.id, integrationState]);
+  const sourceSummary = useMemo(() => integrationState ? buildSourceSummary(integrationState) : [], [integrationState]);
 
   const update = (key: string, field: keyof MetricState[string], value: string | boolean) => setState(current => ({ ...current, [key]: { ...current[key], [field]: value } }));
   const save = (nextState = state) => saveMutation.mutate({ entries: toEntries(nextState) });
@@ -78,16 +87,7 @@ export default function KpiDashboard() {
   const exportData = () => {
     const rows = [["Camada", "Métrica", "Meta", "Atual", "Status", "Observação"]];
     kpiLayers.forEach(layer => {
-      if (layer.id === "landing" && latestNewsLeadSnapshot) {
-        rows.push([
-          layer.layer,
-          "Leads convertidos — LP de novidades",
-          "—",
-          String(latestNewsLeadSnapshot.newLeads),
-          "Sincronizado automaticamente",
-          `${new Date(latestNewsLeadSnapshot.periodStartAt).toLocaleDateString("pt-BR", { timeZone: "UTC" })} a ${new Date(latestNewsLeadSnapshot.periodEndAt).toLocaleDateString("pt-BR", { timeZone: "UTC" })}; acumulado da LP: ${latestNewsLeadSnapshot.totalLeads}`,
-        ]);
-      }
+      if (integrationState) buildAutomaticKpis(layer.id, integrationState).forEach(metric => rows.push([layer.layer, metric.label, "—", formatAutomaticKpi(metric.value, metric.format), metric.mode === "automatic" ? "Automático" : "Calculado", `${metric.source}; ${metric.period}`]));
       layer.metrics.forEach(metric => {
         const row = state[`${layer.id}::${metric.key}`];
         rows.push([layer.layer, metric.label, row.target, row.actual, row.done ? "Validado" : "Em aberto", row.note]);
@@ -103,7 +103,7 @@ export default function KpiDashboard() {
   return (
     <div className="kpi-console">
       <div className="kpi-summary">
-        <div><span>MÉTRICAS VALIDADAS</span><strong>{completed}<small>/{total}</small></strong>{planning.isError ? <p className="sync-error"><CloudOff size={13} /> Falha de sincronização.</p> : latest ? <p className="sync-meta"><Cloud size={13} /> Atualizado em {new Date(latest.updatedAt).toLocaleString("pt-BR")}</p> : <p className="sync-meta"><Cloud size={13} /> Espaço compartilhado pronto para o primeiro registro.</p>}</div>
+        <div><span>MÉTRICAS MANUAIS VALIDADAS</span><strong>{completed}<small>/{total}</small></strong>{planning.isError ? <p className="sync-error"><CloudOff size={13} /> Falha de sincronização.</p> : latest ? <p className="sync-meta"><Cloud size={13} /> Atualizado em {new Date(latest.updatedAt).toLocaleString("pt-BR")}</p> : <p className="sync-meta"><Cloud size={13} /> Indicadores automáticos independem deste contador.</p>}</div>
         <div className="kpi-summary-actions">
           {localAvailable ? <button type="button" className="secondary-button" onClick={importLocal} disabled={busy}><Upload size={16} /> Importar deste navegador</button> : null}
           <button type="button" className="secondary-button" onClick={() => planning.refetch()} disabled={planning.isFetching}><RefreshCw size={16} className={planning.isFetching ? "spin" : ""} /> Atualizar</button>
@@ -112,6 +112,7 @@ export default function KpiDashboard() {
           <button type="button" className="primary-button" onClick={() => save()} disabled={busy || planning.isLoading}><Save size={16} /> {saveMutation.isPending ? "Salvando..." : "Salvar para a equipe"}</button>
         </div>
       </div>
+      <div className="kpi-source-summary" aria-label="Resumo das fontes conectadas">{sourceSummary.map(item => <article key={item.key}><span>{item.label}</span><strong>{formatAutomaticKpi(item.value, item.format ?? "number")}</strong><small>{item.detail}</small></article>)}</div>
       <div className="kpi-tabs" role="tablist">{kpiLayers.map(item => <button type="button" role="tab" aria-selected={active === item.id} key={item.id} className={active === item.id ? "active" : ""} onClick={() => setActive(item.id)}>{item.layer}</button>)}</div>
       <div className="kpi-layer-guide">
         <div><span>O QUE ESTA ETAPA MEDE</span><p>{currentLayer.purpose}</p></div>
@@ -120,16 +121,16 @@ export default function KpiDashboard() {
         <div><span>NÃO REGISTRAR AQUI</span><p>{currentLayer.avoid}</p></div>
       </div>
       {"constraint" in currentLayer && currentLayer.constraint ? <div className="kpi-source-constraint"><TriangleAlert size={19} /><p>{currentLayer.constraint}</p></div> : null}
-      {currentLayer.id === "landing" ? <div className="kpi-lead-source-reference"><div><span>ORIGEM CONECTADA AO FUNIL</span><strong>{latestNewsLeadSnapshot ? "Fotografia mais recente sincronizada" : "LP de novidades ainda sem fotografia"}</strong><p>{latestNewsLeadSnapshot ? "A linha automática abaixo recebe os novos leads do período. O consolidado permanece separado para reunir todas as origens sem dupla contagem." : "Quando a primeira fotografia for registrada, uma linha automática aparecerá abaixo. O total mensal de todos os canais continuará separado."}</p></div><a href={NEWS_LP_SOURCE.url} target="_blank" rel="noreferrer">Abrir origem <ExternalLink size={13} /></a></div> : null}
+      <div className="kpi-lead-source-reference"><div><span>{automaticRows.length ? "FONTE ESPECÍFICA CONECTADA" : "PREENCHIMENTO MANUAL JUSTIFICADO"}</span><strong>{automaticRows.length ? `${automaticRows.length} ${automaticRows.length === 1 ? "indicador sincronizado" : "indicadores sincronizados ou calculados"}` : "Ainda não existe fonte interna para esta etapa"}</strong><p>{automaticRows.length ? "Preencha estes dados somente na área de origem. As linhas abaixo são bloqueadas contra redigitação." : "Registre manualmente apenas quando houver relatório confiável e informe período e fonte na observação."}</p></div>{currentLayer.id === "landing" ? <a href={NEWS_LP_SOURCE.url} target="_blank" rel="noreferrer">Abrir origem <ExternalLink size={13} /></a> : null}</div>
       <div className="metric-table" aria-busy={planning.isLoading}>
         <div className="metric-table-head"><span>Métrica</span><span>Meta</span><span>Valor atual</span><span>Observação</span><span>Status</span></div>
-        {currentLayer.id === "landing" ? <div className="metric-row metric-row-automatic" aria-label="Leads convertidos automaticamente pela LP de novidades">
-          <div className="metric-name"><strong>Leads convertidos — LP de novidades</strong><small>Novos leads da fotografia mais recente desta origem. Campo automático e não editável.</small></div>
+        {automaticRows.map(metric => <div className="metric-row metric-row-automatic" key={metric.key} aria-label={`${metric.label} ${metric.mode === "automatic" ? "automático" : "calculado"}`}>
+          <div className="metric-name"><strong>{metric.label}</strong><small>{metric.description}</small></div>
           <div className="metric-readonly-field"><small>Meta</small><strong>—</strong></div>
-          <div className="metric-readonly-field metric-readonly-value"><small>Valor atual</small><strong>{latestNewsLeadSnapshot ? latestNewsLeadSnapshot.newLeads.toLocaleString("pt-BR") : "—"}</strong></div>
-          <div className="metric-readonly-field"><small>Período e origem</small><strong>{latestNewsLeadSnapshot ? `${new Date(latestNewsLeadSnapshot.periodStartAt).toLocaleDateString("pt-BR", { timeZone: "UTC" })} a ${new Date(latestNewsLeadSnapshot.periodEndAt).toLocaleDateString("pt-BR", { timeZone: "UTC" })}` : "Aguardando fotografia"}</strong><span>{latestNewsLeadSnapshot ? `Acumulado da LP: ${latestNewsLeadSnapshot.totalLeads.toLocaleString("pt-BR")}` : "LP de novidades"}</span></div>
-          <div className={`metric-auto-status ${latestNewsLeadSnapshot ? "ready" : "waiting"}`}>{latestNewsLeadSnapshot ? <CheckCircle2 size={17} /> : <RefreshCw size={17} />}{latestNewsLeadSnapshot ? "Sincronizado" : "Aguardando"}</div>
-        </div> : null}
+          <div className="metric-readonly-field metric-readonly-value"><small>Valor atual</small><strong>{formatAutomaticKpi(metric.value, metric.format)}</strong></div>
+          <div className="metric-readonly-field"><small>Período e origem</small><strong>{metric.period}</strong><span>{metric.source}</span></div>
+          <div className={`metric-auto-status ${metric.value === null ? "waiting" : "ready"}`}>{metric.value === null ? <RefreshCw size={17} /> : <CheckCircle2 size={17} />}{metric.value === null ? "Aguardando" : metric.mode === "automatic" ? "Automático" : "Calculado"}</div>
+        </div>)}
         {currentLayer.metrics.map(metric => {
           const key = `${currentLayer.id}::${metric.key}`;
           const row = state[key] ?? blankState[key];

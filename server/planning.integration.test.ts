@@ -1,9 +1,9 @@
 import { afterAll, describe, expect, it } from "vitest";
 import { eq, or } from "drizzle-orm";
 import type { TrpcContext } from "./_core/context";
-import { getDb, saveOccupancyProgress, saveSocialMonthlyResults } from "./db";
+import { getDb, saveOccupancyProgress, saveSocialMonthlyResults, saveWhatsAppMonthlyResults } from "./db";
 import { appRouter } from "./routers";
-import { calendarWorkflow, emailPerformance, emailWorkflow, leadProfileSnapshots, monthlyCongressSales, monthlySocialResults, objectiveProgress, planningActivity, roomOccupancy } from "../drizzle/schema";
+import { calendarWorkflow, emailPerformance, emailWorkflow, leadProfileSnapshots, monthlyCongressSales, monthlySocialResults, monthlyWhatsAppResults, objectiveProgress, planningActivity, roomOccupancy } from "../drizzle/schema";
 
 const runId = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 const objectiveKey = `qa-sync-${runId}`;
@@ -11,6 +11,7 @@ const occupancyKey = `qa-occupancy-${runId}`;
 const workflowKey = "9999";
 const emailWorkflowKey = `email-base-qa-sync-${runId}`;
 const socialMonthKey = "2099-99";
+const whatsappMonthKey = "2099-98";
 const emailCampaignName = `QA Performance ${runId}`;
 const leadSnapshotNote = `QA LP ${runId}`;
 const actorAName = `QA Navegador A ${runId}`;
@@ -34,6 +35,7 @@ describe.sequential("shared planning persistence", () => {
     await db.delete(calendarWorkflow).where(eq(calendarWorkflow.calendarItemId, workflowKey));
     await db.delete(emailWorkflow).where(eq(emailWorkflow.emailItemId, emailWorkflowKey));
     await db.delete(monthlySocialResults).where(eq(monthlySocialResults.monthKey, socialMonthKey));
+    await db.delete(monthlyWhatsAppResults).where(eq(monthlyWhatsAppResults.monthKey, whatsappMonthKey));
     await db.delete(emailPerformance).where(eq(emailPerformance.campaignName, emailCampaignName));
     await db.delete(leadProfileSnapshots).where(eq(leadProfileSnapshots.note, leadSnapshotNote));
     await db.delete(planningActivity).where(or(eq(planningActivity.actorName, actorAName), eq(planningActivity.actorName, actorBName)));
@@ -156,6 +158,7 @@ describe.sequential("shared planning persistence", () => {
       views: 60000,
       interactions: 2400,
       netFollowers: 100,
+      metaMessagesSent: 700,
       reelsPublished: 8,
       reelsMedianReach: 3996,
       reelsMedianViews: 4739,
@@ -182,6 +185,7 @@ describe.sequential("shared planning persistence", () => {
     const state = await anonymousBrowserB.planning.getState();
     expect(state.socialResults.find(item => item.monthKey === socialMonthKey)).toMatchObject({
       accountsReached: 32000,
+      metaMessagesSent: 700,
       reelsMedianShares: 12,
       reelsMedianSaves: 5,
       storyLinkClicks: 95,
@@ -201,16 +205,20 @@ describe.sequential("shared planning persistence", () => {
       clickRate: null,
       unsubscribeRate: null,
       spamRate: null,
+      deliveredCount: 800,
+      uniqueClicks: null,
+      attributedConversions: null,
+      attributedRevenueCents: null,
     };
     await anonymousBrowserA.planning.saveEmailPerformance(initial);
 
     const readInBrowserB = await anonymousBrowserB.planning.getState();
     const created = readInBrowserB.emailPerformanceResults.find(item => item.campaignName === emailCampaignName);
-    expect(created).toMatchObject({ subject: initial.subject, openRateMilli: 31250, clickRateMilli: null });
+    expect(created).toMatchObject({ subject: initial.subject, openRateMilli: 31250, clickRateMilli: null, deliveredCount: 800 });
 
-    await anonymousBrowserB.planning.saveEmailPerformance({ ...initial, id: created!.id, clickRate: 5.4, unsubscribeRate: 0.18, spamRate: 0.02 });
+    await anonymousBrowserB.planning.saveEmailPerformance({ ...initial, id: created!.id, clickRate: 5.4, unsubscribeRate: 0.18, spamRate: 0.02, uniqueClicks: 43, attributedConversions: 6, attributedRevenueCents: 189900 });
     const readBackInBrowserA = await anonymousBrowserA.planning.getState();
-    expect(readBackInBrowserA.emailPerformanceResults.find(item => item.id === created!.id)).toMatchObject({ clickRateMilli: 5400, unsubscribeRateMilli: 180, spamRateMilli: 20 });
+    expect(readBackInBrowserA.emailPerformanceResults.find(item => item.id === created!.id)).toMatchObject({ clickRateMilli: 5400, unsubscribeRateMilli: 180, spamRateMilli: 20, uniqueClicks: 43, attributedConversions: 6, attributedRevenueCents: 189900 });
 
     await anonymousBrowserA.planning.deleteEmailPerformance({ id: created!.id });
     const afterDelete = await anonymousBrowserB.planning.getState();
@@ -222,6 +230,7 @@ describe.sequential("shared planning persistence", () => {
     const browserB = appRouter.createCaller(createAnonymousContext());
     const initial = {
       periodStartAt: Date.UTC(2026, 8, 1, 12), periodEndAt: Date.UTC(2026, 8, 4, 12), totalLeads: 100, newLeads: 20,
+      sessions: 200, dmSessions: 35, formStarts: 50, dmConversions: 8,
       firstTimeCount: 50, attended2026Count: 30, attendedPastCount: 20,
       nutritionAestheticsCount: 55, sportsNutritionCount: 50, sportsPhysioCount: 25, businessManagementCount: 20,
       physicalEducationCount: 30, bodybuildingCount: 15, otherInterestCount: 5,
@@ -230,7 +239,7 @@ describe.sequential("shared planning persistence", () => {
     await browserA.planning.saveLeadProfileSnapshot(initial);
     const readInB = await browserB.planning.getState();
     const created = readInB.leadProfileResults.find(item => item.note === leadSnapshotNote);
-    expect(created).toMatchObject({ sourceKey: "conference-news-lp", totalLeads: 100, topCitiesJson: "[]" });
+    expect(created).toMatchObject({ sourceKey: "conference-news-lp", totalLeads: 100, sessions: 200, dmSessions: 35, formStarts: 50, dmConversions: 8, topCitiesJson: "[]" });
 
     await browserB.planning.saveLeadProfileSnapshot({ ...initial, id: created!.id, totalLeads: 120, newLeads: 40 });
     const readBackInA = await browserA.planning.getState();
@@ -239,5 +248,12 @@ describe.sequential("shared planning persistence", () => {
     await browserA.planning.deleteLeadProfileSnapshot({ id: created!.id });
     const afterDelete = await browserB.planning.getState();
     expect(afterDelete.leadProfileResults.some(item => item.id === created!.id)).toBe(false);
+  });
+
+  it("persists the monthly WhatsApp source and exposes it to another anonymous browser", async () => {
+    await saveWhatsAppMonthlyResults([{ monthKey: whatsappMonthKey as "2026-09", delivered: 480, linkClicks: 42, replies: 18, optOuts: 2, attributedPurchases: 3, humanHandoffs: 9, note: "QA compartilhado" }]);
+    const browserB = appRouter.createCaller(createAnonymousContext());
+    const state = await browserB.planning.getState();
+    expect(state.whatsappResults.find(item => item.monthKey === whatsappMonthKey)).toMatchObject({ delivered: 480, linkClicks: 42, replies: 18, attributedPurchases: 3, humanHandoffs: 9 });
   });
 });

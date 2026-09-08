@@ -17,6 +17,10 @@ export type EmailPerformanceEntry = EmailPerformanceValues & {
   subject: string;
   sentAt: number;
   emailUrl: string;
+  deliveredCount: number | null;
+  uniqueClicks: number | null;
+  attributedConversions: number | null;
+  attributedRevenueCents: number | null;
   updatedAt: number;
 };
 

@@ -6,6 +6,8 @@ import {
   INTEREST_FIELDS,
   NEWS_LP_SOURCE,
   PARTICIPATION_FIELDS,
+  calculateLpAbandonments,
+  calculateLpConversionRate,
   getLatestLeadProfileSnapshot,
   percentageOfLeads,
   sortInterestProfile,
@@ -32,6 +34,10 @@ type FormState = {
   periodEnd: string;
   totalLeads: string;
   newLeads: string;
+  sessions: string;
+  dmSessions: string;
+  formStarts: string;
+  dmConversions: string;
   note: string;
 } & Record<LeadProfileCountField, string>;
 
@@ -46,6 +52,10 @@ function createBlankForm(): FormState {
     periodEnd: "",
     totalLeads: "",
     newLeads: "",
+    sessions: "",
+    dmSessions: "",
+    formStarts: "",
+    dmConversions: "",
     note: "",
     ...Object.fromEntries(countKeys.map(key => [key, ""])),
   } as FormState;
@@ -87,6 +97,8 @@ export default function LeadProfileDashboard() {
   })), [planning.data?.leadProfileResults]);
   const latest = useMemo(() => getLatestLeadProfileSnapshot(snapshots), [snapshots]);
   const interests = useMemo(() => latest ? sortInterestProfile(latest) : [], [latest]);
+  const conversionRate = latest ? calculateLpConversionRate(latest.newLeads, latest.sessions) : null;
+  const abandonments = latest ? calculateLpAbandonments(latest.formStarts, latest.newLeads) : null;
 
   const saveMutation = trpc.planning.saveLeadProfileSnapshot.useMutation({
     onSuccess: async () => {
@@ -114,6 +126,10 @@ export default function LeadProfileDashboard() {
     periodEndAt: Date.parse(`${form.periodEnd}T12:00:00.000Z`),
     totalLeads: parseCount(form.totalLeads) ?? -1,
     newLeads: parseCount(form.newLeads) ?? -1,
+    sessions: parseCount(form.sessions),
+    dmSessions: parseCount(form.dmSessions),
+    formStarts: parseCount(form.formStarts),
+    dmConversions: parseCount(form.dmConversions),
     ...Object.fromEntries(countKeys.map(key => [key, parseCount(form[key])])),
     note: form.note.trim(),
   }) as LeadProfileSnapshotDraft;
@@ -139,6 +155,10 @@ export default function LeadProfileDashboard() {
       periodEnd: toDateInput(snapshot.periodEndAt),
       totalLeads: String(snapshot.totalLeads),
       newLeads: String(snapshot.newLeads),
+      sessions: snapshot.sessions === null ? "" : String(snapshot.sessions),
+      dmSessions: snapshot.dmSessions === null ? "" : String(snapshot.dmSessions),
+      formStarts: snapshot.formStarts === null ? "" : String(snapshot.formStarts),
+      dmConversions: snapshot.dmConversions === null ? "" : String(snapshot.dmConversions),
       note: snapshot.note,
       ...Object.fromEntries(countKeys.map(key => [key, snapshot[key] === null ? "" : String(snapshot[key])])),
     } as FormState);
@@ -165,6 +185,12 @@ export default function LeadProfileDashboard() {
           <article><strong>{formatDate(latest.periodStartAt)}</strong><span>INÍCIO DO PERÍODO</span></article>
           <article><strong>{formatDate(latest.periodEndAt)}</strong><span>DATA DE REFERÊNCIA</span></article>
         </div>
+        <div className="lead-performance-summary">
+          <article><strong>{countValue(latest.sessions)}</strong><span>SESSÕES NESTA LP</span><small>Informado no fechamento</small></article>
+          <article><strong>{formatPercent(conversionRate)}</strong><span>TAXA DE CONVERSÃO</span><small>Novos leads ÷ sessões</small></article>
+          <article><strong>{countValue(latest.formStarts)}</strong><span>INÍCIOS DE FORMULÁRIO</span><small>Quando o evento existir</small></article>
+          <article><strong>{countValue(abandonments)}</strong><span>ABANDONOS CALCULADOS</span><small>Inícios − novos leads</small></article>
+        </div>
         <div className="lead-profile-notice"><CircleAlert size={20} /><p><strong>Leitura correta:</strong> as áreas permitem múltiplas escolhas. A soma dos percentuais de interesse pode ultrapassar 100% e representa menções, não pessoas únicas.</p></div>
         <div className="lead-profile-grid">
           <section className="lead-interest-panel"><header><BarChart3 size={20} /><div><span>RANKING DE INTERESSES</span><p>Opção do formulário → congresso relacionado</p></div></header><div>{interests.map(item => <article key={item.key}><div><strong>{item.label}</strong><small>{item.congress !== item.label ? `Leitura: ${item.congress}` : item.congress}</small></div><div className="lead-interest-value"><b>{countValue(item.count)}</b><span>{formatPercent(item.percentage)}</span></div><div className="lead-interest-bar"><i style={{ width: `${Math.min(item.percentage ?? 0, 100)}%` }} /></div></article>)}</div></section>
@@ -183,6 +209,10 @@ export default function LeadProfileDashboard() {
           <label><span>Data de referência</span><input type="date" max={new Date().toISOString().slice(0, 10)} value={form.periodEnd} onChange={event => setForm(current => ({ ...current, periodEnd: event.target.value }))} /></label>
           <label><span>Total acumulado de leads</span><input inputMode="numeric" value={form.totalLeads} onChange={event => update("totalLeads", event.target.value)} placeholder="Obrigatório" /></label>
           <label><span>Novos leads no período</span><input inputMode="numeric" value={form.newLeads} onChange={event => update("newLeads", event.target.value)} placeholder="Obrigatório" /></label>
+          <label><span>Sessões nesta LP</span><input inputMode="numeric" value={form.sessions} onChange={event => update("sessions", event.target.value)} placeholder="Opcional" /><small>Mesmo período dos novos leads</small></label>
+          <label><span>Sessões com origem DM</span><input inputMode="numeric" value={form.dmSessions} onChange={event => update("dmSessions", event.target.value)} placeholder="Opcional" /><small>UTM agregada, sem palavra-chave</small></label>
+          <label><span>Inícios de formulário</span><input inputMode="numeric" value={form.formStarts} onChange={event => update("formStarts", event.target.value)} placeholder="Opcional" /><small>Somente com evento configurado</small></label>
+          <label><span>Conversões com origem DM</span><input inputMode="numeric" value={form.dmConversions} onChange={event => update("dmConversions", event.target.value)} placeholder="Opcional" /><small>UTM agregada, sem automação individual</small></label>
         </div>
         <div className="lead-form-groups">
           <fieldset><legend>Histórico de participação</legend>{PARTICIPATION_FIELDS.map(field => <label key={field.key}><span>{field.label}<small>{field.sourceLabel}</small></span><input inputMode="numeric" value={form[field.key]} onChange={event => update(field.key, event.target.value)} placeholder="—" /></label>)}</fieldset>

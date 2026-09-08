@@ -32,6 +32,10 @@ type FormState = {
   clickRate: string;
   unsubscribeRate: string;
   spamRate: string;
+  deliveredCount: string;
+  uniqueClicks: string;
+  attributedConversions: string;
+  attributedRevenue: string;
 };
 
 const blankForm: FormState = {
@@ -43,6 +47,10 @@ const blankForm: FormState = {
   clickRate: "",
   unsubscribeRate: "",
   spamRate: "",
+  deliveredCount: "",
+  uniqueClicks: "",
+  attributedConversions: "",
+  attributedRevenue: "",
 };
 
 const rateFields: Array<{ key: EmailRateField; label: string; helper: string }> = [
@@ -77,6 +85,22 @@ function normalizeRateInput(value: string) {
   }).slice(0, 8);
 }
 
+function normalizeCountInput(value: string) {
+  return value.replace(/\D/g, "").slice(0, 9);
+}
+
+function parseCount(value: string) {
+  if (!value.trim()) return null;
+  const parsed = Number(value);
+  return Number.isInteger(parsed) && parsed >= 0 ? parsed : null;
+}
+
+function parseCurrencyToCents(value: string) {
+  if (!value.trim()) return null;
+  const parsed = Number(value.replace(/\./g, "").replace(",", "."));
+  return Number.isFinite(parsed) && parsed >= 0 ? Math.round(parsed * 100) : null;
+}
+
 export default function EmailPerformanceDashboard() {
   const utils = trpc.useUtils();
   const planning = trpc.planning.getState.useQuery(undefined, { refetchOnWindowFocus: true, retry: 1 });
@@ -93,6 +117,10 @@ export default function EmailPerformanceDashboard() {
     clickRate: fromStoredRate(row.clickRateMilli),
     unsubscribeRate: fromStoredRate(row.unsubscribeRateMilli),
     spamRate: fromStoredRate(row.spamRateMilli),
+    deliveredCount: row.deliveredCount,
+    uniqueClicks: row.uniqueClicks,
+    attributedConversions: row.attributedConversions,
+    attributedRevenueCents: row.attributedRevenueCents,
     updatedAt: row.updatedAt,
   })), [planning.data?.emailPerformanceResults]);
   const ranked = useMemo(() => rankEmailPerformance(entries), [entries]);
@@ -128,7 +156,11 @@ export default function EmailPerformanceDashboard() {
 
   const update = (key: keyof FormState, value: string) => setForm(current => ({
     ...current,
-    [key]: rateFields.some(field => field.key === key) ? normalizeRateInput(value) : value,
+    [key]: rateFields.some(field => field.key === key)
+      ? normalizeRateInput(value)
+      : ["deliveredCount", "uniqueClicks", "attributedConversions"].includes(key)
+        ? normalizeCountInput(value)
+        : value,
   }));
 
   const edit = (entry: EmailPerformanceEntry) => {
@@ -142,6 +174,10 @@ export default function EmailPerformanceDashboard() {
       clickRate: entry.clickRate === null ? "" : String(entry.clickRate).replace(".", ","),
       unsubscribeRate: entry.unsubscribeRate === null ? "" : String(entry.unsubscribeRate).replace(".", ","),
       spamRate: entry.spamRate === null ? "" : String(entry.spamRate).replace(".", ","),
+      deliveredCount: entry.deliveredCount === null ? "" : String(entry.deliveredCount),
+      uniqueClicks: entry.uniqueClicks === null ? "" : String(entry.uniqueClicks),
+      attributedConversions: entry.attributedConversions === null ? "" : String(entry.attributedConversions),
+      attributedRevenue: entry.attributedRevenueCents === null ? "" : (entry.attributedRevenueCents / 100).toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
     });
     document.getElementById("email-performance-form")?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
@@ -169,6 +205,10 @@ export default function EmailPerformanceDashboard() {
       subject: form.subject.trim(),
       sentAt: Date.parse(`${form.sentDate}T12:00:00.000Z`),
       emailUrl: form.emailUrl.trim(),
+      deliveredCount: parseCount(form.deliveredCount),
+      uniqueClicks: parseCount(form.uniqueClicks),
+      attributedConversions: parseCount(form.attributedConversions),
+      attributedRevenueCents: parseCurrencyToCents(form.attributedRevenue),
       ...draftRates,
     });
   };
@@ -200,6 +240,12 @@ export default function EmailPerformanceDashboard() {
           <label className="wide"><span>Link do e-mail enviado</span><input type="url" value={form.emailUrl} onChange={event => update("emailUrl", event.target.value.slice(0, 2048))} placeholder="https://..." /></label>
         </div>
         <div className="email-rate-fields">{rateFields.map(field => <label key={field.key}><span>{field.label}</span><div><input inputMode="decimal" min="0" max="100" step="0.001" value={form[field.key]} onChange={event => update(field.key, event.target.value)} placeholder="—" /><b>%</b></div><small>{field.helper}</small></label>)}</div>
+        <div className="email-volume-fields">
+          <label><span>E-mails entregues</span><input inputMode="numeric" value={form.deliveredCount} onChange={event => update("deliveredCount", event.target.value)} placeholder="—" /><small>Total aceito pelos provedores</small></label>
+          <label><span>Cliques únicos</span><input inputMode="numeric" value={form.uniqueClicks} onChange={event => update("uniqueClicks", event.target.value)} placeholder="—" /><small>Pessoas que clicaram</small></label>
+          <label><span>Conversões atribuídas</span><input inputMode="numeric" value={form.attributedConversions} onChange={event => update("attributedConversions", event.target.value)} placeholder="—" /><small>Somente com rastreamento</small></label>
+          <label><span>Receita atribuída</span><input inputMode="decimal" value={form.attributedRevenue} onChange={event => update("attributedRevenue", event.target.value.replace(/[^\d,.]/g, "").slice(0, 16))} placeholder="0,00" /><small>R$ · somente com atribuição</small></label>
+        </div>
         <footer><div>{previewScore === null ? <><ShieldAlert size={17} /><span>Score pendente até preencher as quatro taxas.</span></> : <><Medal size={17} /><span>Prévia do score: <strong>{previewScore.toLocaleString("pt-BR")}</strong></span></>}</div><button type="button" className="primary-button" onClick={save} disabled={saveMutation.isPending}>{saveMutation.isPending ? <RefreshCw size={16} className="spin" /> : <Save size={16} />}{form.id ? "Salvar alterações" : "Adicionar campanha"}</button></footer>
       </section>
 
@@ -209,7 +255,7 @@ export default function EmailPerformanceDashboard() {
           <div className="email-rank-position"><strong>{entry.position ? String(entry.position).padStart(2, "0") : "—"}</strong><span>{entry.position ? "POSIÇÃO" : "PENDENTE"}</span></div>
           <div className="email-rank-main"><small>{formatDate(entry.sentAt)}</small><h4>{entry.campaignName}</h4><p>{entry.subject}</p><a href={entry.emailUrl} target="_blank" rel="noreferrer">Abrir e-mail enviado <ArrowUpRight size={13} /></a></div>
           <div className="email-rank-rates">{rateFields.map(field => <span key={field.key}><small>{field.label.replace("Taxa de ", "")}</small><strong>{formatRate(entry[field.key])}</strong></span>)}</div>
-          <div className="email-rank-score"><small>SCORE</small><strong>{entry.score === null ? "—" : entry.score.toLocaleString("pt-BR")}</strong><span>{entry.score === null ? "Aguardando taxas" : `Clique pesa ${EMAIL_PERFORMANCE_WEIGHTS.clickRate * 100}%`}</span></div>
+          <div className="email-rank-score"><small>SCORE</small><strong>{entry.score === null ? "—" : entry.score.toLocaleString("pt-BR")}</strong><span>{entry.score === null ? "Aguardando taxas" : `Clique pesa ${EMAIL_PERFORMANCE_WEIGHTS.clickRate * 100}%`}</span><small>{entry.deliveredCount === null ? "Volumes ainda não informados" : `${entry.deliveredCount.toLocaleString("pt-BR")} entregues · ${(entry.uniqueClicks ?? 0).toLocaleString("pt-BR")} cliques`}</small></div>
           <div className="email-rank-actions"><button type="button" onClick={() => edit(entry)} aria-label={`Editar ${entry.campaignName}`}><Edit3 size={15} /></button><button type="button" onClick={() => setDeleteCandidate(entry)} aria-label={`Excluir ${entry.campaignName}`}><Trash2 size={15} /></button></div>
         </article>)}</div>}
       </section>

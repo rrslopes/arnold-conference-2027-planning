@@ -90,6 +90,7 @@ export const monthlySocialResults = mysqlTable("monthly_social_results", {
   views: int("views"),
   interactions: int("interactions"),
   netFollowers: int("netFollowers"),
+  metaMessagesSent: int("metaMessagesSent"),
   reelsPublished: int("reelsPublished"),
   reelsMedianReach: int("reelsMedianReach"),
   reelsMedianViews: int("reelsMedianViews"),
@@ -142,6 +143,10 @@ export const emailPerformance = mysqlTable("email_performance", {
   clickRateMilli: int("clickRateMilli"),
   unsubscribeRateMilli: int("unsubscribeRateMilli"),
   spamRateMilli: int("spamRateMilli"),
+  deliveredCount: int("deliveredCount"),
+  uniqueClicks: int("uniqueClicks"),
+  attributedConversions: int("attributedConversions"),
+  attributedRevenueCents: int("attributedRevenueCents"),
   updatedAt: bigint("updatedAt", { mode: "number" }).notNull(),
 });
 
@@ -152,6 +157,10 @@ export const leadProfileSnapshots = mysqlTable("lead_profile_snapshots", {
   periodEndAt: bigint("periodEndAt", { mode: "number" }).notNull(),
   totalLeads: int("totalLeads").notNull(),
   newLeads: int("newLeads").notNull(),
+  sessions: int("sessions"),
+  dmSessions: int("dmSessions"),
+  formStarts: int("formStarts"),
+  dmConversions: int("dmConversions"),
   firstTimeCount: int("firstTimeCount"),
   attended2026Count: int("attended2026Count"),
   attendedPastCount: int("attendedPastCount"),
@@ -165,6 +174,19 @@ export const leadProfileSnapshots = mysqlTable("lead_profile_snapshots", {
   singleInterestCount: int("singleInterestCount"),
   multipleInterestsCount: int("multipleInterestsCount"),
   topCitiesJson: text("topCitiesJson").notNull(),
+  note: text("note").notNull(),
+  updatedAt: bigint("updatedAt", { mode: "number" }).notNull(),
+});
+
+export const monthlyWhatsAppResults = mysqlTable("monthly_whatsapp_results", {
+  id: int("id").autoincrement().primaryKey(),
+  monthKey: varchar("monthKey", { length: 7 }).notNull().unique(),
+  delivered: int("delivered"),
+  linkClicks: int("linkClicks"),
+  replies: int("replies"),
+  optOuts: int("optOuts"),
+  attributedPurchases: int("attributedPurchases"),
+  humanHandoffs: int("humanHandoffs"),
   note: text("note").notNull(),
   updatedAt: bigint("updatedAt", { mode: "number" }).notNull(),
 });
@@ -188,3 +210,5 @@ export type EmailPerformance = typeof emailPerformance.$inferSelect;
 export type InsertEmailPerformance = typeof emailPerformance.$inferInsert;
 export type LeadProfileSnapshotRow = typeof leadProfileSnapshots.$inferSelect;
 export type InsertLeadProfileSnapshotRow = typeof leadProfileSnapshots.$inferInsert;
+export type MonthlyWhatsAppResult = typeof monthlyWhatsAppResults.$inferSelect;
+export type InsertMonthlyWhatsAppResult = typeof monthlyWhatsAppResults.$inferInsert;

@@ -370,3 +370,18 @@
 - [x] Bloquear edição e impedir dupla contagem da linha automática.
 - [x] Atualizar testes e validar desktop, mobile, logs, compilação e build.
 - [x] Salvar checkpoint reversível e entregar a correção.
+
+## Integração automática das áreas específicas com os KPIs
+
+- [x] Auditar todos os indicadores de Social, LPs, E-mail, WhatsApp e Vendas e identificar sua fonte operacional.
+- [x] Definir uma matriz de fonte única com métricas automáticas, calculadas e ainda manuais.
+- [x] Acrescentar nas áreas específicas somente os campos necessários para alimentar KPIs relevantes.
+- [x] Integrar automaticamente resultados sociais mensais aos KPIs correspondentes.
+- [x] Integrar automaticamente performance de e-mail aos KPIs correspondentes.
+- [x] Integrar sessões, conversões e taxa de conversão das LPs quando os dados forem informados na área específica.
+- [x] Integrar lotação e vendas ao funil usando os registros mensais já existentes.
+- [x] Criar uma fonte mensal de WhatsApp na própria área do canal e integrá-la automaticamente aos KPIs.
+- [x] Remover ou bloquear campos duplicados no painel consolidado.
+- [x] Exibir origem, período e regra de cálculo em todo KPI automático ou calculado.
+- [x] Atualizar testes e validar persistência, colaboração, desktop, mobile, logs, compilação e build.
+- [ ] Salvar checkpoint reversível e entregar a integração automática.

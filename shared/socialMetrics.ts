@@ -16,6 +16,7 @@ export const SOCIAL_RESULT_FIELDS = [
   "views",
   "interactions",
   "netFollowers",
+  "metaMessagesSent",
   "reelsPublished",
   "reelsMedianReach",
   "reelsMedianViews",

@@ -7,6 +7,7 @@ const mocks = vi.hoisted(() => ({
   saveMetricProgress: vi.fn(),
   saveOccupancyProgress: vi.fn(),
   saveSocialMonthlyResults: vi.fn(),
+  saveWhatsAppMonthlyResults: vi.fn(),
   saveCalendarWorkflow: vi.fn(),
   saveEmailWorkflow: vi.fn(),
   saveEmailPerformance: vi.fn(),
@@ -130,6 +131,7 @@ describe("planning router", () => {
       views: index === 0 ? 60000 : null,
       interactions: index === 0 ? 2400 : null,
       netFollowers: index === 0 ? 100 : null,
+      metaMessagesSent: index === 0 ? 850 : null,
       reelsPublished: null,
       reelsMedianReach: null,
       reelsMedianViews: null,
@@ -156,6 +158,15 @@ describe("planning router", () => {
     const caller = appRouter.createCaller(ctx);
     await caller.planning.saveSocialResults({ entries });
     expect(mocks.saveSocialMonthlyResults).toHaveBeenCalledWith(entries);
+  });
+
+  it("saves eight monthly WhatsApp results without authentication", async () => {
+    mocks.saveWhatsAppMonthlyResults.mockResolvedValue({ updatedAt: 791 });
+    const monthKeys = ["2026-09", "2026-10", "2026-11", "2026-12", "2027-01", "2027-02", "2027-03", "2027-04"] as const;
+    const entries = monthKeys.map((monthKey, index) => ({ monthKey, delivered: index === 0 ? 480 : null, linkClicks: index === 0 ? 42 : null, replies: index === 0 ? 18 : null, optOuts: index === 0 ? 2 : null, attributedPurchases: index === 0 ? 3 : null, humanHandoffs: index === 0 ? 9 : null, note: "" }));
+    const caller = appRouter.createCaller(createContext());
+    await caller.planning.saveWhatsAppResults({ entries });
+    expect(mocks.saveWhatsAppMonthlyResults).toHaveBeenCalledWith(entries);
   });
 
   it("rejects estimated, negative or incomplete social payloads", async () => {
@@ -271,6 +282,10 @@ describe("planning router", () => {
       clickRate: null,
       unsubscribeRate: null,
       spamRate: null,
+      deliveredCount: null,
+      uniqueClicks: null,
+      attributedConversions: null,
+      attributedRevenueCents: null,
     };
     await caller.planning.saveEmailPerformance(entry);
     expect(mocks.saveEmailPerformance).toHaveBeenCalledWith(entry);
@@ -287,6 +302,10 @@ describe("planning router", () => {
       clickRate: 5,
       unsubscribeRate: 0.2,
       spamRate: 0.01,
+      deliveredCount: null,
+      uniqueClicks: null,
+      attributedConversions: null,
+      attributedRevenueCents: null,
     };
     await expect(caller.planning.saveEmailPerformance({ ...valid, clickRate: 101 })).rejects.toThrow();
     await expect(caller.planning.saveEmailPerformance({ ...valid, emailUrl: "http://example.com/email" })).rejects.toThrow();
@@ -310,6 +329,7 @@ describe("planning router", () => {
     const caller = appRouter.createCaller(ctx);
     const entry = {
       periodStartAt: Date.UTC(2026, 8, 1, 12), periodEndAt: Date.UTC(2026, 8, 4, 12), totalLeads: 100, newLeads: 20,
+      sessions: null, dmSessions: null, formStarts: null, dmConversions: null,
       firstTimeCount: 50, attended2026Count: 30, attendedPastCount: 20,
       nutritionAestheticsCount: 55, sportsNutritionCount: 50, sportsPhysioCount: 25, businessManagementCount: 20,
       physicalEducationCount: 30, bodybuildingCount: 15, otherInterestCount: 5,
@@ -323,6 +343,7 @@ describe("planning router", () => {
     const caller = appRouter.createCaller(createContext());
     const entry = {
       periodStartAt: Date.UTC(2026, 8, 1, 12), periodEndAt: Date.UTC(2026, 8, 4, 12), totalLeads: 100, newLeads: 120,
+      sessions: null, dmSessions: null, formStarts: null, dmConversions: null,
       firstTimeCount: 101, attended2026Count: null, attendedPastCount: null,
       nutritionAestheticsCount: null, sportsNutritionCount: null, sportsPhysioCount: null, businessManagementCount: null,
       physicalEducationCount: null, bodybuildingCount: null, otherInterestCount: null,
