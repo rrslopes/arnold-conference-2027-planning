@@ -369,4 +369,4 @@
 - [x] Manter “Leads convertidos — consolidado” separado para o total de todas as origens.
 - [x] Bloquear edição e impedir dupla contagem da linha automática.
 - [x] Atualizar testes e validar desktop, mobile, logs, compilação e build.
-- [ ] Salvar checkpoint reversível e entregar a correção.
+- [x] Salvar checkpoint reversível e entregar a correção.
