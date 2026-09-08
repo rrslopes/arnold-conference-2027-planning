@@ -225,13 +225,12 @@ describe.sequential("shared planning persistence", () => {
       firstTimeCount: 50, attended2026Count: 30, attendedPastCount: 20,
       nutritionAestheticsCount: 55, sportsNutritionCount: 50, sportsPhysioCount: 25, businessManagementCount: 20,
       physicalEducationCount: 30, bodybuildingCount: 15, otherInterestCount: 5,
-      singleInterestCount: 40, multipleInterestsCount: 60,
-      topCities: [{ city: "São Paulo", count: 45 }], note: leadSnapshotNote,
+      note: leadSnapshotNote,
     };
     await browserA.planning.saveLeadProfileSnapshot(initial);
     const readInB = await browserB.planning.getState();
     const created = readInB.leadProfileResults.find(item => item.note === leadSnapshotNote);
-    expect(created).toMatchObject({ sourceKey: "conference-news-lp", totalLeads: 100, topCitiesJson: '[{"city":"São Paulo","count":45}]' });
+    expect(created).toMatchObject({ sourceKey: "conference-news-lp", totalLeads: 100, topCitiesJson: "[]" });
 
     await browserB.planning.saveLeadProfileSnapshot({ ...initial, id: created!.id, totalLeads: 120, newLeads: 40 });
     const readBackInA = await browserA.planning.getState();

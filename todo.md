@@ -348,3 +348,15 @@
 - [x] Criar testes de cálculos, validações, persistência, origem e ausência de duplicidade.
 - [x] Validar colaboração anônima, desktop, mobile, logs, compilação e build.
 - [x] Salvar checkpoint reversível e entregar a versão.
+
+## Simplificação do perfil da LP e aproveitamento mensal de leads
+
+- [x] Revisar o painel da LP e os indicadores atuais que utilizam volume de leads.
+- [x] Definir a diferença entre contribuição mensal da LP e total consolidado de todos os canais.
+- [x] Remover afinidade declarada do formulário, perfil atual, histórico e cálculos ativos.
+- [x] Remover principais cidades do formulário, perfil atual, histórico e cálculos ativos.
+- [x] Manter somente volume, período, histórico de participação e áreas de interesse.
+- [x] Preencher automaticamente no funil a contribuição mais recente da LP de novidades.
+- [x] Impedir que a contribuição da LP seja apresentada como total mensal consolidado de todos os canais.
+- [x] Atualizar testes, validar persistência, desktop, mobile, logs, compilação e build.
+- [ ] Salvar checkpoint reversível e entregar a versão simplificada.

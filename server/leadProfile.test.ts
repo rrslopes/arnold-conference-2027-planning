@@ -3,7 +3,6 @@ import {
   INTEREST_FIELDS,
   NEWS_LP_SOURCE,
   getLatestLeadProfileSnapshot,
-  parseCities,
   percentageOfLeads,
   sortInterestProfile,
   validateLeadProfileSnapshot,
@@ -15,8 +14,7 @@ const base: LeadProfileSnapshotDraft = {
   firstTimeCount: 50, attended2026Count: 30, attendedPastCount: 20,
   nutritionAestheticsCount: 55, sportsNutritionCount: 50, sportsPhysioCount: 25, businessManagementCount: 20,
   physicalEducationCount: 30, bodybuildingCount: 15, otherInterestCount: 5,
-  singleInterestCount: 40, multipleInterestsCount: 60,
-  topCities: [{ city: "São Paulo", count: 45 }], note: "Fechamento de QA",
+  note: "Fechamento de QA",
 };
 
 describe("lead profile snapshots", () => {
@@ -46,13 +44,14 @@ describe("lead profile snapshots", () => {
     expect(getLatestLeadProfileSnapshot([{ periodEndAt: 2, updatedAt: 1 }, { periodEndAt: 4, updatedAt: 1 }, { periodEndAt: 3, updatedAt: 9 }])?.periodEndAt).toBe(4);
   });
 
-  it("rejects impossible participation, affinity and city totals", () => {
-    const issues = validateLeadProfileSnapshot({ ...base, firstTimeCount: 101, singleInterestCount: 70, multipleInterestsCount: 50, topCities: [{ city: "São Paulo", count: 80 }, { city: "Rio", count: 30 }] });
-    expect(issues.map(item => item.field)).toEqual(expect.arrayContaining(["firstTimeCount", "participation", "affinity", "topCities"]));
+  it("rejects impossible participation totals", () => {
+    const issues = validateLeadProfileSnapshot({ ...base, firstTimeCount: 101 });
+    expect(issues.map(item => item.field)).toEqual(expect.arrayContaining(["firstTimeCount", "participation"]));
   });
 
-  it("parses city JSON defensively", () => {
-    expect(parseCities('[{"city":"São Paulo","count":8}]')).toEqual([{ city: "São Paulo", count: 8 }]);
-    expect(parseCities("texto inválido")).toEqual([]);
+  it("keeps affinity and cities outside the active draft", () => {
+    expect("singleInterestCount" in base).toBe(false);
+    expect("multipleInterestsCount" in base).toBe(false);
+    expect("topCities" in base).toBe(false);
   });
 });

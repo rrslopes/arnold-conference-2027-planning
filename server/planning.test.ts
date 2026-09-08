@@ -313,8 +313,7 @@ describe("planning router", () => {
       firstTimeCount: 50, attended2026Count: 30, attendedPastCount: 20,
       nutritionAestheticsCount: 55, sportsNutritionCount: 50, sportsPhysioCount: 25, businessManagementCount: 20,
       physicalEducationCount: 30, bodybuildingCount: 15, otherInterestCount: 5,
-      singleInterestCount: 40, multipleInterestsCount: 60,
-      topCities: [{ city: "São Paulo", count: 45 }], note: "Relatório filtrado da LP",
+      note: "Relatório filtrado da LP",
     };
     await caller.planning.saveLeadProfileSnapshot(entry);
     expect(mocks.saveLeadProfileSnapshot).toHaveBeenCalledWith(entry);
@@ -327,7 +326,7 @@ describe("planning router", () => {
       firstTimeCount: 101, attended2026Count: null, attendedPastCount: null,
       nutritionAestheticsCount: null, sportsNutritionCount: null, sportsPhysioCount: null, businessManagementCount: null,
       physicalEducationCount: null, bodybuildingCount: null, otherInterestCount: null,
-      singleInterestCount: null, multipleInterestsCount: null, topCities: [], note: "",
+      note: "",
     };
     await expect(caller.planning.saveLeadProfileSnapshot(entry)).rejects.toThrow();
     expect(mocks.saveLeadProfileSnapshot).not.toHaveBeenCalled();

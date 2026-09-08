@@ -22,12 +22,7 @@ export const INTEREST_FIELDS = [
 
 export type ParticipationField = (typeof PARTICIPATION_FIELDS)[number]["key"];
 export type InterestField = (typeof INTEREST_FIELDS)[number]["key"];
-export type LeadProfileCountField = ParticipationField | InterestField | "singleInterestCount" | "multipleInterestsCount";
-
-export type CityBreakdown = {
-  city: string;
-  count: number;
-};
+export type LeadProfileCountField = ParticipationField | InterestField;
 
 export type LeadProfileSnapshotDraft = {
   id?: number;
@@ -45,9 +40,6 @@ export type LeadProfileSnapshotDraft = {
   physicalEducationCount: number | null;
   bodybuildingCount: number | null;
   otherInterestCount: number | null;
-  singleInterestCount: number | null;
-  multipleInterestsCount: number | null;
-  topCities: CityBreakdown[];
   note: string;
 };
 
@@ -86,8 +78,6 @@ export function validateLeadProfileSnapshot(snapshot: LeadProfileSnapshotDraft) 
   const optionalFields: LeadProfileCountField[] = [
     ...PARTICIPATION_FIELDS.map(field => field.key),
     ...INTEREST_FIELDS.map(field => field.key),
-    "singleInterestCount",
-    "multipleInterestsCount",
   ];
   optionalFields.forEach(field => {
     const value = snapshot[field];
@@ -96,26 +86,5 @@ export function validateLeadProfileSnapshot(snapshot: LeadProfileSnapshotDraft) 
 
   const participationTotal = PARTICIPATION_FIELDS.reduce((total, field) => total + (snapshot[field.key] ?? 0), 0);
   if (participationTotal > snapshot.totalLeads) issues.push({ field: "participation", message: "A soma do histórico de participação não pode ultrapassar o total de leads." });
-
-  const affinityTotal = (snapshot.singleInterestCount ?? 0) + (snapshot.multipleInterestsCount ?? 0);
-  if (affinityTotal > snapshot.totalLeads) issues.push({ field: "affinity", message: "A soma dos perfis de interesse único e múltiplo não pode ultrapassar o total de leads." });
-
-  const normalizedCities = snapshot.topCities.map(item => ({ city: item.city.trim(), count: item.count })).filter(item => item.city || item.count > 0);
-  if (normalizedCities.length > 5) issues.push({ field: "topCities", message: "Informe no máximo cinco cidades." });
-  if (normalizedCities.some(item => !item.city || item.count < 0 || item.count > snapshot.totalLeads)) issues.push({ field: "topCities", message: "Cada cidade precisa de nome e quantidade válida." });
-  if (normalizedCities.reduce((total, item) => total + item.count, 0) > snapshot.totalLeads) issues.push({ field: "topCities", message: "A soma das cidades não pode ultrapassar o total de leads." });
   return issues;
-}
-
-export function normalizeCities(cities: CityBreakdown[]) {
-  return cities.map(item => ({ city: item.city.trim(), count: item.count })).filter(item => item.city || item.count > 0).slice(0, 5);
-}
-
-export function parseCities(value: string): CityBreakdown[] {
-  try {
-    const parsed = JSON.parse(value) as CityBreakdown[];
-    return Array.isArray(parsed) ? parsed.filter(item => typeof item?.city === "string" && Number.isInteger(item?.count)) : [];
-  } catch {
-    return [];
-  }
 }

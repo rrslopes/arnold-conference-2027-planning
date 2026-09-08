@@ -15,19 +15,25 @@ describe("news landing page lead profile UI", () => {
 
   it("states the single source and blocks mixing other channels", () => {
     expect(shared).toContain("https://oferta.savagetgroup.com.br/conference-2027");
-    expect(panel).toContain("Não inclua leads de masterclasses, páginas de vendas, outras landing pages ou importações");
+    expect(panel).toContain("Não inclua leads de outras origens");
     expect(panel).toContain("Não some outras páginas");
   });
 
   it("explains multiple-choice interpretation and profile mappings", () => {
     expect(panel).toContain("A soma dos percentuais de interesse pode ultrapassar 100%");
     expect(panel).toContain("Mapeado para");
-    expect(panel).toContain("Múltiplos interesses");
   });
 
-  it("integrates the latest LP total into the funnel without automatic summing", () => {
-    expect(kpis).toContain("REFERÊNCIA AUTOMÁTICA · NÃO SOMAR DUAS VEZES");
-    expect(kpis).toContain("inclua esta origem uma única vez");
+  it("removes affinity and cities from the operational interface", () => {
+    expect(panel).not.toContain("AFINIDADE DECLARADA");
+    expect(panel).not.toContain("PRINCIPAIS CIDADES");
+    expect(panel).not.toContain("Até cinco cidades");
+  });
+
+  it("integrates the latest LP contribution without calling it the consolidated total", () => {
+    expect(kpis).toContain("CONTRIBUIÇÃO AUTOMÁTICA DA LP · ORIGEM IDENTIFICADA");
+    expect(kpis).toContain("Use esta contribuição uma única vez no total mensal consolidado");
+    expect(kpis).toContain("O total mensal de todos os canais continua separado");
     expect(home).toContain('number="04" level="DIAGNÓSTICO DO FUNIL"');
   });
 

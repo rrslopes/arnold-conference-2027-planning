@@ -16,7 +16,7 @@ import {
 } from "../drizzle/schema";
 import type { SocialMonthlyResult } from "../shared/socialMetrics";
 import { toStoredRate, type EmailPerformanceDraft } from "../shared/emailPerformance";
-import { NEWS_LP_SOURCE, normalizeCities, type LeadProfileSnapshotDraft } from "../shared/leadProfile";
+import { NEWS_LP_SOURCE, type LeadProfileSnapshotDraft } from "../shared/leadProfile";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -191,14 +191,11 @@ export async function saveLeadProfileSnapshot(entry: LeadProfileSnapshotInput) {
     physicalEducationCount: entry.physicalEducationCount,
     bodybuildingCount: entry.bodybuildingCount,
     otherInterestCount: entry.otherInterestCount,
-    singleInterestCount: entry.singleInterestCount,
-    multipleInterestsCount: entry.multipleInterestsCount,
-    topCitiesJson: JSON.stringify(normalizeCities(entry.topCities)),
     note: entry.note,
     updatedAt: now,
   };
   if (entry.id) await db.update(leadProfileSnapshots).set(values).where(eq(leadProfileSnapshots.id, entry.id));
-  else await db.insert(leadProfileSnapshots).values(values);
+  else await db.insert(leadProfileSnapshots).values({ ...values, singleInterestCount: null, multipleInterestsCount: null, topCitiesJson: "[]" });
   return { updatedAt: now };
 }
 

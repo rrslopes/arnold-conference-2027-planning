@@ -119,7 +119,7 @@ const emailPerformanceEntry = z.object({
 });
 
 const leadProfileCountFields = [
-  "firstTimeCount", "attended2026Count", "attendedPastCount", "nutritionAestheticsCount", "sportsNutritionCount", "sportsPhysioCount", "businessManagementCount", "physicalEducationCount", "bodybuildingCount", "otherInterestCount", "singleInterestCount", "multipleInterestsCount",
+  "firstTimeCount", "attended2026Count", "attendedPastCount", "nutritionAestheticsCount", "sportsNutritionCount", "sportsPhysioCount", "businessManagementCount", "physicalEducationCount", "bodybuildingCount", "otherInterestCount",
 ] as const;
 const leadProfileEntry = z.object({
   id: z.number().int().positive().optional(),
@@ -137,9 +137,6 @@ const leadProfileEntry = z.object({
   physicalEducationCount: optionalCount,
   bodybuildingCount: optionalCount,
   otherInterestCount: optionalCount,
-  singleInterestCount: optionalCount,
-  multipleInterestsCount: optionalCount,
-  topCities: z.array(z.object({ city: z.string().trim().min(1).max(120), count: z.number().int().min(0).max(100_000_000) })).max(5),
   note: z.string().max(2000),
 }).superRefine((entry, ctx) => {
   if (entry.periodStartAt > entry.periodEndAt) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["periodStartAt"], message: "O início do período deve ser anterior ao fechamento." });
@@ -149,8 +146,6 @@ const leadProfileEntry = z.object({
     if (entry[field] !== null && entry[field]! > entry.totalLeads) ctx.addIssue({ code: z.ZodIssueCode.custom, path: [field], message: "O valor não pode ultrapassar o total de leads." });
   });
   if ((entry.firstTimeCount ?? 0) + (entry.attended2026Count ?? 0) + (entry.attendedPastCount ?? 0) > entry.totalLeads) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["firstTimeCount"], message: "O histórico de participação não pode ultrapassar o total de leads." });
-  if ((entry.singleInterestCount ?? 0) + (entry.multipleInterestsCount ?? 0) > entry.totalLeads) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["singleInterestCount"], message: "A afinidade não pode ultrapassar o total de leads." });
-  if (entry.topCities.reduce((total, item) => total + item.count, 0) > entry.totalLeads) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["topCities"], message: "A soma das cidades não pode ultrapassar o total de leads." });
 });
 
 export const planningRouter = router({
