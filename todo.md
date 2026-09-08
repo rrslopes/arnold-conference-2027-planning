@@ -384,4 +384,4 @@
 - [x] Remover ou bloquear campos duplicados no painel consolidado.
 - [x] Exibir origem, período e regra de cálculo em todo KPI automático ou calculado.
 - [x] Atualizar testes e validar persistência, colaboração, desktop, mobile, logs, compilação e build.
-- [ ] Salvar checkpoint reversível e entregar a integração automática.
+- [x] Salvar checkpoint reversível e entregar a integração automática.
