@@ -437,4 +437,4 @@
 - [x] Manter uma camada aberta por vez e exibir resumo útil nas camadas recolhidas.
 - [x] Preservar links diretos, dados, persistência e integrações dos quatro painéis.
 - [x] Atualizar testes e validar desktop, mobile, navegação por teclado, logs, compilação e build.
-- [ ] Salvar checkpoint reversível e entregar a atualização.
+- [x] Salvar checkpoint reversível e entregar a atualização.
