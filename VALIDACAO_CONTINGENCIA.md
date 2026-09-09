@@ -7,19 +7,23 @@
 - **Mobile — hero:** o título, os dois CTAs e os cards iniciais permanecem legíveis em 390 px; o menu móvel continua acessível. Não foi identificada sobreposição ou corte de texto na primeira dobra.
 - **Calendário — 15/09:** o briefing apresenta oito blocos completos, encerra com cadastro para novidades e exibe “Data em confirmação” no contexto da plataforma. O destino LEMBRETE aparece ligado à LP geral e LOTE permanece isolado como pendente.
 - **Calendário — 18/09:** o carrossel está decupado em oito cards e a sequência contém apenas duas enquetes no dia — Gestão de Academias e WTTC — com respostas clicáveis explícitas.
-- **Calendário — 23/09:** o conteúdo principal de SONAFE apresenta avaliação, carga, prevenção, integração e continuidade; exige revisão técnica e conduz à lista de novidades, sem preço, lote, checkout ou promessa de venda.
+- **Calendário — 23/09:** há uma única pauta multiformato de SONAFE. O conteúdo principal apresenta avaliação, carga, prevenção, integração e continuidade; os três Stories são apoio opcional dentro da mesma ativação, não publicações adicionais. A pauta exige revisão técnica e conduz à lista de novidades, sem preço, lote, checkout ou promessa de venda.
+- **Referências audiovisuais:** as seis pautas dependentes de acervo exibem título oficial da íntegra de 2026, minutagem/faixa auditada, excerto, orientação de uso e status de conferência. Os links aparecem somente para as três masterclasses cujas URLs foram fornecidas.
+- **Programação SONAFE 2027:** doze sessões exibidas em 24/04/2027; nove palestras preservam os dois palestrantes, e a mesa-redonda mantém participantes e moderação. O dashboard sinaliza a divergência entre “2º” e “3º Simpósio” encontrada nas fontes.
+- **Coordenação científica:** sete coordenadores exibidos dentro da programação correspondente, com fotos otimizadas, mini-CV quando fornecido e perfis sociais. SONAFE apresenta Leonardo Luiz Barretti Secchi e Rafael Fernandes Temoteo; Ricardo Pannain mantém o aviso de mini-CV ausente.
+- **Mobile:** a pauta única de 23/09 e o seletor SONAFE permanecem legíveis em 390 px; a seleção direta por URL permite revisar a sala sem interação prévia.
 
 ## Validação técnica concluída
 
 - TypeScript sem erros.
-- **161 testes aprovados** em 29 arquivos.
+- **166 testes aprovados** em 29 arquivos.
 - Build de produção concluído.
 - Avisos de build limitados às fontes servidas por `/manus-storage` e ao tamanho do bundle já existente; nenhum erro bloqueante.
 
-## Pontos ainda a concluir antes do checkpoint
+## Estado da rodada
 
-- Salvar o checkpoint contingencial.
+Validação concluída; versão pronta para checkpoint e revisão do cliente.
 
 ## Logs
 
-Após a navegação pelo hero, Mídia Paga e pelos cards de 15/09, 18/09 e 23/09, não foram encontrados erros no servidor, avisos ou erros no console do navegador, nem respostas HTTP 4xx/5xx nas requisições recentes.
+Após a navegação pelo hero, Mídia Paga, cards de 15/09, 18/09, 23/09, referências de corte e programação SONAFE, não foram encontrados erros no servidor, avisos ou erros no console do navegador, nem respostas HTTP 4xx/5xx nas requisições recentes.

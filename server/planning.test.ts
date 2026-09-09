@@ -211,7 +211,7 @@ describe("planning router", () => {
     ctx.user = null;
     const caller = appRouter.createCaller(ctx);
     const entry = {
-      calendarItemId: "0923b",
+      calendarItemId: "0923",
       caption: "Legenda em revisão pelo cliente.",
       artworkUrl: "https://drive.google.com/file/d/example/view",
       status: "aprovar-arte" as const,
@@ -223,13 +223,13 @@ describe("planning router", () => {
   it("rejects invalid workflow status and non-HTTPS artwork links", async () => {
     const caller = appRouter.createCaller(createContext());
     await expect(caller.planning.saveCalendarWorkflow({
-      calendarItemId: "0923b",
+      calendarItemId: "0923",
       caption: "Legenda",
       artworkUrl: "javascript:alert(1)",
       status: "aprovar-arte",
     })).rejects.toThrow();
     await expect(caller.planning.saveCalendarWorkflow({
-      calendarItemId: "0923b",
+      calendarItemId: "0923",
       caption: "Legenda",
       artworkUrl: "https://drive.google.com/file/d/example/view",
       status: "status-inexistente" as never,

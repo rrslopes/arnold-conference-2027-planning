@@ -2,8 +2,8 @@ import { describe, expect, it } from "vitest";
 import { calendar } from "../client/src/data/planData";
 
 describe("briefings operacionais do calendário", () => {
-  it("cobre todas as 30 pautas com sequência explícita ou aprovação prévia", () => {
-    expect(calendar).toHaveLength(30);
+  it("cobre todas as 28 pautas com sequência explícita ou aprovação prévia", () => {
+    expect(calendar).toHaveLength(28);
     for (const item of calendar) {
       const hasExplicitSequence = Boolean(item.productionBrief?.units.length || item.storyCards?.length);
       const isPreviouslyApproved = item.id === "0831";
@@ -45,9 +45,18 @@ describe("briefings operacionais do calendário", () => {
   it("distingue insumos da sequência e alternativas excludentes", () => {
     expect(calendar.find(item => item.id === "0904")?.optionMode).toBe("alternatives");
     expect(calendar.find(item => item.id === "0915")?.optionMode).toBe("inputs");
-    expect(calendar.find(item => item.id === "0923b")?.optionMode).toBe("inputs");
+    expect(calendar.find(item => item.id === "0923")?.optionMode).toBe("inputs");
     expect(calendar.find(item => item.id === "0903")?.optionMode).toBe("inputs");
     expect(calendar.find(item => item.id === "0921")?.optionMode).toBe("inputs");
     expect(calendar.find(item => item.id === "0925")?.optionMode).toBe("inputs");
+  });
+
+  it("mantém 23/09 como uma única pauta multiformato de aquecimento", () => {
+    const september23 = calendar.filter(item => item.date.startsWith("23/09"));
+    expect(september23).toHaveLength(1);
+    expect(september23[0]?.id).toBe("0923");
+    expect(september23[0]?.productionBrief?.units).toHaveLength(6);
+    expect(september23[0]?.storyCards).toHaveLength(3);
+    expect(september23[0]?.idea).toContain("uma única pauta central");
   });
 });

@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import {
   audienceAttractionAxes,
+  conferenceCoordinators,
   conferencePrograms2027,
   nutritionAesthetic2026Priorities,
   speakerContentRequests,
@@ -11,8 +12,8 @@ import { navigation } from "../client/src/data/planData";
 describe("inteligência editorial por programação", () => {
   it("organiza os seis congressos sem tratar grades de 2026 como programação de 2027", () => {
     expect(conferencePrograms2027).toHaveLength(6);
-    expect(conferencePrograms2027.filter(item => item.status === "recebida")).toHaveLength(1);
-    expect(conferencePrograms2027.filter(item => item.status === "aguardando")).toHaveLength(5);
+    expect(conferencePrograms2027.filter(item => item.status === "recebida")).toHaveLength(2);
+    expect(conferencePrograms2027.filter(item => item.status === "aguardando")).toHaveLength(4);
     expect(conferencePrograms2027.filter(item => item.status === "aguardando").every(item => item.sessions.length === 0)).toBe(true);
     expect(navigation.some(item => item.id === "inteligencia" && item.label === "Programação & conteúdo")).toBe(true);
   });
@@ -26,12 +27,31 @@ describe("inteligência editorial por programação", () => {
     expect(program?.source).toBe("Programação_Conference_Nutrição Estética_2027.xlsx");
   });
 
+  it("reproduz as doze sessões confirmadas de SONAFE 2027 e preserva os co-palestrantes", () => {
+    const program = conferencePrograms2027.find(item => item.id === "sonafe");
+    expect(program?.date).toBe("24 de abril de 2027");
+    expect(program?.sessions).toHaveLength(12);
+    expect(program?.sessions.find(item => item.time === "10h00")?.speakers).toBe("Leonardo Luiz Barretti Secchi e Priscila Alvarenga");
+    expect(program?.sessions.find(item => item.time === "16h30")?.speakers).toBe("André Fujita e Bárbara Pocceschi");
+    expect(program?.sessions.at(-1)?.speakers).toContain("Moderação: Bruno Baroni");
+    expect(program?.sourceUrl).toContain("1P6EooZAA6mVkYVMC-hVUfbBvGfxxCx-8");
+    expect(program?.note).toContain("numeração oficial");
+  });
+
   it("mantém eixos e solicitações operacionais completos", () => {
-    expect(audienceAttractionAxes).toHaveLength(6);
-    expect(audienceAttractionAxes.every(item => item.tension && item.audience && item.sessions)).toBe(true);
+    expect(audienceAttractionAxes).toHaveLength(10);
+    expect(audienceAttractionAxes.every(item => item.tension && item.audience && item.sessions && item.congress)).toBe(true);
+    expect(audienceAttractionAxes.filter(item => item.congress === "SONAFE")).toHaveLength(4);
     expect(speakerContentRequests).toHaveLength(7);
     expect(speakerContentRequests.some(item => item.item.includes("Ementa"))).toBe(true);
     expect(speakerContentRequests.some(item => item.stage === "Governança")).toBe(true);
+  });
+
+  it("mantém os sete coordenadores confirmados e duas coordenações para SONAFE", () => {
+    expect(conferenceCoordinators).toHaveLength(7);
+    expect(conferenceCoordinators.filter(item => item.congressId === "sonafe")).toHaveLength(2);
+    expect(conferenceCoordinators.every(item => item.name && item.photo.startsWith("/manus-storage/") && item.social.length > 0)).toBe(true);
+    expect(conferenceCoordinators.find(item => item.name === "Ricardo Pannain")?.bio).toBeUndefined();
   });
 
   it("classifica todas as oito íntegras de Nutrição Estética 2026 e prioriza as pontes diretas", () => {
@@ -53,10 +73,15 @@ describe("inteligência editorial por programação", () => {
     expect(component).toContain("Eixos de atração");
     expect(component).toContain("Matéria-prima");
     expect(component).toContain("Não transcrever tudo com a mesma urgência");
+    expect(component).toContain("COORDENAÇÃO CIENTÍFICA CONFIRMADA");
+    expect(component).toContain("coordinator-grid");
+    expect(component).toContain("program-review");
+    expect(component).toContain("Abrir planilha");
     expect(component).toContain("intelligence-review");
     expect(home).toContain("isIntelligenceReview");
     expect(styles).toContain(".intelligence-tabs");
     expect(styles).toContain(".program-sessions");
+    expect(styles).toContain(".coordinator-panel");
     expect(styles).toContain("@media (max-width: 860px)");
   });
 });

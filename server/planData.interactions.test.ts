@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { calendar } from "../client/src/data/planData";
 
-const detailedStoryIds = ["0902", "0905", "0907", "0909", "0912", "0916", "0918", "0919", "0920", "0923a", "0923c", "0926"];
+const detailedStoryIds = ["0902", "0905", "0907", "0909", "0912", "0916", "0918", "0919", "0920", "0923", "0926"];
 
 describe("interações detalhadas do calendário", () => {
   it("mantém todas as pautas interativas mapeadas como sequências explícitas", () => {

@@ -1,6 +1,8 @@
 export type CutValidation = {
   id: string;
   speaker: string;
+  sourceTitle: string;
+  sourceUrl?: string;
   transcriptStatus: "Confirmado na transcrição" | "Tema confirmado; recorte reformulado";
   excerpt: string;
   location: string;
@@ -24,6 +26,8 @@ const videoStatus = "Conferência no vídeo original pendente" as const;
 const anaPlato: CutValidation = {
   id: "C01",
   speaker: "Ana Paula Pujol",
+  sourceTitle: "Estratégias Nutricionais para Emagrecimento",
+  sourceUrl: "https://www.youtube.com/watch?v=asItej-OIk8",
   transcriptStatus: "Confirmado na transcrição",
   excerpt: "Por que o paciente para de perder peso? ‘Ele está mentindo, ele não está seguindo a dieta’. Pode ser que sim, também, mas há um fator fisiológico envolvido, que é esse impulso biológico que bloqueia a perda de peso.",
   location: "Bloco aproximado 35:00–40:00, linha 165. A fonte de Ana Paula não possui timestamps nativos palavra a palavra.",
@@ -34,6 +38,8 @@ const anaPlato: CutValidation = {
 const andreiaPreTreino: CutValidation = {
   id: "C02",
   speaker: "Andreia Naves",
+  sourceTitle: "Update na Suplementação de Carboidratos: da Tecnologia à Ciência e Aplicação Prática",
+  sourceUrl: "https://youtu.be/tAqcK_GgzD8",
   transcriptStatus: "Confirmado na transcrição",
   excerpt: "O que a gente entende como pré-treino, porque pré-treino, na verdade, já foi, tá desde lá das semanas que antecederam uma competição.",
   location: "15:18.9–15:27.6, linhas 320–323.",
@@ -44,6 +50,8 @@ const andreiaPreTreino: CutValidation = {
 const robertoEstrutura: CutValidation = {
   id: "C03",
   speaker: "Roberto Tranjan",
+  sourceTitle: "Academias em Alta Potência: de corpo, mente e alma",
+  sourceUrl: "https://youtu.be/QSjVRVEvZMs",
   transcriptStatus: "Confirmado na transcrição",
   excerpt: "Se você continuar colocando toda essa força que você coloca no corpo, daqui a pouco a tua academia vai ter hérnia de disco. [...] Quem dá a direção é a mente.",
   location: "09:08.6–09:32.0, linhas 219–227.",
@@ -54,6 +62,8 @@ const robertoEstrutura: CutValidation = {
 const anaChamada: CutValidation = {
   id: "C04",
   speaker: "Ana Paula Pujol",
+  sourceTitle: "Estratégias Nutricionais para Emagrecimento",
+  sourceUrl: "https://www.youtube.com/watch?v=asItej-OIk8",
   transcriptStatus: "Confirmado na transcrição",
   excerpt: "A primeira delas é o efeito platô [...] O segundo é a prevenção de reganho, como que eu faço para esse paciente manter o peso reduzido por mais de um ano.",
   location: "Trecho inicial 00:00–29:58, linha 39; sem timestamp nativo exato.",
@@ -64,6 +74,8 @@ const anaChamada: CutValidation = {
 const andreiaCarboidrato: CutValidation = {
   id: "C05",
   speaker: "Andreia Naves",
+  sourceTitle: "Update na Suplementação de Carboidratos: da Tecnologia à Ciência e Aplicação Prática",
+  sourceUrl: "https://youtu.be/tAqcK_GgzD8",
   transcriptStatus: "Confirmado na transcrição",
   excerpt: "Quando a gente pensa dentro da nutrição, o carboidrato vai ser o rei.",
   location: "06:15.4–06:26 aproximadamente, linhas 109–113.",
@@ -74,6 +86,8 @@ const andreiaCarboidrato: CutValidation = {
 const robertoTriade: CutValidation = {
   id: "C06",
   speaker: "Roberto Tranjan",
+  sourceTitle: "Academias em Alta Potência: de corpo, mente e alma",
+  sourceUrl: "https://youtu.be/QSjVRVEvZMs",
   transcriptStatus: "Confirmado na transcrição",
   excerpt: "A academia tem também alma, o espírito de time, de equipe [...] isso aqui tem o nome de tríade corpo, mente, alma, ou tríade CMA.",
   location: "08:15.1–08:38.2, linhas 203–208.",
@@ -124,6 +138,8 @@ export const cutAuditByCalendarId: Record<string, CutAuditEntry> = {
     validations: [{
       id: "C07",
       speaker: "Andreia Naves",
+      sourceTitle: "Update na Suplementação de Carboidratos: da Tecnologia à Ciência e Aplicação Prática",
+      sourceUrl: "https://youtu.be/tAqcK_GgzD8",
       transcriptStatus: "Confirmado na transcrição",
       excerpt: "Essa história [...] acima de 120 gramas por hora é, até agora, mais narrativa de marketing do que ciência sólida. Então cuidado com o marketing [...] com os géis cada vez mais concentrados.",
       location: "37:52.1–38:26 aproximadamente, linhas 905–919.",
@@ -138,6 +154,8 @@ export const cutAuditByCalendarId: Record<string, CutAuditEntry> = {
     validations: [{
       id: "C08",
       speaker: "Andreia Naves",
+      sourceTitle: "Update na Suplementação de Carboidratos: da Tecnologia à Ciência e Aplicação Prática",
+      sourceUrl: "https://youtu.be/tAqcK_GgzD8",
       transcriptStatus: "Confirmado na transcrição",
       excerpt: "Acima de 120 gramas por hora é, até agora, mais narrativa de marketing do que ciência sólida.",
       location: "37:52.1–38:24, linhas 905–917.",
@@ -146,6 +164,7 @@ export const cutAuditByCalendarId: Record<string, CutAuditEntry> = {
     }, {
       id: "C09",
       speaker: "Bruno Zylber",
+      sourceTitle: "Intervenções Microbiológicas no Atleta de Alto Rendimento",
       transcriptStatus: "Tema confirmado; recorte reformulado",
       excerpt: "Alvo errado: tratar exames de fezes, buscar normalizar um gráfico e seguir modismo genérico. [...] Alvo real: sustentar a alta performance, desenvolvimento individualizado [...].",
       location: "49:29.9–49:49.9, linhas 1359–1363.",
@@ -154,6 +173,7 @@ export const cutAuditByCalendarId: Record<string, CutAuditEntry> = {
     }, {
       id: "C10",
       speaker: "Daniel Coimbra",
+      sourceTitle: "Caso Clínico: Estratégias Nutricionais em Corredores",
       transcriptStatus: "Tema confirmado; recorte reformulado",
       excerpt: "Meu cabelo cai, a minha libido tá no chão, eu não tenho força pra nada [...] mas eu me encaixei dentro dum padrão de beleza. O quanto isso vale?",
       location: "13:47.4–14:01.7, linhas 369–375.",
@@ -168,6 +188,8 @@ export const cutAuditByCalendarId: Record<string, CutAuditEntry> = {
     validations: [{
       id: "C11",
       speaker: "Ana Paula Pujol",
+      sourceTitle: "Estratégias Nutricionais para Emagrecimento",
+      sourceUrl: "https://www.youtube.com/watch?v=asItej-OIk8",
       transcriptStatus: "Confirmado na transcrição",
       excerpt: "Nós precisamos de estratégias nutricionais para driblar o efeito platô [...] e para prevenir o reganho ponderal.",
       location: "Trecho inicial 00:00–29:58, linhas 49–51; sem timestamp nativo exato.",
@@ -175,7 +197,8 @@ export const cutAuditByCalendarId: Record<string, CutAuditEntry> = {
       videoStatus,
     }, {
       id: "C12",
-      speaker: "Luisa Volpe e Sullen Becher",
+      speaker: "Luisa Wolpe e Sullen Becher",
+      sourceTitle: "Diferenças entre Celulite e Lipedema: Práticas Clínicas",
       transcriptStatus: "Confirmado na transcrição",
       excerpt: "A mulher pode, sim, ter a flacidez e a celulite. [...] Na flacidez, as irregularidades são lineares; na celulite, ovais ou em círculo.",
       location: "19:13.2–19:28.3, linhas 426–429.",
@@ -184,6 +207,7 @@ export const cutAuditByCalendarId: Record<string, CutAuditEntry> = {
     }, {
       id: "C13",
       speaker: "Mika Yamaguchi",
+      sourceTitle: "Impactos das mudanças climáticas na saúde sistêmica e na saúde da pele",
       transcriptStatus: "Confirmado na transcrição",
       excerpt: "Pensando no exposoma climático: poluição do ar [...] eventos extremos, incêndios florestais, tempestades de areia.",
       location: "13:47.5–14:04 aproximadamente, linhas 339–344.",

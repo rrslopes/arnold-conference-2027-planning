@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { calendar } from "../client/src/data/planData";
 
@@ -10,16 +11,29 @@ describe("auditoria dos cortes de palestras", () => {
     audited.forEach(item => expect(item.cutValidations?.length).toBeGreaterThan(0));
   });
 
-  it("registra treze buscas auditadas com excerto, localização e orientação de uso", () => {
+  it("registra treze buscas auditadas com fonte, excerto, localização e orientação de uso", () => {
     const appearances = calendar.filter(item => auditedIds.includes(item.id)).flatMap(item => item.cutValidations ?? []);
     const cuts = [...new Map(appearances.map(cut => [cut.id, cut])).values()];
     expect(appearances).toHaveLength(16);
     expect(cuts).toHaveLength(13);
     cuts.forEach(cut => {
+      expect(cut.sourceTitle.length).toBeGreaterThan(15);
       expect(cut.excerpt.length).toBeGreaterThan(35);
       expect(cut.location.length).toBeGreaterThan(12);
       expect(cut.productionNote.length).toBeGreaterThan(30);
     });
+  });
+
+  it("informa a íntegra e a minutagem sem inventar precisão ou URL", () => {
+    const cuts = [...new Map(calendar.flatMap(item => item.cutValidations ?? []).map(cut => [cut.id, cut])).values()];
+    const urls = [...new Set(cuts.flatMap(cut => cut.sourceUrl ? [cut.sourceUrl] : []))];
+    expect(urls.sort()).toEqual([
+      "https://www.youtube.com/watch?v=asItej-OIk8",
+      "https://youtu.be/QSjVRVEvZMs",
+      "https://youtu.be/tAqcK_GgzD8",
+    ].sort());
+    expect(cuts.filter(cut => cut.speaker === "Ana Paula Pujol").every(cut => cut.location.toLowerCase().includes("aproxim") || cut.location.toLowerCase().includes("sem timestamp nativo"))).toBe(true);
+    expect(cuts.filter(cut => cut.speaker !== "Ana Paula Pujol").every(cut => /\d{2}:\d{2}/.test(cut.location))).toBe(true);
   });
 
   it("nunca apresenta confirmação textual como aprovação final do vídeo", () => {
@@ -42,5 +56,12 @@ describe("auditoria dos cortes de palestras", () => {
       expect(item?.options?.join(" ")).toContain("09:08–09:32");
       expect(item?.options?.join(" ")).not.toContain("falta de força de vontade");
     }
+  });
+
+  it("exibe título da íntegra, minutagem e link somente quando disponível", () => {
+    const source = readFileSync(new URL("../client/src/components/CalendarExplorer.tsx", import.meta.url), "utf8");
+    expect(source).toContain("ÍNTEGRA 2026");
+    expect(source).toContain("MINUTAGEM");
+    expect(source).toContain("cut.sourceUrl ?");
   });
 });

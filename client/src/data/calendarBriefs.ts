@@ -211,9 +211,9 @@ export const operationalBriefs: Record<string, ProductionBrief> = {
     ],
     note: "Usar o banco validado de Reels apenas como referência conceitual. Não incluir protocolo, dose, fármaco ou conduta específica; revisão técnica obrigatória.",
   },
-  "0923b": {
-    format: "Carrossel de 6 cards; Reel derivado dos mesmos eixos",
-    purpose: "Mostrar que recovery e prevenção começam por avaliação e contexto, não pela escolha imediata de um recurso.",
+  "0923": {
+    format: "Uma pauta multiformato: carrossel de 6 cards + até 3 Stories de apoio",
+    purpose: "Tratar 23/09 como um dia comum de aquecimento, com uma única pauta central sobre avaliação, prevenção e recovery.",
     units: [
       { unit: "Card 1", role: "Tensão", content: "Perguntar se recovery começa pela técnica ou pela avaliação." },
       { unit: "Card 2", role: "Avaliação", content: "Compreender atleta, modalidade, fase, objetivo e contexto antes de escolher um recurso." },
@@ -222,7 +222,7 @@ export const operationalBriefs: Record<string, ProductionBrief> = {
       { unit: "Card 5", role: "Integração", content: "Conectar fisioterapia, treinamento e demais profissionais envolvidos." },
       { unit: "Card 6", role: "Continuidade", content: "Orientar a comentar FISIO e cadastrar-se para receber novidades." },
     ],
-    note: "Basear a pauta nas duas referências públicas analisadas e na programação SONAFE 2026. Não apresentar protocolo clínico; revisão técnica obrigatória.",
+    note: "Basear a pauta nas duas referências públicas analisadas e na programação SONAFE 2027. Os Stories pertencem à mesma ativação e podem ser omitidos; não abrir blocos antes e depois do feed. Não apresentar protocolo clínico; revisão técnica obrigatória.",
   },
   "0924": {
     format: "Carrossel de 8 cards",
@@ -294,7 +294,7 @@ export const optionModes: Record<string, "alternatives" | "inputs"> = {
   "0919": "inputs",
   "0921": "inputs",
   "0922": "inputs",
-  "0923b": "inputs",
+  "0923": "inputs",
   "0924": "inputs",
   "0925": "inputs",
   "0927": "alternatives",

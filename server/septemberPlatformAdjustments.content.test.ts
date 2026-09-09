@@ -12,6 +12,7 @@ import {
 import { operationalBriefs } from "../client/src/data/calendarBriefs";
 import { calendarMilestones } from "../client/src/data/calendarMilestones";
 import { paidMediaAssets } from "../client/src/data/paidMedia";
+import { conferenceCoordinators } from "../client/src/data/editorialIntelligence";
 
 describe("ajustes estratégicos da plataforma em setembro", () => {
   it("trata validade internacional como diferencial central do WTTC", () => {
@@ -50,12 +51,19 @@ describe("ajustes estratégicos da plataforma em setembro", () => {
     expect(launchWindow.map(item => item.moment)).toEqual(["D-7", "D-5", "D-3", "D-1", "D0"]);
   });
 
-  it("não exibe coordenadores enquanto não houver confirmação oficial", () => {
-    const intelligenceData = readFileSync(new URL("../client/src/data/editorialIntelligence.ts", import.meta.url), "utf8");
+  it("exibe somente os coordenadores confirmados no arquivo recebido", () => {
     const intelligenceSource = readFileSync(new URL("../client/src/components/EditorialIntelligence.tsx", import.meta.url), "utf8");
-    expect(intelligenceData).not.toContain("coordination");
-    expect(intelligenceSource).not.toContain("program-coordination");
-    expect(intelligenceSource).not.toContain("UserRoundCheck");
+    expect(conferenceCoordinators.map(item => item.name)).toEqual([
+      "Andréia Naves",
+      "Luisa Wolpe",
+      "Dudu Netto",
+      "Cris Parente",
+      "Leonardo Luiz Barretti Secchi",
+      "Rafael Fernandes Temoteo",
+      "Ricardo Pannain",
+    ]);
+    expect(intelligenceSource).toContain("Mini-CV não fornecido no arquivo recebido");
+    expect(intelligenceSource).toContain("Mini_Bio_Fotos_Coordenadores_Conference.xlsx");
   });
 
   it("renderiza links, bloqueios e fontes sem reintroduzir controles operacionais", () => {

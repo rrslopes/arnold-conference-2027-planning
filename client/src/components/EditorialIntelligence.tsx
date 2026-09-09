@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Archive, CalendarDays, CheckCircle2, CircleAlert, FileVideo2, ListChecks, Radar, UsersRound } from "lucide-react";
+import { Archive, ArrowUpRight, CalendarDays, CheckCircle2, CircleAlert, FileVideo2, Instagram, ListChecks, Radar, UsersRound } from "lucide-react";
 import {
   audienceAttractionAxes,
+  conferenceCoordinators,
   conferencePrograms2027,
   nutritionAesthetic2026Priorities,
   speakerContentRequests,
@@ -10,11 +11,15 @@ import {
 type View = "programas" | "eixos" | "materia-prima";
 
 export default function EditorialIntelligence() {
-  const reviewView = typeof window === "undefined" ? null : new URLSearchParams(window.location.search).get("intelligence-review");
+  const searchParams = typeof window === "undefined" ? null : new URLSearchParams(window.location.search);
+  const reviewView = searchParams?.get("intelligence-review");
   const initialView: View = reviewView === "eixos" || reviewView === "materia-prima" ? reviewView : "programas";
+  const requestedProgram = searchParams?.get("program-review");
+  const initialProgramId = conferencePrograms2027.some(item => item.id === requestedProgram) ? requestedProgram! : "nutricao-estetica";
   const [view, setView] = useState<View>(initialView);
-  const [programId, setProgramId] = useState("nutricao-estetica");
+  const [programId, setProgramId] = useState(initialProgramId);
   const selectedProgram = conferencePrograms2027.find(item => item.id === programId) ?? conferencePrograms2027[0];
+  const selectedCoordinators = conferenceCoordinators.filter(item => item.congressId === selectedProgram.id);
 
   return (
     <div className="intelligence-hub">
@@ -41,7 +46,7 @@ export default function EditorialIntelligence() {
               <div><span className={`program-status ${selectedProgram.status}`}>{selectedProgram.statusLabel}</span><h3>{selectedProgram.congress}</h3></div>
               <div className="program-meta"><span>{selectedProgram.date ?? "Data a confirmar"}</span><span>{selectedProgram.room ?? "Sala a confirmar"}</span></div>
             </div>
-            <div className="program-source"><FileVideo2 size={17} /><div><strong>FONTE ATUAL</strong><p>{selectedProgram.source}</p></div></div>
+            <div className="program-source"><FileVideo2 size={17} /><div><strong>FONTE ATUAL</strong><p>{selectedProgram.source}</p>{selectedProgram.sourceUrl ? <a href={selectedProgram.sourceUrl} target="_blank" rel="noreferrer">Abrir planilha <ArrowUpRight size={12} /></a> : null}</div></div>
             {selectedProgram.sessions.length ? (
               <div className="program-sessions">
                 {selectedProgram.sessions.map(session => (
@@ -52,6 +57,25 @@ export default function EditorialIntelligence() {
               <div className="program-empty"><CircleAlert size={28} /><div><strong>Não preencher com a grade de 2026</strong><p>O histórico serve para pesquisa e conteúdo, mas a programação publicada aqui deve refletir somente informações recebidas para 2027.</p></div></div>
             )}
             <p className="program-note"><CheckCircle2 size={16} /> {selectedProgram.note}</p>
+            {selectedCoordinators.length ? (
+              <section className="coordinator-panel">
+                <header><UsersRound size={21} /><div><span>COORDENAÇÃO CIENTÍFICA CONFIRMADA</span><strong>{selectedCoordinators.length === 1 ? "Coordenador informado pelo cliente" : `${selectedCoordinators.length} coordenadores informados pelo cliente`}</strong></div></header>
+                <div className={`coordinator-grid ${selectedCoordinators.length === 1 ? "is-single" : ""}`}>
+                  {selectedCoordinators.map(coordinator => (
+                    <article key={`${coordinator.congressId}-${coordinator.name}`}>
+                      <img src={coordinator.photo} alt={`Foto de ${coordinator.name}`} loading="lazy" />
+                      <div className="coordinator-content">
+                        <h4>{coordinator.name}</h4>
+                        {coordinator.bio ? <p>{coordinator.bio}</p> : <p className="coordinator-missing">Mini-CV não fornecido no arquivo recebido.</p>}
+                        {coordinator.bioSource ? <small>{coordinator.bioSource}</small> : null}
+                        <div className="coordinator-socials">{coordinator.social.map(profile => <a key={profile.url} href={profile.url} target="_blank" rel="noreferrer"><Instagram size={13} /> {profile.label}</a>)}</div>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+                <p className="coordinator-source">Fonte: Mini_Bio_Fotos_Coordenadores_Conference.xlsx. Campos ausentes permanecem sinalizados, sem complementação inferida.</p>
+              </section>
+            ) : null}
           </div>
         </div>
       ) : null}
@@ -61,7 +85,7 @@ export default function EditorialIntelligence() {
           <div className="intelligence-rule"><UsersRound size={23} /><p><strong>O público nasce da programação.</strong> Estes eixos já podem orientar segmentação, perguntas e distribuição. A profundidade técnica depende de ementas, referências e falas validadas.</p></div>
           <div className="axes-grid">
             {audienceAttractionAxes.map((axis, index) => (
-              <article key={axis.id}><span>{String(index + 1).padStart(2, "0")}</span><h3>{axis.title}</h3><small>TENSÃO DE ATRAÇÃO</small><p>{axis.tension}</p><small>PÚBLICO A MOBILIZAR</small><p>{axis.audience}</p><em>{axis.sessions}</em></article>
+              <article key={axis.id}><span>{String(index + 1).padStart(2, "0")}</span><small className="axis-congress">{axis.congress}</small><h3>{axis.title}</h3><small>TENSÃO DE ATRAÇÃO</small><p>{axis.tension}</p><small>PÚBLICO A MOBILIZAR</small><p>{axis.audience}</p><em>{axis.sessions}</em></article>
             ))}
           </div>
         </div>

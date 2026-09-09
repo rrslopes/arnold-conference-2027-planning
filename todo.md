@@ -475,3 +475,16 @@
 - [x] Incluir mídia paga de aquecimento durante a janela móvel de sete dias, direcionada à LP de novidades.
 - [x] Atualizar testes e validar calendário, e-mail, WhatsApp, mídia paga, desktop, mobile e build.
 - [x] Salvar checkpoint reversível da versão contingencial e entregar a atualização.
+
+## Revisão de 23/09, minutagens, SONAFE 2027 e coordenadores
+
+- [x] Reduzir 23/09 a uma pauta principal compatível com um dia comum de aquecimento, sem três publicações independentes.
+- [x] Auditar todas as pautas que usam íntegras ou referências audiovisuais e inserir minutagens somente quando verificáveis.
+- [x] Identificar na plataforma a fonte, o palestrante e o trecho aproximado correspondente a cada minutagem confirmada.
+- [x] Validar o novo arquivo de programação SONAFE 2027 no repositório e conferir títulos, horários e pares de palestrantes.
+- [x] Atualizar a área Programação e Conteúdo com a programação SONAFE 2027 sem perder a distinção entre confirmado e referência de 2026.
+- [x] Validar o Excel de coordenadores, mini-CVs, fotos e mídias sociais e cruzar os nomes com as salas correspondentes.
+- [x] Exibir somente coordenadores confirmados, com mini-CV, foto e links sociais disponíveis, sem inventar dados ausentes.
+- [x] Atualizar testes de conteúdo e regressão para 23/09, minutagens, SONAFE e coordenadores.
+- [x] Validar TypeScript, testes, build, logs e interface em desktop e mobile.
+- [x] Salvar checkpoint reversível e entregar a versão revisada.
