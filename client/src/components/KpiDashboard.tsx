@@ -6,12 +6,24 @@ import { kpiLayers } from "@/data/planData";
 import { trpc } from "@/lib/trpc";
 import { NEWS_LP_SOURCE } from "@shared/leadProfile";
 import { buildAutomaticKpis, buildSourceSummary, formatAutomaticKpi, type KpiIntegrationState } from "@shared/kpiIntegration";
+import { SOCIAL_ACCOUNT_GOALS } from "@shared/socialMetrics";
 
 type MetricState = Record<string, { target: string; actual: string; note: string; done: boolean }>;
 
 const blankState = Object.fromEntries(
   kpiLayers.flatMap(layer => layer.metrics.map(metric => [`${layer.id}::${metric.key}`, { target: "", actual: "", note: "", done: false }])),
 ) as MetricState;
+
+const socialKpiKeyByGoal = {
+  accountsReached: "social-reach",
+  views: "social-views",
+  interactions: "social-interactions",
+  netFollowers: "social-followers",
+} as const;
+
+const automaticTargetByKey = Object.fromEntries(
+  SOCIAL_ACCOUNT_GOALS.map(goal => [socialKpiKeyByGoal[goal.key], goal.operational]),
+) as Record<string, number>;
 
 function toEntries(state: MetricState) {
   return Object.entries(state).map(([key, value]) => ({ key, ...value }));
@@ -88,7 +100,10 @@ export default function KpiDashboard() {
   const exportData = () => {
     const rows = [["Camada", "Métrica", "Meta", "Atual", "Status", "Observação"]];
     kpiLayers.forEach(layer => {
-      if (integrationState) buildAutomaticKpis(layer.id, integrationState).forEach(metric => rows.push([layer.layer, metric.label, "—", formatAutomaticKpi(metric.value, metric.format), metric.mode === "automatic" ? "Automático" : "Calculado", `${metric.source}; ${metric.period}`]));
+      if (integrationState) buildAutomaticKpis(layer.id, integrationState).forEach(metric => {
+        const target = automaticTargetByKey[metric.key] ?? null;
+        rows.push([layer.layer, metric.label, target === null ? "Sem meta definida" : formatAutomaticKpi(target, metric.format), formatAutomaticKpi(metric.value, metric.format), metric.mode === "automatic" ? "Automático" : "Calculado", `${metric.source}; ${metric.period}`]);
+      });
       layer.metrics.forEach(metric => {
         const row = state[`${layer.id}::${metric.key}`];
         rows.push([layer.layer, metric.label, row.target, row.actual, row.done ? "Validado" : "Em aberto", row.note]);
@@ -125,13 +140,16 @@ export default function KpiDashboard() {
       <div className="kpi-lead-source-reference"><div><span>{automaticRows.length ? "FONTE ESPECÍFICA CONECTADA" : "PREENCHIMENTO MANUAL JUSTIFICADO"}</span><strong>{automaticRows.length ? `${automaticRows.length} ${automaticRows.length === 1 ? "indicador sincronizado" : "indicadores sincronizados ou calculados"}` : "Ainda não existe fonte interna para esta etapa"}</strong><p>{automaticRows.length ? "Preencha estes dados somente na área de origem. As linhas abaixo são bloqueadas contra redigitação." : "Registre manualmente apenas quando houver relatório confiável e informe período e fonte na observação."}</p></div>{currentLayer.id === "landing" ? <a href={NEWS_LP_SOURCE.url} target="_blank" rel="noreferrer">Abrir origem <ExternalLink size={13} /></a> : null}</div>
       <div className="metric-table" aria-busy={planning.isLoading}>
         <div className="metric-table-head"><span>Métrica</span><span>Meta</span><span>Valor atual</span><span>Observação</span><span>Status</span></div>
-        {automaticRows.map(metric => <div className="metric-row metric-row-automatic" key={metric.key} aria-label={`${metric.label} ${metric.mode === "automatic" ? "automático" : "calculado"}`}>
-          <div className="metric-name"><strong>{metric.label}</strong><small>{metric.description}</small></div>
-          <div className="metric-readonly-field"><small>Meta</small><strong>—</strong></div>
-          <div className="metric-readonly-field metric-readonly-value"><small>Valor atual</small><strong>{formatAutomaticKpi(metric.value, metric.format)}</strong></div>
-          <div className="metric-readonly-field"><small>Período e origem</small><strong>{metric.period}</strong><span>{metric.source}</span></div>
-          <div className={`metric-auto-status ${metric.value === null ? "waiting" : "ready"}`}>{metric.value === null ? <RefreshCw size={17} /> : <CheckCircle2 size={17} />}{metric.value === null ? "Aguardando" : metric.mode === "automatic" ? "Automático" : "Calculado"}</div>
-        </div>)}
+        {automaticRows.map(metric => {
+          const target = automaticTargetByKey[metric.key] ?? null;
+          return <div className="metric-row metric-row-automatic" key={metric.key} aria-label={`${metric.label} ${metric.mode === "automatic" ? "automático" : "calculado"}`}>
+            <div className="metric-name"><strong>{metric.label}</strong><small>{metric.description}</small></div>
+            <div className={`metric-readonly-field metric-readonly-target ${target === null ? "is-empty" : ""}`}><small>Meta</small><strong>{target === null ? "Sem meta definida" : formatAutomaticKpi(target, metric.format)}</strong><span>{target === null ? "Aguardando referência aprovada" : "Meta operacional mensal · fonte social"}</span></div>
+            <div className="metric-readonly-field metric-readonly-value"><small>Valor atual</small><strong>{formatAutomaticKpi(metric.value, metric.format)}</strong></div>
+            <div className="metric-readonly-field"><small>Período e origem</small><strong>{metric.period}</strong><span>{metric.source}</span></div>
+            <div className={`metric-auto-status ${metric.value === null ? "waiting" : "ready"}`}>{metric.value === null ? <RefreshCw size={17} /> : <CheckCircle2 size={17} />}{metric.value === null ? "Aguardando" : metric.mode === "automatic" ? "Automático" : "Calculado"}</div>
+          </div>;
+        })}
         {currentLayer.metrics.map(metric => {
           const key = `${currentLayer.id}::${metric.key}`;
           const row = state[key] ?? blankState[key];

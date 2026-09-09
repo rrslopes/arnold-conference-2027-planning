@@ -426,3 +426,15 @@
 - [x] Validar dados antes e depois da alteração para impedir perda ou mudança de valores.
 - [x] Atualizar testes e validar desktop, mobile, logs, compilação e build.
 - [x] Salvar checkpoint reversível e entregar a reorganização visual.
+
+## Metas sincronizadas e acordeão das camadas de Indicadores
+
+- [x] Revisar as metas disponíveis nas áreas de origem e a estrutura atual das quatro camadas.
+- [x] Sincronizar metas operacionais de alcance, visualizações, interações e seguidores nas linhas automáticas de Social.
+- [x] Exibir “sem meta definida” nos indicadores automáticos que não possuem referência aprovada.
+- [x] Preservar metas manuais somente para métricas sem meta em uma área específica.
+- [x] Transformar Lotação, Leads e perfil, Social e Funil integrado em um acordeão de quatro camadas.
+- [x] Manter uma camada aberta por vez e exibir resumo útil nas camadas recolhidas.
+- [x] Preservar links diretos, dados, persistência e integrações dos quatro painéis.
+- [x] Atualizar testes e validar desktop, mobile, navegação por teclado, logs, compilação e build.
+- [ ] Salvar checkpoint reversível e entregar a atualização.

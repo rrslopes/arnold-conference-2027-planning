@@ -2,12 +2,13 @@
  * Design philosophy: "Sala de Comando da Campanha" — página executiva, assimétrica
  * e didática, com profundidade por camadas e identidade Arnold aplicada ao sistema inteiro.
  */
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import {
   ArrowDown,
   ArrowRight,
   CalendarClock,
   CheckCircle2,
+  ChevronDown,
   CircleDot,
   FileText,
   Gauge,
@@ -71,6 +72,41 @@ function IndicatorGuide({ number, level, title, purpose, cadence, source, avoid,
       <div><strong>NÃO ENTRA AQUI</strong><p>{avoid}</p></div>
     </div>
   </div>;
+}
+
+type IndicatorLayerId = "lotacao" | "leads" | "social" | "funil";
+const indicatorLayerIds: IndicatorLayerId[] = ["lotacao", "leads", "social", "funil"];
+
+function getInitialIndicatorLayer(): IndicatorLayerId {
+  if (typeof window === "undefined") return "lotacao";
+  const queryLayer = new URLSearchParams(window.location.search).get("indicator-layer");
+  const requested = (queryLayer ?? window.location.hash.replace("#indicadores-", "")) as IndicatorLayerId;
+  return indicatorLayerIds.includes(requested) ? requested : "lotacao";
+}
+
+type IndicatorAccordionItemProps = {
+  id: IndicatorLayerId;
+  number: string;
+  level: string;
+  title: string;
+  summary: string;
+  open: boolean;
+  onToggle: () => void;
+  primary?: boolean;
+  children: ReactNode;
+};
+
+function IndicatorAccordionItem({ id, number, level, title, summary, open, onToggle, primary = false, children }: IndicatorAccordionItemProps) {
+  const triggerId = `indicator-trigger-${id}`;
+  const panelId = `indicator-panel-${id}`;
+  return <article id={`indicadores-${id}`} className={`indicator-accordion-item ${open ? "is-open" : ""} ${primary ? "is-primary" : ""}`}>
+    <button id={triggerId} type="button" className="indicator-accordion-trigger" aria-expanded={open} aria-controls={panelId} onClick={onToggle}>
+      <span className="indicator-accordion-number">{number}</span>
+      <span className="indicator-accordion-copy"><small>{level}</small><strong>{title}</strong><em>{summary}</em></span>
+      <span className="indicator-accordion-action">{open ? "Recolher" : "Explorar"}<ChevronDown size={19} aria-hidden="true" /></span>
+    </button>
+    <div id={panelId} className="indicator-accordion-panel" role="region" aria-labelledby={triggerId} hidden={!open}>{children}</div>
+  </article>;
 }
 
 function ExecutiveHero() {
@@ -219,6 +255,31 @@ function RoadmapSection() {
   );
 }
 
+function IndicatorsSection() {
+  const [openIndicatorLayer, setOpenIndicatorLayer] = useState<IndicatorLayerId | null>(() => getInitialIndicatorLayer());
+  return <section id="indicadores" className="section-pad kpi-section">
+    <SectionHeader index="12" eyebrow="PAINEL DE ACOMPANHAMENTO" title="Quatro camadas, quatro perguntas diferentes" description="Comece pela lotação, identifique quem está sendo captado pela LP de novidades, diagnostique o Instagram e use o funil para localizar avanços e travas. Cada dado deve entrar uma única vez." />
+    <div className="indicator-accordion" aria-label="Camadas do painel de Indicadores">
+      <IndicatorAccordionItem id="lotacao" number="01" level="RESULTADO PRINCIPAL" title="Lotação das salas" summary="Inscrições confirmadas, capacidade e ritmo de ocupação por congresso." primary open={openIndicatorLayer === "lotacao"} onToggle={() => setOpenIndicatorLayer(current => current === "lotacao" ? null : "lotacao")}>
+        <IndicatorGuide number="01" level="RESULTADO PRINCIPAL" title="Lotação das salas" purpose="Quantas inscrições confirmadas cada congresso acumulou em relação à capacidade vigente da sala." cadence="Registre as vendas confirmadas no fechamento de cada mês e corrija o mês quando houver conciliação." source="Plataforma de vendas, pedidos pagos e relatório financeiro conciliado por congresso." avoid="Leads, checkouts iniciados, pagamentos pendentes, seguidores, alcance ou qualquer intenção ainda não convertida em inscrição." primary />
+        <OccupancyDashboard />
+      </IndicatorAccordionItem>
+      <IndicatorAccordionItem id="leads" number="02" level="FONTES DE AQUISIÇÃO" title="Central de Landing Pages" summary="Tráfego, captação, perfil e consumo separados por página de origem." open={openIndicatorLayer === "leads"} onToggle={() => setOpenIndicatorLayer(current => current === "leads" ? null : "leads")}>
+        <IndicatorGuide number="02" level="FONTES DE AQUISIÇÃO" title="Central de Landing Pages" purpose="Registrar cada resultado na página que o gerou: perfil e interesse na LP de novidades; captação, entrega e consumo na LP das masterclasses." cadence="Faça fotografias semanais ou mensais com o mesmo período em cada origem e preencha somente eventos disponíveis." source="Relatórios filtrados de cada landing page, página de obrigado e eventos reais do player das aulas." avoid="Misturar páginas, somar acumulados, redigitar dados nos KPIs ou estimar consumo sem evento configurado." />
+        <LandingPageCenter />
+      </IndicatorAccordionItem>
+      <IndicatorAccordionItem id="social" number="03" level="DIAGNÓSTICO DO CANAL" title="Desempenho do Instagram" summary="Alcance, consumo, interação, crescimento, formatos e horários." open={openIndicatorLayer === "social"} onToggle={() => setOpenIndicatorLayer(current => current === "social" ? null : "social")}>
+        <IndicatorGuide number="03" level="DIAGNÓSTICO DO CANAL" title="Desempenho do Instagram" purpose="Se os conteúdos estão alcançando pessoas e gerando consumo, interação, compartilhamento, salvamento e crescimento do perfil." cadence="Faça o fechamento mensal com os totais da conta e as medianas de Reels, Posts não Reels e Stories publicados no período." source="Exportações do Meta Business Suite e relatório da mLabs, sempre usando o mesmo intervalo de datas." avoid="Leads da landing page, cliques de e-mail, compras, receita ou métricas sociais que a exportação não disponibiliza." />
+        <SocialGoalsDashboard />
+      </IndicatorAccordionItem>
+      <IndicatorAccordionItem id="funil" number="04" level="CONSOLIDAÇÃO DO FUNIL" title="Aquisição e vendas" summary="KPIs automáticos de Social, LPs, E-mail, WhatsApp e Vendas." open={openIndicatorLayer === "funil"} onToggle={() => setOpenIndicatorLayer(current => current === "funil" ? null : "funil")}>
+        <IndicatorGuide number="04" level="CONSOLIDAÇÃO DO FUNIL" title="Aquisição e vendas" purpose="Reunir automaticamente os resultados informados nas áreas específicas e manter editáveis apenas consolidações ou etapas ainda sem rastreamento." cadence="Atualize cada dado na área de origem; este painel lê o fechamento mais recente e mostra sua fonte e período." source="Social, Central de Landing Pages, Performance de E-mail, Performance de WhatsApp e Lotação das salas." avoid="Redigitar métricas já conectadas, somar origens duas vezes ou preencher dados ausentes por estimativa." />
+        <KpiDashboard />
+      </IndicatorAccordionItem>
+    </div>
+  </section>;
+}
+
 export default function Home() {
   const isCalendarPlanView = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("calendar-plan-view");
   if (isCalendarPlanView) return <StrategyLayout><section id="calendario" className="section-pad calendar-section"><SectionHeader index="07" eyebrow="CALENDÁRIO EDITORIAL · VISÃO ESTRATÉGICA" title="Pautas, formatos e CTAs sem fluxo operacional" description="Modo isolado para validar o calendário estratégico após a retirada de legenda, links de arte e status." /><CalendarExplorer /></section></StrategyLayout>;
@@ -238,6 +299,8 @@ export default function Home() {
   if (isSocialReview) return <StrategyLayout><section id="indicadores" className="section-pad kpi-section"><SectionHeader index="12" eyebrow="REVISÃO DO PAINEL SOCIAL" title="Metas de referência do Instagram" description="Modo isolado para validar resultados mensais, referências por formato e limites de interpretação." /><SocialGoalsDashboard /></section></StrategyLayout>;
   const isFunnelReview = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("funnel-review");
   if (isFunnelReview) return <StrategyLayout><section id="indicadores" className="section-pad kpi-section"><SectionHeader index="12" eyebrow="REVISÃO DO FUNIL INTEGRADO" title="Aquisição e vendas" description="Modo isolado para validar a consolidação automática de Social, LP, E-mail, WhatsApp e Vendas, mantendo manual apenas o que ainda não possui fonte interna." /><IndicatorGuide number="04" level="CONSOLIDAÇÃO DO FUNIL" title="Aquisição e vendas" purpose="Reunir automaticamente os resultados informados nas áreas específicas e manter editáveis apenas consolidações ou etapas ainda sem rastreamento." cadence="Atualize cada dado na área de origem; este painel lê o fechamento mais recente e mostra sua fonte e período." source="Social, Leads e perfil, Performance de E-mail, Performance de WhatsApp e Lotação das salas." avoid="Redigitar métricas já conectadas, somar origens duas vezes ou preencher dados ausentes por estimativa." /><KpiDashboard /></section></StrategyLayout>;
+  const isIndicatorsReview = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("indicators-review");
+  if (isIndicatorsReview) return <StrategyLayout><IndicatorsSection /></StrategyLayout>;
 
   return (
     <StrategyLayout>
@@ -278,14 +341,7 @@ export default function Home() {
       <WhatsAppPlan />
       <RoadmapSection />
 
-      <section id="indicadores" className="section-pad kpi-section">
-        <SectionHeader index="12" eyebrow="PAINEL DE ACOMPANHAMENTO" title="Quatro camadas, quatro perguntas diferentes" description="Comece pela lotação, identifique quem está sendo captado pela LP de novidades, diagnostique o Instagram e use o funil para localizar avanços e travas. Cada dado deve entrar uma única vez." />
-        <IndicatorGuide number="01" level="RESULTADO PRINCIPAL" title="Lotação das salas" purpose="Quantas inscrições confirmadas cada congresso acumulou em relação à capacidade vigente da sala." cadence="Registre as vendas confirmadas no fechamento de cada mês e corrija o mês quando houver conciliação." source="Plataforma de vendas, pedidos pagos e relatório financeiro conciliado por congresso." avoid="Leads, checkouts iniciados, pagamentos pendentes, seguidores, alcance ou qualquer intenção ainda não convertida em inscrição." primary />
-        <OccupancyDashboard />
-        <div className="secondary-kpi-block"><IndicatorGuide number="02" level="FONTES DE AQUISIÇÃO" title="Central de Landing Pages" purpose="Registrar cada resultado na página que o gerou: perfil e interesse na LP de novidades; captação, entrega e consumo na LP das masterclasses." cadence="Faça fotografias semanais ou mensais com o mesmo período em cada origem e preencha somente eventos disponíveis." source="Relatórios filtrados de cada landing page, página de obrigado e eventos reais do player das aulas." avoid="Misturar páginas, somar acumulados, redigitar dados nos KPIs ou estimar consumo sem evento configurado." /><LandingPageCenter /></div>
-        <div className="secondary-kpi-block"><IndicatorGuide number="03" level="DIAGNÓSTICO DO CANAL" title="Desempenho do Instagram" purpose="Se os conteúdos estão alcançando pessoas e gerando consumo, interação, compartilhamento, salvamento e crescimento do perfil." cadence="Faça o fechamento mensal com os totais da conta e as medianas de Reels, carrosséis e Stories publicados no período." source="Exportações do Meta Business Suite e relatório da mLabs, sempre usando o mesmo intervalo de datas." avoid="Leads da landing page, cliques de e-mail, compras, receita ou métricas sociais que a exportação não disponibiliza." /><SocialGoalsDashboard /></div>
-        <div className="secondary-kpi-block"><IndicatorGuide number="04" level="CONSOLIDAÇÃO DO FUNIL" title="Aquisição e vendas" purpose="Reunir automaticamente os resultados informados nas áreas específicas e manter editáveis apenas consolidações ou etapas ainda sem rastreamento." cadence="Atualize cada dado na área de origem; este painel lê o fechamento mais recente e mostra sua fonte e período." source="Social, Leads e perfil, Performance de E-mail, Performance de WhatsApp e Lotação das salas." avoid="Redigitar métricas já conectadas, somar origens duas vezes ou preencher dados ausentes por estimativa." /><KpiDashboard /></div>
-      </section>
+      <IndicatorsSection />
 
       <footer className="site-footer">
         <img src={brandAssets.conferenceLogo} alt="Arnold Conference" />
