@@ -425,4 +425,4 @@
 - [x] Preservar todos os campos, valores, rotas, persistência e integrações com KPIs.
 - [x] Validar dados antes e depois da alteração para impedir perda ou mudança de valores.
 - [x] Atualizar testes e validar desktop, mobile, logs, compilação e build.
-- [ ] Salvar checkpoint reversível e entregar a reorganização visual.
+- [x] Salvar checkpoint reversível e entregar a reorganização visual.
