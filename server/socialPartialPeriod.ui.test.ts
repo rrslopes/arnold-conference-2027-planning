@@ -31,4 +31,12 @@ describe("partial social reporting interface", () => {
     expect(dashboard).toContain("Navegação permanece agregada");
     expect(shared).not.toContain('"storyForwardTaps"');
   });
+
+  it("uses proportional cards without changing the social result fields", () => {
+    expect(dashboard).toContain('"metaMessagesSent"], "Total agregado da Meta; não separar por automação ou palavra-chave.", "compact"');
+    expect(dashboard).toContain('"reelsMedianSaves"], "A partir de três Reels');
+    expect(dashboard).toContain('"wide")');
+    expect(dashboard).toContain('"postsTypicalSaves"], "Agrupa carrosséis e imagens estáticas.');
+    expect(dashboard).toContain('"storyProfileVisits"], "Informe apenas totais disponíveis.');
+  });
 });

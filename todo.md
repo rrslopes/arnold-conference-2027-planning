@@ -416,3 +416,13 @@
 - [x] Adicionar orientação de melhores horários da categoria Educação e Cursos, distinguindo benchmark setorial de resultado real do perfil.
 - [x] Atualizar testes e validar persistência, colaboração, desktop, mobile, logs, compilação e build.
 - [x] Salvar checkpoint reversível e entregar a atualização social parcial.
+
+## Reorganização visual dos cards sociais
+
+- [x] Revisar a distribuição atual de Mensagens da Meta, Reels, Posts não Reels e Stories.
+- [x] Transformar Mensagens da Meta em um bloco compacto proporcional ao único indicador.
+- [x] Organizar Reels, Posts não Reels e Stories em cards de altura natural, sem células ou áreas cinzas vazias.
+- [x] Preservar todos os campos, valores, rotas, persistência e integrações com KPIs.
+- [x] Validar dados antes e depois da alteração para impedir perda ou mudança de valores.
+- [x] Atualizar testes e validar desktop, mobile, logs, compilação e build.
+- [ ] Salvar checkpoint reversível e entregar a reorganização visual.

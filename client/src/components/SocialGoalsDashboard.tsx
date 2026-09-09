@@ -184,8 +184,8 @@ export default function SocialGoalsDashboard() {
     profileVisitsPer100: calculatePerHundred(activeValues.storyProfileVisits, activeValues.storiesPublished),
   };
 
-  const renderFormatInputs = (title: string, fields: SocialResultField[], guidance: string) => (
-    <article className="social-input-card">
+  const renderFormatInputs = (title: string, fields: SocialResultField[], guidance: string, variant: "compact" | "wide" | "standard" = "standard") => (
+    <article className={`social-input-card social-input-card--${variant}`}>
       <header><h5>{title}</h5><p>{guidance}</p></header>
       <div>{fields.map(field => <label key={field}><span>{fieldLabels[field]}</span><input inputMode="numeric" value={form[activeMonth][field]} onChange={event => updateField(field, event.target.value)} placeholder="—" aria-label={`${fieldLabels[field]} em ${activeConfig.fullLabel}`} /></label>)}</div>
     </article>
@@ -252,8 +252,8 @@ export default function SocialGoalsDashboard() {
           </div>
 
           <div className="social-detail-grid">
-            {renderFormatInputs("Mensagens da Meta · relatório geral", ["metaMessagesSent"], "Total agregado da Meta; não separar por automação ou palavra-chave.")}
-            {renderFormatInputs(`Reels · ${formatStatisticMode(activeValues.reelsPublished)}`, ["reelsPublished", "reelsMedianReach", "reelsMedianViews", "reelsMedianInteractions", "reelsMedianLikes", "reelsMedianComments", "reelsMedianShares", "reelsMedianSaves"], "A partir de três Reels, use mediana; com um ou dois, registre apenas o resultado do período.")}
+            {renderFormatInputs("Mensagens da Meta · relatório geral", ["metaMessagesSent"], "Total agregado da Meta; não separar por automação ou palavra-chave.", "compact")}
+            {renderFormatInputs(`Reels · ${formatStatisticMode(activeValues.reelsPublished)}`, ["reelsPublished", "reelsMedianReach", "reelsMedianViews", "reelsMedianInteractions", "reelsMedianLikes", "reelsMedianComments", "reelsMedianShares", "reelsMedianSaves"], "A partir de três Reels, use mediana; com um ou dois, registre apenas o resultado do período.", "wide")}
             {renderFormatInputs(`Posts não Reels · ${formatStatisticMode(activeValues.postsPublished)}`, ["postsPublished", "postsTypicalReach", "postsTypicalViews", "postsTypicalInteractions", "postsTypicalLikes", "postsTypicalComments", "postsTypicalShares", "postsTypicalSaves"], "Agrupa carrosséis e imagens estáticas. O modo de leitura muda conforme o tamanho da amostra.")}
             {renderFormatInputs("Stories · totais do período", ["storiesPublished", "storiesTotalViews", "storiesAverageViews", "storiesBestViews", "storyReplies", "storyLinkClicks", "storyStickerTaps", "storyProfileVisits"], "Informe apenas totais disponíveis. Navegação permanece agregada; não estime eventos ausentes.")}
           </div>
