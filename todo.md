@@ -438,3 +438,40 @@
 - [x] Preservar links diretos, dados, persistência e integrações dos quatro painéis.
 - [x] Atualizar testes e validar desktop, mobile, navegação por teclado, logs, compilação e build.
 - [x] Salvar checkpoint reversível e entregar a atualização.
+
+## Contingência editorial — abertura de vendas sem data garantida
+
+- [x] Reler Aprendizados Operacionais e Ideias/Novas Necessidades antes da recomendação.
+- [x] Auditar posts, Stories, e-mails, WhatsApp e mídia paga previstos entre 15 e 23/09.
+- [x] Identificar menções explícitas ou implícitas a 23/09, contagem regressiva, abertura e condições comerciais.
+- [x] Classificar conteúdos como seguros, ajustáveis, bloqueados ou dependentes de confirmação operacional.
+- [x] Propor pautas substitutas que preservem storytelling, aquecimento e intenção sem anunciar data.
+- [x] Definir cenários e gatilhos de decisão para manter 23/09, adiar com pouca antecedência ou operar sem data.
+- [x] Entregar recomendação estratégica sem alterar a plataforma ou o calendário.
+
+## Recalibração da contingência — CTA, Stories, antecipação e acervo
+
+- [x] Avaliar e refinar o CTA de cadastro sugerido para 15/09.
+- [x] Estruturar alternativa de carrossel e Stories segmentados por dia para a pauta de 18/09.
+- [x] Comparar manter 23/09 com lançamento curto versus adiar para preservar uma janela adequada de antecipação.
+- [x] Definir janela mínima e gatilhos operacionais para comunicar uma data de abertura.
+- [x] Auditar transcrições, ranking de íntegras, acervo de Bodybuilding e referências disponíveis de SONAFE.
+- [x] Identificar quais pautas substitutas já têm sustentação e quais exigem materiais adicionais.
+- [x] Priorizar novas transcrições e materiais a solicitar, sem alterar plataforma ou calendário.
+- [x] Entregar recomendação revisada dos quatro pontos.
+
+## Implementação contingencial — abertura sem data definida
+
+- [ ] Salvar checkpoint de segurança da última versão que preserva 23/09 como data de abertura.
+- [ ] Auditar todas as menções a 23/09, 12h, contagem regressiva, “amanhã” e “vendas abertas”.
+- [ ] Retirar 23/09 da comunicação pública enquanto a operação não estiver confirmada.
+- [ ] Reescrever a pauta de 15/09 com CTA para cadastro na LP de novidades, sem promessa de data.
+- [ ] Transformar a pauta de 18/09 em carrossel principal e Stories segmentados entre 18 e 20/09.
+- [ ] Ajustar 16, 20 e 21/09 conforme aprendizados de Stories e narrativa de escolha.
+- [ ] Substituir conteúdos comerciais de 22 e 23/09 por pautas evergreen de reserva.
+- [ ] Reformular e-mails e WhatsApp dependentes de 23/09, preservando os fluxos evergreen.
+- [ ] Implementar uma microsequência móvel D-7, D-5, D-3, D-1 e D0, ativada somente após confirmação operacional.
+- [ ] Manter os packs comerciais bloqueados até checkout, URL, condições e suporte estarem validados.
+- [ ] Incluir mídia paga de aquecimento durante a janela móvel de sete dias, direcionada à LP de novidades.
+- [ ] Atualizar testes e validar calendário, e-mail, WhatsApp, mídia paga, desktop, mobile e build.
+- [ ] Salvar checkpoint reversível da versão contingencial e entregar a atualização.
