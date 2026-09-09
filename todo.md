@@ -462,16 +462,16 @@
 
 ## Implementação contingencial — abertura sem data definida
 
-- [ ] Salvar checkpoint de segurança da última versão que preserva 23/09 como data de abertura.
-- [ ] Auditar todas as menções a 23/09, 12h, contagem regressiva, “amanhã” e “vendas abertas”.
-- [ ] Retirar 23/09 da comunicação pública enquanto a operação não estiver confirmada.
-- [ ] Reescrever a pauta de 15/09 com CTA para cadastro na LP de novidades, sem promessa de data.
-- [ ] Transformar a pauta de 18/09 em carrossel principal e Stories segmentados entre 18 e 20/09.
-- [ ] Ajustar 16, 20 e 21/09 conforme aprendizados de Stories e narrativa de escolha.
-- [ ] Substituir conteúdos comerciais de 22 e 23/09 por pautas evergreen de reserva.
-- [ ] Reformular e-mails e WhatsApp dependentes de 23/09, preservando os fluxos evergreen.
-- [ ] Implementar uma microsequência móvel D-7, D-5, D-3, D-1 e D0, ativada somente após confirmação operacional.
-- [ ] Manter os packs comerciais bloqueados até checkout, URL, condições e suporte estarem validados.
-- [ ] Incluir mídia paga de aquecimento durante a janela móvel de sete dias, direcionada à LP de novidades.
-- [ ] Atualizar testes e validar calendário, e-mail, WhatsApp, mídia paga, desktop, mobile e build.
-- [ ] Salvar checkpoint reversível da versão contingencial e entregar a atualização.
+- [x] Salvar checkpoint de segurança da última versão que preserva 23/09 como data de abertura.
+- [x] Auditar todas as menções a 23/09, 12h, contagem regressiva, “amanhã” e “vendas abertas”.
+- [x] Retirar 23/09 da comunicação pública enquanto a operação não estiver confirmada.
+- [x] Reescrever a pauta de 15/09 com CTA para cadastro na LP de novidades, sem promessa de data.
+- [x] Transformar a pauta de 18/09 em carrossel principal e Stories segmentados entre 18 e 20/09.
+- [x] Ajustar 16, 20 e 21/09 conforme aprendizados de Stories e narrativa de escolha.
+- [x] Substituir conteúdos comerciais de 22 e 23/09 por pautas evergreen de reserva.
+- [x] Reformular e-mails e WhatsApp dependentes de 23/09, preservando os fluxos evergreen.
+- [x] Implementar uma microsequência móvel D-7, D-5, D-3, D-1 e D0, ativada somente após confirmação operacional.
+- [x] Manter os packs comerciais bloqueados até checkout, URL, condições e suporte estarem validados.
+- [x] Incluir mídia paga de aquecimento durante a janela móvel de sete dias, direcionada à LP de novidades.
+- [x] Atualizar testes e validar calendário, e-mail, WhatsApp, mídia paga, desktop, mobile e build.
+- [x] Salvar checkpoint reversível da versão contingencial e entregar a atualização.

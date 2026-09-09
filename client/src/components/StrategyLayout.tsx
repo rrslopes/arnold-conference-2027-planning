@@ -128,7 +128,7 @@ export default function StrategyLayout({ children }: { children: ReactNode }) {
           </div>
           <div className="launch-chip">
             <span>ABERTURA DE VENDAS</span>
-            <strong>23 SET · 12H</strong>
+            <strong>DATA EM CONFIRMAÇÃO</strong>
           </div>
         </div>
 

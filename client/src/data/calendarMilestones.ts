@@ -1,6 +1,6 @@
 export type CalendarMilestone = {
   label: string;
-  tone: "masterclass" | "sales";
+  tone: "masterclass" | "sales" | "lead";
   description: string;
   paidMediaPack: {
     label: string;
@@ -18,31 +18,22 @@ export const calendarMilestones: Record<string, CalendarMilestone> = {
       requirement: "A agência deve prever a peça-mãe do lançamento e desdobramentos 1:1, 4:5 e 9:16, com versões estática e em vídeo quando aplicável, CTA AULAS e URL rastreável para a landing page.",
     },
   },
-  "0923a": {
-    label: "Abertura das vendas",
-    tone: "sales",
-    description: "Cobertura do dia da abertura: preparar a audiência antes das 12h, anunciar a abertura e orientar quem ainda precisa escolher.",
+  "0915": {
+    label: "Captação para novidades",
+    tone: "lead",
+    description: "Primeiro marco do aquecimento sem data fixa: apresentar os seis perfis e ampliar a lista que receberá o aviso de abertura.",
     paidMediaPack: {
       label: "Pack de artes para mídia paga",
-      requirement: "A agência deve prever peças verticais 9:16 para contagem regressiva, vendas abertas e orientação de escolha, usando somente horários, condições e URLs aprovados.",
+      requirement: "A agência deve prever a peça-mãe e desdobramentos 1:1, 4:5 e 9:16, com CTA para cadastro e URL rastreável da landing page de novidades. Não citar data de vendas.",
     },
   },
-  "0923b": {
-    label: "Abertura das vendas",
-    tone: "sales",
-    description: "Peça principal do segundo grande marco: anunciar a abertura e conduzir diretamente para a compra dos seis congressos.",
+  "0918": {
+    label: "Comparação de públicos",
+    tone: "lead",
+    description: "Segundo marco de captação: ajudar o público a reconhecer seu congresso e continuar o cadastro na lista de novidades.",
     paidMediaPack: {
       label: "Pack de artes para mídia paga",
-      requirement: "A agência deve prever a peça-mãe de vendas abertas e desdobramentos 1:1, 4:5 e 9:16, com alternativas estática e em vídeo, CTA LOTE e URLs de compra rastreáveis.",
-    },
-  },
-  "0923c": {
-    label: "Abertura das vendas",
-    tone: "sales",
-    description: "Conteúdo de sustentação do marco: transformar dúvidas reais das primeiras horas em orientação para retomada da inscrição.",
-    paidMediaPack: {
-      label: "Pack de artes para mídia paga",
-      requirement: "A agência deve prever templates verticais adaptáveis às perguntas realmente recebidas, com fechamento para compra ou atendimento e sem inventar objeções, preços ou condições.",
+      requirement: "A agência deve redimensionar o comparativo para 1:1, 4:5 e 9:16 e manter a landing page de novidades como destino. A segmentação deve considerar afinidade profissional, não promessa comercial.",
     },
   },
 };

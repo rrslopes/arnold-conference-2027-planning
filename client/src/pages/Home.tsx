@@ -131,7 +131,7 @@ function ExecutiveHero() {
       <div className="hero-stats">
         <article><strong>06</strong><span>CONGRESSOS<br />EM UM ECOSSISTEMA</span></article>
         <article><strong>06</strong><span>ISCAS DIGITAIS<br />CONTRATADAS</span></article>
-        <article><strong>23.09</strong><span>ABERTURA<br />ÀS 12H</span></article>
+        <article><strong>D-7→D0</strong><span>JANELA MÓVEL<br />DATA A CONFIRMAR</span></article>
         <article><strong>ABR.27</strong><span>HORIZONTE<br />ESTRATÉGICO</span></article>
       </div>
       <div className="hero-rail">ARNOLD CONFERENCE · GESTÃO · WTTC · SONAFE · NUTRIÇÃO · BODYBUILDING</div>
@@ -152,8 +152,8 @@ function ExecutiveSummary() {
         <p>A primeira campanha usa três masterclasses de 2026 — Ana Paula Pujol, Andreia Naves e Roberto Tranjan — como prova de qualidade. A estratégia segue até abril com diagnóstico, guias especializados, planejador e integração do participante.</p>
         <div className="command-status">
           <article><span>ESTADO DO PLANO</span><strong><CircleDot size={15} /> Em revisão executiva</strong><p>Conteúdo consolidado; validação do cliente e do marketing interno em andamento.</p></article>
-          <article><span>PRÓXIMA DECISÃO</span><strong><Target size={15} /> Aprovar a primeira fase</strong><p>Confirmar pautas, responsáveis e peças previstas de 31/08 a 23/09.</p></article>
-          <article><span>DEPENDÊNCIA CRÍTICA</span><strong><CalendarClock size={15} /> Oferta comercial</strong><p>Preço, regras do primeiro lote, URLs de inscrição e condições precisam ser validados.</p></article>
+          <article><span>PRÓXIMA DECISÃO</span><strong><Target size={15} /> Confirmar a janela comercial</strong><p>Validar ticketeira, checkout, data, horário, condições e suporte antes de iniciar a contagem D-7.</p></article>
+          <article><span>DEPENDÊNCIA CRÍTICA</span><strong><CalendarClock size={15} /> Operação de vendas</strong><p>Até todos os gates ficarem verdes, a campanha aquece e capta interessados na LP de novidades sem prometer abertura.</p></article>
         </div>
         <div className="journey-line" aria-label="Etapas da jornada">
           {["Reativar", "Captar", "Ativar", "Qualificar", "Vender", "Expandir", "Experiência"].map((step, index) => <div key={step}><span>{index + 1}</span><strong>{step}</strong></div>)}
@@ -245,7 +245,7 @@ function RoadmapSection() {
   const current = roadmap.find((item) => item.month === selected) ?? roadmap[0];
   return (
     <section id="roadmap" className="section-pad roadmap-section">
-      <SectionHeader index="11" eyebrow="ROADMAP ATÉ O EVENTO" title="Setembro abre as vendas. Abril encerra um ciclo de maturação." description="As fases futuras permanecem em nível estratégico para que o calendário seja revisto conforme dados, programação, oferta e capacidade real da equipe." />
+      <SectionHeader index="11" eyebrow="ROADMAP ATÉ O EVENTO" title="Setembro aquece e prepara. A abertura acontece quando a operação estiver pronta." description="As fases futuras permanecem em nível estratégico para que o calendário seja revisto conforme dados, programação, oferta, data comercial e capacidade real da equipe." />
       <div className="roadmap-stage">
         <img src={brandAssets.roadmap} alt="Representação abstrata da jornada estratégica até o evento" />
         <div className="roadmap-months">{roadmap.map((item) => <button type="button" className={selected === item.month ? "active" : ""} key={item.month} onClick={() => setSelected(item.month)}><span>{item.month}</span><strong>{item.title}</strong></button>)}</div>

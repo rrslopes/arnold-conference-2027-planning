@@ -4,15 +4,16 @@ import { calendar } from "../client/src/data/planData";
 describe("grandes marcos do calendário", () => {
   const milestones = calendar.filter(item => item.milestone);
 
-  it("destaca apenas o lançamento das masterclasses e a abertura das vendas", () => {
-    expect(milestones.map(item => item.id)).toEqual(["0908", "0923a", "0923b", "0923c"]);
+  it("destaca o lançamento das masterclasses e os dois marcos de captação", () => {
+    expect(milestones.map(item => item.id)).toEqual(["0908", "0915", "0918"]);
     expect(milestones.find(item => item.id === "0908")?.milestone?.label).toBe("Lançamento das masterclasses");
-    expect(milestones.filter(item => item.id.startsWith("0923")).every(item => item.milestone?.label === "Abertura das vendas")).toBe(true);
+    expect(milestones.find(item => item.id === "0915")?.milestone?.label).toBe("Captação para novidades");
+    expect(milestones.find(item => item.id === "0918")?.milestone?.label).toBe("Comparação de públicos");
   });
 
   it("atribui uma cor semântica distinta a cada tipo de marco", () => {
     expect(milestones.find(item => item.id === "0908")?.milestone?.tone).toBe("masterclass");
-    expect(milestones.filter(item => item.id.startsWith("0923")).every(item => item.milestone?.tone === "sales")).toBe(true);
+    expect(milestones.filter(item => item.id === "0915" || item.id === "0918").every(item => item.milestone?.tone === "lead")).toBe(true);
   });
 
   it("exige pack de mídia paga em todos os conteúdos dos marcos", () => {

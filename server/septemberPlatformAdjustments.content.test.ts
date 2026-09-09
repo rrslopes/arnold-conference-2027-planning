@@ -6,6 +6,7 @@ import {
   externalDestinations,
   keywords,
   leadMagnets,
+  launchWindow,
   navigation,
 } from "../client/src/data/planData";
 import { operationalBriefs } from "../client/src/data/calendarBriefs";
@@ -33,7 +34,7 @@ describe("ajustes estratégicos da plataforma em setembro", () => {
       news: "https://oferta.savagetgroup.com.br/conference-2027",
     });
     expect(leadMagnets[0].destination?.url).toBe(externalDestinations.masterclasses);
-    expect(keywords.filter(item => "url" in item)).toHaveLength(5);
+    expect(keywords.filter(item => "url" in item)).toHaveLength(7);
     expect(keywords.filter(item => !("url" in item)).every(item => item.destination.includes("pendente"))).toBe(true);
   });
 
@@ -42,10 +43,11 @@ describe("ajustes estratégicos da plataforma em setembro", () => {
     expect(paidMediaAssets).toHaveLength(4);
     expect(paidMediaAssets.filter(item => item.category === "redimensionamento")).toHaveLength(4);
     expect(paidMediaAssets.filter(item => item.category === "exclusiva")).toHaveLength(0);
-    expect(paidMediaAssets.map(item => item.id).sort()).toEqual(["resize-0908", "resize-0923a", "resize-0923b", "resize-0923c"]);
-    expect(Object.keys(calendarMilestones).sort()).toEqual(["0908", "0923a", "0923b", "0923c"]);
+    expect(paidMediaAssets.map(item => item.id).sort()).toEqual(["resize-0908", "resize-0915", "resize-0918", "resize-launch-window"]);
+    expect(Object.keys(calendarMilestones).sort()).toEqual(["0908", "0915", "0918"]);
     expect(paidMediaAssets.filter(item => item.status === "liberada").every(item => item.destination)).toBe(true);
-    expect(paidMediaAssets.filter(item => item.phase === "Abertura").every(item => item.status === "condicionada" && !item.destination)).toBe(true);
+    expect(paidMediaAssets.filter(item => item.phase === "Janela móvel").every(item => item.status === "condicionada" && !item.destination)).toBe(true);
+    expect(launchWindow.map(item => item.moment)).toEqual(["D-7", "D-5", "D-3", "D-1", "D0"]);
   });
 
   it("não exibe coordenadores enquanto não houver confirmação oficial", () => {

@@ -29,7 +29,7 @@ describe("briefings operacionais do calendário", () => {
       "Estratégia individual versus receita pronta",
       "Desempenho imediato versus saúde sustentável",
       "Síntese",
-      "Lembrete",
+      "Continuidade",
     ]);
     expect(item?.optionMode).toBe("inputs");
   });
@@ -44,8 +44,8 @@ describe("briefings operacionais do calendário", () => {
 
   it("distingue insumos da sequência e alternativas excludentes", () => {
     expect(calendar.find(item => item.id === "0904")?.optionMode).toBe("alternatives");
-    expect(calendar.find(item => item.id === "0915")?.optionMode).toBe("alternatives");
-    expect(calendar.find(item => item.id === "0923b")?.optionMode).toBe("alternatives");
+    expect(calendar.find(item => item.id === "0915")?.optionMode).toBe("inputs");
+    expect(calendar.find(item => item.id === "0923b")?.optionMode).toBe("inputs");
     expect(calendar.find(item => item.id === "0903")?.optionMode).toBe("inputs");
     expect(calendar.find(item => item.id === "0921")?.optionMode).toBe("inputs");
     expect(calendar.find(item => item.id === "0925")?.optionMode).toBe("inputs");
