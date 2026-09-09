@@ -177,7 +177,11 @@ export async function getSharedPlanningState() {
     db.select().from(leadProfileSnapshots).where(eq(leadProfileSnapshots.sourceKey, NEWS_LP_SOURCE.key)).orderBy(desc(leadProfileSnapshots.periodEndAt)),
     db.select().from(masterclassLandingSnapshots).orderBy(desc(masterclassLandingSnapshots.periodEndAt)),
   ]);
-  return { objectives, metrics, activity, occupancy, monthlySales, socialResults, whatsappResults, editorialWorkflow, emailApprovals, emailPerformanceResults, leadProfileResults, masterclassLandingResults };
+  const normalizedSocialResults = socialResults.map(({ storiesAverageViewsTenths, ...row }) => ({
+    ...row,
+    storiesAverageViews: storiesAverageViewsTenths === null ? null : storiesAverageViewsTenths / 10,
+  }));
+  return { objectives, metrics, activity, occupancy, monthlySales, socialResults: normalizedSocialResults, whatsappResults, editorialWorkflow, emailApprovals, emailPerformanceResults, leadProfileResults, masterclassLandingResults };
 }
 
 export async function saveLeadProfileSnapshot(entry: LeadProfileSnapshotInput) {
@@ -292,6 +296,9 @@ export async function saveSocialMonthlyResults(entries: SocialMonthlyResultInput
     for (const entry of entries) {
       const values = {
         monthKey: entry.monthKey,
+        periodStartAt: entry.periodStartAt,
+        periodEndAt: entry.periodEndAt,
+        isPartial: entry.isPartial,
         accountsReached: entry.accountsReached,
         views: entry.views,
         interactions: entry.interactions,
@@ -301,6 +308,8 @@ export async function saveSocialMonthlyResults(entries: SocialMonthlyResultInput
         reelsMedianReach: entry.reelsMedianReach,
         reelsMedianViews: entry.reelsMedianViews,
         reelsMedianInteractions: entry.reelsMedianInteractions,
+        reelsMedianLikes: entry.reelsMedianLikes,
+        reelsMedianComments: entry.reelsMedianComments,
         reelsMedianShares: entry.reelsMedianShares,
         reelsMedianSaves: entry.reelsMedianSaves,
         carouselsPublished: entry.carouselsPublished,
@@ -309,9 +318,20 @@ export async function saveSocialMonthlyResults(entries: SocialMonthlyResultInput
         carouselsMedianInteractions: entry.carouselsMedianInteractions,
         carouselsMedianShares: entry.carouselsMedianShares,
         carouselsMedianSaves: entry.carouselsMedianSaves,
+        postsPublished: entry.postsPublished,
+        postsTypicalReach: entry.postsTypicalReach,
+        postsTypicalViews: entry.postsTypicalViews,
+        postsTypicalInteractions: entry.postsTypicalInteractions,
+        postsTypicalLikes: entry.postsTypicalLikes,
+        postsTypicalComments: entry.postsTypicalComments,
+        postsTypicalShares: entry.postsTypicalShares,
+        postsTypicalSaves: entry.postsTypicalSaves,
         storiesPublished: entry.storiesPublished,
         storiesMedianReach: entry.storiesMedianReach,
         storiesMedianViews: entry.storiesMedianViews,
+        storiesTotalViews: entry.storiesTotalViews,
+        storiesAverageViewsTenths: entry.storiesAverageViews == null ? null : Math.round(entry.storiesAverageViews * 10),
+        storiesBestViews: entry.storiesBestViews,
         storyReplies: entry.storyReplies,
         storyLinkClicks: entry.storyLinkClicks,
         storyStickerTaps: entry.storyStickerTaps,

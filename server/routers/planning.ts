@@ -65,6 +65,9 @@ const occupancyEntry = z.object({
 const optionalCount = z.number().int().min(0).max(100_000_000).nullable();
 const socialMonthlyEntry = z.object({
   monthKey,
+  periodStartAt: z.number().int().positive().nullable().default(null),
+  periodEndAt: z.number().int().positive().nullable().default(null),
+  isPartial: z.boolean().default(false),
   accountsReached: optionalCount,
   views: optionalCount,
   interactions: optionalCount,
@@ -74,6 +77,8 @@ const socialMonthlyEntry = z.object({
   reelsMedianReach: optionalCount,
   reelsMedianViews: optionalCount,
   reelsMedianInteractions: optionalCount,
+  reelsMedianLikes: optionalCount.default(null),
+  reelsMedianComments: optionalCount.default(null),
   reelsMedianShares: optionalCount,
   reelsMedianSaves: optionalCount,
   carouselsPublished: optionalCount,
@@ -82,14 +87,29 @@ const socialMonthlyEntry = z.object({
   carouselsMedianInteractions: optionalCount,
   carouselsMedianShares: optionalCount,
   carouselsMedianSaves: optionalCount,
+  postsPublished: optionalCount.default(null),
+  postsTypicalReach: optionalCount.default(null),
+  postsTypicalViews: optionalCount.default(null),
+  postsTypicalInteractions: optionalCount.default(null),
+  postsTypicalLikes: optionalCount.default(null),
+  postsTypicalComments: optionalCount.default(null),
+  postsTypicalShares: optionalCount.default(null),
+  postsTypicalSaves: optionalCount.default(null),
   storiesPublished: optionalCount,
   storiesMedianReach: optionalCount,
   storiesMedianViews: optionalCount,
+  storiesTotalViews: optionalCount.default(null),
+  storiesAverageViews: z.number().min(0).max(100_000_000).nullable().default(null),
+  storiesBestViews: optionalCount.default(null),
   storyReplies: optionalCount,
   storyLinkClicks: optionalCount,
   storyStickerTaps: optionalCount,
   storyProfileVisits: optionalCount,
   note: z.string().max(2000),
+}).superRefine((entry, ctx) => {
+  if ((entry.periodStartAt === null) !== (entry.periodEndAt === null)) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["periodStartAt"], message: "Informe o início e o fim do período." });
+  if (entry.periodStartAt !== null && entry.periodEndAt !== null && entry.periodStartAt > entry.periodEndAt) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["periodStartAt"], message: "O início do período deve ser anterior ao fim." });
+  if (entry.isPartial && (entry.periodStartAt === null || entry.periodEndAt === null)) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["isPartial"], message: "Um resultado parcial precisa informar o período coberto." });
 });
 
 const calendarWorkflowEntry = z.object({

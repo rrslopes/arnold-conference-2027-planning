@@ -21,6 +21,8 @@ export const SOCIAL_RESULT_FIELDS = [
   "reelsMedianReach",
   "reelsMedianViews",
   "reelsMedianInteractions",
+  "reelsMedianLikes",
+  "reelsMedianComments",
   "reelsMedianShares",
   "reelsMedianSaves",
   "carouselsPublished",
@@ -29,9 +31,20 @@ export const SOCIAL_RESULT_FIELDS = [
   "carouselsMedianInteractions",
   "carouselsMedianShares",
   "carouselsMedianSaves",
+  "postsPublished",
+  "postsTypicalReach",
+  "postsTypicalViews",
+  "postsTypicalInteractions",
+  "postsTypicalLikes",
+  "postsTypicalComments",
+  "postsTypicalShares",
+  "postsTypicalSaves",
   "storiesPublished",
   "storiesMedianReach",
   "storiesMedianViews",
+  "storiesTotalViews",
+  "storiesAverageViews",
+  "storiesBestViews",
   "storyReplies",
   "storyLinkClicks",
   "storyStickerTaps",
@@ -43,8 +56,29 @@ export type SocialMonthlyValues = Record<SocialResultField, number | null>;
 
 export type SocialMonthlyResult = SocialMonthlyValues & {
   monthKey: SocialMonthKey;
+  periodStartAt: number | null;
+  periodEndAt: number | null;
+  isPartial: boolean;
   note: string;
 };
+
+export const MLABS_REPORT_URL = "https://relatorio.digital/2EWOaNDZwIGNzYmMwMGMwITYaNDbmZmW.html";
+
+export const SOCIAL_BEST_TIMES = [
+  { day: "Segunda", recommended: "11:30 e 19:00", avoid: "12:00 e 18:00" },
+  { day: "Terça", recommended: "15:30 e 16:30", avoid: "12:00 e 18:00" },
+  { day: "Quarta", recommended: "16:30 e 17:30", avoid: "12:00 e 18:00" },
+  { day: "Quinta", recommended: "11:30 e 19:00", avoid: "12:00 e 18:00" },
+  { day: "Sexta", recommended: "17:30 e 18:30", avoid: "12:00 e 18:00" },
+  { day: "Sábado", recommended: "09:30 e 22:00", avoid: "10:00 e 12:00" },
+  { day: "Domingo", recommended: "09:30 e 17:00", avoid: "08:00 e 09:00" },
+] as const;
+
+export function formatStatisticMode(sample: number | null) {
+  if (sample === null || sample <= 0) return "Aguardando publicações";
+  if (sample < 3) return "Resultado do período";
+  return "Mediana do período";
+}
 
 export const SOCIAL_ACCOUNT_GOALS = [
   { key: "accountsReached", label: "Contas alcançadas", minimum: 25_000, operational: 32_000, stretch: 40_000, baseline: 23_200 },
@@ -76,9 +110,9 @@ export const SOCIAL_FORMAT_GOALS = [
   },
   {
     key: "carousels",
-    label: "Carrosséis",
+    label: "Carrosséis · base histórica",
     basis: "Faixas calculadas somente com os 5 carrosséis do aquecimento de março: mediana, percentil 65 e percentil 80.",
-    sampleNote: "O único carrossel de agosto é exibido no histórico, mas não define a meta por ser uma amostra isolada e fora da curva.",
+    sampleNote: "A operação atual agrupa carrosséis e imagens estáticas como Posts não Reels. Esta referência histórica permanece identificada como carrossel e não é aplicada automaticamente a uma amostra mista.",
     metrics: [
       { label: "Alcance mediano", field: "carouselsMedianReach", minimum: 1_847, operational: 2_190, stretch: 4_391 },
       { label: "Visualizações medianas", field: "carouselsMedianViews", minimum: 3_461, operational: 4_933, stretch: 8_943 },

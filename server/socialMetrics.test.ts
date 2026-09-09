@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
 import {
+  MLABS_REPORT_URL,
   SOCIAL_ACCOUNT_GOALS,
+  SOCIAL_BEST_TIMES,
   SOCIAL_FORMAT_GOALS,
   SOCIAL_HISTORY,
   SOCIAL_MISSING_BASELINES,
@@ -8,6 +10,7 @@ import {
   calculateGoalProgress,
   calculatePerHundred,
   createEmptySocialValues,
+  formatStatisticMode,
   hasAnySocialResult,
 } from "../shared/socialMetrics";
 
@@ -55,5 +58,20 @@ describe("social metrics references", () => {
     const empty = createEmptySocialValues();
     expect(hasAnySocialResult(empty)).toBe(false);
     expect(hasAnySocialResult({ ...empty, accountsReached: 0 })).toBe(true);
+  });
+
+  it("uses a result label for one or two posts and median only from three items", () => {
+    expect(formatStatisticMode(null)).toBe("Aguardando publicações");
+    expect(formatStatisticMode(1)).toBe("Resultado do período");
+    expect(formatStatisticMode(2)).toBe("Resultado do período");
+    expect(formatStatisticMode(3)).toBe("Mediana do período");
+    expect(formatStatisticMode(5)).toBe("Mediana do período");
+  });
+
+  it("keeps the mLabs source and all seven Education and Courses day references", () => {
+    expect(MLABS_REPORT_URL).toMatch(/^https:\/\/relatorio\.digital\//);
+    expect(SOCIAL_BEST_TIMES).toHaveLength(7);
+    expect(SOCIAL_BEST_TIMES.find(item => item.day === "Segunda")?.recommended).toContain("19:00");
+    expect(SOCIAL_BEST_TIMES.find(item => item.day === "Domingo")?.avoid).toContain("08:00");
   });
 });

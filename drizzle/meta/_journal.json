@@ -85,6 +85,13 @@
       "when": 1788879101760,
       "tag": "0011_bumpy_leech",
       "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "5",
+      "when": 1788974719906,
+      "tag": "0012_bumpy_secret_warriors",
+      "breakpoints": true
     }
   ]
 }

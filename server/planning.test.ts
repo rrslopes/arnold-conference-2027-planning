@@ -159,7 +159,8 @@ describe("planning router", () => {
     ctx.user = null;
     const caller = appRouter.createCaller(ctx);
     await caller.planning.saveSocialResults({ entries });
-    expect(mocks.saveSocialMonthlyResults).toHaveBeenCalledWith(entries);
+    expect(mocks.saveSocialMonthlyResults).toHaveBeenCalledTimes(1);
+    expect(mocks.saveSocialMonthlyResults.mock.calls[0]?.[0]).toMatchObject(entries);
   });
 
   it("saves eight monthly WhatsApp results without authentication", async () => {

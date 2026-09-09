@@ -793,6 +793,7 @@ img { max-width: 100%; }
 .social-goals-head small { display: flex; align-items: center; gap: 6px; color: rgba(255,255,255,.5); font-size: 8px; }
 .social-goals-actions { display: flex; gap: 8px; flex: none; }
 .social-goals-actions .secondary-button { color: white; border-color: rgba(255,255,255,.25); }
+.social-goals-actions a { text-decoration: none; }
 .social-month-strip { display: grid; grid-template-columns: repeat(8, minmax(84px, 1fr)); overflow-x: auto; background: #dfddd5; border-bottom: 1px solid rgba(51,49,50,.12); }
 .social-month-strip button { min-height: 58px; border: 0; border-right: 1px solid rgba(51,49,50,.1); background: transparent; color: #716c6e; padding: 9px 8px; }
 .social-month-strip button strong, .social-month-strip button small { display: block; }
@@ -804,7 +805,14 @@ img { max-width: 100%; }
 .social-period-context strong { display: block; margin-top: 3px; font: 600 23px/1 "Teko Arnold"; text-transform: uppercase; }
 .social-period-context small { display: block; margin-top: 3px; color: #777174; font-size: 8px; }
 .social-period-context p { margin: 0; color: #686365; font-size: 9px; line-height: 1.55; }
-.social-view-tabs { display: grid; grid-template-columns: repeat(3, 1fr); background: #efeee9; border-bottom: 1px solid rgba(51,49,50,.12); }
+.social-period-controls { display: grid; grid-template-columns: 150px 150px minmax(210px, 1fr) auto; gap: 10px; align-items: end; padding: 12px 22px; background: #f7f6f1; border-bottom: 1px solid rgba(51,49,50,.1); }
+.social-period-controls label { min-width: 0; }
+.social-period-controls label > span { display: block; margin-bottom: 5px; color: #716c6e; font-size: 7px; font-weight: 900; letter-spacing: .09em; }
+.social-period-controls input[type="date"] { width: 100%; border: 1px solid rgba(51,49,50,.16); background: white; padding: 8px; color: var(--charcoal); font-size: 8px; }
+.social-period-controls .social-partial-toggle { min-height: 34px; display: flex; align-items: center; gap: 8px; padding: 0 10px; background: white; border: 1px solid rgba(51,49,50,.14); }
+.social-period-controls .social-partial-toggle span { margin: 0; }
+.social-period-controls > a { min-height: 34px; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 0 12px; background: var(--purple); color: white; font-size: 7px; font-weight: 850; text-decoration: none; text-transform: uppercase; }
+.social-view-tabs { display: grid; grid-template-columns: repeat(4, 1fr); background: #efeee9; border-bottom: 1px solid rgba(51,49,50,.12); }
 .social-view-tabs button { min-height: 47px; display: flex; align-items: center; justify-content: center; gap: 7px; border: 0; border-right: 1px solid rgba(51,49,50,.1); background: transparent; color: #696466; font-size: 8px; font-weight: 850; letter-spacing: .05em; text-transform: uppercase; }
 .social-view-tabs button.active { background: white; color: var(--purple); box-shadow: inset 0 -3px 0 var(--purple); }
 .social-view-panel { padding: 18px; }
@@ -826,9 +834,11 @@ img { max-width: 100%; }
 .social-goal-card footer { display: flex; justify-content: space-between; gap: 10px; margin-top: 6px; color: #716c6e; font-size: 7px; }
 .social-goal-card footer b { color: var(--purple); }
 .social-goal-card > small { display: block; margin-top: 9px; color: #8b8688; font-size: 7px; }
-.social-detail-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 12px; }
+.social-detail-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 12px; }
 .social-input-card { min-width: 0; background: white; border: 1px solid rgba(51,49,50,.11); }
-.social-input-card h5 { margin: 0; padding: 11px 13px; background: var(--purple); color: white; font: 600 19px/1 "Teko Arnold"; text-transform: uppercase; }
+.social-input-card > header { padding: 11px 13px; background: var(--purple); color: white; }
+.social-input-card h5 { margin: 0; font: 600 19px/1 "Teko Arnold"; text-transform: uppercase; }
+.social-input-card > header p { margin: 5px 0 0; color: rgba(255,255,255,.64); font-size: 7px; line-height: 1.45; }
 .social-input-card > div { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(51,49,50,.1); }
 .social-input-card label { min-width: 0; background: white; padding: 10px; }
 .social-input-card label:first-child { grid-column: 1 / -1; background: #f6f7dc; }
@@ -870,6 +880,20 @@ img { max-width: 100%; }
 .social-missing-box h4 { margin: 5px 0 8px; font: 600 22px/1 "Teko Arnold"; text-transform: uppercase; }
 .social-missing-box ul { margin: 0; padding-left: 16px; color: #625d5f; font-size: 8px; line-height: 1.65; }
 .social-missing-box p { margin: 8px 0 0; color: #6e696b; font-size: 8px; }
+.social-schedule-view > header { display: grid; grid-template-columns: minmax(240px, .8fr) 1.2fr; gap: 25px; align-items: end; padding: 18px; background: var(--charcoal); color: white; border-bottom: 4px solid var(--lime); }
+.social-schedule-view > header span { color: var(--lime); font-size: 7px; font-weight: 900; letter-spacing: .11em; }
+.social-schedule-view > header h4 { margin: 5px 0 0; font: 600 29px/1 "Teko Arnold"; text-transform: uppercase; }
+.social-schedule-view > header p { margin: 0; color: rgba(255,255,255,.63); font-size: 8px; line-height: 1.55; }
+.social-schedule-table { background: white; border: 1px solid rgba(51,49,50,.1); border-top: 0; }
+.social-schedule-head, .social-schedule-row { display: grid; grid-template-columns: .55fr 1fr 1fr; gap: 12px; align-items: center; padding: 11px 15px; }
+.social-schedule-head { background: #e9e7df; color: #746f71; font-size: 6px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+.social-schedule-row { border-top: 1px solid rgba(51,49,50,.08); font-size: 8px; }
+.social-schedule-row b { color: var(--purple); }
+.social-schedule-row span { color: #777174; }
+.social-schedule-view > aside { display: grid; grid-template-columns: 28px 1fr; gap: 10px; margin-top: 12px; padding: 14px 16px; background: rgba(203,219,42,.18); border-left: 4px solid var(--lime-dark); }
+.social-schedule-view > aside svg { color: var(--purple); }
+.social-schedule-view > aside strong { color: var(--purple); font-size: 8px; text-transform: uppercase; }
+.social-schedule-view > aside p { margin: 4px 0 0; color: #666163; font-size: 8px; line-height: 1.55; }
 .kpi-console { border: 1px solid rgba(51,49,50,.14); }
 .kpi-summary { display: flex; justify-content: space-between; gap: 30px; align-items: end; padding: 25px 28px; background: var(--charcoal); color: white; }
 .kpi-summary > div > span { color: var(--lime); font-size: 8px; letter-spacing: .15em; font-weight: 800; }
@@ -1529,6 +1553,24 @@ img { max-width: 100%; }
   .masterclass-lp-form > footer .primary-button { width: 100%; justify-content: center; }
   .masterclass-form-groups label { grid-template-columns: minmax(0, 1fr) 75px; }
   .magnet-performance { padding: 20px 17px; }
+}
+
+@media (max-width: 860px) {
+  .social-period-controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .social-period-controls .social-partial-toggle, .social-period-controls > a { min-height: 40px; }
+  .social-schedule-view > header { grid-template-columns: 1fr; gap: 9px; }
+}
+
+@media (max-width: 620px) {
+  .social-goals-actions { flex-wrap: wrap; }
+  .social-goals-actions a, .social-goals-actions button { flex: 1 1 100%; justify-content: center; }
+  .social-period-controls { grid-template-columns: 1fr; padding: 13px 16px; }
+  .social-detail-grid { grid-template-columns: 1fr; }
+  .social-schedule-head { display: none; }
+  .social-schedule-row { grid-template-columns: 1fr; gap: 5px; padding: 13px 15px; }
+  .social-schedule-row strong { color: var(--charcoal); font-size: 9px; }
+  .social-schedule-row b::before { content: "Recomendados: "; color: #716c6e; font-weight: 700; }
+  .social-schedule-row span::before { content: "Evitar: "; color: #716c6e; font-weight: 700; }
 }
 
 @media (prefers-reduced-motion: reduce) {

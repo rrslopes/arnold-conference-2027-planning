@@ -402,3 +402,17 @@
 - [x] Manter métricas indisponíveis como aguardando rastreamento, sem estimativas.
 - [x] Atualizar testes e validar persistência, colaboração, desktop, mobile, logs, compilação e build.
 - [x] Salvar checkpoint reversível e entregar a Central de Landing Pages.
+
+## Resultados sociais parciais de 01 a 08/09 e melhores horários
+
+- [x] Validar os dados de Reels, Posts e Stories do período de 01 a 08/09 no relatório mLabs.
+- [x] Ajustar “Carrossel” para “Posts não Reels” na operação atual.
+- [x] Exibir resultado do período com um ou dois conteúdos e mediana somente a partir de três conteúdos.
+- [x] Registrar os cinco Reels do período e calcular suas medianas sem usar média simples.
+- [x] Registrar o único Post não Reel como resultado individual do período, sem chamar de mediana.
+- [x] Registrar os 18 Stories, 3.771 visualizações totais e 209,5 visualizações médias do período.
+- [x] Preservar Navegação como métrica agregada, sem estimar avanços, voltas ou saídas ausentes.
+- [x] Adicionar botão externo para o relatório compartilhável da mLabs.
+- [x] Adicionar orientação de melhores horários da categoria Educação e Cursos, distinguindo benchmark setorial de resultado real do perfil.
+- [x] Atualizar testes e validar persistência, colaboração, desktop, mobile, logs, compilação e build.
+- [ ] Salvar checkpoint reversível e entregar a atualização social parcial.

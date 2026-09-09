@@ -1,9 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
-import { BarChart3, Cloud, CloudOff, History, Instagram, RefreshCw, Save, ShieldAlert } from "lucide-react";
+import { BarChart3, Clock3, Cloud, CloudOff, ExternalLink, History, Instagram, RefreshCw, Save, ShieldAlert } from "lucide-react";
 import { toast } from "sonner";
 import { trpc } from "@/lib/trpc";
 import {
+  MLABS_REPORT_URL,
   SOCIAL_ACCOUNT_GOALS,
+  SOCIAL_BEST_TIMES,
   SOCIAL_FORMAT_GOALS,
   SOCIAL_HISTORY,
   SOCIAL_MISSING_BASELINES,
@@ -12,19 +14,20 @@ import {
   SOCIAL_STORY_ACTION_GOALS,
   calculateGoalProgress,
   calculatePerHundred,
+  formatStatisticMode,
   hasAnySocialResult,
   type SocialMonthlyValues,
   type SocialResultField,
 } from "@shared/socialMetrics";
 
-type SocialMonthForm = Record<SocialResultField, string> & { note: string };
+type SocialMonthForm = Record<SocialResultField, string> & { periodStart: string; periodEnd: string; isPartial: boolean; note: string };
 type SocialForm = Record<(typeof SOCIAL_MONTHS)[number]["key"], SocialMonthForm>;
-type SocialView = "monthly" | "formats" | "history";
+type SocialView = "monthly" | "formats" | "history" | "schedule";
 
 function getInitialView(): SocialView {
   if (typeof window === "undefined") return "monthly";
   const requested = new URLSearchParams(window.location.search).get("social-view");
-  return requested === "formats" || requested === "history" ? requested : "monthly";
+  return requested === "formats" || requested === "history" || requested === "schedule" ? requested : "monthly";
 }
 
 const fieldLabels: Partial<Record<SocialResultField, string>> = {
@@ -33,17 +36,24 @@ const fieldLabels: Partial<Record<SocialResultField, string>> = {
   reelsMedianReach: "Alcance mediano",
   reelsMedianViews: "Visualizações medianas",
   reelsMedianInteractions: "Interações medianas",
+  reelsMedianLikes: "Curtidas medianas",
+  reelsMedianComments: "Comentários medianos",
   reelsMedianShares: "Compartilhamentos medianos",
   reelsMedianSaves: "Salvamentos medianos",
-  carouselsPublished: "Carrosséis publicados",
-  carouselsMedianReach: "Alcance mediano",
-  carouselsMedianViews: "Visualizações medianas",
-  carouselsMedianInteractions: "Interações medianas",
-  carouselsMedianShares: "Compartilhamentos medianos",
-  carouselsMedianSaves: "Salvamentos medianos",
+  postsPublished: "Posts não Reels publicados",
+  postsTypicalReach: "Alcance",
+  postsTypicalViews: "Visualizações",
+  postsTypicalInteractions: "Interações",
+  postsTypicalLikes: "Curtidas e reações",
+  postsTypicalComments: "Comentários",
+  postsTypicalShares: "Compartilhamentos",
+  postsTypicalSaves: "Salvamentos",
   storiesPublished: "Stories publicados",
   storiesMedianReach: "Alcance mediano",
   storiesMedianViews: "Visualizações medianas",
+  storiesTotalViews: "Visualizações totais",
+  storiesAverageViews: "Média de visualizações por Story",
+  storiesBestViews: "Melhor Story por visualizações",
   storyReplies: "Respostas",
   storyLinkClicks: "Cliques no link",
   storyStickerTaps: "Toques em figurinhas",
@@ -51,7 +61,7 @@ const fieldLabels: Partial<Record<SocialResultField, string>> = {
 };
 
 function blankMonth(): SocialMonthForm {
-  return { ...Object.fromEntries(SOCIAL_RESULT_FIELDS.map(field => [field, ""])), note: "" } as SocialMonthForm;
+  return { ...Object.fromEntries(SOCIAL_RESULT_FIELDS.map(field => [field, ""])), periodStart: "", periodEnd: "", isPartial: false, note: "" } as SocialMonthForm;
 }
 
 function blankForm(): SocialForm {
@@ -68,6 +78,20 @@ function normalizeNumber(value: string, allowNegative = false) {
   const sign = allowNegative && value.trim().startsWith("-") ? "-" : "";
   const digits = value.replace(/\D/g, "").slice(0, 8);
   return digits ? `${sign}${digits}` : sign;
+}
+
+function normalizeDecimal(value: string) {
+  const normalized = value.replace(",", ".").replace(/[^\d.]/g, "");
+  const [integer = "", decimal = ""] = normalized.split(".");
+  return decimal || normalized.includes(".") ? `${integer.slice(0, 8)}.${decimal.slice(0, 1)}` : integer.slice(0, 8);
+}
+
+function toDateInput(timestamp: number | null) {
+  return timestamp ? new Date(timestamp).toISOString().slice(0, 10) : "";
+}
+
+function fromDateInput(value: string) {
+  return value ? Date.parse(`${value}T00:00:00.000Z`) : null;
 }
 
 function formatNumber(value: number) {
@@ -98,6 +122,9 @@ export default function SocialGoalsDashboard() {
       SOCIAL_RESULT_FIELDS.forEach(field => {
         next[month.key][field] = row[field] === null ? "" : String(row[field]);
       });
+      next[month.key].periodStart = toDateInput(row.periodStartAt);
+      next[month.key].periodEnd = toDateInput(row.periodEndAt);
+      next[month.key].isPartial = row.isPartial;
       next[month.key].note = row.note;
     });
     setForm(next);
@@ -121,9 +148,14 @@ export default function SocialGoalsDashboard() {
   const updateField = (field: SocialResultField, value: string) => {
     setForm(current => ({
       ...current,
-      [activeMonth]: { ...current[activeMonth], [field]: normalizeNumber(value, field === "netFollowers") },
+      [activeMonth]: { ...current[activeMonth], [field]: field === "storiesAverageViews" ? normalizeDecimal(value) : normalizeNumber(value, field === "netFollowers") },
     }));
   };
+
+  const updatePeriod = (field: "periodStart" | "periodEnd" | "isPartial", value: string | boolean) => setForm(current => ({
+    ...current,
+    [activeMonth]: { ...current[activeMonth], [field]: value },
+  }));
 
   const updateNote = (value: string) => setForm(current => ({
     ...current,
@@ -135,7 +167,14 @@ export default function SocialGoalsDashboard() {
       const values = Object.fromEntries(
         SOCIAL_RESULT_FIELDS.map(field => [field, parseNumber(form[month.key][field])]),
       ) as SocialMonthlyValues;
-      return { monthKey: month.key, ...values, note: form[month.key].note };
+      return {
+        monthKey: month.key,
+        ...values,
+        periodStartAt: fromDateInput(form[month.key].periodStart),
+        periodEndAt: fromDateInput(form[month.key].periodEnd),
+        isPartial: form[month.key].isPartial,
+        note: form[month.key].note,
+      };
     }),
   });
 
@@ -145,12 +184,17 @@ export default function SocialGoalsDashboard() {
     profileVisitsPer100: calculatePerHundred(activeValues.storyProfileVisits, activeValues.storiesPublished),
   };
 
-  const renderFormatInputs = (title: string, fields: SocialResultField[]) => (
+  const renderFormatInputs = (title: string, fields: SocialResultField[], guidance: string) => (
     <article className="social-input-card">
-      <h5>{title}</h5>
+      <header><h5>{title}</h5><p>{guidance}</p></header>
       <div>{fields.map(field => <label key={field}><span>{fieldLabels[field]}</span><input inputMode="numeric" value={form[activeMonth][field]} onChange={event => updateField(field, event.target.value)} placeholder="—" aria-label={`${fieldLabels[field]} em ${activeConfig.fullLabel}`} /></label>)}</div>
     </article>
   );
+
+  const isPartial = form[activeMonth].isPartial;
+  const periodText = form[activeMonth].periodStart && form[activeMonth].periodEnd
+    ? `${new Date(`${form[activeMonth].periodStart}T00:00:00Z`).toLocaleDateString("pt-BR", { timeZone: "UTC" })} a ${new Date(`${form[activeMonth].periodEnd}T00:00:00Z`).toLocaleDateString("pt-BR", { timeZone: "UTC" })}`
+    : activeConfig.fullLabel;
 
   return (
     <div className="social-goals-console" aria-busy={planning.isLoading || saveMutation.isPending}>
@@ -162,6 +206,7 @@ export default function SocialGoalsDashboard() {
           {planning.isError ? <small className="sync-error"><CloudOff size={13} /> Falha de sincronização.</small> : latest ? <small><Cloud size={13} /> Atualizado em {new Date(latest.updatedAt).toLocaleString("pt-BR")}</small> : <small><Cloud size={13} /> Espaço compartilhado pronto para o primeiro lançamento.</small>}
         </div>
         <div className="social-goals-actions">
+          <a className="secondary-button" href={MLABS_REPORT_URL} target="_blank" rel="noreferrer"><ExternalLink size={16} /> Relatório mLabs</a>
           <button type="button" className="secondary-button" onClick={() => planning.refetch()} disabled={planning.isFetching}><RefreshCw size={16} className={planning.isFetching ? "spin" : ""} /> Atualizar</button>
           <button type="button" className="primary-button" onClick={save} disabled={planning.isLoading || saveMutation.isPending}><Save size={16} /> {saveMutation.isPending ? "Salvando..." : "Salvar resultados"}</button>
         </div>
@@ -172,14 +217,21 @@ export default function SocialGoalsDashboard() {
       </div>
 
       <div className="social-period-context">
-        <div><span>MÊS EM ANÁLISE</span><strong>{activeConfig.fullLabel}</strong><small>{activeConfig.phase}</small></div>
-        <p>{hasResult ? "Os percentuais abaixo comparam o resultado informado à meta operacional." : "Ainda não há resultado lançado. As referências continuam visíveis para orientar a operação."}</p>
+        <div><span>PERÍODO EM ANÁLISE</span><strong>{periodText}</strong><small>{isPartial ? "Fechamento parcial · comparação mensal suspensa" : activeConfig.phase}</small></div>
+        <p>{hasResult ? (isPartial ? "Os resultados já orientam a operação, mas não são comparados às metas mensais antes do fechamento." : "Os percentuais abaixo comparam o resultado informado à meta operacional.") : "Ainda não há resultado lançado. As referências continuam visíveis para orientar a operação."}</p>
+      </div>
+      <div className="social-period-controls">
+        <label><span>INÍCIO</span><input type="date" value={form[activeMonth].periodStart} onChange={event => updatePeriod("periodStart", event.target.value)} /></label>
+        <label><span>FIM</span><input type="date" value={form[activeMonth].periodEnd} onChange={event => updatePeriod("periodEnd", event.target.value)} /></label>
+        <label className="social-partial-toggle"><input type="checkbox" checked={isPartial} onChange={event => updatePeriod("isPartial", event.target.checked)} /><span>Resultado parcial do mês</span></label>
+        <a href={MLABS_REPORT_URL} target="_blank" rel="noreferrer"><ExternalLink size={14} /> Consultar fonte completa</a>
       </div>
 
       <div className="social-view-tabs" role="tablist" aria-label="Visões do painel social">
         <button type="button" role="tab" aria-selected={activeView === "monthly"} className={activeView === "monthly" ? "active" : ""} onClick={() => setActiveView("monthly")}><BarChart3 size={15} /> Resultado mensal</button>
         <button type="button" role="tab" aria-selected={activeView === "formats"} className={activeView === "formats" ? "active" : ""} onClick={() => setActiveView("formats")}><Instagram size={15} /> Referências por formato</button>
         <button type="button" role="tab" aria-selected={activeView === "history"} className={activeView === "history" ? "active" : ""} onClick={() => setActiveView("history")}><History size={15} /> Histórico e limites</button>
+        <button type="button" role="tab" aria-selected={activeView === "schedule"} className={activeView === "schedule" ? "active" : ""} onClick={() => setActiveView("schedule")}><Clock3 size={15} /> Dias e horários</button>
       </div>
 
       {activeView === "monthly" ? (
@@ -187,23 +239,23 @@ export default function SocialGoalsDashboard() {
           <div className="social-account-grid">
             {SOCIAL_ACCOUNT_GOALS.map(goal => {
               const actual = activeValues[goal.key];
-              const progress = calculateGoalProgress(actual, goal.operational);
+              const progress = calculateGoalProgress(isPartial ? null : actual, goal.operational);
               return <article className="social-goal-card" key={goal.key}>
                 <header><span>{goal.label}</span><strong>{actual === null ? "—" : formatNumber(actual)}</strong></header>
-                <label><span>RESULTADO REAL DO MÊS</span><input inputMode="numeric" value={form[activeMonth][goal.key]} onChange={event => updateField(goal.key, event.target.value)} placeholder="Lançar" aria-label={`${goal.label} em ${activeConfig.fullLabel}`} /></label>
+                <label><span>{isPartial ? "RESULTADO REAL DO PERÍODO" : "RESULTADO REAL DO MÊS"}</span><input inputMode="numeric" value={form[activeMonth][goal.key]} onChange={event => updateField(goal.key, event.target.value)} placeholder="Lançar" aria-label={`${goal.label} em ${activeConfig.fullLabel}`} /></label>
                 <div className="social-goal-levels"><span>MIN. <b>{formatNumber(goal.minimum)}</b></span><span>OPERACIONAL <b>{formatNumber(goal.operational)}</b></span><span>SUPERAÇÃO <b>{formatNumber(goal.stretch)}</b></span></div>
                 <div className="social-progress" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={progress.barPercentage}><i style={{ width: `${progress.barPercentage}%` }} /></div>
-                <footer><span>{levelLabel(actual, goal.minimum, goal.operational, goal.stretch)}</span><b>{progress.percentage === null ? "Sem cálculo" : `${progress.percentage.toFixed(1).replace(".", ",")}% da operacional`}</b></footer>
+                <footer><span>{isPartial ? "Fechamento parcial" : levelLabel(actual, goal.minimum, goal.operational, goal.stretch)}</span><b>{isPartial ? "Comparação mensal suspensa" : progress.percentage === null ? "Sem cálculo" : `${progress.percentage.toFixed(1).replace(".", ",")}% da operacional`}</b></footer>
                 <small>Linha de base de agosto: {formatNumber(goal.baseline)}</small>
               </article>;
             })}
           </div>
 
           <div className="social-detail-grid">
-            {renderFormatInputs("Mensagens da Meta · relatório geral", ["metaMessagesSent"])}
-            {renderFormatInputs("Reels · mediana do mês", ["reelsPublished", "reelsMedianReach", "reelsMedianViews", "reelsMedianInteractions", "reelsMedianShares", "reelsMedianSaves"])}
-            {renderFormatInputs("Carrosséis · mediana do mês", ["carouselsPublished", "carouselsMedianReach", "carouselsMedianViews", "carouselsMedianInteractions", "carouselsMedianShares", "carouselsMedianSaves"])}
-            {renderFormatInputs("Stories · alcance e ações", ["storiesPublished", "storiesMedianReach", "storiesMedianViews", "storyReplies", "storyLinkClicks", "storyStickerTaps", "storyProfileVisits"])}
+            {renderFormatInputs("Mensagens da Meta · relatório geral", ["metaMessagesSent"], "Total agregado da Meta; não separar por automação ou palavra-chave.")}
+            {renderFormatInputs(`Reels · ${formatStatisticMode(activeValues.reelsPublished)}`, ["reelsPublished", "reelsMedianReach", "reelsMedianViews", "reelsMedianInteractions", "reelsMedianLikes", "reelsMedianComments", "reelsMedianShares", "reelsMedianSaves"], "A partir de três Reels, use mediana; com um ou dois, registre apenas o resultado do período.")}
+            {renderFormatInputs(`Posts não Reels · ${formatStatisticMode(activeValues.postsPublished)}`, ["postsPublished", "postsTypicalReach", "postsTypicalViews", "postsTypicalInteractions", "postsTypicalLikes", "postsTypicalComments", "postsTypicalShares", "postsTypicalSaves"], "Agrupa carrosséis e imagens estáticas. O modo de leitura muda conforme o tamanho da amostra.")}
+            {renderFormatInputs("Stories · totais do período", ["storiesPublished", "storiesTotalViews", "storiesAverageViews", "storiesBestViews", "storyReplies", "storyLinkClicks", "storyStickerTaps", "storyProfileVisits"], "Informe apenas totais disponíveis. Navegação permanece agregada; não estime eventos ausentes.")}
           </div>
           <label className="social-note-field"><span>CONTEXTO DO MÊS</span><textarea value={form[activeMonth].note} onChange={event => updateNote(event.target.value)} placeholder="Registre mudanças de cadência, mídia paga, campanha, conteúdos fora da curva ou fatores que afetaram a leitura." /></label>
         </div>
@@ -212,7 +264,7 @@ export default function SocialGoalsDashboard() {
       {activeView === "formats" ? (
         <div className="social-view-panel social-format-view">
           {SOCIAL_FORMAT_GOALS.map(format => <section className="social-format-section" key={format.key}>
-            <header><div><span>MEDIANA DO MÊS</span><h4>{format.label}</h4></div><p>{format.basis}</p></header>
+            <header><div><span>{format.key === "reels" ? formatStatisticMode(activeValues.reelsPublished).toUpperCase() : "BASE HISTÓRICA ESPECÍFICA"}</span><h4>{format.label}</h4></div><p>{format.basis}</p></header>
             <div className="social-reference-table">
               <div className="social-reference-head"><span>Indicador</span><span>Mínimo</span><span>Operacional</span><span>Superação</span><span>Realizado</span><span>Atingimento</span></div>
               {format.metrics.map(metric => {
@@ -242,6 +294,14 @@ export default function SocialGoalsDashboard() {
         <div className="social-view-panel social-history-view">
           <div className="social-history-grid">{SOCIAL_HISTORY.map(period => <article key={period.key}><header><span>BASE REAL DE 2026</span><h4>{period.label}</h4><p>{period.context}</p></header><div className="social-history-formats"><div><strong>REELS · N={period.reels.sample}</strong><span>Alcance mediano <b>{formatNumber(period.reels.reach)}</b></span><span>Views medianas <b>{formatNumber(period.reels.views)}</b></span><span>Interações medianas <b>{formatNumber(period.reels.interactions)}</b></span><span>Compart. / salvos <b>{formatNumber(period.reels.shares)} / {formatNumber(period.reels.saves)}</b></span></div><div><strong>CARROSSÉIS · N={period.carousels.sample}</strong><span>Alcance mediano <b>{formatNumber(period.carousels.reach)}</b></span><span>Views medianas <b>{formatNumber(period.carousels.views)}</b></span><span>Interações medianas <b>{formatNumber(period.carousels.interactions)}</b></span><span>Compart. / salvos <b>{formatNumber(period.carousels.shares)} / {formatNumber(period.carousels.saves)}</b></span></div><div><strong>STORIES · N={period.stories.sample}</strong><span>Alcance mediano <b>{formatNumber(period.stories.reach)}</b></span><span>Views medianas <b>{formatNumber(period.stories.views)}</b></span><span>Respostas / cliques <b>{formatNumber(period.stories.replies)} / {formatNumber(period.stories.linkClicks)}</b></span><span>Figurinhas / perfil <b>{formatNumber(period.stories.stickerTaps)} / {formatNumber(period.stories.profileVisits)}</b></span></div></div></article>)}</div>
           <aside className="social-missing-box"><ShieldAlert size={23} /><div><span>SEM LINHA DE BASE · NÃO ESTIMAR</span><h4>O painel não inventa o que a exportação não informa</h4><ul>{SOCIAL_MISSING_BASELINES.map(item => <li key={item}>{item}</li>)}</ul><p>Esses indicadores poderão receber metas somente quando houver exportação comparável ou rastreamento por UTM.</p></div></aside>
+        </div>
+      ) : null}
+
+      {activeView === "schedule" ? (
+        <div className="social-view-panel social-schedule-view">
+          <header><div><span>BENCHMARK OPERACIONAL · EDUCAÇÃO E CURSOS</span><h4>Melhores dias e horários para testar</h4></div><p>Referência da categoria disponibilizada pela mLabs. Não representa garantia de performance nem substitui a leitura futura do histórico real do Arnold Conference.</p></header>
+          <div className="social-schedule-table"><div className="social-schedule-head"><span>Dia</span><span>Horários recomendados</span><span>Horários a evitar</span></div>{SOCIAL_BEST_TIMES.map(item => <div className="social-schedule-row" key={item.day}><strong>{item.day}</strong><b>{item.recommended}</b><span>{item.avoid}</span></div>)}</div>
+          <aside><ShieldAlert size={20} /><div><strong>Como usar</strong><p>Priorize esses horários como ponto de partida, alterne faixas ao longo das semanas e compare formato, tema, objetivo e resultado. Não atribua uma boa performance apenas ao horário.</p></div></aside>
         </div>
       ) : null}
     </div>
