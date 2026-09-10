@@ -24,6 +24,12 @@
 
 Validação concluída; versão pronta para checkpoint e revisão do cliente.
 
+## Auditoria de duplicidade após a contingência
+
+A comparação considerou título, promessa, argumento central, formato, fonte, CTA, público e sequência de Stories entre 31/08 e 27/09, além da janela móvel. Foram corrigidas três sobreposições comprovadas: 18/09 deixou de repetir os seis perfis e passou a demonstrar profundidade pelas programações recebidas; 22/09 deixou de repetir “copiar preparação” e passou a mostrar a equipe multidisciplinar relatada por Ricardo Pannain; 23/09 deixou de repetir avaliação/recovery e passou a explorar diferentes populações e modalidades da programação SONAFE. A pauta de 24/09 virou checklist de quatro critérios, e D-5 só ganha novo post se houver informação incremental aprovada. A sequência das masterclasses e os Stories segmentados de 18–20/09 foram mantidos por cumprirem progressão de funil e divisão de públicos, não duplicidade.
+
+Validação final: TypeScript sem erros, **171 testes aprovados** em 30 arquivos, build concluído e nenhum erro recente em servidor, console ou rede.
+
 ## Logs
 
 Após a navegação pelo hero, Mídia Paga, cards de 15/09, 18/09, 23/09, referências de corte e programação SONAFE, não foram encontrados erros no servidor, avisos ou erros no console do navegador, nem respostas HTTP 4xx/5xx nas requisições recentes.

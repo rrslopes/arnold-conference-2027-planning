@@ -28,12 +28,12 @@ export const calendarMilestones: Record<string, CalendarMilestone> = {
     },
   },
   "0918": {
-    label: "Comparação de públicos",
+    label: "Profundidade confirmada",
     tone: "lead",
-    description: "Segundo marco de captação: ajudar o público a reconhecer seu congresso e continuar o cadastro na lista de novidades.",
+    description: "Segundo marco de captação: mostrar o que as programações já recebidas de Nutrição Estética e SONAFE revelam, com transparência sobre as salas ainda pendentes.",
     paidMediaPack: {
       label: "Pack de artes para mídia paga",
-      requirement: "A agência deve redimensionar o comparativo para 1:1, 4:5 e 9:16 e manter a landing page de novidades como destino. A segmentação deve considerar afinidade profissional, não promessa comercial.",
+      requirement: "A agência deve redimensionar a mesma peça editorial de 18/09 para 1:1, 4:5 e 9:16, sem criar conteúdo exclusivo. Manter a landing page de novidades como destino e segmentar por afinidade com Nutrição Estética, SONAFE e públicos engajados.",
     },
   },
 };

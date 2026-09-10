@@ -488,3 +488,14 @@
 - [x] Atualizar testes de conteúdo e regressão para 23/09, minutagens, SONAFE e coordenadores.
 - [x] Validar TypeScript, testes, build, logs e interface em desktop e mobile.
 - [x] Salvar checkpoint reversível e entregar a versão revisada.
+
+## Auditoria de duplicidade do calendário revisado
+
+- [x] Inventariar todos os conteúdos já publicados e todas as pautas futuras do calendário atual.
+- [x] Comparar títulos, promessas, argumentos, formatos, fontes, CTAs e sequências de Stories.
+- [x] Distinguir repetição indevida de continuidade editorial intencional e evolução de funil.
+- [x] Identificar sobreposições decorrentes da remoção da abertura de vendas em 23/09.
+- [x] Corrigir somente duplicidades comprovadas, preservando a estratégia de aquecimento.
+- [x] Atualizar testes de regressão se houver alteração de pauta.
+- [x] Validar TypeScript, testes, build e interface após eventuais ajustes.
+- [x] Salvar checkpoint reversível e entregar o parecer final.

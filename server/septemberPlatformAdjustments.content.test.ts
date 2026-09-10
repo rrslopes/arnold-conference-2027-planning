@@ -26,7 +26,7 @@ describe("ajustes estratégicos da plataforma em setembro", () => {
     const sonafe = congresses.find(item => item.name === "SONAFE");
     expect(`${sonafe?.audience} ${sonafe?.tension} ${sonafe?.promise}`.toLocaleLowerCase("pt-BR")).toContain("preven");
     expect(operationalBriefs["0919"].units.map(item => `${item.role} ${item.content}`).join(" ").toLocaleLowerCase("pt-BR")).toContain("prevenção");
-    expect(calendar.find(item => item.id === "0924")?.options?.join(" ").toLocaleLowerCase("pt-BR")).toContain("prevenção");
+    expect(calendar.find(item => item.id === "0919")?.options?.join(" ").toLocaleLowerCase("pt-BR")).toContain("prevenção");
   });
 
   it("usa somente os dois destinos confirmados e sinaliza os demais", () => {

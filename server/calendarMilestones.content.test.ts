@@ -8,7 +8,7 @@ describe("grandes marcos do calendário", () => {
     expect(milestones.map(item => item.id)).toEqual(["0908", "0915", "0918"]);
     expect(milestones.find(item => item.id === "0908")?.milestone?.label).toBe("Lançamento das masterclasses");
     expect(milestones.find(item => item.id === "0915")?.milestone?.label).toBe("Captação para novidades");
-    expect(milestones.find(item => item.id === "0918")?.milestone?.label).toBe("Comparação de públicos");
+    expect(milestones.find(item => item.id === "0918")?.milestone?.label).toBe("Profundidade confirmada");
   });
 
   it("atribui uma cor semântica distinta a cada tipo de marco", () => {
