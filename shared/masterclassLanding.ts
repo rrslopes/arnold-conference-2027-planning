@@ -37,6 +37,8 @@ export type MasterclassLandingSnapshotDraft = {
 export type MasterclassLandingSnapshot = MasterclassLandingSnapshotDraft & {
   id: number;
   sourceKey: string;
+  uniquePeopleInPeriod: number | null;
+  totalUniquePeople: number | null;
   anaUniqueViewers: number | null;
   anaAverageWatchPercent: number | null;
   andreiaUniqueViewers: number | null;

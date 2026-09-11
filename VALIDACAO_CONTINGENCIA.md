@@ -63,3 +63,11 @@ A plataforma passou a tratar início e fim como datas civis de `America/Sao_Paul
 A fotografia correta de 01 a 10/09 foi sincronizada. Após confirmação do usuário, a fotografia incorreta de 01 a 11/09, criada durante o teste anterior, foi excluída pelo fluxo normal da plataforma. O banco ficou com duas fotografias: a automática de 01–10/09 e a manual histórica de 08–09/09.
 
 Validação desta rodada: fronteira de 23h40 coberta por testes, **192 testes aprovados** em 37 arquivos, TypeScript sem erros, build concluído, banco conferido, revisão desktop/mobile e nenhum erro recente em servidor, console ou rede.
+
+## Pessoas únicas — LP das masterclasses
+
+O contrato real manteve a estrutura v2 e adicionou `pessoas_unicas_no_periodo` e `total_acumulado_pessoas_unicas` dentro de `trafego_e_captacao`. A fotografia automática de 01 a 10/09 foi atualizada no mesmo registro: 157 pessoas únicas no período e no acumulado, ao lado de 166 inscrições brutas no período e 168 acumuladas. O histórico permanece com duas fotografias; a manual anterior conserva “sem dado” para os campos novos.
+
+A Central de Landing Pages, o histórico, a leitura da isca e os KPIs agora distinguem pessoas únicas, inscrições brutas e espectadores únicos das aulas. O resumo das Landing Pages usa pessoas únicas das masterclasses quando disponíveis e explicita que não há deduplicação entre LPs.
+
+Validação desta rodada: TypeScript sem erros, **193 testes aprovados** em 37 arquivos, build concluído, banco e idempotência conferidos, revisão desktop/mobile e nenhum erro recente em servidor, console ou rede.

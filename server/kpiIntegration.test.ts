@@ -39,13 +39,17 @@ describe("consolidação automática dos KPIs", () => {
   });
 
   it("automatiza consumo da recompensa sem estimar eventos ausentes e resume as fontes", () => {
-    const base = state({ socialResults: [{ monthKey: "2026-09", accountsReached: 30000, views: 50000, interactions: 2200, netFollowers: 90, metaMessagesSent: 700 }], masterclassLandingResults: [{ periodStartAt: 1, periodEndAt: 2, totalLeads: 120, newLeads: 30, sessions: 100, dmSessions: 10, formStarts: 40, dmConversions: 5, thankYouPageAccesses: 24, anaLessonStarts: 12, anaLessonCompletions: 6, andreiaLessonStarts: null, andreiaLessonCompletions: null, robertoLessonStarts: 8, robertoLessonCompletions: 4, congressHubClicks: 7, newsLpClicks: 3, salesPageClicks: null, updatedAt: 3 }] });
+    const base = state({ socialResults: [{ monthKey: "2026-09", accountsReached: 30000, views: 50000, interactions: 2200, netFollowers: 90, metaMessagesSent: 700 }], masterclassLandingResults: [{ periodStartAt: 1, periodEndAt: 2, totalLeads: 120, newLeads: 30, uniquePeopleInPeriod: 26, totalUniquePeople: 110, sessions: 100, dmSessions: 10, formStarts: 40, dmConversions: 5, thankYouPageAccesses: 24, anaLessonStarts: 12, anaLessonCompletions: 6, andreiaLessonStarts: null, andreiaLessonCompletions: null, robertoLessonStarts: 8, robertoLessonCompletions: 4, congressHubClicks: 7, newsLpClicks: 3, salesPageClicks: null, updatedAt: 3 }] });
+    const landing = buildAutomaticKpis("landing", base);
+    expect(landing.find(row => row.key === "masterclass-leads")?.value).toBe(30);
+    expect(landing.find(row => row.key === "masterclass-unique-people")?.value).toBe(26);
+    expect(landing.find(row => row.key === "masterclass-unique-conversion-rate")?.value).toBe(26);
     const reward = buildAutomaticKpis("recompensa", base);
     expect(reward.find(row => row.key === "reward-access-rate")?.value).toBe(80);
     expect(reward.find(row => row.key === "reward-ana-rate")?.value).toBe(50);
     expect(reward.find(row => row.key === "reward-andreia-rate")?.value).toBeNull();
     expect(buildAutomaticKpis("dm", base).map(row => row.value)).toEqual([30000, 50000, 2200, 90, 700]);
     expect(buildSourceSummary(base).find(item => item.key === "social")?.value).toBe(2200);
-    expect(buildSourceSummary(base).find(item => item.key === "landing")?.value).toBe(30);
+    expect(buildSourceSummary(base).find(item => item.key === "landing")?.value).toBe(26);
   });
 });

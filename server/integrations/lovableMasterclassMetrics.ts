@@ -28,7 +28,9 @@ export const lovableMasterclassMetricsSchema = z.object({
     inicios_de_formulario: count,
     acessos_pagina_obrigado: count,
     novos_leads_no_periodo: count,
+    pessoas_unicas_no_periodo: count,
     total_acumulado_de_leads: count,
+    total_acumulado_pessoas_unicas: count,
     conversao_sessao_lead: z.number().min(0),
   }).strict(),
   consumo_das_aulas: z.array(lesson).length(3),
@@ -51,6 +53,15 @@ export const lovableMasterclassMetricsSchema = z.object({
   });
   if (payload.trafego_e_captacao.novos_leads_no_periodo > payload.trafego_e_captacao.total_acumulado_de_leads) {
     ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["trafego_e_captacao", "novos_leads_no_periodo"], message: "Novos leads não podem ultrapassar o total acumulado." });
+  }
+  if (payload.trafego_e_captacao.pessoas_unicas_no_periodo > payload.trafego_e_captacao.novos_leads_no_periodo) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["trafego_e_captacao", "pessoas_unicas_no_periodo"], message: "Pessoas únicas não podem ultrapassar as inscrições brutas do período." });
+  }
+  if (payload.trafego_e_captacao.total_acumulado_pessoas_unicas > payload.trafego_e_captacao.total_acumulado_de_leads) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["trafego_e_captacao", "total_acumulado_pessoas_unicas"], message: "Pessoas únicas acumuladas não podem ultrapassar as inscrições brutas acumuladas." });
+  }
+  if (payload.trafego_e_captacao.pessoas_unicas_no_periodo > payload.trafego_e_captacao.total_acumulado_pessoas_unicas) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["trafego_e_captacao", "pessoas_unicas_no_periodo"], message: "Pessoas únicas do período não podem ultrapassar o total acumulado de pessoas únicas." });
   }
 });
 
@@ -103,6 +114,8 @@ export function mapLovableMetricsToSnapshot(payload: LovableMasterclassMetrics) 
     periodEndAt: civilDateToUtcNoon(payload.periodo.fim),
     totalLeads: payload.trafego_e_captacao.total_acumulado_de_leads,
     newLeads: payload.trafego_e_captacao.novos_leads_no_periodo,
+    uniquePeopleInPeriod: payload.trafego_e_captacao.pessoas_unicas_no_periodo,
+    totalUniquePeople: payload.trafego_e_captacao.total_acumulado_pessoas_unicas,
     sessions: payload.trafego_e_captacao.sessoes_na_lp,
     dmSessions: instagramDm?.sessoes ?? null,
     formStarts: payload.trafego_e_captacao.inicios_de_formulario,

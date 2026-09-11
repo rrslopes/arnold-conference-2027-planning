@@ -10,7 +10,9 @@ const payload = {
     inicios_de_formulario: 120,
     acessos_pagina_obrigado: 46,
     novos_leads_no_periodo: 91,
+    pessoas_unicas_no_periodo: 84,
     total_acumulado_de_leads: 91,
+    total_acumulado_pessoas_unicas: 84,
     conversao_sessao_lead: 0.2578,
   },
   consumo_das_aulas: [
@@ -42,6 +44,8 @@ describe("contrato Lovable das masterclasses", () => {
 
   it("mapeia Instagram DM, origens e avanço sem usar a taxa pronta", () => {
     const snapshot = mapLovableMetricsToSnapshot(payload);
+    expect(snapshot.uniquePeopleInPeriod).toBe(84);
+    expect(snapshot.totalUniquePeople).toBe(84);
     expect(snapshot.dmSessions).toBe(13);
     expect(snapshot.dmConversions).toBe(2);
     expect(snapshot.newsLpClicks).toBe(16);
@@ -57,5 +61,12 @@ describe("contrato Lovable das masterclasses", () => {
     expect(lovableMasterclassMetricsSchema.safeParse(duplicate).success).toBe(false);
     const invalidCompletion = { ...payload, consumo_das_aulas: payload.consumo_das_aulas.map((item, index) => index === 0 ? { ...item, conclusoes: item.inicios + 1 } : item) };
     expect(lovableMasterclassMetricsSchema.safeParse(invalidCompletion).success).toBe(false);
+  });
+
+  it("rejeita pessoas únicas acima das inscrições brutas", () => {
+    const invalidPeriod = { ...payload, trafego_e_captacao: { ...payload.trafego_e_captacao, pessoas_unicas_no_periodo: 92 } };
+    const invalidCumulative = { ...payload, trafego_e_captacao: { ...payload.trafego_e_captacao, total_acumulado_pessoas_unicas: 92 } };
+    expect(lovableMasterclassMetricsSchema.safeParse(invalidPeriod).success).toBe(false);
+    expect(lovableMasterclassMetricsSchema.safeParse(invalidCumulative).success).toBe(false);
   });
 });

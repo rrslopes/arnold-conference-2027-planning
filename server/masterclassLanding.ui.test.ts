@@ -13,7 +13,7 @@ describe("Central de Landing Pages e masterclasses", () => {
     expect(center).toContain("<LeadProfileDashboard />"); expect(center).toContain("<MasterclassLandingDashboard />");
   });
   it("captura tráfego, captação, entrega, consumo e avanço somente na Central", () => {
-    ["Sessões na LP", "Novos leads no período", "Acessos à página de obrigado", "Consumo das aulas", "Avanço no funil"].forEach(text => expect(dashboard).toContain(text));
+    ["Sessões na LP", "Inscrições brutas no período", "PESSOAS ÚNICAS NO PERÍODO", "Acessos à página de obrigado", "Consumo das aulas", "Avanço no funil"].forEach(text => expect(dashboard).toContain(text));
     expect(dashboard).toContain("Campos sem rastreamento devem ficar vazios");
   });
   it("oferece sincronização manual segura e mantém a alternativa de fotografia manual", () => {
@@ -29,13 +29,17 @@ describe("Central de Landing Pages e masterclasses", () => {
     expect(dashboard).toContain("ORIGENS DA CAPTAÇÃO");
     expect(dashboard).not.toContain("anaUniqueViewers','");
     expect(dashboard).toContain("pode superar 100%");
+    expect(dashboard).toContain("Comparável à RD Station");
+    expect(dashboard).toContain("Pessoas únicas: sem dado nesta fotografia");
+    expect(dashboard).toContain("inscrições brutas atribuídas");
   });
   it("exibe a performance na isca sem duplicar o formulário", () => {
     expect(magnet).toContain("PERFORMANCE DA ISCA"); expect(magnet).toContain("Leitura automática da LP das masterclasses");
     expect(magnet).not.toContain("saveMasterclassLandingSnapshot");
   });
   it("alimenta Landing pages e Consumo da recompensa com a nova origem", () => {
-    expect(kpis).toContain('layerId === "recompensa"'); expect(kpis).toContain("Leads convertidos — LP das masterclasses");
+    expect(kpis).toContain('layerId === "recompensa"'); expect(kpis).toContain("Inscrições brutas — LP das masterclasses");
+    expect(kpis).toContain("Pessoas únicas — LP das masterclasses");
     expect(kpis).toContain("Central de LPs · Masterclasses");
   });
 });

@@ -31,3 +31,17 @@ As datas `periodo.inicio` e `periodo.fim` são **datas civis da operação**, no
 O campo `atualizado_em` é um **timestamp absoluto ISO em UTC**. Ele deve ser armazenado como epoch sem aplicar deslocamento manual e exibido explicitamente em `America/Sao_Paulo`. Assim, `2026-09-11T02:43:04.681Z` corresponde corretamente a 10/09/2026 às 23:43 em Brasília; converter o valor novamente no servidor produziria dupla conversão.
 
 O limite máximo dos campos de período e a validação do servidor também devem usar a data civil atual de Brasília. Às 23h40 de 10/09 em Brasília, o dia 11/09 permanece indisponível, ainda que o servidor já esteja em 11/09 UTC.
+
+## Pessoas únicas versus inscrições
+
+O endpoint real manteve o contrato v2 e acrescentou, dentro de `trafego_e_captacao`, os campos `pessoas_unicas_no_periodo` e `total_acumulado_pessoas_unicas`. Para 01 a 10/09/2026, ambos retornaram 157, enquanto `novos_leads_no_periodo` retornou 166 e `total_acumulado_de_leads` retornou 168.
+
+Na plataforma, `newLeads` e `totalLeads` permanecem como **eventos brutos de inscrição** para preservar o histórico. Os novos campos serão persistidos separadamente como `uniquePeopleInPeriod` e `totalUniquePeople`, ambos opcionais para manter fotografias anteriores compatíveis.
+
+Na leitura operacional, pessoas únicas é a métrica comparável à RD Station. A interface deve mostrar os dois conceitos lado a lado e rotular explicitamente inscrições brutas; o painel consolidado não deve substituir silenciosamente um valor pelo outro. A taxa por pessoas únicas será calculada como `pessoas únicas no período ÷ sessões`, enquanto a taxa de inscrição bruta continuará disponível separadamente.
+
+### Implementação e validação — 11/09/2026
+
+O endpoint manteve a estrutura v2 e adicionou os dois campos dentro de `trafego_e_captacao`; o exemplo simplificado do prompt não substituiu o contrato completo. A tabela recebeu colunas opcionais para manter fotografias antigas compatíveis. A ressincronização de 01 a 10/09 atualizou a fotografia existente, preservou duas linhas no histórico e gravou 157 pessoas únicas no período e no acumulado, ao lado de 166 inscrições brutas no período e 168 acumuladas.
+
+A Central de Landing Pages, a leitura da isca e os KPIs agora mostram os dois conceitos separadamente. O resumo de Landing Pages usa pessoas únicas das masterclasses quando disponíveis e declara que não existe deduplicação entre LPs. A validação final passou em TypeScript, 193 testes, build, banco, logs e revisão responsiva.

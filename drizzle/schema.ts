@@ -201,6 +201,8 @@ export const masterclassLandingSnapshots = mysqlTable("masterclass_landing_snaps
   periodEndAt: bigint("periodEndAt", { mode: "number" }).notNull(),
   totalLeads: int("totalLeads").notNull(),
   newLeads: int("newLeads").notNull(),
+  uniquePeopleInPeriod: int("uniquePeopleInPeriod"),
+  totalUniquePeople: int("totalUniquePeople"),
   sessions: int("sessions"),
   dmSessions: int("dmSessions"),
   formStarts: int("formStarts"),

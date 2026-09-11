@@ -549,3 +549,17 @@
 - [x] Criar testes de fronteira para 23h40 em Brasília, meia-noite UTC e navegadores em outros fusos.
 - [x] Validar TypeScript, testes, build, banco, logs, desktop e mobile.
 - [x] Salvar checkpoint reversível e entregar a correção de fuso.
+
+## Pessoas únicas na LP de masterclasses
+
+- [x] Auditar o novo prompt e comparar o exemplo com a resposta real do endpoint atual.
+- [x] Confirmar se os novos campos foram adicionados ao contrato v2 existente ou se o formato completo mudou.
+- [x] Diferenciar inscrições brutas, pessoas únicas no período e pessoas únicas acumuladas em dados, rótulos e KPIs.
+- [x] Adicionar campos opcionais e não destrutivos ao banco, preservando fotografias antigas sem essa métrica.
+- [x] Mapear e validar `pessoas_unicas_no_periodo` e `total_acumulado_pessoas_unicas` no servidor.
+- [x] Atualizar a mesma fotografia por origem, início e fim, sem duplicidade.
+- [x] Exibir pessoas únicas na performance atual e no histórico, sem confundir com espectadores únicos das aulas.
+- [x] Integrar pessoas únicas aos KPIs adequados sem substituir silenciosamente inscrições brutas.
+- [x] Atualizar testes de contrato, cálculos, persistência, idempotência e interface.
+- [x] Validar TypeScript, testes, build, banco, logs, desktop e mobile.
+- [x] Salvar checkpoint reversível e entregar a atualização.

@@ -85,8 +85,9 @@ export default function LeadMagnetExplorer() {
               {masterclassSnapshot ? <>
                 <div className="magnet-performance-summary">
                   <article><strong>{masterclassSnapshot.sessions?.toLocaleString("pt-BR") ?? "—"}</strong><span>Sessões</span></article>
-                  <article><strong>{masterclassSnapshot.newLeads.toLocaleString("pt-BR")}</strong><span>Novos leads</span></article>
-                  <article><strong>{calculateRate(masterclassSnapshot.newLeads, masterclassSnapshot.sessions)?.toLocaleString("pt-BR", { maximumFractionDigits: 1 }) ?? "—"}%</strong><span>Conversão da LP</span></article>
+                  <article><strong>{masterclassSnapshot.uniquePeopleInPeriod?.toLocaleString("pt-BR") ?? "—"}</strong><span>Pessoas únicas</span></article>
+                  <article><strong>{masterclassSnapshot.newLeads.toLocaleString("pt-BR")}</strong><span>Inscrições brutas</span></article>
+                  <article><strong>{calculateRate(masterclassSnapshot.uniquePeopleInPeriod, masterclassSnapshot.sessions)?.toLocaleString("pt-BR", { maximumFractionDigits: 1 }) ?? "—"}%</strong><span>Conversão em pessoas únicas</span></article>
                   <article><strong>{masterclassSnapshot.thankYouPageAccesses?.toLocaleString("pt-BR") ?? "—"}</strong><span>Acessos à recompensa</span></article>
                 </div>
                 <div className="magnet-lesson-summary">{masterclassLessons.map(lesson => <article key={lesson.key}><small>{lesson.congress}</small><strong>{lesson.speaker}</strong><span>{lesson.starts?.toLocaleString("pt-BR") ?? "—"} inícios · {lesson.completions?.toLocaleString("pt-BR") ?? "—"} conclusões</span></article>)}</div>

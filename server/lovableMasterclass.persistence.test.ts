@@ -11,6 +11,8 @@ const entry = {
   periodEndAt,
   totalLeads: 20,
   newLeads: 8,
+  uniquePeopleInPeriod: 7,
+  totalUniquePeople: 18,
   sessions: 40,
   dmSessions: 4,
   formStarts: 12,
@@ -45,7 +47,7 @@ describe("persistência idempotente da sincronização Lovable", () => {
   it("atualiza a mesma fotografia quando origem e período se repetem", async () => {
     const first = await upsertSyncedMasterclassLandingSnapshot(entry);
     storedId = first.id;
-    const second = await upsertSyncedMasterclassLandingSnapshot({ ...entry, newLeads: 9, totalLeads: 21 });
+    const second = await upsertSyncedMasterclassLandingSnapshot({ ...entry, newLeads: 9, totalLeads: 21, uniquePeopleInPeriod: 8, totalUniquePeople: 19 });
     const state = await getSharedPlanningState();
     const matches = state.masterclassLandingResults.filter(row => row.sourceKey === entry.sourceKey && row.periodStartAt === periodStartAt && row.periodEndAt === periodEndAt);
 
@@ -54,6 +56,8 @@ describe("persistência idempotente da sincronização Lovable", () => {
     expect(second.id).toBe(first.id);
     expect(matches).toHaveLength(1);
     expect(matches[0]?.newLeads).toBe(9);
+    expect(matches[0]?.uniquePeopleInPeriod).toBe(8);
+    expect(matches[0]?.totalUniquePeople).toBe(19);
     expect(matches[0]?.syncSource).toBe("lovable-api");
   });
 });

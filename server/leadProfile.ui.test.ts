@@ -38,9 +38,10 @@ describe("news landing page lead profile UI", () => {
 
   it("integrates the latest LP contribution without calling it the consolidated total", () => {
     expect(integration).toContain("Leads convertidos — LP de novidades");
-    expect(integration).toContain("Leads convertidos — LP das masterclasses");
+    expect(integration).toContain("Inscrições brutas — LP das masterclasses");
+    expect(integration).toContain("Pessoas únicas — LP das masterclasses");
     expect(integration).toContain("news?.newLeads");
-    expect(integration).toContain("masterclass?.newLeads");
+    expect(integration).toContain("masterclass?.uniquePeopleInPeriod");
     expect(kpis).toContain("linhas abaixo são bloqueadas contra redigitação");
     expect(planData).toContain("Leads convertidos — consolidado de todas as origens");
     expect(kpis).toContain("metric-auto-status");

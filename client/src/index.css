@@ -1588,13 +1588,14 @@ img { max-width: 100%; }
 .masterclass-sync-provenance { display: flex; flex-wrap: wrap; align-items: center; gap: 7px 16px; padding: 10px 18px; border-bottom: 1px solid rgba(51,49,50,.1); background: rgba(203,219,42,.17); }
 .masterclass-sync-provenance strong { color: var(--purple); font-size: 7px; letter-spacing: .1em; }
 .masterclass-sync-provenance span { color: #6f696b; font-size: 7px; }
-.masterclass-lp-summary { display: grid; grid-template-columns: repeat(4, 1fr); background: var(--charcoal); color: white; }
+.masterclass-lp-summary { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); background: var(--charcoal); color: white; }
 .masterclass-lp-summary article { padding: 18px 20px; border-right: 1px solid rgba(255,255,255,.12); }
 .masterclass-lp-summary article:last-child { border-right: 0; }
-.masterclass-lp-summary strong, .masterclass-lp-summary span { display: block; }
+.masterclass-lp-summary strong, .masterclass-lp-summary span, .masterclass-lp-summary small { display: block; }
 .masterclass-lp-summary strong { color: var(--lime); font: 600 29px/1 "Teko Arnold"; }
 .masterclass-lp-summary span { margin-top: 5px; font-size: 7px; font-weight: 850; letter-spacing: .08em; }
-.masterclass-lp-funnel { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); background: #f2f1ed; border-bottom: 1px solid rgba(51,49,50,.1); }
+.masterclass-lp-summary small { margin-top: 4px; color: rgba(255,255,255,.62); font-size: 6px; }
+.masterclass-lp-funnel { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); background: #f2f1ed; border-bottom: 1px solid rgba(51,49,50,.1); }
 .masterclass-lp-funnel article { padding: 16px; border-right: 1px solid rgba(51,49,50,.09); }
 .masterclass-lp-funnel article:last-child { border-right: 0; }
 .masterclass-lp-funnel strong, .masterclass-lp-funnel span, .masterclass-lp-funnel small { display: block; }
@@ -1642,7 +1643,7 @@ img { max-width: 100%; }
 .masterclass-lp-form > footer p { margin: 0; color: #746f70; font-size: 8px; }
 
 .magnet-performance { margin: 0; padding: 23px 28px; background: #eeede9; border-top: 1px solid rgba(51,49,50,.12); }
-.magnet-performance-summary, .magnet-lesson-summary { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 15px; background: white; border: 1px solid rgba(51,49,50,.12); }
+.magnet-performance-summary, .magnet-lesson-summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(115px, 1fr)); margin-top: 15px; background: white; border: 1px solid rgba(51,49,50,.12); }
 .magnet-performance-summary article, .magnet-lesson-summary article { padding: 14px; border-right: 1px solid rgba(51,49,50,.1); }
 .magnet-performance-summary article:last-child, .magnet-lesson-summary article:last-child { border-right: 0; }
 .magnet-performance-summary strong, .magnet-performance-summary span, .magnet-lesson-summary strong, .magnet-lesson-summary span, .magnet-lesson-summary small { display: block; }
@@ -1662,7 +1663,7 @@ img { max-width: 100%; }
   .masterclass-sync-body { grid-template-columns: 1fr; align-items: stretch; }
   .masterclass-sync-button { justify-self: start; }
   .masterclass-sync-panel > footer p { width: 100%; margin-left: 0; }
-  .masterclass-lp-funnel { grid-template-columns: repeat(3, 1fr); }
+  .masterclass-lp-summary, .masterclass-lp-funnel { grid-template-columns: repeat(3, 1fr); }
   .masterclass-lp-funnel article:nth-child(3) { border-right: 0; }
   .masterclass-form-core { grid-template-columns: repeat(2, 1fr); }
   .masterclass-form-groups { grid-template-columns: 1fr; }
