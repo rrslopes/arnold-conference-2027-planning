@@ -616,3 +616,15 @@
 - [x] Atualizar testes de conteúdo, fonte, nomes, sessões e ativos visuais.
 - [x] Validar TypeScript, testes, build, logs, desktop e mobile.
 - [x] Salvar checkpoint reversível e entregar a programação atualizada.
+
+## Correção da sincronização — contrato da LP de novidades
+
+- [x] Reproduzir a falha de sincronização sem alterar as nove fotografias oficiais existentes.
+- [x] Consultar o endpoint atual e comparar campos, tipos e listas com o contrato estrito aceito.
+- [x] Identificar exatamente a mudança responsável pela rejeição.
+- [x] Adaptar a validação somente para variações legítimas, preservando o bloqueio de dados ambíguos.
+- [x] Tornar a mensagem de erro compreensível e indicar a ação necessária quando o fornecedor mudar o contrato.
+- [x] Atualizar testes de contrato e regressão com a resposta real atual.
+- [x] Repetir a sincronização oficial e confirmar idempotência e integridade do histórico.
+- [x] Validar banco, TypeScript, testes, build, logs, desktop e mobile.
+- [x] Salvar checkpoint reversível e entregar a correção.

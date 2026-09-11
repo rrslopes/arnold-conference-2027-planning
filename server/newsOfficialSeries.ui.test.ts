@@ -10,6 +10,7 @@ describe("série oficial da LP de novidades na interface", () => {
     expect(syncPanel).toContain('const OFFICIAL_SERIES_START = "2026-09-04"');
     expect(syncPanel).toContain("cada dia desde 04/09");
     expect(syncPanel).toContain("datas são civis de Brasília");
+    expect(syncPanel).toContain("Sincronização interrompida");
   });
 
   it("distingue consolidado, dia oficial e registro manual no histórico", () => {
@@ -17,6 +18,8 @@ describe("série oficial da LP de novidades na interface", () => {
     expect(dashboard).toContain("DIA OFICIAL");
     expect(dashboard).toContain("O consolidado sustenta o perfil atual e os KPIs");
     expect(dashboard).toContain("total acumulado não é reconstruído pela série");
+    expect(dashboard).toContain("respostas do período");
+    expect(dashboard).toContain("maior que o número de pessoas únicas");
     expect(dashboard).toContain("sincronizado");
   });
 });

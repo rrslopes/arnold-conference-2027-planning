@@ -52,7 +52,15 @@ export const lovableNewsMetricsSchema = z.object({
   if (captacao.conversoes_no_periodo > captacao.total_acumulado_conversoes) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["captacao", "conversoes_no_periodo"], message: "Conversões do período não podem superar o acumulado." });
   if (captacao.pessoas_unicas_no_periodo > captacao.conversoes_no_periodo) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["captacao", "pessoas_unicas_no_periodo"], message: "Pessoas únicas não podem superar conversões brutas." });
   if (captacao.total_acumulado_pessoas_unicas > captacao.total_acumulado_conversoes) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["captacao", "total_acumulado_pessoas_unicas"], message: "Pessoas únicas acumuladas não podem superar conversões acumuladas." });
-  if (campos_personalizados.base_de_calculo !== captacao.pessoas_unicas_no_periodo) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["campos_personalizados", "base_de_calculo"], message: "A base do perfil deve corresponder às pessoas únicas do período." });
+  const validProfileBases = new Set([
+    captacao.pessoas_unicas_no_periodo,
+    captacao.conversoes_no_periodo,
+  ]);
+  if (!validProfileBases.has(campos_personalizados.base_de_calculo)) ctx.addIssue({
+    code: z.ZodIssueCode.custom,
+    path: ["campos_personalizados", "base_de_calculo"],
+    message: "A base do perfil deve corresponder às pessoas únicas ou às respostas do período.",
+  });
   const topAreas = payload.areas_de_interesse.map(item => `${item.area}:${item.pessoas}`).sort();
   const profileAreas = campos_personalizados.areas_de_interesse.map(item => `${item.opcao}:${item.pessoas}`).sort();
   if (JSON.stringify(topAreas) !== JSON.stringify(profileAreas)) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["areas_de_interesse"], message: "Os dois rankings de interesse precisam coincidir." });
@@ -79,7 +87,18 @@ export async function fetchLovableNewsMetrics(from: string, to: string) {
   }
   if (!response.ok) throw new Error(response.status === 401 ? "Credencial da integração Lovable recusada." : `A LP de novidades respondeu com status ${response.status}.`);
   const parsed = lovableNewsMetricsSchema.safeParse(await response.json());
-  if (!parsed.success) throw new Error("O contrato da LP de novidades mudou. Nenhum dado foi salvo.");
+  if (!parsed.success) {
+    console.error("[LovableNewsMetrics] Resposta recusada pela validação de segurança", {
+      from,
+      to,
+      issues: parsed.error.issues.slice(0, 5).map(issue => ({
+        path: issue.path.join("."),
+        code: issue.code,
+        message: issue.message,
+      })),
+    });
+    throw new Error("O Lovable enviou dados fora das regras esperadas. A atualização foi interrompida e os dados anteriores continuam preservados.");
+  }
   if (parsed.data.periodo.inicio !== from || parsed.data.periodo.fim !== to) throw new Error("O período devolvido pela LP não corresponde ao período solicitado.");
   return parsed.data;
 }

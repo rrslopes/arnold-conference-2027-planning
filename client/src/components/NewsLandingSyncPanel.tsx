@@ -18,7 +18,9 @@ export default function NewsLandingSyncPanel() {
       setLastResult(result);
       toast.success(`${result.dailyCount} dias e o consolidado foram sincronizados sem duplicidade.`);
     },
-    onError: error => toast.error(`Não foi possível sincronizar: ${error.message}`),
+    onError: error => toast.error("Sincronização interrompida", {
+      description: error.message,
+    }),
   });
   const invalidPeriod = !to || OFFICIAL_SERIES_START > to || to > today;
   const configured = status.data?.configured === true;

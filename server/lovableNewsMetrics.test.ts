@@ -43,4 +43,26 @@ describe("contrato agregado da LP de novidades", () => {
     expect(lovableNewsMetricsSchema.safeParse({ ...fixture, email: "nao@deve.existir" }).success).toBe(false);
     expect(lovableNewsMetricsSchema.safeParse({ ...fixture, areas_de_interesse: fixture.areas_de_interesse.slice(1) }).success).toBe(false);
   });
+
+  it("aceita recadastros quando a base do perfil corresponde às respostas brutas do período", () => {
+    const withRegistrations = {
+      ...fixture,
+      captacao: {
+        conversoes_no_periodo: 130,
+        pessoas_unicas_no_periodo: 127,
+        total_acumulado_conversoes: 130,
+        total_acumulado_pessoas_unicas: 127,
+      },
+      campos_personalizados: {
+        ...fixture.campos_personalizados,
+        base_de_calculo: 130,
+      },
+    };
+
+    expect(lovableNewsMetricsSchema.safeParse(withRegistrations).success).toBe(true);
+    expect(lovableNewsMetricsSchema.safeParse({
+      ...withRegistrations,
+      campos_personalizados: { ...withRegistrations.campos_personalizados, base_de_calculo: 129 },
+    }).success).toBe(false);
+  });
 });

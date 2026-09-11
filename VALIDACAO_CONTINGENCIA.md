@@ -101,3 +101,13 @@ Oito fotos foram associadas com identificação segura: Marília Lacerda, Gabrie
 As fotos foram inseridas dentro das respectivas sessões, separadas da coordenação científica. Cada card informa a disponibilidade de ementa, mini-CV, foto e rede social ou a lacuna correspondente. Coordenadores, eixos e demais congressos permaneceram inalterados.
 
 Validação final: TypeScript sem erros, **203 testes aprovados** em 41 arquivos, build concluído, revisão desktop/mobile e nenhum erro atual em servidor, console ou rede após 19h40.
+
+## Correção do contrato — LP de novidades
+
+A sincronização foi interrompida porque o Lovable passou a distinguir **130 conversões brutas** de **127 pessoas únicas**, enquanto `base_de_calculo` passou a representar as 130 respostas do formulário. A validação anterior aceitava apenas a base igual às pessoas únicas e rejeitou a resposta antes de qualquer gravação.
+
+O contrato agora aceita a base do perfil quando ela corresponde às pessoas únicas ou às respostas brutas do período, mas continua bloqueando qualquer outro valor, campos inesperados, rankings divergentes e relações numéricas inválidas. A interface explica que recadastros podem tornar a base de respostas maior que o número de pessoas únicas. Falhas futuras passam a mostrar “Sincronização interrompida” e informam que os dados anteriores permanecem preservados; os caminhos rejeitados ficam registrados nos logs sem transportar dados pessoais.
+
+A sincronização real de 04–11/09 foi repetida com sucesso: oito dias e um consolidado foram atualizados, sem novas linhas. O consolidado vigente contém 130 conversões, 127 pessoas únicas e base de perfil 130. O banco permaneceu com oito registros diários e um consolidado.
+
+Validação final: TypeScript sem erros, **204 testes aprovados** em 41 arquivos, build concluído, banco e idempotência conferidos, revisão desktop/mobile e nenhum erro atual em servidor, console ou rede após 20h50.
