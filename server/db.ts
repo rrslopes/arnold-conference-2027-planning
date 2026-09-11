@@ -18,7 +18,7 @@ import {
 } from "../drizzle/schema";
 import type { SocialMonthlyResult } from "../shared/socialMetrics";
 import { toStoredRate, type EmailPerformanceDraft } from "../shared/emailPerformance";
-import { NEWS_LP_SOURCE, type LeadProfileSnapshotDraft } from "../shared/leadProfile";
+import { NEWS_LP_SOURCE, getLeadProfileSnapshotKind, type LeadProfileSnapshotDraft } from "../shared/leadProfile";
 import type { MasterclassLandingSnapshotDraft } from "../shared/masterclassLanding";
 import type { mapLovableMetricsToSnapshot } from "./integrations/lovableMasterclassMetrics";
 import type { mapLovableNewsMetricsToSnapshot } from "./integrations/lovableNewsMetrics";
@@ -226,12 +226,19 @@ export async function upsertSyncedLeadProfileSnapshot(entry: SyncedLeadProfileSn
     id: leadProfileSnapshots.id,
     periodStartAt: leadProfileSnapshots.periodStartAt,
     periodEndAt: leadProfileSnapshots.periodEndAt,
+    syncSource: leadProfileSnapshots.syncSource,
   }).from(leadProfileSnapshots).where(and(
     eq(leadProfileSnapshots.sourceKey, entry.sourceKey),
     lte(leadProfileSnapshots.periodStartAt, entry.periodEndAt),
     gte(leadProfileSnapshots.periodEndAt, entry.periodStartAt),
   ));
-  const conflicting = overlapping.find(row => row.periodStartAt !== entry.periodStartAt || row.periodEndAt !== entry.periodEndAt);
+  const entryKind = getLeadProfileSnapshotKind(entry);
+  const conflicting = overlapping.find(row => {
+    if (row.periodStartAt === entry.periodStartAt && row.periodEndAt === entry.periodEndAt) return false;
+    const rowKind = getLeadProfileSnapshotKind(row);
+    const officialOverlap = rowKind !== "manual" && entryKind !== "manual" && (rowKind === "rollup" || entryKind === "rollup");
+    return !officialOverlap;
+  });
   if (conflicting) throw new Error("O período se sobrepõe a uma fotografia existente. Use o dia seguinte ao último fechamento ou ressincronize exatamente o mesmo intervalo.");
 
   const wherePeriod = and(
@@ -244,6 +251,28 @@ export async function upsertSyncedLeadProfileSnapshot(entry: SyncedLeadProfileSn
   await db.insert(leadProfileSnapshots).values(values).onDuplicateKeyUpdate({ set: values });
   const stored = await db.select({ id: leadProfileSnapshots.id }).from(leadProfileSnapshots).where(wherePeriod).limit(1);
   return { id: stored[0]?.id, action: existing.length ? "updated" as const : "created" as const, updatedAt: now };
+}
+
+export async function upsertSyncedLeadProfileSeries(entries: SyncedLeadProfileSnapshotInput[]) {
+  const db = await requireDb();
+  const now = Date.now();
+  let created = 0;
+  let updated = 0;
+  await db.transaction(async tx => {
+    for (const entry of entries) {
+      const wherePeriod = and(
+        eq(leadProfileSnapshots.sourceKey, entry.sourceKey),
+        eq(leadProfileSnapshots.periodStartAt, entry.periodStartAt),
+        eq(leadProfileSnapshots.periodEndAt, entry.periodEndAt),
+      );
+      const existing = await tx.select({ id: leadProfileSnapshots.id }).from(leadProfileSnapshots).where(wherePeriod).limit(1);
+      const values = { ...entry, updatedAt: now };
+      await tx.insert(leadProfileSnapshots).values(values).onDuplicateKeyUpdate({ set: values });
+      if (existing.length) updated += 1;
+      else created += 1;
+    }
+  });
+  return { created, updated, total: entries.length, updatedAt: now };
 }
 
 export async function deleteLeadProfileSnapshot(id: number) {

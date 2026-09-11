@@ -81,3 +81,13 @@ O fechamento manual de 01–08/09 foi preservado com 104 conversões. A primeira
 Central de LPs e KPIs distinguem conversões brutas de pessoas únicas. Cidades, origens e avanço entre campanhas são somente leitura e aparecem apenas quando o endpoint os fornece. O resumo integrado utiliza pessoas únicas quando disponíveis, mas declara que não existe deduplicação entre as duas LPs.
 
 Validação desta rodada: TypeScript sem erros, **199 testes aprovados** em 40 arquivos, build concluído, banco e idempotência conferidos, revisão desktop/mobile e nenhum erro atual em servidor, console ou rede.
+
+## Série diária oficial — LP de novidades
+
+Após autorização explícita, as duas fotografias antigas da LP de novidades foram excluídas e substituídas por dados oficiais do endpoint. A Central agora mantém oito fotografias diárias, de 04 a 11/09/2026, e um consolidado de 04 a 11/09/2026. As datas são civis de `America/Sao_Paulo` e não sofrem deslocamento de dia.
+
+A distribuição oficial foi 54, 9, 7, 7, 20, 11, 12 e 0 conversões por dia. O banco confirmou oito registros diários, um consolidado, soma diária de 120 e consolidado de 120 conversões e 120 pessoas únicas. Uma segunda sincronização atualizou os nove registros e não criou novas linhas.
+
+O consolidado sustenta perfil, interesses, histórico, cidades, origens, avanço vindo das masterclasses e KPIs. Os dias aparecem no histórico como evolução e não apresentam um acumulado histórico reconstruído. Registros oficiais são somente leitura na interface e podem ser atualizados pelo botão; o formulário manual permanece separado.
+
+Validação final: TypeScript sem erros, **202 testes aprovados** em 41 arquivos, build concluído, banco e idempotência conferidos, revisão desktop/mobile e nenhum erro atual em servidor, console ou rede após o reinício.

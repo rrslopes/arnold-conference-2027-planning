@@ -1,6 +1,13 @@
 import { z } from "zod";
 import { ENV } from "../_core/env";
-import { NEWS_LP_SOURCE, INTEREST_FIELDS, PARTICIPATION_FIELDS } from "../../shared/leadProfile";
+import {
+  INTEREST_FIELDS,
+  NEWS_DAILY_SYNC_SOURCE,
+  NEWS_LP_SOURCE,
+  NEWS_ROLLUP_SYNC_SOURCE,
+  PARTICIPATION_FIELDS,
+  type LeadProfileSnapshotKind,
+} from "../../shared/leadProfile";
 import { civilDateToUtcNoon } from "../../shared/brasiliaTime";
 
 export const LOVABLE_NEWS_METRICS_URL = "https://masterclassconference.savagetgroup.com.br/api/public/metrics-novidades";
@@ -81,7 +88,7 @@ function countByOption(items: Array<{ opcao: string; pessoas: number }>, label: 
   return items.find(item => item.opcao === label)?.pessoas ?? null;
 }
 
-export function mapLovableNewsMetricsToSnapshot(payload: LovableNewsMetrics) {
+export function mapLovableNewsMetricsToSnapshot(payload: LovableNewsMetrics, kind: LeadProfileSnapshotKind = "rollup") {
   const profile = payload.campos_personalizados;
   const interests = Object.fromEntries(INTEREST_FIELDS.map(field => [field.key, countByOption(profile.areas_de_interesse, field.label)]));
   const participation = Object.fromEntries(PARTICIPATION_FIELDS.map(field => [field.key, countByOption(profile.historico_no_arnold, field.sourceLabel)]));
@@ -107,9 +114,39 @@ export function mapLovableNewsMetricsToSnapshot(payload: LovableNewsMetrics) {
     originsJson: JSON.stringify(payload.origens),
     masterclassClicks: payload.avanco_no_funil.cliques_vindos_da_masterclass,
     masterclassClickOriginsJson: JSON.stringify(payload.avanco_no_funil.origens_dos_cliques),
-    syncSource: "lovable-api",
+    syncSource: kind === "daily" ? NEWS_DAILY_SYNC_SOURCE : kind === "rollup" ? NEWS_ROLLUP_SYNC_SOURCE : "manual",
     providerUpdatedAt: Date.parse(payload.atualizado_em),
     providerObservation: profile.observacao,
     note: "Dados agregados sincronizados do endpoint oficial da LP de novidades.",
+  };
+}
+
+function listCivilDates(from: string, to: string) {
+  const dates: string[] = [];
+  const cursor = new Date(`${from}T12:00:00.000Z`);
+  const limit = new Date(`${to}T12:00:00.000Z`);
+  while (cursor <= limit) {
+    dates.push(cursor.toISOString().slice(0, 10));
+    cursor.setUTCDate(cursor.getUTCDate() + 1);
+  }
+  return dates;
+}
+
+export async function fetchLovableNewsOfficialSeries(from: string, to: string) {
+  const dates = listCivilDates(from, to);
+  if (!dates.length || dates.length > 120) throw new Error("O lote diário deve conter entre 1 e 120 dias.");
+  const dailyPayloads: LovableNewsMetrics[] = [];
+  for (let offset = 0; offset < dates.length; offset += 4) {
+    const batch = dates.slice(offset, offset + 4);
+    dailyPayloads.push(...await Promise.all(batch.map(date => fetchLovableNewsMetrics(date, date))));
+  }
+  const rollupPayload = await fetchLovableNewsMetrics(from, to);
+  const dailyConversions = dailyPayloads.reduce((total, payload) => total + payload.captacao.conversoes_no_periodo, 0);
+  if (dailyConversions !== rollupPayload.captacao.conversoes_no_periodo) {
+    throw new Error("A soma diária não coincide com o consolidado. Nenhum dado foi salvo.");
+  }
+  return {
+    daily: dailyPayloads.map(payload => mapLovableNewsMetricsToSnapshot(payload, "daily")),
+    rollup: mapLovableNewsMetricsToSnapshot(rollupPayload, "rollup"),
   };
 }

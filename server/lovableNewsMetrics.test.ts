@@ -32,7 +32,8 @@ describe("contrato agregado da LP de novidades", () => {
   it("aceita o contrato real e mapeia somente dados agregados", () => {
     const payload = lovableNewsMetricsSchema.parse(fixture);
     const mapped = mapLovableNewsMetricsToSnapshot(payload);
-    expect(mapped).toMatchObject({ totalLeads: 120, newLeads: 16, uniquePeopleInPeriod: 16, totalUniquePeople: 120, profileBaseCount: 16, dmConversions: 3, sportsNutritionCount: 7, nutritionAestheticsCount: 6, attended2026Count: 8, firstTimeCount: 7, attendedPastCount: 1, masterclassClicks: 31, syncSource: "lovable-api" });
+    expect(mapped).toMatchObject({ totalLeads: 120, newLeads: 16, uniquePeopleInPeriod: 16, totalUniquePeople: 120, profileBaseCount: 16, dmConversions: 3, sportsNutritionCount: 7, nutritionAestheticsCount: 6, attended2026Count: 8, firstTimeCount: 7, attendedPastCount: 1, masterclassClicks: 31, syncSource: "lovable-api-rollup" });
+    expect(mapLovableNewsMetricsToSnapshot(payload, "daily").syncSource).toBe("lovable-api-daily");
     expect(JSON.parse(mapped.topCitiesJson)).toEqual([{ opcao: "São Paulo", pessoas: 4, percentual: 25 }]);
     expect(mapped).not.toHaveProperty("email");
     expect(mapped).not.toHaveProperty("telefone");

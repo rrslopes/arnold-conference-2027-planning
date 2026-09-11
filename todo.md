@@ -581,3 +581,23 @@
 - [x] Atualizar testes de contrato, persistência, idempotência, cálculos, histórico e interface.
 - [x] Validar sincronização real, banco, TypeScript, testes, build, logs, desktop e mobile.
 - [x] Salvar checkpoint reversível e entregar a integração.
+
+## Série diária oficial e recorte completo — LP de novidades
+
+- [x] Adotar o endpoint atual como fonte oficial para a distribuição diária, conforme confirmação do cliente.
+- [x] Tratar 04/09 a 11/09 como datas civis de `America/Sao_Paulo`, sem deslocar os dias para UTC.
+- [x] Consultar e validar os endpoints diários de 04/09 até hoje e o consolidado completo.
+- [x] Conferir a distribuição oficial de 54, 9, 7, 7, 20, 11, 12 e 0 conversões por dia.
+- [x] Confirmar 120 conversões e 120 pessoas únicas no consolidado de 04–11/09.
+- [x] Modelar tipos de fotografia `daily` e `rollup` para permitir o consolidado sobreposto à série diária.
+- [x] Manter a chave idempotente por origem, início e fim e identificar o tipo por `syncSource`, sem misturar a LP das masterclasses.
+- [x] Definir o consolidado como fotografia vigente para perfil e KPIs e os dias como série/histórico.
+- [x] Implementar sincronização em lote de cada dia e do consolidado completo.
+- [x] Atualizar a interface para distinguir “dia” de “consolidado” e explicar o uso de cada visão.
+- [x] Excluir, conforme autorização do usuário, as fotografias antigas manuais e parciais da LP de novidades.
+- [x] Importar as fotografias oficiais diárias de 04/09 até hoje e o consolidado 04/09–hoje.
+- [x] Confirmar origens, interesses, histórico no Arnold, cidades e cliques vindos das masterclasses em cada fotografia.
+- [x] Validar que repetir a sincronização não cria novas linhas.
+- [x] Atualizar testes de contrato, lote, seleção vigente, idempotência, histórico e KPIs.
+- [x] Validar banco, TypeScript, testes, build, logs, desktop e mobile.
+- [x] Salvar checkpoint reversível e entregar a série oficial.

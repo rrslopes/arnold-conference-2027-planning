@@ -17,12 +17,12 @@ import {
   saveSocialMonthlyResults,
   saveWhatsAppMonthlyResults,
   upsertSyncedMasterclassLandingSnapshot,
-  upsertSyncedLeadProfileSnapshot,
+  upsertSyncedLeadProfileSeries,
 } from "../db";
 import { publicProcedure, router } from "../_core/trpc";
 import { ENV } from "../_core/env";
 import { fetchLovableMasterclassMetrics, mapLovableMetricsToSnapshot } from "../integrations/lovableMasterclassMetrics";
-import { fetchLovableNewsMetrics, mapLovableNewsMetricsToSnapshot } from "../integrations/lovableNewsMetrics";
+import { fetchLovableNewsOfficialSeries } from "../integrations/lovableNewsMetrics";
 import { EDITORIAL_STATUS_IDS, isValidArtworkUrl } from "../../shared/editorialWorkflow";
 import { EMAIL_STATUS_IDS, isValidEmailPreviewUrl } from "../../shared/emailWorkflow";
 import { isValidSentEmailUrl } from "../../shared/emailPerformance";
@@ -298,8 +298,10 @@ export const planningRouter = router({
       const now = Date.now();
       if (now - lastNewsSyncAt < 5_000) throw new Error("Aguarde alguns segundos antes de sincronizar novamente.");
       lastNewsSyncAt = now;
-      const payload = await fetchLovableNewsMetrics(input.from, input.to);
-      return upsertSyncedLeadProfileSnapshot(mapLovableNewsMetricsToSnapshot(payload));
+      if (input.from !== "2026-09-04") throw new Error("A série oficial da LP de novidades começa em 04/09/2026.");
+      const series = await fetchLovableNewsOfficialSeries(input.from, input.to);
+      const result = await upsertSyncedLeadProfileSeries([...series.daily, series.rollup]);
+      return { ...result, dailyCount: series.daily.length, rollupPeriod: { from: input.from, to: input.to } };
     }),
   saveMasterclassLandingSnapshot: publicProcedure
     .input(masterclassLandingEntry)

@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { BarChart3, CircleAlert, Cloud, CloudOff, Edit3, ExternalLink, MapPin, MousePointerClick, Plus, RefreshCw, Save, Trash2, UserRoundCheck, Users } from "lucide-react";
+import { BarChart3, CheckCircle2, CircleAlert, Cloud, CloudOff, Edit3, ExternalLink, MapPin, MousePointerClick, Plus, RefreshCw, Save, Trash2, UserRoundCheck, Users } from "lucide-react";
 import { toast } from "sonner";
 import { trpc } from "@/lib/trpc";
 import {
@@ -8,6 +8,7 @@ import {
   PARTICIPATION_FIELDS,
   calculateLpAbandonments,
   calculateLpConversionRate,
+  getLeadProfileSnapshotKind,
   getLatestLeadProfileSnapshot,
   percentageOfLeads,
   profilePercentageBase,
@@ -109,6 +110,7 @@ export default function LeadProfileDashboard() {
     sourceKey: NEWS_LP_SOURCE.key,
   })), [planning.data?.leadProfileResults]);
   const latest = useMemo(() => getLatestLeadProfileSnapshot(snapshots), [snapshots]);
+  const historySnapshots = useMemo(() => [...snapshots].sort((a, b) => b.periodEndAt - a.periodEndAt || (getLeadProfileSnapshotKind(b) === "rollup" ? 1 : 0) - (getLeadProfileSnapshotKind(a) === "rollup" ? 1 : 0) || b.updatedAt - a.updatedAt), [snapshots]);
   const interests = useMemo(() => latest ? sortInterestProfile(latest) : [], [latest]);
   const conversionRate = latest ? calculateLpConversionRate(latest.newLeads, latest.sessions) : null;
   const abandonments = latest ? calculateLpAbandonments(latest.formStarts, latest.newLeads) : null;
@@ -185,11 +187,11 @@ export default function LeadProfileDashboard() {
   return (
     <div className="lead-profile-console" aria-busy={planning.isLoading || saveMutation.isPending || deleteMutation.isPending}>
       <header className="lead-profile-head">
-        <div><Users size={28} /><span>FONTE EXCLUSIVA · QUALIFICAÇÃO DE AUDIÊNCIA</span><h3>Leads e perfil — LP de novidades</h3><p>Fotografias agregadas de conversões, pessoas únicas, histórico de participação e áreas de interesse desta página. Não inclua dados das masterclasses.</p><a href={NEWS_LP_SOURCE.url} target="_blank" rel="noreferrer">Abrir LP de origem <ExternalLink size={13} /></a>{planning.isError ? <small className="sync-error"><CloudOff size={13} /> Falha de sincronização.</small> : latest ? <small><Cloud size={13} /> {latest.providerUpdatedAt ? `Origem atualizada em ${formatTimestampInBrasilia(latest.providerUpdatedAt)} · Brasília` : `Atualizado em ${new Date(latest.updatedAt).toLocaleString("pt-BR")}`}</small> : <small><Cloud size={13} /> Pronto para a primeira fotografia.</small>}</div>
+        <div><Users size={28} /><span>FONTE EXCLUSIVA · QUALIFICAÇÃO DE AUDIÊNCIA</span><h3>Leads e perfil — LP de novidades</h3><p>Série diária de conversões e consolidado oficial com pessoas únicas, histórico de participação e áreas de interesse desta página. Não inclua dados das masterclasses.</p><a href={NEWS_LP_SOURCE.url} target="_blank" rel="noreferrer">Abrir LP de origem <ExternalLink size={13} /></a>{planning.isError ? <small className="sync-error"><CloudOff size={13} /> Falha de sincronização.</small> : latest ? <small><Cloud size={13} /> {latest.providerUpdatedAt ? `Origem atualizada em ${formatTimestampInBrasilia(latest.providerUpdatedAt)} · Brasília` : `Atualizado em ${new Date(latest.updatedAt).toLocaleString("pt-BR")}`}</small> : <small><Cloud size={13} /> Pronto para a primeira fotografia.</small>}</div>
         <button type="button" className="secondary-button" onClick={() => planning.refetch()} disabled={planning.isFetching}><RefreshCw size={16} className={planning.isFetching ? "spin" : ""} /> Atualizar</button>
       </header>
 
-      {!planning.isLoading ? <NewsLandingSyncPanel latestEndAt={latest?.periodEndAt} /> : null}
+      {!planning.isLoading ? <NewsLandingSyncPanel /> : null}
 
       <div className="lead-profile-tabs" role="tablist">
         <button type="button" role="tab" aria-selected={view === "profile"} className={view === "profile" ? "active" : ""} onClick={() => setView("profile")}>Perfil atual</button>
@@ -198,6 +200,7 @@ export default function LeadProfileDashboard() {
       </div>
 
       {view === "profile" ? latest ? <div className="lead-profile-current">
+        <div className="lead-profile-current-kind"><CheckCircle2 size={15} /> CONSOLIDADO OFICIAL · SÉRIE DIÁRIA DISPONÍVEL NO HISTÓRICO</div>
         <div className="lead-profile-summary lead-profile-summary-six">
           <article><strong>{latest.totalLeads.toLocaleString("pt-BR")}</strong><span>CONVERSÕES BRUTAS ACUMULADAS</span></article>
           <article><strong>+{latest.newLeads.toLocaleString("pt-BR")}</strong><span>CONVERSÕES BRUTAS NO PERÍODO</span></article>
@@ -246,7 +249,7 @@ export default function LeadProfileDashboard() {
         <footer><p>Histórico e interesses podem ficar vazios até o relatório permitir a consolidação. Não estime dados ausentes.</p><button type="button" className="primary-button" onClick={save} disabled={saveMutation.isPending}>{saveMutation.isPending ? <RefreshCw size={16} className="spin" /> : <Save size={16} />}{form.id ? "Salvar alterações" : "Adicionar fotografia"}</button></footer>
       </section> : null}
 
-      {view === "history" ? <section className="lead-profile-history"><header><span>FOTOGRAFIAS DA MESMA ORIGEM</span><p>Compare fechamentos sem somar as linhas: cada registro é uma visão acumulada da LP.</p></header>{snapshots.length ? snapshots.map(snapshot => <article key={snapshot.id}><div><small>{formatDate(snapshot.periodStartAt)} — {formatDate(snapshot.periodEndAt)} · {snapshot.syncSource === "lovable-api" ? "Lovable" : "manual"}</small><strong>{snapshot.totalLeads.toLocaleString("pt-BR")} conversões brutas acumuladas</strong><span>+{snapshot.newLeads.toLocaleString("pt-BR")} no período · {snapshot.uniquePeopleInPeriod === null ? "pessoas únicas: sem dado" : `${snapshot.uniquePeopleInPeriod.toLocaleString("pt-BR")} pessoas únicas`}</span></div><div>{snapshot.syncSource !== "lovable-api" ? <button type="button" onClick={() => edit(snapshot)} aria-label={`Editar fotografia de ${formatDate(snapshot.periodEndAt)}`}><Edit3 size={15} /></button> : null}<button type="button" onClick={() => setDeleteCandidate(snapshot)} aria-label={`Excluir fotografia de ${formatDate(snapshot.periodEndAt)}`}><Trash2 size={15} /></button></div></article>) : <p className="lead-profile-missing">Nenhuma fotografia registrada.</p>}</section> : null}
+      {view === "history" ? <section className="lead-profile-history"><header><span>SÉRIE OFICIAL DA MESMA ORIGEM</span><p>O consolidado sustenta o perfil atual e os KPIs; cada dia mostra a evolução. Não some manualmente as linhas.</p></header>{historySnapshots.length ? historySnapshots.map(snapshot => { const kind = getLeadProfileSnapshotKind(snapshot); return <article key={snapshot.id}><div><small>{formatDate(snapshot.periodStartAt)} — {formatDate(snapshot.periodEndAt)} · <b className={`lead-profile-history-kind ${kind}`}>{kind === "rollup" ? "CONSOLIDADO" : kind === "daily" ? "DIA OFICIAL" : "MANUAL"}</b></small><strong>{kind === "daily" ? `${snapshot.newLeads.toLocaleString("pt-BR")} conversões brutas no dia` : `${snapshot.newLeads.toLocaleString("pt-BR")} conversões brutas no recorte`}</strong><span>{kind === "daily" ? `${snapshot.uniquePeopleInPeriod?.toLocaleString("pt-BR") ?? "—"} pessoas únicas no dia · total acumulado não é reconstruído pela série` : `${snapshot.totalLeads.toLocaleString("pt-BR")} conversões acumuladas · ${snapshot.uniquePeopleInPeriod === null ? "pessoas únicas: sem dado" : `${snapshot.uniquePeopleInPeriod.toLocaleString("pt-BR")} pessoas únicas no recorte`}`}</span></div><div>{kind === "manual" ? <><button type="button" onClick={() => edit(snapshot)} aria-label={`Editar fotografia de ${formatDate(snapshot.periodEndAt)}`}><Edit3 size={15} /></button><button type="button" onClick={() => setDeleteCandidate(snapshot)} aria-label={`Excluir fotografia de ${formatDate(snapshot.periodEndAt)}`}><Trash2 size={15} /></button></> : <small className="lead-profile-sync-lock"><Cloud size={12} /> sincronizado</small>}</div></article>; }) : <p className="lead-profile-missing">Nenhuma fotografia registrada.</p>}</section> : null}
 
       <AlertDialog open={Boolean(deleteCandidate)} onOpenChange={open => !open && setDeleteCandidate(null)}><AlertDialogContent><AlertDialogHeader><AlertDialogTitle>Excluir fotografia da LP?</AlertDialogTitle><AlertDialogDescription>O fechamento de {deleteCandidate ? formatDate(deleteCandidate.periodEndAt) : ""} será removido para toda a equipe. Esta ação não pode ser desfeita.</AlertDialogDescription></AlertDialogHeader><AlertDialogFooter><AlertDialogCancel>Cancelar</AlertDialogCancel><AlertDialogAction onClick={() => deleteCandidate && deleteMutation.mutate({ id: deleteCandidate.id })}>Excluir fotografia</AlertDialogAction></AlertDialogFooter></AlertDialogContent></AlertDialog>
     </div>

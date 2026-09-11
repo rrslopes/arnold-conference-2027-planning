@@ -52,6 +52,14 @@ describe("lead profile snapshots", () => {
     expect(getLatestLeadProfileSnapshot([{ periodEndAt: 2, updatedAt: 1 }, { periodEndAt: 4, updatedAt: 1 }, { periodEndAt: 3, updatedAt: 9 }])?.periodEndAt).toBe(4);
   });
 
+  it("prioritizes the official rollup over a daily snapshot with the same closing date", () => {
+    const selected = getLatestLeadProfileSnapshot([
+      { periodEndAt: 11, updatedAt: 9, syncSource: "lovable-api-daily", kind: "daily" },
+      { periodEndAt: 11, updatedAt: 1, syncSource: "lovable-api-rollup", kind: "rollup" },
+    ]);
+    expect(selected?.kind).toBe("rollup");
+  });
+
   it("rejects impossible participation totals", () => {
     const issues = validateLeadProfileSnapshot({ ...base, firstTimeCount: 101 });
     expect(issues.map(item => item.field)).toEqual(expect.arrayContaining(["firstTimeCount", "participation"]));

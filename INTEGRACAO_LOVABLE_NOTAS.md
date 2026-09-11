@@ -50,13 +50,13 @@ A Central de Landing Pages, a leitura da isca e os KPIs agora mostram os dois co
 
 O endpoint `/api/public/metrics-novidades` foi validado com a credencial atual. A resposta mantém a LP de novidades como fonte própria, usa `America/Sao_Paulo` e entrega somente totais agregados. O recorte 01–10/09 retorna 120 conversões e 120 pessoas únicas; o recorte incremental 09–10/09 retorna 16 conversões, 16 pessoas únicas e acumulado de 120.
 
-A fotografia manual de 01–08/09, com 104 leads, deve permanecer intacta. A primeira sincronização será feita para 09–10/09, criando uma nova fotografia com acumulado de 120 e incremento de 16. Ressincronizar 09–10/09 atualizará esse mesmo registro por `sourceKey + periodStartAt + periodEndAt`, sem inserir outra linha.
+A preservação da fotografia manual de 01–08/09 e o recorte automático de 09–10/09 foram uma estratégia intermediária. Após autorização do cliente, ambos foram excluídos e substituídos pela série oficial diária iniciada em 04/09 e pelo consolidado completo.
 
 Conversões brutas, pessoas únicas no período e pessoas únicas acumuladas serão armazenadas separadamente. Os percentuais de interesses, histórico e cidades usam `base_de_calculo` do período, não o acumulado da campanha. Fotografias manuais antigas, sem esse campo, continuam usando o total acumulado como base legada.
 
 O endpoint não fornece sessões nem início de formulário para esta LP. Esses eventos permanecem ausentes na fotografia sincronizada e não serão estimados. `origens[]` representa conversões por canal; `cliques_vindos_da_masterclass` e suas origens serão exibidos como avanço de uma campanha para a outra, sem somá-los novamente aos leads.
 
-O botão deve sugerir como início o dia seguinte ao fechamento mais recente e como fim o dia civil atual em Brasília. A interface deve alertar contra períodos sobrepostos, mas preservar a possibilidade de ressincronizar exatamente o mesmo intervalo para correção do fornecedor.
+O botão fixa o início oficial em 04/09 e permite escolher apenas a data final, limitada ao dia civil atual em Brasília. Cada execução consulta todos os dias do recorte e o consolidado; repetir a mesma data final atualiza os mesmos registros.
 
 ### Contrato real validado — 09 a 10/09/2026
 
@@ -64,4 +64,16 @@ Fonte: `https://masterclassconference.savagetgroup.com.br/api/public/metrics-nov
 
 O perfil incremental retornou: Nutrição Esportiva 7; Nutrição Estética 6; Gestão de Negócios 6; Fisioterapia Esportiva 4; Educação Física e Personal Training 3; Bodybuilding 2; Outra área 2. No histórico: 8 estiveram em 2026; 7 participarão pela primeira vez; 1 esteve em outra edição, mas não em 2026. Foram devolvidas 14 cidades no recorte.
 
-O endpoint atribuiu as 16 conversões à origem `sem_origem`. Também registrou 19 cliques vindos das masterclasses: 13 de `instagram_ads`, 3 de `instagram_dm` e 3 sem origem. Esses cliques são avanço entre campanhas e não são somados aos leads. A ressincronização real do mesmo período atualizou a mesma fotografia, mantendo duas linhas no histórico: 01–08/09 manual e 09–10/09 Lovable.
+O endpoint atribuiu as 16 conversões à origem `sem_origem`. Também registrou 19 cliques vindos das masterclasses: 13 de `instagram_ads`, 3 de `instagram_dm` e 3 sem origem. Esses cliques são avanço entre campanhas e não são somados aos leads. Essa leitura incremental antecedeu a autorização para substituir os dois recortes pela série diária oficial.
+
+### Fonte oficial diária — confirmação do cliente em 11/09/2026
+
+O cliente confirmou que o endpoint atual deve prevalecer sobre a distribuição indicada no primeiro arquivo. As datas já são civis de `America/Sao_Paulo` e não devem ser deslocadas para outro dia por conversão UTC. A distribuição oficial retornada para a importação diária é: 04/09 = 54; 05/09 = 9; 06/09 = 7; 07/09 = 7; 08/09 = 20; 09/09 = 11; 10/09 = 12; 11/09 = 0 no momento da consulta. O consolidado 04–11/09 retorna 120 conversões e 120 pessoas únicas.
+
+O cliente autorizou excluir as fotografias antigas da LP de novidades e substituí-las pela série diária oficial, mantendo cada dia como uma fotografia própria e adicionando uma fotografia consolidada de 04/09 até o dia atual. A série diária e o consolidado devem coexistir; a fotografia consolidada sustenta o perfil vigente e os KPIs, enquanto os dias sustentam a evolução temporal.
+
+### Implementação final — série oficial
+
+As duas fotografias antigas, IDs `60001` e `1170003`, foram excluídas somente após autorização explícita. A sincronização oficial criou oito registros diários, de 04 a 11/09, e um consolidado de 04 a 11/09. A distribuição validada pelo endpoint foi 54, 9, 7, 7, 20, 11, 12 e 0 conversões; a soma diária e o consolidado coincidem em 120 conversões e 120 pessoas únicas.
+
+Os dias usam `syncSource = lovable-api-daily`; o consolidado usa `syncSource = lovable-api-rollup`. A identidade idempotente continua baseada em origem, início e fim. O seletor do perfil e os KPIs priorizam o consolidado, enquanto o histórico identifica cada linha como **DIA OFICIAL** ou **CONSOLIDADO**. Uma segunda sincronização confirmou 0 criações e 9 atualizações, mantendo exatamente nove registros. Datas civis não sofrem conversão para UTC; apenas a persistência usa meio-dia UTC neutro.

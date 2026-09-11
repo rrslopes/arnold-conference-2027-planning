@@ -26,6 +26,10 @@ export type LeadProfileCountField = ParticipationField | InterestField;
 export type LeadProfileBreakdown = { canal: string; conversoes: number };
 export type LeadProfileCity = { opcao: string; pessoas: number; percentual: number };
 export type LeadProfileClickOrigin = { canal: string; cliques: number };
+export type LeadProfileSnapshotKind = "daily" | "rollup" | "manual";
+
+export const NEWS_DAILY_SYNC_SOURCE = "lovable-api-daily";
+export const NEWS_ROLLUP_SYNC_SOURCE = "lovable-api-rollup";
 
 export type LeadProfileSnapshotDraft = {
   id?: number;
@@ -105,8 +109,16 @@ export function calculateLpAbandonments(formStarts: number | null, newLeads: num
   return Math.max(0, formStarts - newLeads);
 }
 
-export function getLatestLeadProfileSnapshot<T extends Pick<LeadProfileSnapshot, "periodEndAt" | "updatedAt">>(snapshots: T[]) {
-  return [...snapshots].sort((a, b) => b.periodEndAt - a.periodEndAt || b.updatedAt - a.updatedAt)[0] ?? null;
+export function getLeadProfileSnapshotKind(snapshot: { syncSource?: string | null }): LeadProfileSnapshotKind {
+  if (snapshot.syncSource === NEWS_DAILY_SYNC_SOURCE) return "daily";
+  if (snapshot.syncSource === NEWS_ROLLUP_SYNC_SOURCE) return "rollup";
+  return "manual";
+}
+
+export function getLatestLeadProfileSnapshot<T extends { periodEndAt: number; updatedAt: number; syncSource?: string | null }>(snapshots: T[]): T | null {
+  const rollups = snapshots.filter(snapshot => getLeadProfileSnapshotKind(snapshot) === "rollup");
+  const candidates = rollups.length ? rollups : snapshots;
+  return [...candidates].sort((a, b) => b.periodEndAt - a.periodEndAt || b.updatedAt - a.updatedAt)[0] ?? null;
 }
 
 export function sortInterestProfile(snapshot: LeadProfileSnapshotDraft) {
