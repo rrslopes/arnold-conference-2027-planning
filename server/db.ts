@@ -1,4 +1,4 @@
-import { and, desc, eq } from "drizzle-orm";
+import { and, desc, eq, gte, lte } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import {
   calendarWorkflow,
@@ -21,6 +21,7 @@ import { toStoredRate, type EmailPerformanceDraft } from "../shared/emailPerform
 import { NEWS_LP_SOURCE, type LeadProfileSnapshotDraft } from "../shared/leadProfile";
 import type { MasterclassLandingSnapshotDraft } from "../shared/masterclassLanding";
 import type { mapLovableMetricsToSnapshot } from "./integrations/lovableMasterclassMetrics";
+import type { mapLovableNewsMetricsToSnapshot } from "./integrations/lovableNewsMetrics";
 import type { WhatsAppMonthlyResult } from "../shared/whatsappPerformance";
 import { ENV } from './_core/env';
 
@@ -214,6 +215,35 @@ export async function saveLeadProfileSnapshot(entry: LeadProfileSnapshotInput) {
   if (entry.id) await db.update(leadProfileSnapshots).set(values).where(eq(leadProfileSnapshots.id, entry.id));
   else await db.insert(leadProfileSnapshots).values({ ...values, singleInterestCount: null, multipleInterestsCount: null, topCitiesJson: "[]" });
   return { updatedAt: now };
+}
+
+export type SyncedLeadProfileSnapshotInput = ReturnType<typeof mapLovableNewsMetricsToSnapshot>;
+
+export async function upsertSyncedLeadProfileSnapshot(entry: SyncedLeadProfileSnapshotInput) {
+  const db = await requireDb();
+  const now = Date.now();
+  const overlapping = await db.select({
+    id: leadProfileSnapshots.id,
+    periodStartAt: leadProfileSnapshots.periodStartAt,
+    periodEndAt: leadProfileSnapshots.periodEndAt,
+  }).from(leadProfileSnapshots).where(and(
+    eq(leadProfileSnapshots.sourceKey, entry.sourceKey),
+    lte(leadProfileSnapshots.periodStartAt, entry.periodEndAt),
+    gte(leadProfileSnapshots.periodEndAt, entry.periodStartAt),
+  ));
+  const conflicting = overlapping.find(row => row.periodStartAt !== entry.periodStartAt || row.periodEndAt !== entry.periodEndAt);
+  if (conflicting) throw new Error("O período se sobrepõe a uma fotografia existente. Use o dia seguinte ao último fechamento ou ressincronize exatamente o mesmo intervalo.");
+
+  const wherePeriod = and(
+    eq(leadProfileSnapshots.sourceKey, entry.sourceKey),
+    eq(leadProfileSnapshots.periodStartAt, entry.periodStartAt),
+    eq(leadProfileSnapshots.periodEndAt, entry.periodEndAt),
+  );
+  const existing = await db.select({ id: leadProfileSnapshots.id }).from(leadProfileSnapshots).where(wherePeriod).limit(1);
+  const values = { ...entry, updatedAt: now };
+  await db.insert(leadProfileSnapshots).values(values).onDuplicateKeyUpdate({ set: values });
+  const stored = await db.select({ id: leadProfileSnapshots.id }).from(leadProfileSnapshots).where(wherePeriod).limit(1);
+  return { id: stored[0]?.id, action: existing.length ? "updated" as const : "created" as const, updatedAt: now };
 }
 
 export async function deleteLeadProfileSnapshot(id: number) {

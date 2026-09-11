@@ -23,6 +23,9 @@ export const INTEREST_FIELDS = [
 export type ParticipationField = (typeof PARTICIPATION_FIELDS)[number]["key"];
 export type InterestField = (typeof INTEREST_FIELDS)[number]["key"];
 export type LeadProfileCountField = ParticipationField | InterestField;
+export type LeadProfileBreakdown = { canal: string; conversoes: number };
+export type LeadProfileCity = { opcao: string; pessoas: number; percentual: number };
+export type LeadProfileClickOrigin = { canal: string; cliques: number };
 
 export type LeadProfileSnapshotDraft = {
   id?: number;
@@ -30,6 +33,9 @@ export type LeadProfileSnapshotDraft = {
   periodEndAt: number;
   totalLeads: number;
   newLeads: number;
+  uniquePeopleInPeriod?: number | null;
+  totalUniquePeople?: number | null;
+  profileBaseCount?: number | null;
   sessions: number | null;
   dmSessions: number | null;
   formStarts: number | null;
@@ -44,12 +50,29 @@ export type LeadProfileSnapshotDraft = {
   physicalEducationCount: number | null;
   bodybuildingCount: number | null;
   otherInterestCount: number | null;
+  topCitiesJson?: string;
+  originsJson?: string | null;
+  masterclassClicks?: number | null;
+  masterclassClickOriginsJson?: string | null;
+  syncSource?: string;
+  providerUpdatedAt?: number | null;
+  providerObservation?: string | null;
   note: string;
 };
 
 export type LeadProfileSnapshot = LeadProfileSnapshotDraft & {
   id: number;
   sourceKey: typeof NEWS_LP_SOURCE.key;
+  uniquePeopleInPeriod: number | null;
+  totalUniquePeople: number | null;
+  profileBaseCount: number | null;
+  topCitiesJson: string;
+  originsJson: string | null;
+  masterclassClicks: number | null;
+  masterclassClickOriginsJson: string | null;
+  syncSource: string;
+  providerUpdatedAt: number | null;
+  providerObservation: string | null;
   updatedAt: number;
 };
 
@@ -63,9 +86,18 @@ export function percentageOfLeads(count: number | null, totalLeads: number) {
   return Math.round((count / totalLeads) * 10_000) / 100;
 }
 
+export function profilePercentageBase(snapshot: Pick<LeadProfileSnapshotDraft, "profileBaseCount" | "totalLeads">) {
+  return snapshot.profileBaseCount ?? snapshot.totalLeads;
+}
+
 export function calculateLpConversionRate(newLeads: number, sessions: number | null) {
   if (sessions === null || sessions <= 0) return null;
   return Math.round((newLeads / sessions) * 10_000) / 100;
+}
+
+export function calculateUniquePeopleConversionRate(uniquePeople: number | null | undefined, sessions: number | null) {
+  if (uniquePeople === null || uniquePeople === undefined || sessions === null || sessions <= 0) return null;
+  return Math.round((uniquePeople / sessions) * 10_000) / 100;
 }
 
 export function calculateLpAbandonments(formStarts: number | null, newLeads: number) {
@@ -78,8 +110,9 @@ export function getLatestLeadProfileSnapshot<T extends Pick<LeadProfileSnapshot,
 }
 
 export function sortInterestProfile(snapshot: LeadProfileSnapshotDraft) {
+  const base = profilePercentageBase(snapshot);
   return INTEREST_FIELDS
-    .map(field => ({ ...field, count: snapshot[field.key], percentage: percentageOfLeads(snapshot[field.key], snapshot.totalLeads) }))
+    .map(field => ({ ...field, count: snapshot[field.key], percentage: percentageOfLeads(snapshot[field.key], base) }))
     .sort((a, b) => (b.count ?? -1) - (a.count ?? -1));
 }
 
@@ -88,6 +121,9 @@ export function validateLeadProfileSnapshot(snapshot: LeadProfileSnapshotDraft) 
   if (snapshot.periodStartAt > snapshot.periodEndAt) issues.push({ field: "periodStartAt", message: "O início do período deve ser anterior ao fechamento." });
   if (snapshot.totalLeads < 0) issues.push({ field: "totalLeads", message: "O total de leads não pode ser negativo." });
   if (snapshot.newLeads < 0 || snapshot.newLeads > snapshot.totalLeads) issues.push({ field: "newLeads", message: "Novos leads devem ficar entre zero e o total acumulado." });
+  if (snapshot.uniquePeopleInPeriod !== undefined && snapshot.uniquePeopleInPeriod !== null && (snapshot.uniquePeopleInPeriod < 0 || snapshot.uniquePeopleInPeriod > snapshot.newLeads)) issues.push({ field: "uniquePeopleInPeriod", message: "Pessoas únicas do período devem ficar entre zero e as conversões brutas do período." });
+  if (snapshot.totalUniquePeople !== undefined && snapshot.totalUniquePeople !== null && (snapshot.totalUniquePeople < 0 || snapshot.totalUniquePeople > snapshot.totalLeads)) issues.push({ field: "totalUniquePeople", message: "Pessoas únicas acumuladas devem ficar entre zero e as conversões brutas acumuladas." });
+  if (snapshot.profileBaseCount !== undefined && snapshot.profileBaseCount !== null && snapshot.profileBaseCount < 0) issues.push({ field: "profileBaseCount", message: "A base de cálculo do perfil não pode ser negativa." });
   (["sessions", "dmSessions", "formStarts", "dmConversions"] as const).forEach(field => {
     const value = snapshot[field];
     if (value !== null && value < 0) issues.push({ field, message: "O valor não pode ser negativo." });
@@ -100,12 +136,13 @@ export function validateLeadProfileSnapshot(snapshot: LeadProfileSnapshotDraft) 
     ...PARTICIPATION_FIELDS.map(field => field.key),
     ...INTEREST_FIELDS.map(field => field.key),
   ];
+  const base = profilePercentageBase(snapshot);
   optionalFields.forEach(field => {
     const value = snapshot[field];
-    if (value !== null && (value < 0 || value > snapshot.totalLeads)) issues.push({ field, message: "O valor deve ficar entre zero e o total de leads da fotografia." });
+    if (value !== null && (value < 0 || value > base)) issues.push({ field, message: "O valor deve ficar entre zero e a base de cálculo do perfil." });
   });
 
   const participationTotal = PARTICIPATION_FIELDS.reduce((total, field) => total + (snapshot[field.key] ?? 0), 0);
-  if (participationTotal > snapshot.totalLeads) issues.push({ field: "participation", message: "A soma do histórico de participação não pode ultrapassar o total de leads." });
+  if (participationTotal > base) issues.push({ field: "participation", message: "A soma do histórico de participação não pode ultrapassar a base de cálculo do perfil." });
   return issues;
 }

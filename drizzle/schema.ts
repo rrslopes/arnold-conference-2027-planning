@@ -173,6 +173,9 @@ export const leadProfileSnapshots = mysqlTable("lead_profile_snapshots", {
   periodEndAt: bigint("periodEndAt", { mode: "number" }).notNull(),
   totalLeads: int("totalLeads").notNull(),
   newLeads: int("newLeads").notNull(),
+  uniquePeopleInPeriod: int("uniquePeopleInPeriod"),
+  totalUniquePeople: int("totalUniquePeople"),
+  profileBaseCount: int("profileBaseCount"),
   sessions: int("sessions"),
   dmSessions: int("dmSessions"),
   formStarts: int("formStarts"),
@@ -190,9 +193,17 @@ export const leadProfileSnapshots = mysqlTable("lead_profile_snapshots", {
   singleInterestCount: int("singleInterestCount"),
   multipleInterestsCount: int("multipleInterestsCount"),
   topCitiesJson: text("topCitiesJson").notNull(),
+  originsJson: text("originsJson"),
+  masterclassClicks: int("masterclassClicks"),
+  masterclassClickOriginsJson: text("masterclassClickOriginsJson"),
+  syncSource: varchar("syncSource", { length: 32 }).default("manual").notNull(),
+  providerUpdatedAt: bigint("providerUpdatedAt", { mode: "number" }),
+  providerObservation: text("providerObservation"),
   note: text("note").notNull(),
   updatedAt: bigint("updatedAt", { mode: "number" }).notNull(),
-});
+}, table => ({
+  sourcePeriodUnique: uniqueIndex("lead_profile_source_period_unique").on(table.sourceKey, table.periodStartAt, table.periodEndAt),
+}));
 
 export const masterclassLandingSnapshots = mysqlTable("masterclass_landing_snapshots", {
   id: int("id").autoincrement().primaryKey(),

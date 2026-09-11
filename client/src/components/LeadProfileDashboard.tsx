@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { BarChart3, CircleAlert, Cloud, CloudOff, Edit3, ExternalLink, Plus, RefreshCw, Save, Trash2, UserRoundCheck, Users } from "lucide-react";
+import { BarChart3, CircleAlert, Cloud, CloudOff, Edit3, ExternalLink, MapPin, MousePointerClick, Plus, RefreshCw, Save, Trash2, UserRoundCheck, Users } from "lucide-react";
 import { toast } from "sonner";
 import { trpc } from "@/lib/trpc";
 import {
@@ -10,12 +10,15 @@ import {
   calculateLpConversionRate,
   getLatestLeadProfileSnapshot,
   percentageOfLeads,
+  profilePercentageBase,
   sortInterestProfile,
   validateLeadProfileSnapshot,
   type LeadProfileCountField,
   type LeadProfileSnapshot,
   type LeadProfileSnapshotDraft,
 } from "@shared/leadProfile";
+import { formatTimestampInBrasilia } from "@shared/brasiliaTime";
+import NewsLandingSyncPanel from "./NewsLandingSyncPanel";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -83,6 +86,16 @@ function countValue(value: number | null) {
   return value === null ? "—" : value.toLocaleString("pt-BR");
 }
 
+function parseList<T>(value: string | null | undefined): T[] {
+  if (!value) return [];
+  try {
+    const parsed = JSON.parse(value);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
 export default function LeadProfileDashboard() {
   const utils = trpc.useUtils();
   const planning = trpc.planning.getState.useQuery(undefined, { refetchOnWindowFocus: true, retry: 1 });
@@ -99,6 +112,10 @@ export default function LeadProfileDashboard() {
   const interests = useMemo(() => latest ? sortInterestProfile(latest) : [], [latest]);
   const conversionRate = latest ? calculateLpConversionRate(latest.newLeads, latest.sessions) : null;
   const abandonments = latest ? calculateLpAbandonments(latest.formStarts, latest.newLeads) : null;
+  const profileBase = latest ? profilePercentageBase(latest) : 0;
+  const cities = useMemo(() => parseList<{ opcao: string; pessoas: number; percentual: number }>(latest?.topCitiesJson), [latest?.topCitiesJson]);
+  const origins = useMemo(() => parseList<{ canal: string; conversoes: number }>(latest?.originsJson), [latest?.originsJson]);
+  const masterclassClickOrigins = useMemo(() => parseList<{ canal: string; cliques: number }>(latest?.masterclassClickOriginsJson), [latest?.masterclassClickOriginsJson]);
 
   const saveMutation = trpc.planning.saveLeadProfileSnapshot.useMutation({
     onSuccess: async () => {
@@ -168,9 +185,11 @@ export default function LeadProfileDashboard() {
   return (
     <div className="lead-profile-console" aria-busy={planning.isLoading || saveMutation.isPending || deleteMutation.isPending}>
       <header className="lead-profile-head">
-        <div><Users size={28} /><span>FONTE EXCLUSIVA · QUALIFICAÇÃO DE AUDIÊNCIA</span><h3>Leads e perfil — LP de novidades</h3><p>Fotografias agregadas de volume, histórico de participação e áreas de interesse desta página. Não inclua leads de outras origens.</p><a href={NEWS_LP_SOURCE.url} target="_blank" rel="noreferrer">Abrir LP de origem <ExternalLink size={13} /></a>{planning.isError ? <small className="sync-error"><CloudOff size={13} /> Falha de sincronização.</small> : latest ? <small><Cloud size={13} /> Atualizado em {new Date(latest.updatedAt).toLocaleString("pt-BR")}</small> : <small><Cloud size={13} /> Pronto para a primeira fotografia.</small>}</div>
+        <div><Users size={28} /><span>FONTE EXCLUSIVA · QUALIFICAÇÃO DE AUDIÊNCIA</span><h3>Leads e perfil — LP de novidades</h3><p>Fotografias agregadas de conversões, pessoas únicas, histórico de participação e áreas de interesse desta página. Não inclua dados das masterclasses.</p><a href={NEWS_LP_SOURCE.url} target="_blank" rel="noreferrer">Abrir LP de origem <ExternalLink size={13} /></a>{planning.isError ? <small className="sync-error"><CloudOff size={13} /> Falha de sincronização.</small> : latest ? <small><Cloud size={13} /> {latest.providerUpdatedAt ? `Origem atualizada em ${formatTimestampInBrasilia(latest.providerUpdatedAt)} · Brasília` : `Atualizado em ${new Date(latest.updatedAt).toLocaleString("pt-BR")}`}</small> : <small><Cloud size={13} /> Pronto para a primeira fotografia.</small>}</div>
         <button type="button" className="secondary-button" onClick={() => planning.refetch()} disabled={planning.isFetching}><RefreshCw size={16} className={planning.isFetching ? "spin" : ""} /> Atualizar</button>
       </header>
+
+      {!planning.isLoading ? <NewsLandingSyncPanel latestEndAt={latest?.periodEndAt} /> : null}
 
       <div className="lead-profile-tabs" role="tablist">
         <button type="button" role="tab" aria-selected={view === "profile"} className={view === "profile" ? "active" : ""} onClick={() => setView("profile")}>Perfil atual</button>
@@ -179,9 +198,11 @@ export default function LeadProfileDashboard() {
       </div>
 
       {view === "profile" ? latest ? <div className="lead-profile-current">
-        <div className="lead-profile-summary">
-          <article><strong>{latest.totalLeads.toLocaleString("pt-BR")}</strong><span>LEADS ACUMULADOS NESTA LP</span></article>
-          <article><strong>+{latest.newLeads.toLocaleString("pt-BR")}</strong><span>NOVOS NO PERÍODO</span></article>
+        <div className="lead-profile-summary lead-profile-summary-six">
+          <article><strong>{latest.totalLeads.toLocaleString("pt-BR")}</strong><span>CONVERSÕES BRUTAS ACUMULADAS</span></article>
+          <article><strong>+{latest.newLeads.toLocaleString("pt-BR")}</strong><span>CONVERSÕES BRUTAS NO PERÍODO</span></article>
+          <article><strong>{countValue(latest.totalUniquePeople)}</strong><span>PESSOAS ÚNICAS ACUMULADAS</span></article>
+          <article><strong>{countValue(latest.uniquePeopleInPeriod)}</strong><span>PESSOAS ÚNICAS NO PERÍODO</span></article>
           <article><strong>{formatDate(latest.periodStartAt)}</strong><span>INÍCIO DO PERÍODO</span></article>
           <article><strong>{formatDate(latest.periodEndAt)}</strong><span>DATA DE REFERÊNCIA</span></article>
         </div>
@@ -191,13 +212,16 @@ export default function LeadProfileDashboard() {
           <article><strong>{countValue(latest.formStarts)}</strong><span>INÍCIOS DE FORMULÁRIO</span><small>Quando o evento existir</small></article>
           <article><strong>{countValue(abandonments)}</strong><span>ABANDONOS CALCULADOS</span><small>Inícios − novos leads</small></article>
         </div>
-        <div className="lead-profile-notice"><CircleAlert size={20} /><p><strong>Leitura correta:</strong> as áreas permitem múltiplas escolhas. A soma dos percentuais de interesse pode ultrapassar 100% e representa menções, não pessoas únicas.</p></div>
+        <div className="lead-profile-notice"><CircleAlert size={20} /><p><strong>Leitura correta:</strong> {latest.providerObservation || "as áreas permitem múltiplas escolhas. A soma dos percentuais de interesse pode ultrapassar 100% e representa menções, não pessoas únicas."} Base deste perfil: {profileBase.toLocaleString("pt-BR")} pessoas do período.</p></div>
         <div className="lead-profile-grid">
           <section className="lead-interest-panel"><header><BarChart3 size={20} /><div><span>RANKING DE INTERESSES</span><p>Opção do formulário → congresso relacionado</p></div></header><div>{interests.map(item => <article key={item.key}><div><strong>{item.label}</strong><small>{item.congress !== item.label ? `Leitura: ${item.congress}` : item.congress}</small></div><div className="lead-interest-value"><b>{countValue(item.count)}</b><span>{formatPercent(item.percentage)}</span></div><div className="lead-interest-bar"><i style={{ width: `${Math.min(item.percentage ?? 0, 100)}%` }} /></div></article>)}</div></section>
           <div className="lead-profile-side">
-            <section><header><UserRoundCheck size={19} /><span>HISTÓRICO NO ARNOLD</span></header>{PARTICIPATION_FIELDS.map(field => <article key={field.key}><div><strong>{field.label}</strong><small>{field.sourceLabel}</small></div><b>{countValue(latest[field.key])}<small>{formatPercent(percentageOfLeads(latest[field.key], latest.totalLeads))}</small></b></article>)}</section>
+            <section><header><UserRoundCheck size={19} /><span>HISTÓRICO NO ARNOLD</span></header>{PARTICIPATION_FIELDS.map(field => <article key={field.key}><div><strong>{field.label}</strong><small>{field.sourceLabel}</small></div><b>{countValue(latest[field.key])}<small>{formatPercent(percentageOfLeads(latest[field.key], profileBase))}</small></b></article>)}</section>
+            {cities.length ? <section><header><MapPin size={19} /><span>PRINCIPAIS CIDADES · TOP 20</span></header>{cities.map(city => <article key={city.opcao}><div><strong>{city.opcao}</strong><small>Residência declarada</small></div><b>{city.pessoas.toLocaleString("pt-BR")}<small>{formatPercent(city.percentual)}</small></b></article>)}</section> : null}
           </div>
         </div>
+        {origins.length ? <section className="lead-profile-origins"><header><BarChart3 size={19} /><div><span>ORIGENS DAS CONVERSÕES</span><p>Conversões brutas atribuídas pelo endpoint no mesmo período.</p></div></header><div>{origins.map(origin => <article key={origin.canal}><strong>{origin.canal.replaceAll("_", " ")}</strong><span>{origin.conversoes.toLocaleString("pt-BR")} conversões</span></article>)}</div></section> : null}
+        {latest.masterclassClicks !== null ? <section className="lead-profile-referral"><header><MousePointerClick size={19} /><div><span>AVANÇO VINDO DAS MASTERCLASSES</span><p>Cliques que chegaram à LP de novidades; não são somados novamente às pessoas únicas.</p></div></header><strong>{latest.masterclassClicks.toLocaleString("pt-BR")}</strong><div>{masterclassClickOrigins.map(origin => <span key={origin.canal}>{origin.canal.replaceAll("_", " ")} · {origin.cliques.toLocaleString("pt-BR")}</span>)}</div></section> : null}
         {latest.note ? <div className="lead-profile-note"><strong>NOTA DO FECHAMENTO</strong><p>{latest.note}</p></div> : null}
       </div> : <div className="lead-profile-empty"><Users size={34} /><div><strong>Nenhuma fotografia registrada</strong><p>Faça o primeiro fechamento agregado da LP de novidades. Nenhum dado pessoal deve ser inserido.</p><button type="button" className="primary-button" onClick={() => setView("form")}><Plus size={16} /> Registrar primeira fotografia</button></div></div> : null}
 
@@ -222,7 +246,7 @@ export default function LeadProfileDashboard() {
         <footer><p>Histórico e interesses podem ficar vazios até o relatório permitir a consolidação. Não estime dados ausentes.</p><button type="button" className="primary-button" onClick={save} disabled={saveMutation.isPending}>{saveMutation.isPending ? <RefreshCw size={16} className="spin" /> : <Save size={16} />}{form.id ? "Salvar alterações" : "Adicionar fotografia"}</button></footer>
       </section> : null}
 
-      {view === "history" ? <section className="lead-profile-history"><header><span>FOTOGRAFIAS DA MESMA ORIGEM</span><p>Compare fechamentos sem somar as linhas: cada registro é uma visão acumulada da LP.</p></header>{snapshots.length ? snapshots.map(snapshot => <article key={snapshot.id}><div><small>{formatDate(snapshot.periodStartAt)} — {formatDate(snapshot.periodEndAt)}</small><strong>{snapshot.totalLeads.toLocaleString("pt-BR")} leads acumulados</strong><span>+{snapshot.newLeads.toLocaleString("pt-BR")} no período</span></div><div><button type="button" onClick={() => edit(snapshot)} aria-label={`Editar fotografia de ${formatDate(snapshot.periodEndAt)}`}><Edit3 size={15} /></button><button type="button" onClick={() => setDeleteCandidate(snapshot)} aria-label={`Excluir fotografia de ${formatDate(snapshot.periodEndAt)}`}><Trash2 size={15} /></button></div></article>) : <p className="lead-profile-missing">Nenhuma fotografia registrada.</p>}</section> : null}
+      {view === "history" ? <section className="lead-profile-history"><header><span>FOTOGRAFIAS DA MESMA ORIGEM</span><p>Compare fechamentos sem somar as linhas: cada registro é uma visão acumulada da LP.</p></header>{snapshots.length ? snapshots.map(snapshot => <article key={snapshot.id}><div><small>{formatDate(snapshot.periodStartAt)} — {formatDate(snapshot.periodEndAt)} · {snapshot.syncSource === "lovable-api" ? "Lovable" : "manual"}</small><strong>{snapshot.totalLeads.toLocaleString("pt-BR")} conversões brutas acumuladas</strong><span>+{snapshot.newLeads.toLocaleString("pt-BR")} no período · {snapshot.uniquePeopleInPeriod === null ? "pessoas únicas: sem dado" : `${snapshot.uniquePeopleInPeriod.toLocaleString("pt-BR")} pessoas únicas`}</span></div><div>{snapshot.syncSource !== "lovable-api" ? <button type="button" onClick={() => edit(snapshot)} aria-label={`Editar fotografia de ${formatDate(snapshot.periodEndAt)}`}><Edit3 size={15} /></button> : null}<button type="button" onClick={() => setDeleteCandidate(snapshot)} aria-label={`Excluir fotografia de ${formatDate(snapshot.periodEndAt)}`}><Trash2 size={15} /></button></div></article>) : <p className="lead-profile-missing">Nenhuma fotografia registrada.</p>}</section> : null}
 
       <AlertDialog open={Boolean(deleteCandidate)} onOpenChange={open => !open && setDeleteCandidate(null)}><AlertDialogContent><AlertDialogHeader><AlertDialogTitle>Excluir fotografia da LP?</AlertDialogTitle><AlertDialogDescription>O fechamento de {deleteCandidate ? formatDate(deleteCandidate.periodEndAt) : ""} será removido para toda a equipe. Esta ação não pode ser desfeita.</AlertDialogDescription></AlertDialogHeader><AlertDialogFooter><AlertDialogCancel>Cancelar</AlertDialogCancel><AlertDialogAction onClick={() => deleteCandidate && deleteMutation.mutate({ id: deleteCandidate.id })}>Excluir fotografia</AlertDialogAction></AlertDialogFooter></AlertDialogContent></AlertDialog>
     </div>

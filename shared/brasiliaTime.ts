@@ -29,6 +29,12 @@ export function civilDateFromUtcNoon(value: number) {
   return new Date(value).toISOString().slice(0, 10);
 }
 
+export function addDaysToCivilDate(value: string, days: number) {
+  const timestamp = civilDateToUtcNoon(value);
+  if (!Number.isFinite(timestamp)) return "";
+  return civilDateFromUtcNoon(timestamp + days * 86_400_000);
+}
+
 export function formatCivilDateBR(value: number) {
   return new Intl.DateTimeFormat("pt-BR", { timeZone: "UTC" }).format(new Date(value));
 }

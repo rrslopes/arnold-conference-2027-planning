@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-const token = process.env.LOVABLE_MASTERCLASS_METRICS_TOKEN;
+const token = process.env.LOVABLE_METRICS_API_TOKEN ?? process.env.LOVABLE_MASTERCLASS_METRICS_TOKEN;
 const endpoint = "https://masterclassconference.savagetgroup.com.br/api/public/metrics";
 
 describe.runIf(Boolean(token))("credencial do endpoint de métricas das masterclasses", () => {

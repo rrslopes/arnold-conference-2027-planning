@@ -563,3 +563,21 @@
 - [x] Atualizar testes de contrato, cálculos, persistência, idempotência e interface.
 - [x] Validar TypeScript, testes, build, banco, logs, desktop e mobile.
 - [x] Salvar checkpoint reversível e entregar a atualização.
+
+## Sincronização manual da LP de novidades
+
+- [x] Auditar o prompt, o endpoint real e a resposta agregada da LP de novidades.
+- [x] Conferir no banco as fotografias históricas, períodos, acumulados e campos de perfil já preservados.
+- [x] Definir como conciliar 104 acumulados em 01–08/09 e 16 conversões em 09–10/09 sem apagar ou somar períodos duas vezes.
+- [x] Confirmar o contrato de conversões brutas, pessoas únicas, origens, cliques vindos das masterclasses e campos personalizados.
+- [x] Manter a LP de novidades isolada da LP das masterclasses em dados, histórico, KPIs e interface.
+- [x] Adicionar campos opcionais e não destrutivos para pessoas únicas, cidades, origens e metadados de sincronização.
+- [x] Implementar cliente servidor → servidor com contrato estrito, token protegido e datas em Brasília.
+- [x] Implementar upsert idempotente por origem, início e fim do período.
+- [x] Adicionar botão “Sincronizar agora”, estados de carregamento, sucesso e erro na área da LP de novidades.
+- [x] Preservar o ranking visual de interesses e atualizar histórico no Arnold, cidades e nota de múltipla escolha.
+- [x] Exibir conversões brutas e pessoas únicas separadamente, sem substituir silenciosamente os dados históricos.
+- [x] Atualizar KPIs automáticos sem somar LP de novidades e masterclasses como pessoas deduplicadas.
+- [x] Atualizar testes de contrato, persistência, idempotência, cálculos, histórico e interface.
+- [x] Validar sincronização real, banco, TypeScript, testes, build, logs, desktop e mobile.
+- [x] Salvar checkpoint reversível e entregar a integração.

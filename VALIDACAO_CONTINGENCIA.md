@@ -71,3 +71,13 @@ O contrato real manteve a estrutura v2 e adicionou `pessoas_unicas_no_periodo` e
 A Central de Landing Pages, o histórico, a leitura da isca e os KPIs agora distinguem pessoas únicas, inscrições brutas e espectadores únicos das aulas. O resumo das Landing Pages usa pessoas únicas das masterclasses quando disponíveis e explicita que não há deduplicação entre LPs.
 
 Validação desta rodada: TypeScript sem erros, **193 testes aprovados** em 37 arquivos, build concluído, banco e idempotência conferidos, revisão desktop/mobile e nenhum erro recente em servidor, console ou rede.
+
+## Sincronização manual — LP de novidades
+
+A LP de novidades passou a usar o endpoint agregado `metrics-novidades` com a credencial compartilhada protegida no servidor. O contrato estrito rejeita campos inesperados, transporta somente totais agregados e preserva a separação completa da LP das masterclasses. Início e fim seguem datas civis de Brasília; repetir o mesmo intervalo atualiza a fotografia existente e períodos parcialmente sobrepostos são bloqueados.
+
+O fechamento manual de 01–08/09 foi preservado com 104 conversões. A primeira fotografia sincronizada cobre 09–10/09: 16 conversões brutas, 16 pessoas únicas, 120 pessoas únicas acumuladas, base de perfil 16, 14 cidades e 19 cliques vindos das masterclasses. Uma segunda sincronização do mesmo intervalo confirmou a idempotência; o histórico permaneceu com duas fotografias.
+
+Central de LPs e KPIs distinguem conversões brutas de pessoas únicas. Cidades, origens e avanço entre campanhas são somente leitura e aparecem apenas quando o endpoint os fornece. O resumo integrado utiliza pessoas únicas quando disponíveis, mas declara que não existe deduplicação entre as duas LPs.
+
+Validação desta rodada: TypeScript sem erros, **199 testes aprovados** em 40 arquivos, build concluído, banco e idempotência conferidos, revisão desktop/mobile e nenhum erro atual em servidor, console ou rede.

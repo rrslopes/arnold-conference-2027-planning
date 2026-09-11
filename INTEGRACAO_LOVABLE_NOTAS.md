@@ -45,3 +45,23 @@ Na leitura operacional, pessoas únicas é a métrica comparável à RD Station.
 O endpoint manteve a estrutura v2 e adicionou os dois campos dentro de `trafego_e_captacao`; o exemplo simplificado do prompt não substituiu o contrato completo. A tabela recebeu colunas opcionais para manter fotografias antigas compatíveis. A ressincronização de 01 a 10/09 atualizou a fotografia existente, preservou duas linhas no histórico e gravou 157 pessoas únicas no período e no acumulado, ao lado de 166 inscrições brutas no período e 168 acumuladas.
 
 A Central de Landing Pages, a leitura da isca e os KPIs agora mostram os dois conceitos separadamente. O resumo de Landing Pages usa pessoas únicas das masterclasses quando disponíveis e declara que não existe deduplicação entre LPs. A validação final passou em TypeScript, 193 testes, build, banco, logs e revisão responsiva.
+
+## LP de novidades — regra de conciliação
+
+O endpoint `/api/public/metrics-novidades` foi validado com a credencial atual. A resposta mantém a LP de novidades como fonte própria, usa `America/Sao_Paulo` e entrega somente totais agregados. O recorte 01–10/09 retorna 120 conversões e 120 pessoas únicas; o recorte incremental 09–10/09 retorna 16 conversões, 16 pessoas únicas e acumulado de 120.
+
+A fotografia manual de 01–08/09, com 104 leads, deve permanecer intacta. A primeira sincronização será feita para 09–10/09, criando uma nova fotografia com acumulado de 120 e incremento de 16. Ressincronizar 09–10/09 atualizará esse mesmo registro por `sourceKey + periodStartAt + periodEndAt`, sem inserir outra linha.
+
+Conversões brutas, pessoas únicas no período e pessoas únicas acumuladas serão armazenadas separadamente. Os percentuais de interesses, histórico e cidades usam `base_de_calculo` do período, não o acumulado da campanha. Fotografias manuais antigas, sem esse campo, continuam usando o total acumulado como base legada.
+
+O endpoint não fornece sessões nem início de formulário para esta LP. Esses eventos permanecem ausentes na fotografia sincronizada e não serão estimados. `origens[]` representa conversões por canal; `cliques_vindos_da_masterclass` e suas origens serão exibidos como avanço de uma campanha para a outra, sem somá-los novamente aos leads.
+
+O botão deve sugerir como início o dia seguinte ao fechamento mais recente e como fim o dia civil atual em Brasília. A interface deve alertar contra períodos sobrepostos, mas preservar a possibilidade de ressincronizar exatamente o mesmo intervalo para correção do fornecedor.
+
+### Contrato real validado — 09 a 10/09/2026
+
+Fonte: `https://masterclassconference.savagetgroup.com.br/api/public/metrics-novidades`, com fuso declarado `America/Sao_Paulo` e token Bearer exclusivo do servidor. O endpoint retornou 16 conversões brutas, 16 pessoas únicas no período, 120 conversões acumuladas e 120 pessoas únicas acumuladas. A base dos campos personalizados é 16.
+
+O perfil incremental retornou: Nutrição Esportiva 7; Nutrição Estética 6; Gestão de Negócios 6; Fisioterapia Esportiva 4; Educação Física e Personal Training 3; Bodybuilding 2; Outra área 2. No histórico: 8 estiveram em 2026; 7 participarão pela primeira vez; 1 esteve em outra edição, mas não em 2026. Foram devolvidas 14 cidades no recorte.
+
+O endpoint atribuiu as 16 conversões à origem `sem_origem`. Também registrou 19 cliques vindos das masterclasses: 13 de `instagram_ads`, 3 de `instagram_dm` e 3 sem origem. Esses cliques são avanço entre campanhas e não são somados aos leads. A ressincronização real do mesmo período atualizou a mesma fotografia, mantendo duas linhas no histórico: 01–08/09 manual e 09–10/09 Lovable.

@@ -4,6 +4,7 @@ import {
   NEWS_LP_SOURCE,
   getLatestLeadProfileSnapshot,
   percentageOfLeads,
+  profilePercentageBase,
   sortInterestProfile,
   validateLeadProfileSnapshot,
   type LeadProfileSnapshotDraft,
@@ -32,6 +33,13 @@ describe("lead profile snapshots", () => {
   it("calculates percentages and ranks interests by declared mentions", () => {
     expect(percentageOfLeads(25, 100)).toBe(25);
     expect(sortInterestProfile(base)[0]).toMatchObject({ label: "Nutrição Estética", count: 55, percentage: 55 });
+  });
+
+  it("uses the synchronized period base instead of the accumulated campaign total", () => {
+    const incremental = { ...base, totalLeads: 120, newLeads: 16, uniquePeopleInPeriod: 16, totalUniquePeople: 120, profileBaseCount: 16, nutritionAestheticsCount: 6, sportsNutritionCount: 7, sportsPhysioCount: 4, businessManagementCount: 6, physicalEducationCount: 3, bodybuildingCount: 2, otherInterestCount: 2, firstTimeCount: 7, attended2026Count: 8, attendedPastCount: 1 };
+    expect(profilePercentageBase(incremental)).toBe(16);
+    expect(sortInterestProfile(incremental)[0]).toMatchObject({ label: "Nutrição Esportiva", count: 7, percentage: 43.75 });
+    expect(validateLeadProfileSnapshot(incremental)).toEqual([]);
   });
 
   it("maps form labels to the correct congresses", () => {

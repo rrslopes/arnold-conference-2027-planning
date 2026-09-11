@@ -17,10 +17,12 @@ import {
   saveSocialMonthlyResults,
   saveWhatsAppMonthlyResults,
   upsertSyncedMasterclassLandingSnapshot,
+  upsertSyncedLeadProfileSnapshot,
 } from "../db";
 import { publicProcedure, router } from "../_core/trpc";
 import { ENV } from "../_core/env";
 import { fetchLovableMasterclassMetrics, mapLovableMetricsToSnapshot } from "../integrations/lovableMasterclassMetrics";
+import { fetchLovableNewsMetrics, mapLovableNewsMetricsToSnapshot } from "../integrations/lovableNewsMetrics";
 import { EDITORIAL_STATUS_IDS, isValidArtworkUrl } from "../../shared/editorialWorkflow";
 import { EMAIL_STATUS_IDS, isValidEmailPreviewUrl } from "../../shared/emailWorkflow";
 import { isValidSentEmailUrl } from "../../shared/emailPerformance";
@@ -240,6 +242,7 @@ export const masterclassSyncPeriod = z.object({
 });
 
 let lastMasterclassSyncAt = 0;
+let lastNewsSyncAt = 0;
 
 const whatsappMonthlyEntry = z.object({
   monthKey,
@@ -255,6 +258,7 @@ const whatsappMonthlyEntry = z.object({
 export const planningRouter = router({
   getState: publicProcedure.query(() => getSharedPlanningState()),
   getMasterclassSyncStatus: publicProcedure.query(() => ({ configured: Boolean(ENV.lovableMasterclassMetricsToken) })),
+  getNewsSyncStatus: publicProcedure.query(() => ({ configured: Boolean(ENV.lovableMetricsApiToken) })),
   saveObjectives: publicProcedure
     .input(z.object({ entries: z.array(objectiveEntry).max(50), actorName }))
     .mutation(({ input }) => saveObjectiveProgress(input.entries, { id: 0, name: input.actorName || null })),
@@ -288,6 +292,15 @@ export const planningRouter = router({
   deleteLeadProfileSnapshot: publicProcedure
     .input(z.object({ id: z.number().int().positive() }))
     .mutation(({ input }) => deleteLeadProfileSnapshot(input.id)),
+  syncLeadProfileSnapshot: publicProcedure
+    .input(masterclassSyncPeriod)
+    .mutation(async ({ input }) => {
+      const now = Date.now();
+      if (now - lastNewsSyncAt < 5_000) throw new Error("Aguarde alguns segundos antes de sincronizar novamente.");
+      lastNewsSyncAt = now;
+      const payload = await fetchLovableNewsMetrics(input.from, input.to);
+      return upsertSyncedLeadProfileSnapshot(mapLovableNewsMetricsToSnapshot(payload));
+    }),
   saveMasterclassLandingSnapshot: publicProcedure
     .input(masterclassLandingEntry)
     .mutation(({ input }) => saveMasterclassLandingSnapshot(input)),

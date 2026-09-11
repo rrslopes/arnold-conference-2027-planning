@@ -21,7 +21,7 @@ describe("news landing page lead profile UI", () => {
 
   it("states the single source and blocks mixing other channels", () => {
     expect(shared).toContain("https://oferta.savagetgroup.com.br/conference-2027");
-    expect(panel).toContain("Não inclua leads de outras origens");
+    expect(panel).toContain("Não inclua dados das masterclasses");
     expect(panel).toContain("Não some outras páginas");
   });
 
@@ -30,17 +30,18 @@ describe("news landing page lead profile UI", () => {
     expect(panel).toContain("Mapeado para");
   });
 
-  it("removes affinity and cities from the operational interface", () => {
+  it("keeps affinity out and shows cities only when synchronized", () => {
     expect(panel).not.toContain("AFINIDADE DECLARADA");
-    expect(panel).not.toContain("PRINCIPAIS CIDADES");
+    expect(panel).toContain("PRINCIPAIS CIDADES · TOP 20");
     expect(panel).not.toContain("Até cinco cidades");
   });
 
   it("integrates the latest LP contribution without calling it the consolidated total", () => {
-    expect(integration).toContain("Leads convertidos — LP de novidades");
+    expect(integration).toContain("Conversões brutas — LP de novidades");
+    expect(integration).toContain("Pessoas únicas — LP de novidades");
     expect(integration).toContain("Inscrições brutas — LP das masterclasses");
     expect(integration).toContain("Pessoas únicas — LP das masterclasses");
-    expect(integration).toContain("news?.newLeads");
+    expect(integration).toContain("news?.uniquePeopleInPeriod");
     expect(integration).toContain("masterclass?.uniquePeopleInPeriod");
     expect(kpis).toContain("linhas abaixo são bloqueadas contra redigitação");
     expect(planData).toContain("Leads convertidos — consolidado de todas as origens");
@@ -54,5 +55,11 @@ describe("news landing page lead profile UI", () => {
     expect(panel).not.toContain("Nome do lead");
     expect(masterclasses).not.toContain("E-mail do lead");
     expect(masterclasses).not.toContain("Telefone do lead");
+  });
+
+  it("offers a server-side manual sync without duplicating the manual form", () => {
+    expect(panel).toContain("<NewsLandingSyncPanel");
+    expect(panel).toContain("AVANÇO VINDO DAS MASTERCLASSES");
+    expect(panel).toContain("ORIGENS DAS CONVERSÕES");
   });
 });
