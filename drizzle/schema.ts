@@ -196,6 +196,7 @@ export const leadProfileSnapshots = mysqlTable("lead_profile_snapshots", {
 
 export const masterclassLandingSnapshots = mysqlTable("masterclass_landing_snapshots", {
   id: int("id").autoincrement().primaryKey(),
+  sourceKey: varchar("sourceKey", { length: 64 }).default("masterclass-lp").notNull(),
   periodStartAt: bigint("periodStartAt", { mode: "number" }).notNull(),
   periodEndAt: bigint("periodEndAt", { mode: "number" }).notNull(),
   totalLeads: int("totalLeads").notNull(),
@@ -207,16 +208,27 @@ export const masterclassLandingSnapshots = mysqlTable("masterclass_landing_snaps
   thankYouPageAccesses: int("thankYouPageAccesses"),
   anaLessonStarts: int("anaLessonStarts"),
   anaLessonCompletions: int("anaLessonCompletions"),
+  anaUniqueViewers: int("anaUniqueViewers"),
+  anaAverageWatchPercent: int("anaAverageWatchPercent"),
   andreiaLessonStarts: int("andreiaLessonStarts"),
   andreiaLessonCompletions: int("andreiaLessonCompletions"),
+  andreiaUniqueViewers: int("andreiaUniqueViewers"),
+  andreiaAverageWatchPercent: int("andreiaAverageWatchPercent"),
   robertoLessonStarts: int("robertoLessonStarts"),
   robertoLessonCompletions: int("robertoLessonCompletions"),
+  robertoUniqueViewers: int("robertoUniqueViewers"),
+  robertoAverageWatchPercent: int("robertoAverageWatchPercent"),
   congressHubClicks: int("congressHubClicks"),
   newsLpClicks: int("newsLpClicks"),
   salesPageClicks: int("salesPageClicks"),
+  originsJson: text("originsJson"),
+  syncSource: varchar("syncSource", { length: 32 }).default("manual").notNull(),
+  providerUpdatedAt: bigint("providerUpdatedAt", { mode: "number" }),
   note: text("note").notNull(),
   updatedAt: bigint("updatedAt", { mode: "number" }).notNull(),
-});
+}, table => ({
+  sourcePeriodUnique: uniqueIndex("masterclass_landing_source_period_unique").on(table.sourceKey, table.periodStartAt, table.periodEndAt),
+}));
 
 export const monthlyWhatsAppResults = mysqlTable("monthly_whatsapp_results", {
   id: int("id").autoincrement().primaryKey(),

@@ -45,3 +45,11 @@ Validação final desta rodada: TypeScript sem erros, **179 testes aprovados** e
 ## Logs
 
 Após a navegação pelo hero, Mídia Paga, cards de 15/09, 18/09, 23/09, referências de corte e programação SONAFE, não foram encontrados erros no servidor, avisos ou erros no console do navegador, nem respostas HTTP 4xx/5xx nas requisições recentes.
+
+## Sincronização manual da LP de masterclasses
+
+Foi implantada uma integração servidor → servidor com o endpoint agregado do Lovable. A Central de Landing Pages agora permite escolher o período e usar **Sincronizar agora** sem expor o token ou transportar nome, e-mail e telefone. A resposta é validada por contrato estrito, cada aula é mapeada pelo slug, a taxa de conversão é recalculada internamente e a chave composta por origem, início e fim impede duplicidade.
+
+A primeira sincronização real criou a fotografia de 01 a 11/09/2026. Uma segunda execução do mesmo período atualizou o registro, preservando o histórico com somente duas fotografias totais — a manual anterior e a automática. A interface identifica a origem Lovable, mostra a atualização do fornecedor, espectadores únicos, média assistida e sete origens agregadas. O índice de acessos à recompensa foi renomeado para esclarecer que eventos repetidos podem superar 100%.
+
+Validação desta rodada: credencial aceita pelo endpoint, persistência idempotente confirmada no banco, TypeScript sem erros, **187 testes aprovados** em 35 arquivos, build concluído, revisão desktop/mobile e nenhum erro recente após a migração.

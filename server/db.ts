@@ -1,4 +1,4 @@
-import { desc, eq } from "drizzle-orm";
+import { and, desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import {
   calendarWorkflow,
@@ -20,6 +20,7 @@ import type { SocialMonthlyResult } from "../shared/socialMetrics";
 import { toStoredRate, type EmailPerformanceDraft } from "../shared/emailPerformance";
 import { NEWS_LP_SOURCE, type LeadProfileSnapshotDraft } from "../shared/leadProfile";
 import type { MasterclassLandingSnapshotDraft } from "../shared/masterclassLanding";
+import type { mapLovableMetricsToSnapshot } from "./integrations/lovableMasterclassMetrics";
 import type { WhatsAppMonthlyResult } from "../shared/whatsappPerformance";
 import { ENV } from './_core/env';
 
@@ -225,6 +226,7 @@ export async function saveMasterclassLandingSnapshot(entry: MasterclassLandingSn
   const db = await requireDb();
   const now = Date.now();
   const values = {
+    sourceKey: "masterclass-lp",
     periodStartAt: entry.periodStartAt,
     periodEndAt: entry.periodEndAt,
     totalLeads: entry.totalLeads,
@@ -247,8 +249,25 @@ export async function saveMasterclassLandingSnapshot(entry: MasterclassLandingSn
     updatedAt: now,
   };
   if (entry.id) await db.update(masterclassLandingSnapshots).set(values).where(eq(masterclassLandingSnapshots.id, entry.id));
-  else await db.insert(masterclassLandingSnapshots).values(values);
+  else await db.insert(masterclassLandingSnapshots).values(values).onDuplicateKeyUpdate({ set: values });
   return { updatedAt: now };
+}
+
+export type SyncedMasterclassLandingSnapshotInput = ReturnType<typeof mapLovableMetricsToSnapshot>;
+
+export async function upsertSyncedMasterclassLandingSnapshot(entry: SyncedMasterclassLandingSnapshotInput) {
+  const db = await requireDb();
+  const now = Date.now();
+  const wherePeriod = and(
+    eq(masterclassLandingSnapshots.sourceKey, entry.sourceKey),
+    eq(masterclassLandingSnapshots.periodStartAt, entry.periodStartAt),
+    eq(masterclassLandingSnapshots.periodEndAt, entry.periodEndAt),
+  );
+  const existing = await db.select({ id: masterclassLandingSnapshots.id }).from(masterclassLandingSnapshots).where(wherePeriod).limit(1);
+  const values = { ...entry, updatedAt: now };
+  await db.insert(masterclassLandingSnapshots).values(values).onDuplicateKeyUpdate({ set: values });
+  const stored = await db.select({ id: masterclassLandingSnapshots.id }).from(masterclassLandingSnapshots).where(wherePeriod).limit(1);
+  return { id: stored[0]?.id, action: existing.length ? "updated" as const : "created" as const, updatedAt: now };
 }
 
 export async function deleteMasterclassLandingSnapshot(id: number) {

@@ -520,3 +520,19 @@
 - [x] Atualizar testes de interface para impedir o retorno da sobreposição.
 - [x] Validar rolagem em desktop, tablet e mobile, além de TypeScript, testes, build e logs.
 - [x] Salvar checkpoint reversível e entregar a correção.
+
+## Sincronização manual da LP de masterclasses
+
+- [x] Validar o contrato v2 do endpoint e o mapeamento com a fotografia atual de masterclasses.
+- [x] Configurar o token somente no servidor, sem expô-lo no navegador ou no repositório.
+- [x] Validar período, origem, estrutura do JSON, aulas e totais recebidos antes de persistir.
+- [x] Implementar idempotência por origem, início e fim do período, atualizando a mesma fotografia ao ressincronizar.
+- [x] Mapear sessões, inícios de formulário, página de obrigado, leads, consumo das aulas e avanço no funil.
+- [x] Incorporar espectadores únicos, percentual médio assistido e origens automaticamente, sem novo preenchimento manual.
+- [x] Recalcular conversão sessão → lead na plataforma e ignorar a taxa pronta do endpoint.
+- [x] Adicionar botão “Sincronizar agora”, seleção de período, estados de carregamento, sucesso e erro.
+- [x] Identificar visualmente dados sincronizados, período, origem e data da atualização.
+- [x] Preservar edição manual e KPIs existentes quando o endpoint estiver indisponível.
+- [x] Atualizar testes de contrato, segurança, idempotência, cálculos, persistência e interface.
+- [x] Validar TypeScript, testes, build, logs, desktop e mobile.
+- [x] Salvar checkpoint reversível e entregar a integração.

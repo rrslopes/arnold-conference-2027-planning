@@ -16,8 +16,11 @@ import {
   saveOccupancyProgress,
   saveSocialMonthlyResults,
   saveWhatsAppMonthlyResults,
+  upsertSyncedMasterclassLandingSnapshot,
 } from "../db";
 import { publicProcedure, router } from "../_core/trpc";
+import { ENV } from "../_core/env";
+import { fetchLovableMasterclassMetrics, mapLovableMetricsToSnapshot } from "../integrations/lovableMasterclassMetrics";
 import { EDITORIAL_STATUS_IDS, isValidArtworkUrl } from "../../shared/editorialWorkflow";
 import { EMAIL_STATUS_IDS, isValidEmailPreviewUrl } from "../../shared/emailWorkflow";
 import { isValidSentEmailUrl } from "../../shared/emailPerformance";
@@ -224,6 +227,19 @@ const masterclassLandingEntry = z.object({
   });
 });
 
+const masterclassSyncPeriod = z.object({
+  from: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Informe a data inicial no formato AAAA-MM-DD."),
+  to: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Informe a data final no formato AAAA-MM-DD."),
+}).superRefine((period, ctx) => {
+  const from = Date.parse(`${period.from}T12:00:00.000Z`);
+  const to = Date.parse(`${period.to}T12:00:00.000Z`);
+  if (!Number.isFinite(from) || !Number.isFinite(to) || from > to) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["from"], message: "O início do período deve ser anterior ao fim." });
+  if (to > Date.now() + 86_400_000) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["to"], message: "A data final não pode estar no futuro." });
+  if (Number.isFinite(from) && Number.isFinite(to) && to - from > 366 * 86_400_000) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["to"], message: "O período não pode ultrapassar 366 dias." });
+});
+
+let lastMasterclassSyncAt = 0;
+
 const whatsappMonthlyEntry = z.object({
   monthKey,
   delivered: optionalCount,
@@ -237,6 +253,7 @@ const whatsappMonthlyEntry = z.object({
 
 export const planningRouter = router({
   getState: publicProcedure.query(() => getSharedPlanningState()),
+  getMasterclassSyncStatus: publicProcedure.query(() => ({ configured: Boolean(ENV.lovableMasterclassMetricsToken) })),
   saveObjectives: publicProcedure
     .input(z.object({ entries: z.array(objectiveEntry).max(50), actorName }))
     .mutation(({ input }) => saveObjectiveProgress(input.entries, { id: 0, name: input.actorName || null })),
@@ -273,6 +290,15 @@ export const planningRouter = router({
   saveMasterclassLandingSnapshot: publicProcedure
     .input(masterclassLandingEntry)
     .mutation(({ input }) => saveMasterclassLandingSnapshot(input)),
+  syncMasterclassLandingSnapshot: publicProcedure
+    .input(masterclassSyncPeriod)
+    .mutation(async ({ input }) => {
+      const now = Date.now();
+      if (now - lastMasterclassSyncAt < 5_000) throw new Error("Aguarde alguns segundos antes de sincronizar novamente.");
+      lastMasterclassSyncAt = now;
+      const payload = await fetchLovableMasterclassMetrics(input.from, input.to);
+      return upsertSyncedMasterclassLandingSnapshot(mapLovableMetricsToSnapshot(payload));
+    }),
   deleteMasterclassLandingSnapshot: publicProcedure
     .input(z.object({ id: z.number().int().positive() }))
     .mutation(({ input }) => deleteMasterclassLandingSnapshot(input.id)),

@@ -1561,10 +1561,33 @@ img { max-width: 100%; }
 .masterclass-lp-head small { display: flex; align-items: center; gap: 5px; margin-top: 8px; color: #777174; font-size: 7px; }
 .masterclass-lp-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
 .masterclass-lp-links a { display: inline-flex; align-items: center; gap: 4px; color: var(--purple); font-size: 8px; font-weight: 800; }
+.masterclass-sync-panel { border-bottom: 1px solid rgba(51,49,50,.13); background: #faf9f5; }
+.masterclass-sync-panel > header { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 16px 20px; background: var(--charcoal); color: white; }
+.masterclass-sync-panel > header > div { display: grid; grid-template-columns: 27px 1fr; gap: 2px 8px; align-items: center; }
+.masterclass-sync-panel > header > div > svg { grid-row: 1 / 3; color: var(--lime); }
+.masterclass-sync-panel > header span { color: var(--lime); font-size: 7px; font-weight: 900; letter-spacing: .12em; }
+.masterclass-sync-panel > header h4 { margin: 2px 0 0; font: 600 22px/1 "Teko Arnold"; text-transform: uppercase; }
+.masterclass-sync-panel > header small { display: inline-flex; align-items: center; gap: 5px; color: rgba(255,255,255,.7); font-size: 7px; }
+.masterclass-sync-body { display: grid; grid-template-columns: 1.2fr 1fr auto; gap: 18px; align-items: end; padding: 18px 20px; }
+.masterclass-sync-copy p { margin: 0; color: #6f696b; font-size: 8px; line-height: 1.55; }
+.masterclass-sync-copy strong { display: inline-flex; align-items: center; gap: 5px; margin-top: 8px; color: var(--purple); font-size: 7px; }
+.masterclass-sync-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
+.masterclass-sync-fields label > span { display: block; margin-bottom: 5px; color: var(--purple); font-size: 7px; font-weight: 850; text-transform: uppercase; }
+.masterclass-sync-fields label > div { display: flex; align-items: center; gap: 6px; height: 38px; padding: 0 9px; border: 1px solid rgba(51,49,50,.18); background: white; color: var(--purple); }
+.masterclass-sync-fields input { min-width: 0; width: 100%; border: 0; outline: 0; background: transparent; font-size: 9px; }
+.masterclass-sync-button { min-height: 38px; white-space: nowrap; }
+.masterclass-sync-panel > footer { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 15px; padding: 0 20px 16px; }
+.masterclass-sync-panel > footer p { margin: 0 0 0 auto; color: #7a7476; font-size: 7px; }
+.masterclass-sync-panel .sync-error, .masterclass-sync-panel .sync-success { display: inline-flex; align-items: center; gap: 5px; font-size: 7px; font-weight: 800; }
+.masterclass-sync-panel .sync-error { color: #a33b3b; }
+.masterclass-sync-panel .sync-success { color: #33744c; }
 .masterclass-lp-tabs { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid rgba(51,49,50,.13); }
 .masterclass-lp-tabs button { min-height: 48px; border: 0; border-right: 1px solid rgba(51,49,50,.1); background: white; color: #6d6769; font-size: 8px; font-weight: 850; text-transform: uppercase; cursor: pointer; }
 .masterclass-lp-tabs button:last-child { border-right: 0; }
 .masterclass-lp-tabs button.active { background: var(--purple); color: white; }
+.masterclass-sync-provenance { display: flex; flex-wrap: wrap; align-items: center; gap: 7px 16px; padding: 10px 18px; border-bottom: 1px solid rgba(51,49,50,.1); background: rgba(203,219,42,.17); }
+.masterclass-sync-provenance strong { color: var(--purple); font-size: 7px; letter-spacing: .1em; }
+.masterclass-sync-provenance span { color: #6f696b; font-size: 7px; }
 .masterclass-lp-summary { display: grid; grid-template-columns: repeat(4, 1fr); background: var(--charcoal); color: white; }
 .masterclass-lp-summary article { padding: 18px 20px; border-right: 1px solid rgba(255,255,255,.12); }
 .masterclass-lp-summary article:last-child { border-right: 0; }
@@ -1578,11 +1601,11 @@ img { max-width: 100%; }
 .masterclass-lp-funnel strong { font: 600 25px/1 "Teko Arnold"; }
 .masterclass-lp-funnel span { margin-top: 5px; font-size: 7px; font-weight: 900; text-transform: uppercase; }
 .masterclass-lp-funnel small { margin-top: 4px; color: #7f797b; font-size: 7px; }
-.masterclass-lesson-performance, .masterclass-advance { margin: 18px; border: 1px solid rgba(51,49,50,.12); }
-.masterclass-lesson-performance > header, .masterclass-advance > header { display: flex; align-items: center; gap: 9px; padding: 13px 16px; background: var(--charcoal); color: white; }
-.masterclass-lesson-performance > header svg, .masterclass-advance > header svg { color: var(--lime); }
-.masterclass-lesson-performance > header span, .masterclass-advance > header span { font-size: 8px; font-weight: 900; letter-spacing: .1em; }
-.masterclass-lesson-performance > header p { margin: 3px 0 0; color: rgba(255,255,255,.6); font-size: 7px; }
+.masterclass-lesson-performance, .masterclass-advance, .masterclass-origins { margin: 18px; border: 1px solid rgba(51,49,50,.12); }
+.masterclass-lesson-performance > header, .masterclass-advance > header, .masterclass-origins > header { display: flex; align-items: center; gap: 9px; padding: 13px 16px; background: var(--charcoal); color: white; }
+.masterclass-lesson-performance > header svg, .masterclass-advance > header svg, .masterclass-origins > header svg { color: var(--lime); }
+.masterclass-lesson-performance > header span, .masterclass-advance > header span, .masterclass-origins > header span { font-size: 8px; font-weight: 900; letter-spacing: .1em; }
+.masterclass-lesson-performance > header p, .masterclass-origins > header p { margin: 3px 0 0; color: rgba(255,255,255,.6); font-size: 7px; }
 .masterclass-lesson-performance > div, .masterclass-advance > div { display: grid; grid-template-columns: repeat(3, 1fr); }
 .masterclass-lesson-performance article, .masterclass-advance article { padding: 16px; border-right: 1px solid rgba(51,49,50,.1); }
 .masterclass-lesson-performance article:last-child, .masterclass-advance article:last-child { border-right: 0; }
@@ -1594,6 +1617,10 @@ img { max-width: 100%; }
 .masterclass-advance article strong, .masterclass-advance article span { display: block; }
 .masterclass-advance article strong { font: 600 26px/1 "Teko Arnold"; }
 .masterclass-advance article span { margin-top: 5px; color: #6d6769; font-size: 8px; }
+.masterclass-origins > div { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
+.masterclass-origins article { display: grid; gap: 5px; padding: 14px; border-right: 1px solid rgba(51,49,50,.1); border-bottom: 1px solid rgba(51,49,50,.1); }
+.masterclass-origins article strong { color: var(--purple); font-size: 8px; text-transform: uppercase; }
+.masterclass-origins article span, .masterclass-origins article small { color: #6d6769; font-size: 7px; }
 .masterclass-tracking-note { display: flex; align-items: flex-start; gap: 10px; margin: 18px; padding: 14px 16px; background: rgba(203,219,42,.2); }
 .masterclass-tracking-note svg { flex: 0 0 auto; color: var(--purple); }
 .masterclass-tracking-note p { margin: 0; color: #605b5d; font-size: 9px; line-height: 1.55; }
@@ -1632,6 +1659,9 @@ img { max-width: 100%; }
 .magnet-performance-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 14px; color: var(--purple); font-size: 8px; font-weight: 900; text-transform: uppercase; }
 
 @media (max-width: 860px) {
+  .masterclass-sync-body { grid-template-columns: 1fr; align-items: stretch; }
+  .masterclass-sync-button { justify-self: start; }
+  .masterclass-sync-panel > footer p { width: 100%; margin-left: 0; }
   .masterclass-lp-funnel { grid-template-columns: repeat(3, 1fr); }
   .masterclass-lp-funnel article:nth-child(3) { border-right: 0; }
   .masterclass-form-core { grid-template-columns: repeat(2, 1fr); }

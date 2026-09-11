@@ -36,7 +36,23 @@ export type MasterclassLandingSnapshotDraft = {
 
 export type MasterclassLandingSnapshot = MasterclassLandingSnapshotDraft & {
   id: number;
+  sourceKey: string;
+  anaUniqueViewers: number | null;
+  anaAverageWatchPercent: number | null;
+  andreiaUniqueViewers: number | null;
+  andreiaAverageWatchPercent: number | null;
+  robertoUniqueViewers: number | null;
+  robertoAverageWatchPercent: number | null;
+  originsJson: string | null;
+  syncSource: string;
+  providerUpdatedAt: number | null;
   updatedAt: number;
+};
+
+export type MasterclassTrafficOrigin = {
+  channel: string;
+  sessions: number;
+  leads: number;
 };
 
 export type MasterclassLandingIssue = {
@@ -79,14 +95,27 @@ export function getLatestMasterclassSnapshot<T extends Pick<MasterclassLandingSn
   return [...rows].sort((a, b) => b.periodEndAt - a.periodEndAt || b.updatedAt - a.updatedAt)[0] ?? null;
 }
 
-export function getLessonPerformance(snapshot: MasterclassLandingSnapshotDraft) {
+export function getLessonPerformance(snapshot: MasterclassLandingSnapshotDraft & Partial<MasterclassLandingSnapshot>) {
   return MASTERCLASS_LESSONS.map(lesson => {
     const startsKey = `${lesson.key}LessonStarts` as const;
     const completionsKey = `${lesson.key}LessonCompletions` as const;
     const starts = snapshot[startsKey] as number | null;
     const completions = snapshot[completionsKey] as number | null;
-    return { ...lesson, starts, completions, completionRate: calculateRate(completions, starts) };
+    const viewers = snapshot[`${lesson.key}UniqueViewers` as keyof MasterclassLandingSnapshot] as number | null | undefined;
+    const averageWatchPercent = snapshot[`${lesson.key}AverageWatchPercent` as keyof MasterclassLandingSnapshot] as number | null | undefined;
+    return { ...lesson, starts, completions, viewers: viewers ?? null, averageWatchPercent: averageWatchPercent ?? null, completionRate: calculateRate(completions, starts) };
   });
+}
+
+export function parseMasterclassTrafficOrigins(value: string | null | undefined): MasterclassTrafficOrigin[] {
+  if (!value) return [];
+  try {
+    const parsed = JSON.parse(value);
+    if (!Array.isArray(parsed)) return [];
+    return parsed.filter(item => item && typeof item.channel === "string" && Number.isInteger(item.sessions) && item.sessions >= 0 && Number.isInteger(item.leads) && item.leads >= 0);
+  } catch {
+    return [];
+  }
 }
 
 export function validateMasterclassLandingSnapshot(snapshot: MasterclassLandingSnapshotDraft) {
