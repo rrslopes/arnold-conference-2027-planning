@@ -30,6 +30,12 @@ A comparação considerou título, promessa, argumento central, formato, fonte, 
 
 Validação final: TypeScript sem erros, **171 testes aprovados** em 30 arquivos, build concluído e nenhum erro recente em servidor, console ou rede.
 
+## Clareza operacional de Objetivos e Validação
+
+O painel agora explica que os KPIs detalhados permanecem nas áreas de origem e que cada objetivo recebe somente três registros: critério de sucesso, resultado observado e evidência com período e próximo ajuste. Cada um dos sete cards informa **o que preencher**, **como obter**, **quando atualizar**, exemplos específicos e a regra para marcar a etapa como validada. Os botões Atualizar, Limpar e Salvar para a equipe foram explicados no próprio painel. Uma nova validação exige os três campos preenchidos; registros anteriormente salvos permanecem preservados e podem ser desmarcados normalmente.
+
+Validação final desta rodada: TypeScript sem erros, **176 testes aprovados** em 31 arquivos, build concluído, revisão desktop/mobile e nenhum erro recente em servidor, console ou rede.
+
 ## Logs
 
 Após a navegação pelo hero, Mídia Paga, cards de 15/09, 18/09, 23/09, referências de corte e programação SONAFE, não foram encontrados erros no servidor, avisos ou erros no console do navegador, nem respostas HTTP 4xx/5xx nas requisições recentes.

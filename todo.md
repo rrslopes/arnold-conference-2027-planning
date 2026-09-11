@@ -499,3 +499,14 @@
 - [x] Atualizar testes de regressão se houver alteração de pauta.
 - [x] Validar TypeScript, testes, build e interface após eventuais ajustes.
 - [x] Salvar checkpoint reversível e entregar o parecer final.
+
+## Clareza operacional da área de preenchimento indicada
+
+- [x] Identificar a seção e todos os campos visíveis no print enviado.
+- [x] Mapear quais dados são manuais, automáticos, calculados ou opcionais.
+- [x] Explicar no próprio painel o que preencher, como obter cada informação e quando atualizar.
+- [x] Melhorar rótulos, exemplos, unidades, estados vazios e ordem de preenchimento sem alterar dados existentes.
+- [x] Preservar persistência compartilhada e integrações automáticas com os KPIs.
+- [x] Atualizar testes de conteúdo, cálculos e interface.
+- [x] Validar TypeScript, testes, build, logs, desktop e mobile.
+- [x] Salvar checkpoint reversível e entregar uma orientação resumida de uso.

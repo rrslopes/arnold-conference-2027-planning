@@ -243,6 +243,17 @@ img { max-width: 100%; }
 .objective-summary p { margin: 0; color: rgba(255,255,255,.58); font-size: 12px; }
 .tracker-actions, .kpi-summary-actions { display: flex; gap: 9px; }
 .objective-summary .secondary-button { color: white; border-color: rgba(255,255,255,.25); }
+.objective-guide { display: grid; grid-template-columns: minmax(260px, .85fr) minmax(0, 1.7fr); gap: 22px; margin-bottom: 20px; padding: 24px 26px; background: #f3f1f7; border: 1px solid rgba(77,70,156,.16); border-left: 5px solid var(--purple); }
+.objective-guide-intro h3 { margin: 4px 0 9px; font: 600 30px/1.02 "Teko Arnold"; text-transform: uppercase; }
+.objective-guide-intro > p:last-child { margin: 0; color: #5f5a60; font-size: 12px; line-height: 1.65; }
+.objective-guide-steps { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.objective-guide-steps > div { position: relative; min-height: 108px; padding: 15px 15px 14px 46px; background: white; border: 1px solid rgba(51,49,50,.1); }
+.objective-guide-steps svg { position: absolute; top: 16px; left: 16px; color: var(--purple); }
+.objective-guide-steps span { display: block; color: var(--purple); font-size: 9px; font-weight: 900; letter-spacing: .12em; }
+.objective-guide-steps strong { display: block; margin: 3px 0 5px; font-size: 12px; text-transform: uppercase; }
+.objective-guide-steps p { margin: 0; color: #6b666a; font-size: 10px; line-height: 1.45; }
+.objective-guide-note { grid-column: 1 / -1; padding: 11px 13px; background: var(--charcoal); color: rgba(255,255,255,.72); font-size: 10px; line-height: 1.55; }
+.objective-guide-note strong { color: var(--lime); }
 .objective-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
 .objective-card { position: relative; background: #f7f7f3; border: 1px solid rgba(51,49,50,.12); border-top: 5px solid var(--purple); padding: 24px; transition: 220ms var(--ease-out); }
 .objective-card:hover { transform: translateY(-3px); box-shadow: 0 18px 40px rgba(51,49,50,.09); }
@@ -250,17 +261,27 @@ img { max-width: 100%; }
 .objective-card-head { display: flex; justify-content: space-between; align-items: center; }
 .phase-number { color: rgba(77,70,156,.36); font: 600 32px/1 "Teko Arnold"; }
 .validation-toggle { display: flex; align-items: center; gap: 6px; border: 1px solid rgba(51,49,50,.17); background: white; padding: 7px 10px; font-size: 10px; font-weight: 750; }
+.validation-toggle[aria-disabled="true"] { color: #8a8589; border-style: dashed; background: #f4f3f0; }
 .is-validated .validation-toggle { background: var(--lime); border-color: var(--lime); }
 .objective-card h3 { margin: 18px 0 3px; font: 600 33px/1 "Teko Arnold"; text-transform: uppercase; }
 .objective-card > p { margin: 0 0 16px; font-size: 13px; color: #625e60; }
 .signal-box { min-height: 63px; background: white; border-left: 3px solid var(--taupe); padding: 12px 14px; font-size: 11px; line-height: 1.5; }
 .signal-box span { display: block; color: var(--purple); font-weight: 800; font-size: 8px; letter-spacing: .15em; margin-bottom: 4px; }
+.objective-fill-guide { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 13px; background: rgba(51,49,50,.1); border: 1px solid rgba(51,49,50,.1); }
+.objective-fill-guide > div { background: white; padding: 11px 12px; }
+.objective-fill-guide span { display: block; margin-bottom: 5px; color: var(--purple); font-size: 8px; font-weight: 900; letter-spacing: .12em; }
+.objective-fill-guide p { margin: 0; color: #625e60; font-size: 9.5px; line-height: 1.5; }
 .objective-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 18px; }
 .objective-fields label { font-size: 9px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
 .objective-fields label.full { grid-column: 1 / -1; }
+.objective-fields .field-help { display: block; margin-top: 3px; color: #777176; font-size: 8px; font-weight: 600; letter-spacing: 0; line-height: 1.35; text-transform: none; }
 .objective-fields input, .objective-fields textarea { display: block; width: 100%; margin-top: 6px; border: 1px solid rgba(51,49,50,.15); background: white; color: var(--charcoal); padding: 10px 11px; font-size: 11px; font-weight: 500; outline: none; transition: 160ms; }
 .objective-fields input:focus, .objective-fields textarea:focus { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(77,70,156,.1); }
 .objective-fields textarea { min-height: 62px; resize: vertical; }
+.objective-validation-rule { margin-top: 10px; padding: 10px 12px; background: #ece9e4; border-left: 3px solid #8e898c; }
+.objective-validation-rule.is-ready { background: rgba(203,219,42,.13); border-left-color: var(--lime-dark); }
+.objective-validation-rule strong { display: block; color: var(--purple); font-size: 8px; letter-spacing: .12em; }
+.objective-validation-rule p { margin: 4px 0 0; color: #615c60; font-size: 9.5px; line-height: 1.45; }
 
 .congress-section { background: var(--charcoal); color: white; }
 .congress-section .section-heading h2 { color: white; }
@@ -1220,6 +1241,7 @@ img { max-width: 100%; }
   .journey-line { grid-template-columns: repeat(4, 1fr); row-gap: 22px; border-top: 0; }
   .journey-line div { border-top: 2px solid var(--charcoal); }
   .objective-summary { grid-template-columns: 1fr; }
+  .objective-guide { grid-template-columns: 1fr; }
   .occupancy-head { padding: 25px 20px; }
   .occupancy-head h3 { font-size: 43px; }
   .occupancy-actions { width: 100%; }
@@ -1268,6 +1290,7 @@ img { max-width: 100%; }
   .tracker-actions, .kpi-summary-actions { width: 100%; flex-wrap: wrap; }
   .tracker-actions button, .kpi-summary-actions button { flex: 1; }
   .objective-grid, .congress-grid { grid-template-columns: 1fr; }
+  .objective-guide-steps, .objective-fill-guide { grid-template-columns: 1fr; }
   .congress-card { grid-template-columns: 130px 1fr; }
   .congress-card-top { padding: 12px; }
   .lead-magnet-visual { min-height: 300px; }
