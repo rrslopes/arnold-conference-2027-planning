@@ -24,6 +24,7 @@ import { fetchLovableMasterclassMetrics, mapLovableMetricsToSnapshot } from "../
 import { EDITORIAL_STATUS_IDS, isValidArtworkUrl } from "../../shared/editorialWorkflow";
 import { EMAIL_STATUS_IDS, isValidEmailPreviewUrl } from "../../shared/emailWorkflow";
 import { isValidSentEmailUrl } from "../../shared/emailPerformance";
+import { brasiliaCivilDate, civilDateToUtcNoon } from "../../shared/brasiliaTime";
 
 const sharedText = z.string().max(5000);
 const actorName = z.string().trim().max(120).optional();
@@ -227,14 +228,14 @@ const masterclassLandingEntry = z.object({
   });
 });
 
-const masterclassSyncPeriod = z.object({
+export const masterclassSyncPeriod = z.object({
   from: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Informe a data inicial no formato AAAA-MM-DD."),
   to: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Informe a data final no formato AAAA-MM-DD."),
 }).superRefine((period, ctx) => {
-  const from = Date.parse(`${period.from}T12:00:00.000Z`);
-  const to = Date.parse(`${period.to}T12:00:00.000Z`);
+  const from = civilDateToUtcNoon(period.from);
+  const to = civilDateToUtcNoon(period.to);
   if (!Number.isFinite(from) || !Number.isFinite(to) || from > to) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["from"], message: "O início do período deve ser anterior ao fim." });
-  if (to > Date.now() + 86_400_000) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["to"], message: "A data final não pode estar no futuro." });
+  if (period.to > brasiliaCivilDate()) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["to"], message: "A data final não pode estar no futuro em Brasília." });
   if (Number.isFinite(from) && Number.isFinite(to) && to - from > 366 * 86_400_000) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["to"], message: "O período não pode ultrapassar 366 dias." });
 });
 

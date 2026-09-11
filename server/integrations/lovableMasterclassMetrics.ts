@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { ENV } from "../_core/env";
 import { MASTERCLASS_LP_SOURCE } from "../../shared/masterclassLanding";
+import { civilDateToUtcNoon } from "../../shared/brasiliaTime";
 
 export const LOVABLE_MASTERCLASS_METRICS_URL = "https://masterclassconference.savagetgroup.com.br/api/public/metrics";
 
@@ -55,10 +56,6 @@ export const lovableMasterclassMetricsSchema = z.object({
 
 export type LovableMasterclassMetrics = z.infer<typeof lovableMasterclassMetricsSchema>;
 
-function toTimestamp(date: string) {
-  return Date.parse(`${date}T12:00:00.000Z`);
-}
-
 export async function fetchLovableMasterclassMetrics(from: string, to: string) {
   if (!ENV.lovableMasterclassMetricsToken) throw new Error("Integração Lovable ainda não configurada.");
   const url = new URL(LOVABLE_MASTERCLASS_METRICS_URL);
@@ -102,8 +99,8 @@ export function mapLovableMetricsToSnapshot(payload: LovableMasterclassMetrics) 
 
   return {
     sourceKey: MASTERCLASS_LP_SOURCE.key,
-    periodStartAt: toTimestamp(payload.periodo.inicio),
-    periodEndAt: toTimestamp(payload.periodo.fim),
+    periodStartAt: civilDateToUtcNoon(payload.periodo.inicio),
+    periodEndAt: civilDateToUtcNoon(payload.periodo.fim),
     totalLeads: payload.trafego_e_captacao.total_acumulado_de_leads,
     newLeads: payload.trafego_e_captacao.novos_leads_no_periodo,
     sessions: payload.trafego_e_captacao.sessoes_na_lp,

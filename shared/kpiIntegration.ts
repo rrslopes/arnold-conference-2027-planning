@@ -1,5 +1,6 @@
 import { calculateLpAbandonments, calculateLpConversionRate, getLatestLeadProfileSnapshot } from "./leadProfile";
 import { calculateAbandonments as calculateMasterclassAbandonments, calculateRate as calculateMasterclassRate, getLatestMasterclassSnapshot } from "./masterclassLanding";
+import { formatCivilDateBR } from "./brasiliaTime";
 
 export type AutomaticKpiFormat = "number" | "percent" | "currency";
 export type AutomaticKpiRow = {
@@ -32,7 +33,7 @@ export type KpiIntegrationState = {
 const dateFormatter = new Intl.DateTimeFormat("pt-BR", { timeZone: "UTC" });
 function latestByMonth<T extends { monthKey: string }>(rows: T[], fields: Array<keyof T>) { return [...rows].filter(row => fields.some(field => typeof row[field] === "number")).sort((a, b) => b.monthKey.localeCompare(a.monthKey))[0] ?? null; }
 function rateFromMilli(value: number | null) { return value === null ? null : value / 1000; }
-function periodOf(row: { periodStartAt: number; periodEndAt: number } | null) { return row ? `${dateFormatter.format(new Date(row.periodStartAt))} a ${dateFormatter.format(new Date(row.periodEndAt))}` : "Aguardando fotografia"; }
+function periodOf(row: { periodStartAt: number; periodEndAt: number } | null) { return row ? `${formatCivilDateBR(row.periodStartAt)} a ${formatCivilDateBR(row.periodEndAt)}` : "Aguardando fotografia"; }
 
 export function buildAutomaticKpis(layerId: string, state: KpiIntegrationState): AutomaticKpiRow[] {
   if (layerId === "dm") {

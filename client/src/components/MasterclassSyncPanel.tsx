@@ -2,24 +2,12 @@ import { useMemo, useState } from "react";
 import { CalendarRange, CheckCircle2, CloudDownload, LockKeyhole, RefreshCw } from "lucide-react";
 import { toast } from "sonner";
 import { trpc } from "@/lib/trpc";
-
-function localDateInput(date = new Date()) {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  return `${year}-${month}-${day}`;
-}
-
-function firstDayOfMonth() {
-  const date = new Date();
-  date.setDate(1);
-  return localDateInput(date);
-}
+import { brasiliaCivilDate, firstDayOfBrasiliaMonth } from "@shared/brasiliaTime";
 
 export default function MasterclassSyncPanel() {
   const utils = trpc.useUtils();
-  const today = useMemo(() => localDateInput(), []);
-  const [from, setFrom] = useState(firstDayOfMonth);
+  const today = useMemo(() => brasiliaCivilDate(), []);
+  const [from, setFrom] = useState(firstDayOfBrasiliaMonth);
   const [to, setTo] = useState(today);
   const [lastResult, setLastResult] = useState<"created" | "updated" | null>(null);
   const status = trpc.planning.getMasterclassSyncStatus.useQuery();

@@ -53,3 +53,13 @@ Foi implantada uma integração servidor → servidor com o endpoint agregado do
 A primeira sincronização real criou a fotografia de 01 a 11/09/2026. Uma segunda execução do mesmo período atualizou o registro, preservando o histórico com somente duas fotografias totais — a manual anterior e a automática. A interface identifica a origem Lovable, mostra a atualização do fornecedor, espectadores únicos, média assistida e sete origens agregadas. O índice de acessos à recompensa foi renomeado para esclarecer que eventos repetidos podem superar 100%.
 
 Validação desta rodada: credencial aceita pelo endpoint, persistência idempotente confirmada no banco, TypeScript sem erros, **187 testes aprovados** em 35 arquivos, build concluído, revisão desktop/mobile e nenhum erro recente após a migração.
+
+## Fuso da sincronização — Brasília
+
+Às 23h40 de 10/09/2026 em Brasília, o servidor já operava em 11/09 UTC. O período padrão do botão usava o relógio local do navegador/servidor e avançava indevidamente para 11/09. O Lovable já devolvia `atualizado_em` como timestamp ISO UTC correto: `2026-09-11T02:43:04.681Z` corresponde a 10/09/2026 às 23:43 em Brasília e não deve receber deslocamento manual adicional.
+
+A plataforma passou a tratar início e fim como datas civis de `America/Sao_Paulo`, mantendo a representação neutra ao meio-dia UTC apenas para persistência. Timestamps absolutos de atualização continuam armazenados em epoch e são exibidos explicitamente em Brasília. O limite dos campos e a validação do servidor bloqueiam 11/09 enquanto o dia civil vigente em Brasília ainda é 10/09, independentemente do fuso do navegador.
+
+A fotografia correta de 01 a 10/09 foi sincronizada. Após confirmação do usuário, a fotografia incorreta de 01 a 11/09, criada durante o teste anterior, foi excluída pelo fluxo normal da plataforma. O banco ficou com duas fotografias: a automática de 01–10/09 e a manual histórica de 08–09/09.
+
+Validação desta rodada: fronteira de 23h40 coberta por testes, **192 testes aprovados** em 37 arquivos, TypeScript sem erros, build concluído, banco conferido, revisão desktop/mobile e nenhum erro recente em servidor, console ou rede.

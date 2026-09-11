@@ -536,3 +536,16 @@
 - [x] Atualizar testes de contrato, segurança, idempotência, cálculos, persistência e interface.
 - [x] Validar TypeScript, testes, build, logs, desktop e mobile.
 - [x] Salvar checkpoint reversível e entregar a integração.
+
+## Correção de fuso — sincronização Lovable em Brasília
+
+- [x] Confirmar o horário atual em America/Sao_Paulo e comparar com o relógio do servidor.
+- [x] Consultar novamente o endpoint Lovable e auditar `periodo`, `atualizado_em` e os parâmetros enviados.
+- [x] Verificar como datas civis e timestamps são convertidos, persistidos e formatados na plataforma.
+- [x] Definir uma regra única: datas de período em Brasília e timestamps absolutos exibidos em Brasília.
+- [x] Impedir dupla conversão caso o Lovable já devolva o timestamp corrigido.
+- [x] Corrigir o período padrão do botão para não avançar para o dia seguinte antes da meia-noite de Brasília.
+- [x] Atualizar a fotografia sincronizada existente sem criar duplicidade de período.
+- [x] Criar testes de fronteira para 23h40 em Brasília, meia-noite UTC e navegadores em outros fusos.
+- [x] Validar TypeScript, testes, build, banco, logs, desktop e mobile.
+- [x] Salvar checkpoint reversível e entregar a correção de fuso.
