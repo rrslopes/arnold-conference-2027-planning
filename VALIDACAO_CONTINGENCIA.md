@@ -36,6 +36,12 @@ O painel agora explica que os KPIs detalhados permanecem nas áreas de origem e 
 
 Validação final desta rodada: TypeScript sem erros, **176 testes aprovados** em 31 arquivos, build concluído, revisão desktop/mobile e nenhum erro recente em servidor, console ou rede.
 
+## Correção de sobreposição no WhatsApp
+
+O lettering “Alta intenção. Baixo ruído.” utilizava `position: sticky` como filho direto da seção inteira. Como o formulário de performance pertencia ao mesmo grid, o limite do sticky incluía também o painel branco e permitia que o título o atravessasse durante a rolagem. O bloco estratégico passou a ter um contêiner próprio, reunindo somente lettering, fluxo e regra; o formulário permanece fora desse limite. A composição inicial foi preservada, o sticky continua ativo apenas no trecho estratégico em desktop e é desativado abaixo de 860 px.
+
+Validação final desta rodada: TypeScript sem erros, **179 testes aprovados** em 32 arquivos, build concluído, rolagem real verificada no formulário, revisão em desktop, tablet e mobile e nenhum erro recente em servidor, console ou rede.
+
 ## Logs
 
 Após a navegação pelo hero, Mídia Paga, cards de 15/09, 18/09, 23/09, referências de corte e programação SONAFE, não foram encontrados erros no servidor, avisos ou erros no console do navegador, nem respostas HTTP 4xx/5xx nas requisições recentes.

@@ -673,8 +673,9 @@ img { max-width: 100%; }
 .email-rank-actions button { display: grid; width: 29px; height: 29px; place-items: center; border: 1px solid rgba(51,49,50,.13); background: white; color: var(--purple); }
 .email-rank-actions button:last-child { color: #9c3b3b; }
 
-.whatsapp-section { background: var(--purple); color: white; display: grid; grid-template-columns: .65fr 1.35fr; gap: 6vw; }
-.whatsapp-heading { position: sticky; top: 80px; align-self: start; }
+.whatsapp-section { background: var(--purple); color: white; }
+.whatsapp-strategy-grid { position: relative; isolation: isolate; display: grid; grid-template-columns: .65fr 1.35fr; gap: 6vw; }
+.whatsapp-heading { position: sticky; top: 80px; align-self: start; z-index: 1; }
 .whatsapp-heading h2 { color: white; }
 .whatsapp-heading h2 em { color: var(--lime); font-style: normal; }
 .whatsapp-heading > div > p:last-of-type { max-width: 480px; color: rgba(255,255,255,.66); font-size: 12px; line-height: 1.65; }
@@ -691,7 +692,7 @@ img { max-width: 100%; }
 .whatsapp-rule { grid-column: 2; display: flex; gap: 12px; align-items: center; padding: 16px 20px; border: 1px solid rgba(255,255,255,.2); }
 .whatsapp-rule svg { color: var(--lime); flex: none; }
 .whatsapp-rule p { margin: 0; color: rgba(255,255,255,.72); font-size: 9px; line-height: 1.55; }
-.whatsapp-performance-console { grid-column: 1 / -1; margin-top: 18px; border: 1px solid rgba(255,255,255,.18); background: #f8f8f3; color: var(--charcoal); }
+.whatsapp-performance-console { margin-top: clamp(54px, 6vw, 88px); border: 1px solid rgba(255,255,255,.18); background: #f8f8f3; color: var(--charcoal); }
 .whatsapp-performance-console > header { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; padding: 20px 22px; background: white; border-bottom: 1px solid rgba(51,49,50,.12); }
 .whatsapp-performance-console > header > div { display: grid; grid-template-columns: 28px 1fr; gap: 2px 9px; align-items: center; }
 .whatsapp-performance-console > header svg { grid-row: 1 / 5; color: var(--purple); }
@@ -1193,7 +1194,7 @@ img { max-width: 100%; }
   .hero-title-lockup { align-items: flex-start; }
   .hero-stats { width: 100%; grid-template-columns: repeat(2, 1fr); }
   .hero-stats article { border-bottom: 1px solid rgba(255,255,255,.1); }
-  .executive-summary, .whatsapp-section { grid-template-columns: 1fr; }
+  .executive-summary, .whatsapp-strategy-grid { grid-template-columns: 1fr; }
   .whatsapp-heading { position: static; }
   .whatsapp-rule { grid-column: 1; }
   .lead-magnet-layout { grid-template-columns: 1fr; }

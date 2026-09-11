@@ -510,3 +510,13 @@
 - [x] Atualizar testes de conteúdo, cálculos e interface.
 - [x] Validar TypeScript, testes, build, logs, desktop e mobile.
 - [x] Salvar checkpoint reversível e entregar uma orientação resumida de uso.
+
+## Correção de sobreposição no WhatsApp
+
+- [x] Reproduzir a sobreposição do lettering “Alta intenção. Baixo ruído.” durante a rolagem.
+- [x] Identificar a regra sticky, fixed, transform ou z-index responsável pelo vazamento visual.
+- [x] Conter o lettering no bloco estratégico sem alterar o formulário de performance.
+- [x] Preservar a composição visual original na posição inicial da seção.
+- [x] Atualizar testes de interface para impedir o retorno da sobreposição.
+- [x] Validar rolagem em desktop, tablet e mobile, além de TypeScript, testes, build e logs.
+- [x] Salvar checkpoint reversível e entregar a correção.

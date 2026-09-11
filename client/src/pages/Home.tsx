@@ -232,9 +232,11 @@ function EmailPlan() {
 function WhatsAppPlan() {
   return (
     <section id="whatsapp" className="section-pad whatsapp-section">
-      <div className="whatsapp-heading"><div><p className="eyebrow">PLANO DE WHATSAPP</p><h2>Alta intenção.<br /><em>Baixo ruído.</em></h2><p>O canal não repete redes sociais e e-mail. Ele entra onde há consentimento, urgência real e próximo passo claro.</p></div><MessageCircleMore size={72} /></div>
-      <div className="whatsapp-flow">{whatsappPlan.map((item, index) => <article key={item.date}><span className="whatsapp-step">{index + 1}</span><div><small>{item.date}</small><h3>{item.function}</h3><p>{item.segment}</p><strong><ArrowRight size={15} /> {item.destination}</strong></div></article>)}</div>
-      <div className="whatsapp-rule"><ShieldCheck size={21} /><p>Recuperação pós-abertura não é disparo em massa. Interromper após compra, resposta negativa ou pedido de saída. Pagamento pendente e abandono de checkout recebem fluxos distintos.</p></div>
+      <div className="whatsapp-strategy-grid">
+        <div className="whatsapp-heading"><div><p className="eyebrow">PLANO DE WHATSAPP</p><h2>Alta intenção.<br /><em>Baixo ruído.</em></h2><p>O canal não repete redes sociais e e-mail. Ele entra onde há consentimento, urgência real e próximo passo claro.</p></div><MessageCircleMore size={72} /></div>
+        <div className="whatsapp-flow">{whatsappPlan.map((item, index) => <article key={item.date}><span className="whatsapp-step">{index + 1}</span><div><small>{item.date}</small><h3>{item.function}</h3><p>{item.segment}</p><strong><ArrowRight size={15} /> {item.destination}</strong></div></article>)}</div>
+        <div className="whatsapp-rule"><ShieldCheck size={21} /><p>Recuperação pós-abertura não é disparo em massa. Interromper após compra, resposta negativa ou pedido de saída. Pagamento pendente e abandono de checkout recebem fluxos distintos.</p></div>
+      </div>
       <WhatsAppPerformanceDashboard />
     </section>
   );
