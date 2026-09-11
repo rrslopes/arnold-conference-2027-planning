@@ -46,11 +46,32 @@ export default function EditorialIntelligence() {
               <div><span className={`program-status ${selectedProgram.status}`}>{selectedProgram.statusLabel}</span><h3>{selectedProgram.congress}</h3></div>
               <div className="program-meta"><span>{selectedProgram.date ?? "Data a confirmar"}</span><span>{selectedProgram.room ?? "Sala a confirmar"}</span></div>
             </div>
-            <div className="program-source"><FileVideo2 size={17} /><div><strong>FONTE ATUAL</strong><p>{selectedProgram.source}</p>{selectedProgram.sourceUrl ? <a href={selectedProgram.sourceUrl} target="_blank" rel="noreferrer">Abrir planilha <ArrowUpRight size={12} /></a> : null}</div></div>
+            <div className="program-source"><FileVideo2 size={17} /><div><strong>FONTE ATUAL</strong><p>{selectedProgram.source}</p><div className="program-source-links">{selectedProgram.sourceUrl ? <a href={selectedProgram.sourceUrl} target="_blank" rel="noreferrer">Abrir planilha <ArrowUpRight size={12} /></a> : null}{selectedProgram.assetSourceUrl ? <a href={selectedProgram.assetSourceUrl} target="_blank" rel="noreferrer">Abrir pasta de fotos <ArrowUpRight size={12} /></a> : null}</div></div></div>
             {selectedProgram.sessions.length ? (
               <div className="program-sessions">
                 {selectedProgram.sessions.map(session => (
-                  <article key={`${session.time}-${session.title}`}><time>{session.time}</time><div><strong>{session.speakers}</strong><p>{session.title}</p></div></article>
+                  <article key={`${session.time}-${session.title}`}>
+                    <time>{session.time}</time>
+                    <div className="program-session-content">
+                      <strong>{session.speakers}</strong>
+                      <p>{session.title}</p>
+                      {session.materialStatus ? <small className="program-material-status">{session.materialStatus}</small> : null}
+                      {session.speakerAssets?.length ? (
+                        <div className="program-speaker-assets" aria-label={`Materiais dos palestrantes de ${session.title}`}>
+                          {session.speakerAssets.map(asset => (
+                            <div className={`program-speaker-asset ${asset.photo ? "has-photo" : "is-pending"}`} key={`${session.time}-${asset.name}`}>
+                              {asset.photo ? <img src={asset.photo} alt={`Foto de ${asset.name}`} loading="lazy" /> : <span className="program-speaker-placeholder" aria-hidden="true">{asset.name.split(" ").slice(0, 2).map(part => part[0]).join("")}</span>}
+                              <div>
+                                <b>{asset.name}</b>
+                                {asset.note ? <em>{asset.note}</em> : <em>Foto confirmada no Drive</em>}
+                                {asset.social?.length ? <div className="program-speaker-socials">{asset.social.map(profile => <a key={profile.url} href={profile.url} target="_blank" rel="noreferrer"><Instagram size={11} /> {profile.label}</a>)}</div> : null}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      ) : null}
+                    </div>
+                  </article>
                 ))}
               </div>
             ) : (

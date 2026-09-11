@@ -91,3 +91,13 @@ A distribuição oficial foi 54, 9, 7, 7, 20, 11, 12 e 0 conversões por dia. O 
 O consolidado sustenta perfil, interesses, histórico, cidades, origens, avanço vindo das masterclasses e KPIs. Os dias aparecem no histórico como evolução e não apresentam um acumulado histórico reconstruído. Registros oficiais são somente leitura na interface e podem ser atualizados pelo botão; o formulário manual permanece separado.
 
 Validação final: TypeScript sem erros, **202 testes aprovados** em 41 arquivos, build concluído, banco e idempotência conferidos, revisão desktop/mobile e nenhum erro atual em servidor, console ou rede após o reinício.
+
+## Programação e fotos — Nutrição Estética 2027
+
+A planilha atualizada preservou as dez sessões, horários, títulos e conjuntos de palestrantes já exibidos. A atualização acrescentou ementas e materiais individuais para seis sessões. A pasta principal foi vinculada como fonte e teve nove subpastas inventariadas.
+
+Oito fotos foram associadas com identificação segura: Marília Lacerda, Gabriel Ximenes, Suellen Becher, Vinicius Ortiz, Ana Paula Pujol, Faruk Kalil, Vanessa Erthal e Alessandra Pinheiro. Cada ativo foi redimensionado sem recorte, convertido para WebP e enviado ao armazenamento permanente. A foto da pasta de Diogo Viana foi bloqueada porque o arquivo está nomeado “Diogo Pinto”. Os demais nomes sem foto permanecem identificados como pendentes, sem substituições inferidas.
+
+As fotos foram inseridas dentro das respectivas sessões, separadas da coordenação científica. Cada card informa a disponibilidade de ementa, mini-CV, foto e rede social ou a lacuna correspondente. Coordenadores, eixos e demais congressos permaneceram inalterados.
+
+Validação final: TypeScript sem erros, **203 testes aprovados** em 41 arquivos, build concluído, revisão desktop/mobile e nenhum erro atual em servidor, console ou rede após 19h40.

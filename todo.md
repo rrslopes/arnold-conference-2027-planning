@@ -601,3 +601,18 @@
 - [x] Atualizar testes de contrato, lote, seleção vigente, idempotência, histórico e KPIs.
 - [x] Validar banco, TypeScript, testes, build, logs, desktop e mobile.
 - [x] Salvar checkpoint reversível e entregar a série oficial.
+
+## Atualização da programação e fotos — Nutrição Estética 2027
+
+- [x] Comparar a nova planilha com a programação de Nutrição Estética atualmente exibida.
+- [x] Identificar sessões incluídas, removidas, renomeadas ou com alterações de horário e palestrantes.
+- [x] Validar a programação linha a linha sem inferir nomes, cargos ou co-palestrantes ausentes.
+- [x] Abrir a pasta compartilhada e inventariar as fotos disponíveis por nome de arquivo e palestrante.
+- [x] Associar somente fotos com identificação inequívoca ao nome da programação.
+- [x] Registrar lacunas, duplicidades e nomes sem foto, sem usar substitutos ou correspondências aproximadas.
+- [x] Preparar e enviar os ativos verificados ao armazenamento estático permanente da plataforma.
+- [x] Atualizar a área Programação e Conteúdo com sessões, palestrantes, fonte e fotos confirmadas.
+- [x] Preservar coordenadores, eixos e demais congressos sem alterações não solicitadas.
+- [x] Atualizar testes de conteúdo, fonte, nomes, sessões e ativos visuais.
+- [x] Validar TypeScript, testes, build, logs, desktop e mobile.
+- [x] Salvar checkpoint reversível e entregar a programação atualizada.

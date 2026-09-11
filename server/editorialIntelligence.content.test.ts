@@ -24,7 +24,32 @@ describe("inteligência editorial por programação", () => {
     expect(program?.sessions).toHaveLength(10);
     expect(program?.sessions[0]).toMatchObject({ time: "9h00", speakers: "Marília Lacerda" });
     expect(program?.sessions.at(-1)?.title).toContain("Performance Feminina");
-    expect(program?.source).toBe("Programação_Conference_Nutrição Estética_2027.xlsx");
+    expect(program?.source).toContain("Programação_Conference_NutriçãoEstética_2027.xlsx");
+    expect(program?.source).toContain("11/09/2026");
+    expect(program?.assetSourceUrl).toContain("1cbpsKRniKhToysrglTtyyCpQwPeHffcs");
+    expect(program?.note).toContain("dez sessões");
+  });
+
+  it("associa somente as oito fotos inequivocamente identificadas e mantém as lacunas visíveis", () => {
+    const program = conferencePrograms2027.find(item => item.id === "nutricao-estetica");
+    const assets = program?.sessions.flatMap(item => item.speakerAssets ?? []) ?? [];
+    const photoNames = assets.filter(item => item.photo).map(item => item.name);
+
+    expect(photoNames).toEqual([
+      "Marília Lacerda",
+      "Gabriel Ximenes",
+      "Suellen Becher",
+      "Dr. Vinicius Ortiz",
+      "Ana Paula Pujol",
+      "Faruk Kalil",
+      "Vanessa Erthal",
+      "Alessandra Pinheiro",
+    ]);
+    expect(assets.filter(item => item.photo).every(item => item.photo?.startsWith("/manus-storage/"))).toBe(true);
+    expect(assets.find(item => item.name === "Diogo Viana")?.photo).toBeUndefined();
+    expect(assets.find(item => item.name === "Diogo Viana")?.note).toContain("Diogo Pinto");
+    expect(assets.find(item => item.name === "Pedro Perim")?.note).toContain("pendentes");
+    expect(program?.sessions.find(item => item.time === "17h20")?.speakerAssets).toHaveLength(3);
   });
 
   it("reproduz as doze sessões confirmadas de SONAFE 2027 e preserva os co-palestrantes", () => {
@@ -77,10 +102,13 @@ describe("inteligência editorial por programação", () => {
     expect(component).toContain("coordinator-grid");
     expect(component).toContain("program-review");
     expect(component).toContain("Abrir planilha");
+    expect(component).toContain("Abrir pasta de fotos");
+    expect(component).toContain("program-speaker-assets");
     expect(component).toContain("intelligence-review");
     expect(home).toContain("isIntelligenceReview");
     expect(styles).toContain(".intelligence-tabs");
     expect(styles).toContain(".program-sessions");
+    expect(styles).toContain(".program-speaker-asset");
     expect(styles).toContain(".coordinator-panel");
     expect(styles).toContain("@media (max-width: 860px)");
   });

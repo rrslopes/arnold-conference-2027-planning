@@ -2,6 +2,13 @@ export type ProgramSession = {
   time: string;
   speakers: string;
   title: string;
+  materialStatus?: string;
+  speakerAssets?: Array<{
+    name: string;
+    photo?: string;
+    social?: Array<{ label: string; url: string }>;
+    note?: string;
+  }>;
 };
 
 export type CongressProgram = {
@@ -13,6 +20,7 @@ export type CongressProgram = {
   room?: string;
   source: string;
   sourceUrl?: string;
+  assetSourceUrl?: string;
   note: string;
   sessions: ProgramSession[];
 };
@@ -77,19 +85,100 @@ export const conferencePrograms2027: CongressProgram[] = [
     statusLabel: "Programação 2027 recebida · provisória",
     date: "23 de abril de 2027",
     room: "Sala a confirmar",
-    source: "Programação_Conference_Nutrição Estética_2027.xlsx",
-    note: "Dez sessões de conteúdo confirmadas no arquivo atual. Descritivos, minibiografias, fotos e redes sociais ainda precisam ser preenchidos.",
+    source: "Programação_Conference_NutriçãoEstética_2027.xlsx · versão atualizada recebida em 11/09/2026",
+    assetSourceUrl: "https://drive.google.com/drive/folders/1cbpsKRniKhToysrglTtyyCpQwPeHffcs?usp=drive_link",
+    note: "As dez sessões, horários, títulos e palestrantes permanecem iguais à versão anterior. A atualização acrescenta ementas e materiais individuais para seis sessões. A pasta principal contém nove pastas de palestrantes; oito fotos foram associadas com segurança. O arquivo da pasta Diogo Viana está nomeado “Diogo Pinto” e permanece bloqueado até confirmação. Outros oito palestrantes ainda não possuem foto nessa pasta.",
     sessions: [
-      { time: "9h00", speakers: "Marília Lacerda", title: "Preparação metabólica para cirurgia plástica: reduzindo complicações e potencializando resultados" },
-      { time: "9h40", speakers: "Gabriel Ximenes e Pedro Perim", title: "GLP-1 e Cirurgia Plástica: quem deve operar, quando operar e como preservar a massa muscular" },
-      { time: "10h20", speakers: "Dr. Leandro Lucerna e Luísa Wolpe", title: "Queda capilar além da ferritina: mitocôndria, inflamação e metabolômica — Ozempic Hair Loss: mito ou realidade?" },
-      { time: "11h00", speakers: "Raquel Wolpe e Luísa Wolpe", title: "Lipedema 360°: da bioenergética ao tratamento físico" },
-      { time: "11h40", speakers: "Diogo Viana e Rodrigo Granzotti", title: "Impacto do uso de GLP-1 na resposta hormonal do paciente com lipedema" },
-      { time: "14h00", speakers: "Suellen Becher, Dr. Vinicius Ortiz e Camila Barijan", title: "Estética e Nutrição Regenerativa: o futuro já começou" },
-      { time: "15h20", speakers: "Ana Paula Pujol", title: "Bioenergética Mitocondrial na Saúde da Mulher: implicações para metabolismo, envelhecimento e composição corporal" },
-      { time: "16h00", speakers: "Andreia Naves", title: "Sistema Musculoesquelético e Longevidade: mobilidade, força e fáscia na saúde da mulher" },
-      { time: "16h40", speakers: "Braian Cordeiro", title: "Metabolismo Invisível: o que a Calorimetria Indireta revela sobre a Estética Corporal" },
-      { time: "17h20", speakers: "Faruk Kalil, Vanessa Erthal e Alessandra Pinheiro", title: "Performance Feminina e Estética de Alta Definição" },
+      {
+        time: "9h00",
+        speakers: "Marília Lacerda",
+        title: "Preparação metabólica para cirurgia plástica: reduzindo complicações e potencializando resultados",
+        materialStatus: "Ementa, mini-CV, foto e Instagram recebidos.",
+        speakerAssets: [{ name: "Marília Lacerda", photo: "/manus-storage/marilia-lacerda_ac73c731.webp", social: [{ label: "@marilialacerda_", url: "https://www.instagram.com/marilialacerda_/" }] }],
+      },
+      {
+        time: "9h40",
+        speakers: "Gabriel Ximenes e Pedro Perim",
+        title: "GLP-1 e Cirurgia Plástica: quem deve operar, quando operar e como preservar a massa muscular",
+        materialStatus: "Ementa e materiais de Gabriel recebidos; Pedro ainda sem materiais individuais.",
+        speakerAssets: [
+          { name: "Gabriel Ximenes", photo: "/manus-storage/gabriel-ximenes_6f58f713.webp", social: [{ label: "@gabrieelximenes", url: "https://www.instagram.com/gabrieelximenes/" }] },
+          { name: "Pedro Perim", note: "Foto e materiais pendentes" },
+        ],
+      },
+      {
+        time: "10h20",
+        speakers: "Dr. Leandro Lucerna e Luísa Wolpe",
+        title: "Queda capilar além da ferritina: mitocôndria, inflamação e metabolômica — Ozempic Hair Loss: mito ou realidade?",
+        materialStatus: "Sem novos materiais individuais nesta versão.",
+        speakerAssets: [
+          { name: "Dr. Leandro Lucerna", note: "Foto e materiais pendentes" },
+          { name: "Luísa Wolpe", note: "Foto não incluída na pasta de palestrantes" },
+        ],
+      },
+      {
+        time: "11h00",
+        speakers: "Raquel Wolpe e Luísa Wolpe",
+        title: "Lipedema 360°: da bioenergética ao tratamento físico",
+        materialStatus: "Sem novos materiais individuais nesta versão.",
+        speakerAssets: [
+          { name: "Raquel Wolpe", note: "Foto e materiais pendentes" },
+          { name: "Luísa Wolpe", note: "Foto não incluída na pasta de palestrantes" },
+        ],
+      },
+      {
+        time: "11h40",
+        speakers: "Diogo Viana e Rodrigo Granzotti",
+        title: "Impacto do uso de GLP-1 na resposta hormonal do paciente com lipedema",
+        materialStatus: "Ementa, mini-CV e Instagram de Diogo recebidos; Rodrigo ainda sem materiais individuais.",
+        speakerAssets: [
+          { name: "Diogo Viana", social: [{ label: "@dr.diogoviana", url: "https://www.instagram.com/dr.diogoviana/" }], note: "Foto bloqueada: arquivo da pasta está nomeado “Diogo Pinto”" },
+          { name: "Rodrigo Granzotti", note: "Foto e materiais pendentes" },
+        ],
+      },
+      {
+        time: "14h00",
+        speakers: "Suellen Becher, Dr. Vinicius Ortiz e Camila Barijan",
+        title: "Estética e Nutrição Regenerativa: o futuro já começou",
+        materialStatus: "Ementas e materiais de Suellen e Vinicius recebidos; Camila ainda sem materiais individuais.",
+        speakerAssets: [
+          { name: "Suellen Becher", photo: "/manus-storage/suellen-becher_4aba7087.webp", social: [{ label: "@suellenbecher", url: "https://www.instagram.com/suellenbecher/" }] },
+          { name: "Dr. Vinicius Ortiz", photo: "/manus-storage/vinicius-ortiz_7859b087.webp", social: [{ label: "@drviniciusortiz", url: "https://www.instagram.com/drviniciusortiz/" }] },
+          { name: "Camila Barijan", note: "Foto e materiais pendentes" },
+        ],
+      },
+      {
+        time: "15h20",
+        speakers: "Ana Paula Pujol",
+        title: "Bioenergética Mitocondrial na Saúde da Mulher: implicações para metabolismo, envelhecimento e composição corporal",
+        materialStatus: "Ementa, mini-CV, foto e Instagram recebidos.",
+        speakerAssets: [{ name: "Ana Paula Pujol", photo: "/manus-storage/ana-paula-pujol_c9649a60.webp", social: [{ label: "@anapaulapujol", url: "https://www.instagram.com/anapaulapujol/" }] }],
+      },
+      {
+        time: "16h00",
+        speakers: "Andreia Naves",
+        title: "Sistema Musculoesquelético e Longevidade: mobilidade, força e fáscia na saúde da mulher",
+        materialStatus: "Sem novos materiais individuais nesta versão.",
+        speakerAssets: [{ name: "Andreia Naves", note: "Foto não incluída na pasta de palestrantes" }],
+      },
+      {
+        time: "16h40",
+        speakers: "Braian Cordeiro",
+        title: "Metabolismo Invisível: o que a Calorimetria Indireta revela sobre a Estética Corporal",
+        materialStatus: "Sem novos materiais individuais nesta versão.",
+        speakerAssets: [{ name: "Braian Cordeiro", note: "Foto e materiais pendentes" }],
+      },
+      {
+        time: "17h20",
+        speakers: "Faruk Kalil, Vanessa Erthal e Alessandra Pinheiro",
+        title: "Performance Feminina e Estética de Alta Definição",
+        materialStatus: "Ementas, mini-CVs, fotos e redes sociais dos três palestrantes recebidos.",
+        speakerAssets: [
+          { name: "Faruk Kalil", photo: "/manus-storage/faruk-kalil_88627fd4.webp", social: [{ label: "@prof.dr.farukkalil", url: "https://www.instagram.com/prof.dr.farukkalil/" }, { label: "@ekfprime", url: "https://www.instagram.com/ekfprime/" }] },
+          { name: "Vanessa Erthal", photo: "/manus-storage/vanessa-erthal_5369a135.webp", social: [{ label: "@vane_erthal", url: "https://www.instagram.com/vane_erthal/" }] },
+          { name: "Alessandra Pinheiro", photo: "/manus-storage/alessandra-pinheiro_6e1e4de4.webp", social: [{ label: "@alessandrapinheiroifbbpro", url: "https://www.instagram.com/alessandrapinheiroifbbpro/" }] },
+        ],
+      },
     ],
   },
   {
