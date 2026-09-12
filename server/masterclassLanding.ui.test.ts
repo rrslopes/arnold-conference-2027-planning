@@ -19,7 +19,9 @@ describe("Central de Landing Pages e masterclasses", () => {
   it("oferece sincronização manual segura e mantém a alternativa de fotografia manual", () => {
     expect(syncPanel).toContain("Sincronizar agora");
     expect(syncPanel).toContain("O token fica somente no servidor");
-    expect(syncPanel).toContain("não cria uma nova linha no histórico");
+    expect(syncPanel).toContain("não cria outra linha");
+    expect(syncPanel).toContain("Sincronização interrompida");
+    expect(syncPanel).toContain("fotografia anterior permanece preservada");
     expect(dashboard).toContain("Nova fotografia manual");
     expect(dashboard).toContain("SINCRONIZADO VIA LOVABLE");
   });

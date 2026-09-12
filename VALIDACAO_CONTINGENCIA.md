@@ -111,3 +111,14 @@ O contrato agora aceita a base do perfil quando ela corresponde às pessoas úni
 A sincronização real de 04–11/09 foi repetida com sucesso: oito dias e um consolidado foram atualizados, sem novas linhas. O consolidado vigente contém 130 conversões, 127 pessoas únicas e base de perfil 130. O banco permaneceu com oito registros diários e um consolidado.
 
 Validação final: TypeScript sem erros, **204 testes aprovados** em 41 arquivos, build concluído, banco e idempotência conferidos, revisão desktop/mobile e nenhum erro atual em servidor, console ou rede após 20h50.
+
+## Contrato oficial evolutivo — LP das masterclasses
+
+- Campos desconhecidos são ignorados e não chegam ao banco.
+- Aulas e origens aceitam listas variáveis; a ordem não altera o mapeamento.
+- Aulas novas são ignoradas até existir suporte explícito; aulas conhecidas ausentes ficam como “sem dado”.
+- Slugs duplicados, números inválidos, relações incoerentes e período divergente continuam bloqueados.
+- `conversao_sessao_lead` aceita `null` e taxas informadas acima de 100% são rejeitadas.
+- A sincronização de 01–11/09 atualizou a fotografia existente, mantendo três registros no histórico.
+- O fechamento vigente contém 515 sessões, 210 inscrições brutas no período, 212 acumuladas e 197 pessoas únicas.
+- TypeScript, **206 testes**, build, banco, logs e revisões desktop/mobile foram aprovados.

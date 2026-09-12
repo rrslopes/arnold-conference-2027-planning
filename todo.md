@@ -628,3 +628,17 @@
 - [x] Repetir a sincronização oficial e confirmar idempotência e integridade do histórico.
 - [x] Validar banco, TypeScript, testes, build, logs, desktop e mobile.
 - [x] Salvar checkpoint reversível e entregar a correção.
+
+## Contrato oficial evolutivo — LP das masterclasses
+
+- [x] Comparar o contrato recebido com a resposta real do endpoint e o schema atual da integração.
+- [x] Confirmar datas civis de Brasília e interpretação do timestamp `atualizado_em`.
+- [x] Tornar listas de aulas e origens variáveis sem depender de quantidade ou ordem fixa.
+- [x] Ignorar campos desconhecidos sem abrir mão das validações semânticas dos campos utilizados.
+- [x] Preservar a distinção entre inscrições brutas, pessoas únicas, acessos à recompensa e espectadores das aulas.
+- [x] Manter a LP das masterclasses separada da LP de novidades em banco, histórico, interface e KPIs.
+- [x] Adaptar mensagens de falha para preservar os dados anteriores e orientar a equipe.
+- [x] Atualizar testes de contrato, campos desconhecidos, listas variáveis, nulos e mapeamento.
+- [x] Ressincronizar o período real e confirmar atualização idempotente sem duplicidade.
+- [x] Validar banco, KPIs, TypeScript, testes, build, logs, desktop e mobile.
+- [x] Salvar checkpoint reversível e entregar a atualização.

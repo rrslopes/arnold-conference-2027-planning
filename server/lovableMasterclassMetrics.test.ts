@@ -28,9 +28,18 @@ const payload = {
 };
 
 describe("contrato Lovable das masterclasses", () => {
-  it("valida as três aulas e rejeita campos pessoais inesperados", () => {
-    expect(lovableMasterclassMetricsSchema.safeParse(payload).success).toBe(true);
-    expect(lovableMasterclassMetricsSchema.safeParse({ ...payload, email: "lead@example.com" }).success).toBe(false);
+  it("aceita campos desconhecidos sem transportá-los para o contrato interno", () => {
+    const result = lovableMasterclassMetricsSchema.safeParse({
+      ...payload,
+      campo_futuro: "ignorado",
+      trafego_e_captacao: { ...payload.trafego_e_captacao, detalhe_novo: 10 },
+      consumo_das_aulas: payload.consumo_das_aulas.map(item => ({ ...item, metrica_nova: 1 })),
+    });
+    expect(result.success).toBe(true);
+    if (!result.success) return;
+    expect(result.data).not.toHaveProperty("campo_futuro");
+    expect(result.data.trafego_e_captacao).not.toHaveProperty("detalhe_novo");
+    expect(result.data.consumo_das_aulas[0]).not.toHaveProperty("metrica_nova");
   });
 
   it("mapeia cada aula pelo slug, não pela posição no array", () => {
@@ -54,6 +63,35 @@ describe("contrato Lovable das masterclasses", () => {
       { channel: "instagram_dm", sessions: 13, leads: 2 },
     ]);
     expect(snapshot).not.toHaveProperty("conversionRate");
+  });
+
+  it("aceita listas variáveis, ignora aulas novas e mantém ausências como sem dado", () => {
+    const variable = lovableMasterclassMetricsSchema.parse({
+      ...payload,
+      consumo_das_aulas: [
+        payload.consumo_das_aulas[0],
+        { slug: "nova-aula", palestrante: "Nova Pessoa", area: "Nova área", inicios: 5, conclusoes: 1, espectadores: 4, percentual_medio_assistido: 20 },
+      ],
+      origens: [],
+    });
+    const snapshot = mapLovableMetricsToSnapshot(variable);
+    expect(snapshot.andreiaLessonStarts).toBe(45);
+    expect(snapshot.anaLessonStarts).toBeNull();
+    expect(snapshot.robertoLessonStarts).toBeNull();
+    expect(snapshot.dmSessions).toBeNull();
+    expect(JSON.parse(snapshot.originsJson)).toEqual([]);
+  });
+
+  it("aceita conversão nula sem sessões e rejeita taxa acima de 100%", () => {
+    const withoutSessions = {
+      ...payload,
+      trafego_e_captacao: { ...payload.trafego_e_captacao, sessoes_na_lp: 0, conversao_sessao_lead: null },
+    };
+    expect(lovableMasterclassMetricsSchema.safeParse(withoutSessions).success).toBe(true);
+    expect(lovableMasterclassMetricsSchema.safeParse({
+      ...payload,
+      trafego_e_captacao: { ...payload.trafego_e_captacao, conversao_sessao_lead: 1.01 },
+    }).success).toBe(false);
   });
 
   it("rejeita aulas duplicadas ou conclusão acima dos inícios", () => {

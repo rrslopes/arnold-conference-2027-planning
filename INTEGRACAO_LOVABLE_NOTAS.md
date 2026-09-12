@@ -72,6 +72,22 @@ O cliente confirmou que o endpoint atual deve prevalecer sobre a distribuição 
 
 O cliente autorizou excluir as fotografias antigas da LP de novidades e substituí-las pela série diária oficial, mantendo cada dia como uma fotografia própria e adicionando uma fotografia consolidada de 04/09 até o dia atual. A série diária e o consolidado devem coexistir; a fotografia consolidada sustenta o perfil vigente e os KPIs, enquanto os dias sustentam a evolução temporal.
 
+## Contrato oficial evolutivo — Masterclasses
+
+O contrato oficial recebido em 11/09/2026 determina que campos desconhecidos devem ser ignorados e que `consumo_das_aulas` e `origens` têm tamanho variável. A plataforma continuará exigindo os blocos e campos efetivamente usados, validando tipos, limites, período solicitado e relações numéricas. Campos extras serão descartados pelo parser, sem chegar ao banco ou à interface.
+
+Os slugs das aulas deixam de ser limitados aos três valores atuais para permitir novas aulas futuras. Slugs duplicados continuam inválidos. O mapeamento usa somente os três slugs conhecidos pela plataforma; aulas novas ficam ignoradas até existir uma decisão de produto sobre sua apresentação. Se uma aula conhecida não vier no recorte, suas métricas serão gravadas como ausentes (`null`), nunca como zero. Assim, ausência de dados não é confundida com ausência de consumo.
+
+`conversao_sessao_lead` pode ser nula quando não houver sessões e, quando informada, deve permanecer entre 0 e 1. A plataforma continua recalculando as taxas exibidas a partir dos volumes brutos. As datas de `periodo` permanecem datas civis de Brasília; `atualizado_em` continua sendo tratado como timestamp absoluto e exibido em `America/Sao_Paulo`.
+
+### Implementação e validação do contrato oficial
+
+O parser passou a descartar campos desconhecidos nos objetos principal e aninhados, sem transportá-los ao banco. As listas de aulas e origens aceitam tamanho variável. Slugs novos são aceitos e ignorados pelo mapeamento até existir suporte explícito na interface; slugs duplicados continuam bloqueados. Quando uma das três aulas atualmente exibidas não vier no recorte, seus indicadores ficam como “sem dado”, em vez de zero.
+
+A sincronização real de 01 a 11/09 foi concluída no mesmo registro e manteve três linhas no histórico. O fechamento atualizado registrou 515 sessões, 210 inscrições brutas no período, 212 acumuladas e 197 pessoas únicas. Aulas, origens e avanço foram atualizados conforme o endpoint oficial; a LP das masterclasses permaneceu isolada da LP de novidades.
+
+Validação final: TypeScript sem erros, **206 testes aprovados** em 41 arquivos, build concluído, banco e idempotência conferidos, revisão desktop/mobile e nenhum erro atual em servidor, console ou rede após 00h20.
+
 ### Implementação final — série oficial
 
 As duas fotografias antigas, IDs `60001` e `1170003`, foram excluídas somente após autorização explícita. A sincronização oficial criou oito registros diários, de 04 a 11/09, e um consolidado de 04 a 11/09. A distribuição validada pelo endpoint foi 54, 9, 7, 7, 20, 11, 12 e 0 conversões; a soma diária e o consolidado coincidem em 120 conversões e 120 pessoas únicas.
