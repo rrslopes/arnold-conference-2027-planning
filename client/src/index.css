@@ -1618,6 +1618,9 @@ img { max-width: 100%; }
 .masterclass-sync-panel .sync-error, .masterclass-sync-panel .sync-success { display: inline-flex; align-items: center; gap: 5px; font-size: 7px; font-weight: 800; }
 .masterclass-sync-panel .sync-error { color: #a33b3b; }
 .masterclass-sync-panel .sync-success { color: #33744c; }
+.masterclass-sync-diagnostic { width: 100%; padding: 10px 12px; border-left: 3px solid #a33b3b; background: rgba(163,59,59,.08); color: #6f2727; }
+.masterclass-sync-diagnostic strong { display: block; margin-bottom: 4px; font-size: 8px; text-transform: uppercase; letter-spacing: .08em; }
+.masterclass-sync-diagnostic p { margin: 0 !important; color: inherit !important; font-size: 8px !important; line-height: 1.55; overflow-wrap: anywhere; }
 .masterclass-lp-tabs { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid rgba(51,49,50,.13); }
 .masterclass-lp-tabs button { min-height: 48px; border: 0; border-right: 1px solid rgba(51,49,50,.1); background: white; color: #6d6769; font-size: 8px; font-weight: 850; text-transform: uppercase; cursor: pointer; }
 .masterclass-lp-tabs button:last-child { border-right: 0; }

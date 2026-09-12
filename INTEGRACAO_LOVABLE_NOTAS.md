@@ -88,6 +88,18 @@ A sincronização real de 01 a 11/09 foi concluída no mesmo registro e manteve 
 
 Validação final: TypeScript sem erros, **206 testes aprovados** em 41 arquivos, build concluído, banco e idempotência conferidos, revisão desktop/mobile e nenhum erro atual em servidor, console ou rede após 00h20.
 
+### Diagnóstico exato da rejeição posterior
+
+A tentativa interrompida recebeu `consumo_das_aulas[nutricao-estetica].espectadores = 15` e `consumo_das_aulas[nutricao-estetica].inicios = 14`. O único bloqueio acionado foi a regra local “espectadores não podem ultrapassar inícios”. Essa relação não existe no contrato oficial e os dois campos representam eventos independentes; portanto, a regra foi removida. Nenhum outro campo ou valor foi rejeitado naquela resposta.
+
+Campos novos, inclusive com valor `null`, continuam ignorados sem chegar ao banco. `conversao_sessao_lead = null` permanece aceito conforme o contrato. Listas de aulas e origens continuam variáveis. Permanecem bloqueados: tipos inválidos nos campos usados, números negativos ou fora dos limites, slugs duplicados, conclusões acima dos inícios, pessoas únicas acima das inscrições brutas e período diferente do solicitado.
+
+Quando houver uma rejeição legítima, a plataforma passa a mostrar no próprio painel o caminho, o valor recebido e o motivo, por exemplo: `consumo_das_aulas[nutricao-estetica].conclusoes = 39 — Conclusões não podem ultrapassar inícios`. A mensagem declara que nenhuma fotografia foi alterada; os valores são limitados e não incluem credenciais ou dados pessoais.
+
+A ressincronização real de 01–11/09 foi concluída no mesmo registro, mantendo três fotografias de masterclasses e nove fotografias da LP de novidades. Nenhum registro foi excluído. O fechamento vigente registra 517 sessões, 210 inscrições brutas no período, 212 acumuladas e 197 pessoas únicas.
+
+Validação final: TypeScript sem erros, **208 testes aprovados** em 41 arquivos, build concluído, banco e isolamento conferidos, revisão desktop/mobile e nenhum erro atual em servidor, console ou rede após 00h50.
+
 ### Implementação final — série oficial
 
 As duas fotografias antigas, IDs `60001` e `1170003`, foram excluídas somente após autorização explícita. A sincronização oficial criou oito registros diários, de 04 a 11/09, e um consolidado de 04 a 11/09. A distribuição validada pelo endpoint foi 54, 9, 7, 7, 20, 11, 12 e 0 conversões; a soma diária e o consolidado coincidem em 120 conversões e 120 pessoas únicas.

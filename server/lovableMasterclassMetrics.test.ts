@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { lovableMasterclassMetricsSchema, mapLovableMetricsToSnapshot } from "./integrations/lovableMasterclassMetrics";
+import { diagnoseMasterclassContractIssues, formatMasterclassContractError, lovableMasterclassMetricsSchema, mapLovableMetricsToSnapshot } from "./integrations/lovableMasterclassMetrics";
 
 const payload = {
   origem: "LP das Masterclasses" as const,
@@ -31,9 +31,9 @@ describe("contrato Lovable das masterclasses", () => {
   it("aceita campos desconhecidos sem transportá-los para o contrato interno", () => {
     const result = lovableMasterclassMetricsSchema.safeParse({
       ...payload,
-      campo_futuro: "ignorado",
-      trafego_e_captacao: { ...payload.trafego_e_captacao, detalhe_novo: 10 },
-      consumo_das_aulas: payload.consumo_das_aulas.map(item => ({ ...item, metrica_nova: 1 })),
+      campo_futuro: null,
+      trafego_e_captacao: { ...payload.trafego_e_captacao, detalhe_novo: null },
+      consumo_das_aulas: payload.consumo_das_aulas.map(item => ({ ...item, metrica_nova: null })),
     });
     expect(result.success).toBe(true);
     if (!result.success) return;
@@ -82,6 +82,14 @@ describe("contrato Lovable das masterclasses", () => {
     expect(JSON.parse(snapshot.originsJson)).toEqual([]);
   });
 
+  it("aceita espectadores acima dos inícios porque são eventos independentes no contrato oficial", () => {
+    const currentEndpointCase = {
+      ...payload,
+      consumo_das_aulas: payload.consumo_das_aulas.map((item, index) => index === 1 ? { ...item, inicios: 14, espectadores: 15 } : item),
+    };
+    expect(lovableMasterclassMetricsSchema.safeParse(currentEndpointCase).success).toBe(true);
+  });
+
   it("aceita conversão nula sem sessões e rejeita taxa acima de 100%", () => {
     const withoutSessions = {
       ...payload,
@@ -106,5 +114,22 @@ describe("contrato Lovable das masterclasses", () => {
     const invalidCumulative = { ...payload, trafego_e_captacao: { ...payload.trafego_e_captacao, total_acumulado_pessoas_unicas: 92 } };
     expect(lovableMasterclassMetricsSchema.safeParse(invalidPeriod).success).toBe(false);
     expect(lovableMasterclassMetricsSchema.safeParse(invalidCumulative).success).toBe(false);
+  });
+
+  it("informa caminho, valor e motivo exatos quando um campo usado é rejeitado", () => {
+    const invalid = {
+      ...payload,
+      consumo_das_aulas: payload.consumo_das_aulas.map((item, index) => index === 1 ? { ...item, conclusoes: 39 } : item),
+    };
+    const parsed = lovableMasterclassMetricsSchema.safeParse(invalid);
+    expect(parsed.success).toBe(false);
+    if (parsed.success) return;
+    const fields = diagnoseMasterclassContractIssues(invalid, parsed.error.issues);
+    expect(fields).toContainEqual({
+      field: "consumo_das_aulas[nutricao-estetica].conclusoes",
+      value: "39",
+      reason: "Conclusões não podem ultrapassar inícios.",
+    });
+    expect(formatMasterclassContractError(fields)).toContain("Nenhuma fotografia foi alterada.");
   });
 });

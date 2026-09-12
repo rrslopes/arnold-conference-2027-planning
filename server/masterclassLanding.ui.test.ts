@@ -21,6 +21,9 @@ describe("Central de Landing Pages e masterclasses", () => {
     expect(syncPanel).toContain("O token fica somente no servidor");
     expect(syncPanel).toContain("não cria outra linha");
     expect(syncPanel).toContain("Sincronização interrompida");
+    expect(syncPanel).toContain("Veja abaixo os campos e valores rejeitados");
+    expect(syncPanel).toContain('role="alert"');
+    expect(syncPanel).toContain("{lastError}");
     expect(syncPanel).toContain("fotografia anterior permanece preservada");
     expect(dashboard).toContain("Nova fotografia manual");
     expect(dashboard).toContain("SINCRONIZADO VIA LOVABLE");

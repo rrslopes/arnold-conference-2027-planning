@@ -642,3 +642,18 @@
 - [x] Ressincronizar o período real e confirmar atualização idempotente sem duplicidade.
 - [x] Validar banco, KPIs, TypeScript, testes, build, logs, desktop e mobile.
 - [x] Salvar checkpoint reversível e entregar a atualização.
+
+## Diagnóstico detalhado da sincronização — LP das masterclasses
+
+- [x] Reproduzir a falha atual sem excluir ou sobrescrever fotografias existentes.
+- [x] Capturar os caminhos, valores e regras exatas rejeitados pelo contrato.
+- [x] Comparar a resposta real com o contrato oficial recebido.
+- [x] Aceitar campos novos, listas de tamanho variável e valores `null` previstos pelo contrato.
+- [x] Manter bloqueios para números, datas, slugs duplicados e relações semanticamente inválidas.
+- [x] Exibir na interface um resumo compreensível dos campos rejeitados, sem expor credenciais ou dados pessoais.
+- [x] Preservar os dados anteriores quando a sincronização falhar.
+- [x] Manter a LP das masterclasses isolada da área “Leads e perfil — LP de novidades”.
+- [x] Ressincronizar o período real e confirmar atualização idempotente sem exclusões ou duplicidade.
+- [x] Atualizar testes de diagnóstico, compatibilidade, nulabilidade, listas variáveis e mensagens de erro.
+- [x] Validar banco, KPIs, TypeScript, testes, build, logs, desktop e mobile.
+- [x] Salvar checkpoint reversível e entregar a correção.

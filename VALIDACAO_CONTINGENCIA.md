@@ -122,3 +122,9 @@ Validação final: TypeScript sem erros, **204 testes aprovados** em 41 arquivos
 - A sincronização de 01–11/09 atualizou a fotografia existente, mantendo três registros no histórico.
 - O fechamento vigente contém 515 sessões, 210 inscrições brutas no período, 212 acumuladas e 197 pessoas únicas.
 - TypeScript, **206 testes**, build, banco, logs e revisões desktop/mobile foram aprovados.
+
+## Diagnóstico detalhado — rejeição da LP das masterclasses
+
+O único valor rejeitado na tentativa reportada foi `consumo_das_aulas[nutricao-estetica].espectadores = 15`, porque a aula tinha `inicios = 14` e a plataforma aplicava uma regra local que não faz parte do contrato oficial. A regra foi removida, pois espectadores e inícios são eventos independentes. Nenhum outro campo foi rejeitado.
+
+Campos extras e listas variáveis continuam aceitos; campos extras com `null` são ignorados e `conversao_sessao_lead = null` é válido. Rejeições legítimas agora exibem caminho, valor e motivo no painel. A ressincronização de 01–11/09 atualizou o registro existente sem exclusões: permanecem três fotografias de masterclasses e nove da LP de novidades. TypeScript, **208 testes**, build, banco, logs e revisões desktop/mobile foram aprovados.

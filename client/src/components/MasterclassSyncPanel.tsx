@@ -10,14 +10,19 @@ export default function MasterclassSyncPanel() {
   const [from, setFrom] = useState(firstDayOfBrasiliaMonth);
   const [to, setTo] = useState(today);
   const [lastResult, setLastResult] = useState<"created" | "updated" | null>(null);
+  const [lastError, setLastError] = useState<string | null>(null);
   const status = trpc.planning.getMasterclassSyncStatus.useQuery();
   const sync = trpc.planning.syncMasterclassLandingSnapshot.useMutation({
     onSuccess: async result => {
       await utils.planning.getState.invalidate();
+      setLastError(null);
       setLastResult(result.action);
       toast.success(result.action === "created" ? "Fotografia importada do Lovable." : "Fotografia do período atualizada sem duplicidade.");
     },
-    onError: error => toast.error(`Sincronização interrompida: ${error.message}`),
+    onError: error => {
+      setLastError(error.message);
+      toast.error("Sincronização interrompida. Veja abaixo os campos e valores rejeitados.");
+    },
   });
   const invalidPeriod = !from || !to || from > to || to > today;
   const configured = status.data?.configured === true;
@@ -30,7 +35,7 @@ export default function MasterclassSyncPanel() {
         <label><span>Início do período</span><div><CalendarRange size={14} /><input type="date" max={today} value={from} onChange={event => setFrom(event.target.value)} /></div></label>
         <label><span>Fim do período</span><div><CalendarRange size={14} /><input type="date" min={from} max={today} value={to} onChange={event => setTo(event.target.value)} /></div></label>
       </div>
-      <button type="button" className="primary-button masterclass-sync-button" disabled={!configured || invalidPeriod || sync.isPending || status.isLoading} onClick={() => { setLastResult(null); sync.mutate({ from, to }); }}>
+      <button type="button" className="primary-button masterclass-sync-button" disabled={!configured || invalidPeriod || sync.isPending || status.isLoading} onClick={() => { setLastResult(null); setLastError(null); sync.mutate({ from, to }); }}>
         {sync.isPending ? <RefreshCw size={16} className="spin" /> : <CloudDownload size={16} />} Sincronizar agora
       </button>
     </div>
@@ -38,6 +43,7 @@ export default function MasterclassSyncPanel() {
       {!configured && !status.isLoading ? <span className="sync-error">Integração ainda não configurada no servidor.</span> : null}
       {invalidPeriod ? <span className="sync-error">Informe um período válido, sem data futura.</span> : null}
       {lastResult ? <span className="sync-success"><CheckCircle2 size={13} /> {lastResult === "created" ? "Nova fotografia criada." : "Fotografia existente atualizada."}</span> : null}
+      {lastError ? <div className="masterclass-sync-diagnostic" role="alert"><strong>Sincronização interrompida</strong><p>{lastError}</p></div> : null}
       <p>Repetir o mesmo período não cria outra linha. Se o Lovable enviar dados inválidos, a atualização é interrompida e a fotografia anterior permanece preservada.</p>
     </footer>
   </section>;
