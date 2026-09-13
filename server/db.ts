@@ -18,7 +18,7 @@ import {
 } from "../drizzle/schema";
 import type { SocialMonthlyResult } from "../shared/socialMetrics";
 import { toStoredRate, type EmailPerformanceDraft } from "../shared/emailPerformance";
-import { NEWS_LP_SOURCE, getLeadProfileSnapshotKind, type LeadProfileSnapshotDraft } from "../shared/leadProfile";
+import { NEWS_DAILY_SYNC_SOURCE, NEWS_LP_SOURCE, getLeadProfileSnapshotKind, type LeadProfileSnapshotDraft } from "../shared/leadProfile";
 import type { MasterclassLandingSnapshotDraft } from "../shared/masterclassLanding";
 import type { mapLovableMetricsToSnapshot } from "./integrations/lovableMasterclassMetrics";
 import type { mapLovableNewsMetricsToSnapshot } from "./integrations/lovableNewsMetrics";
@@ -218,6 +218,23 @@ export async function saveLeadProfileSnapshot(entry: LeadProfileSnapshotInput) {
 }
 
 export type SyncedLeadProfileSnapshotInput = ReturnType<typeof mapLovableNewsMetricsToSnapshot>;
+
+export async function getOfficialLeadProfileDailySnapshots(from: number, to: number) {
+  const db = await requireDb();
+  const rows = await db.select({
+    periodStartAt: leadProfileSnapshots.periodStartAt,
+    periodEndAt: leadProfileSnapshots.periodEndAt,
+    conversions: leadProfileSnapshots.newLeads,
+  }).from(leadProfileSnapshots).where(and(
+    eq(leadProfileSnapshots.sourceKey, NEWS_LP_SOURCE.key),
+    eq(leadProfileSnapshots.syncSource, NEWS_DAILY_SYNC_SOURCE),
+    gte(leadProfileSnapshots.periodStartAt, from),
+    lte(leadProfileSnapshots.periodEndAt, to),
+  ));
+  return rows
+    .filter(row => row.periodStartAt === row.periodEndAt)
+    .map(row => ({ date: new Date(row.periodStartAt).toISOString().slice(0, 10), conversions: row.conversions }));
+}
 
 export async function upsertSyncedLeadProfileSnapshot(entry: SyncedLeadProfileSnapshotInput) {
   const db = await requireDb();

@@ -128,3 +128,11 @@ Validação final: TypeScript sem erros, **204 testes aprovados** em 41 arquivos
 O único valor rejeitado na tentativa reportada foi `consumo_das_aulas[nutricao-estetica].espectadores = 15`, porque a aula tinha `inicios = 14` e a plataforma aplicava uma regra local que não faz parte do contrato oficial. A regra foi removida, pois espectadores e inícios são eventos independentes. Nenhum outro campo foi rejeitado.
 
 Campos extras e listas variáveis continuam aceitos; campos extras com `null` são ignorados e `conversao_sessao_lead = null` é válido. Rejeições legítimas agora exibem caminho, valor e motivo no painel. A ressincronização de 01–11/09 atualizou o registro existente sem exclusões: permanecem três fotografias de masterclasses e nove da LP de novidades. TypeScript, **208 testes**, build, banco, logs e revisões desktop/mobile foram aprovados.
+
+## Diagnóstico detalhado — rejeição da LP de novidades em 12/09
+
+O único campo rejeitado foi `campos_personalizados.historico_no_arnold`: o endpoint enviou uma lista com 13 itens e a plataforma aplicava um limite local de 10. Como o contrato oficial permite listas variáveis, o limite foi removido. Campos novos e valores `null` compatíveis continuam aceitos; tipos, números, datas e relações previstas no contrato permanecem protegidos. Rejeições legítimas agora mostram caminho, valor resumido e motivo no painel.
+
+As respostas oficiais obtidas durante o diagnóstico atualizaram nove dias, de 04 a 12/09, e o consolidado de 04 a 12/09. O fechamento vigente registra 137 conversões, 133 pessoas únicas e base de perfil 137. Nenhuma fotografia foi excluída: permanecem nove dias, dois consolidados históricos e três fotografias de masterclasses. Uma segunda aplicação confirmou 0 criações e 10 atualizações.
+
+A sincronização passou a reutilizar dias históricos, consultar apenas dias ausentes ou recentes e revisar toda a série somente quando o consolidado divergir. TypeScript, **212 testes aprovados** e 2 testes externos opt-in, build, banco, idempotência e revisão desktop/mobile foram concluídos. A indisponibilidade de conexão externa do ambiente local impediu uma última chamada pelo botão; os dados foram aplicados a partir das respostas oficiais já baixadas e validadas pelo mesmo contrato.

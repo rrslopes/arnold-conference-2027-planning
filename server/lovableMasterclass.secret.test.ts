@@ -2,8 +2,9 @@ import { describe, expect, it } from "vitest";
 
 const token = process.env.LOVABLE_METRICS_API_TOKEN ?? process.env.LOVABLE_MASTERCLASS_METRICS_TOKEN;
 const endpoint = "https://masterclassconference.savagetgroup.com.br/api/public/metrics";
+const runExternalIntegrationTests = process.env.RUN_EXTERNAL_INTEGRATION_TESTS === "true";
 
-describe.runIf(Boolean(token))("credencial do endpoint de métricas das masterclasses", () => {
+describe.runIf(Boolean(token) && runExternalIntegrationTests)("credencial do endpoint de métricas das masterclasses", () => {
   it("autoriza uma consulta agregada de período sem expor dados pessoais", async () => {
     const url = new URL(endpoint);
     url.searchParams.set("from", "2026-09-01");

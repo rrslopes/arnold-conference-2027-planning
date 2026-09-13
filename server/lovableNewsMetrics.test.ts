@@ -1,5 +1,5 @@
-import { describe, expect, it } from "vitest";
-import { lovableNewsMetricsSchema, mapLovableNewsMetricsToSnapshot } from "./integrations/lovableNewsMetrics";
+import { describe, expect, it, vi } from "vitest";
+import { diagnoseNewsContractIssues, fetchLovableNewsMetrics, fetchLovableNewsOfficialSeries, formatNewsContractError, lovableNewsMetricsSchema, mapLovableNewsMetricsToSnapshot } from "./integrations/lovableNewsMetrics";
 
 const areas = [
   ["Nutrição Esportiva", 7, 43.8], ["Nutrição Estética", 6, 37.5], ["Gestão de Negócios", 6, 37.5],
@@ -64,5 +64,142 @@ describe("contrato agregado da LP de novidades", () => {
       ...withRegistrations,
       campos_personalizados: { ...withRegistrations.campos_personalizados, base_de_calculo: 129 },
     }).success).toBe(false);
+  });
+
+  it("aceita histórico com lista variável e ignora opções não mapeadas", () => {
+    const history = Array.from({ length: 13 }, (_, index) => ({
+      opcao: index === 0 ? "Sim! Estive em 2026" : `Resposta adicional ${index}`,
+      pessoas: 1,
+      percentual: 0.7,
+    }));
+    const result = lovableNewsMetricsSchema.safeParse({
+      ...fixture,
+      campos_personalizados: { ...fixture.campos_personalizados, historico_no_arnold: history },
+    });
+    expect(result.success).toBe(true);
+    if (result.success) expect(mapLovableNewsMetricsToSnapshot(result.data).attended2026Count).toBe(1);
+  });
+
+  it("informa campo, valor e regra exatos quando uma relação contratual falha", () => {
+    const invalid = {
+      ...fixture,
+      captacao: { ...fixture.captacao, pessoas_unicas_no_periodo: 17 },
+    };
+    const parsed = lovableNewsMetricsSchema.safeParse(invalid);
+    expect(parsed.success).toBe(false);
+    if (parsed.success) return;
+    const issues = diagnoseNewsContractIssues(invalid, parsed.error.issues);
+    expect(issues).toContainEqual({
+      field: "captacao.pessoas_unicas_no_periodo",
+      value: "17",
+      reason: "Pessoas únicas não podem superar conversões brutas.",
+    });
+    expect(formatNewsContractError(issues)).toContain("Nenhuma fotografia foi alterada");
+  });
+
+  it("repete falhas transitórias de rede sem repetir respostas contratuais inválidas", async () => {
+    const fetchMock = vi.spyOn(globalThis, "fetch")
+      .mockRejectedValueOnce(new TypeError("network unavailable"))
+      .mockResolvedValueOnce(new Response(JSON.stringify(fixture), {
+        status: 200,
+        headers: { "content-type": "application/json" },
+      }));
+    await expect(fetchLovableNewsMetrics("2026-09-09", "2026-09-10")).resolves.toMatchObject({ origem: "LP de Novidades 2027" });
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+    fetchMock.mockRestore();
+  });
+
+  it("consulta dias em série para não sobrecarregar o endpoint externo", async () => {
+    let activeRequests = 0;
+    let peakRequests = 0;
+    const fetchMock = vi.spyOn(globalThis, "fetch").mockImplementation(async input => {
+      activeRequests += 1;
+      peakRequests = Math.max(peakRequests, activeRequests);
+      await new Promise(resolve => setTimeout(resolve, 5));
+      const url = new URL(String(input));
+      const from = url.searchParams.get("from") || "";
+      const to = url.searchParams.get("to") || "";
+      const isDaily = from === to;
+      const conversions = isDaily ? 8 : 16;
+      const payload = {
+        ...fixture,
+        periodo: { ...fixture.periodo, inicio: from, fim: to },
+        captacao: {
+          conversoes_no_periodo: conversions,
+          pessoas_unicas_no_periodo: conversions,
+          total_acumulado_conversoes: 120,
+          total_acumulado_pessoas_unicas: 120,
+        },
+        campos_personalizados: { ...fixture.campos_personalizados, base_de_calculo: conversions },
+      };
+      activeRequests -= 1;
+      return new Response(JSON.stringify(payload), { status: 200, headers: { "content-type": "application/json" } });
+    });
+    const result = await fetchLovableNewsOfficialSeries("2026-09-09", "2026-09-10");
+    expect(result.daily).toHaveLength(2);
+    expect(peakRequests).toBe(1);
+    fetchMock.mockRestore();
+  });
+
+  it("reutiliza dias históricos e consulta somente dias recentes mais o consolidado", async () => {
+    const fetchMock = vi.spyOn(globalThis, "fetch").mockImplementation(async input => {
+      const url = new URL(String(input));
+      const from = url.searchParams.get("from") || "";
+      const to = url.searchParams.get("to") || "";
+      const isDaily = from === to;
+      const conversions = isDaily ? 8 : 16;
+      return new Response(JSON.stringify({
+        ...fixture,
+        periodo: { ...fixture.periodo, inicio: from, fim: to },
+        captacao: {
+          conversoes_no_periodo: conversions,
+          pessoas_unicas_no_periodo: conversions,
+          total_acumulado_conversoes: 120,
+          total_acumulado_pessoas_unicas: 120,
+        },
+        campos_personalizados: { ...fixture.campos_personalizados, base_de_calculo: conversions },
+      }), { status: 200, headers: { "content-type": "application/json" } });
+    });
+
+    const result = await fetchLovableNewsOfficialSeries("2026-09-09", "2026-09-10", {
+      existingDaily: [{ date: "2026-09-09", conversions: 8 }],
+      refreshRecentDays: 1,
+    });
+
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+    expect(result.daily).toHaveLength(1);
+    expect(result).toMatchObject({ totalDailyCount: 2, fetchedDailyCount: 1, reusedDailyCount: 1 });
+    fetchMock.mockRestore();
+  });
+
+  it("revisa toda a série quando o consolidado diverge dos dias reutilizados", async () => {
+    const fetchMock = vi.spyOn(globalThis, "fetch").mockImplementation(async input => {
+      const url = new URL(String(input));
+      const from = url.searchParams.get("from") || "";
+      const to = url.searchParams.get("to") || "";
+      const isDaily = from === to;
+      const conversions = isDaily ? 8 : 16;
+      return new Response(JSON.stringify({
+        ...fixture,
+        periodo: { ...fixture.periodo, inicio: from, fim: to },
+        captacao: {
+          conversoes_no_periodo: conversions,
+          pessoas_unicas_no_periodo: conversions,
+          total_acumulado_conversoes: 120,
+          total_acumulado_pessoas_unicas: 120,
+        },
+        campos_personalizados: { ...fixture.campos_personalizados, base_de_calculo: conversions },
+      }), { status: 200, headers: { "content-type": "application/json" } });
+    });
+
+    const result = await fetchLovableNewsOfficialSeries("2026-09-09", "2026-09-10", {
+      existingDaily: [{ date: "2026-09-09", conversions: 7 }],
+      refreshRecentDays: 1,
+    });
+
+    expect(fetchMock).toHaveBeenCalledTimes(3);
+    expect(result.daily).toHaveLength(2);
+    expect(result).toMatchObject({ totalDailyCount: 2, fetchedDailyCount: 2, reusedDailyCount: 0 });
+    fetchMock.mockRestore();
   });
 });

@@ -1,8 +1,9 @@
 import { describe, expect, it } from "vitest";
 
 const BASE_URL = "https://masterclassconference.savagetgroup.com.br/api/public";
+const runExternalIntegrationTests = process.env.RUN_EXTERNAL_INTEGRATION_TESTS === "true";
 
-describe("credencial agregada do Lovable", () => {
+describe.runIf(runExternalIntegrationTests)("credencial agregada do Lovable", () => {
   it("é aceita pelas rotas de masterclasses e novidades", async () => {
     const token = process.env.LOVABLE_METRICS_API_TOKEN;
     expect(token, "LOVABLE_METRICS_API_TOKEN precisa estar configurado").toBeTruthy();

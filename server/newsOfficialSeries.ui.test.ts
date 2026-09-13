@@ -8,9 +8,15 @@ const dashboard = fs.readFileSync(path.resolve(process.cwd(), "client/src/compon
 describe("série oficial da LP de novidades na interface", () => {
   it("fixa o início em 04/09 e explica a importação de dias mais consolidado", () => {
     expect(syncPanel).toContain('const OFFICIAL_SERIES_START = "2026-09-04"');
-    expect(syncPanel).toContain("cada dia desde 04/09");
+    expect(syncPanel).toContain("reutiliza os dias oficiais já salvos");
+    expect(syncPanel).toContain("dias ausentes ou mais recentes");
+    expect(syncPanel).toContain("fetchedDailyCount");
+    expect(syncPanel).toContain("reusedDailyCount");
     expect(syncPanel).toContain("datas são civis de Brasília");
     expect(syncPanel).toContain("Sincronização interrompida");
+    expect(syncPanel).toContain("campo, o valor e a regra rejeitados");
+    expect(syncPanel).toContain('role="alert"');
+    expect(syncPanel).toContain("{lastError}");
   });
 
   it("distingue consolidado, dia oficial e registro manual no histórico", () => {

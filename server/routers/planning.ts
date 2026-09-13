@@ -5,6 +5,7 @@ import {
   deleteEmailPerformance,
   deleteLeadProfileSnapshot,
   deleteMasterclassLandingSnapshot,
+  getOfficialLeadProfileDailySnapshots,
   getSharedPlanningState,
   saveCalendarWorkflow,
   saveEmailPerformance,
@@ -299,9 +300,16 @@ export const planningRouter = router({
       if (now - lastNewsSyncAt < 5_000) throw new Error("Aguarde alguns segundos antes de sincronizar novamente.");
       lastNewsSyncAt = now;
       if (input.from !== "2026-09-04") throw new Error("A série oficial da LP de novidades começa em 04/09/2026.");
-      const series = await fetchLovableNewsOfficialSeries(input.from, input.to);
+      const existingDaily = await getOfficialLeadProfileDailySnapshots(civilDateToUtcNoon(input.from), civilDateToUtcNoon(input.to));
+      const series = await fetchLovableNewsOfficialSeries(input.from, input.to, { existingDaily, refreshRecentDays: 3 });
       const result = await upsertSyncedLeadProfileSeries([...series.daily, series.rollup]);
-      return { ...result, dailyCount: series.daily.length, rollupPeriod: { from: input.from, to: input.to } };
+      return {
+        ...result,
+        dailyCount: series.totalDailyCount,
+        fetchedDailyCount: series.fetchedDailyCount,
+        reusedDailyCount: series.reusedDailyCount,
+        rollupPeriod: { from: input.from, to: input.to },
+      };
     }),
   saveMasterclassLandingSnapshot: publicProcedure
     .input(masterclassLandingEntry)

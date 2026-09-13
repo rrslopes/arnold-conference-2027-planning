@@ -657,3 +657,22 @@
 - [x] Atualizar testes de diagnóstico, compatibilidade, nulabilidade, listas variáveis e mensagens de erro.
 - [x] Validar banco, KPIs, TypeScript, testes, build, logs, desktop e mobile.
 - [x] Salvar checkpoint reversível e entregar a correção.
+
+## Diagnóstico detalhado da sincronização — LP de novidades em 12/09
+
+- [x] Tornar testes de credencial externa opt-in para que indisponibilidade de DNS não invalide a suíte local.
+- [x] Repetir automaticamente consultas que falharem por instabilidade transitória de rede, sem repetir contratos inválidos.
+- [x] Reutilizar os dias oficiais já salvos e consultar somente datas ausentes/recentes mais o consolidado, reduzindo chamadas ao endpoint.
+- [x] Reproduzir a resposta atual de 137 conversões e 133 pessoas únicas sem alterar fotografias.
+- [x] Capturar todos os caminhos, valores e regras locais rejeitados.
+- [x] Comparar cada rejeição com o contrato oficial da LP de novidades.
+- [x] Remover somente regras locais que não constam no contrato oficial.
+- [x] Manter campos novos, listas variáveis e valores `null` compatíveis sem interromper a atualização.
+- [x] Preservar bloqueios para tipos, datas, números, listas e relações previstos pelo contrato.
+- [x] Exibir campo, valor e motivo exatos no painel quando houver rejeição legítima.
+- [x] Preservar todas as fotografias existentes durante falhas e correções.
+- [x] Manter a LP de novidades isolada da LP das masterclasses em banco, interface, histórico e KPIs.
+- [x] Ressincronizar a série oficial e confirmar atualização idempotente sem exclusões ou duplicidade.
+- [x] Atualizar testes de contrato, diagnóstico, nulabilidade, listas variáveis e mensagens de erro.
+- [x] Validar banco, KPIs, TypeScript, testes, build, logs, desktop e mobile.
+- [x] Salvar checkpoint reversível e entregar a correção.
