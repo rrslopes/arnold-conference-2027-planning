@@ -676,3 +676,18 @@
 - [x] Atualizar testes de contrato, diagnóstico, nulabilidade, listas variáveis e mensagens de erro.
 - [x] Validar banco, KPIs, TypeScript, testes, build, logs, desktop e mobile.
 - [x] Salvar checkpoint reversível e entregar a correção.
+
+## Revisão estratégica — Gestão de Academias e Certificação Internacional em Personal Training – WTTC
+
+- [x] Auditar todas as ocorrências que colocam Gestão de Academias e WTTC em comparação, oposição ou escolha binária.
+- [x] Auditar o uso isolado da sigla WTTC em calendário, briefings, e-mails, WhatsApp, mídia paga, públicos e programação.
+- [x] Substituir a pauta de 17/09 por comunicações independentes, sem “versus” ou equivalência entre os produtos.
+- [x] Reforçar Gestão de Academias para gestores, diretores e proprietários, com foco em liderança, estratégia e resultados.
+- [x] Reforçar Certificação Internacional em Personal Training – WTTC para personal trainers em expansão profissional internacional.
+- [x] Comunicar a possibilidade de atuação em 35 países e a chancela WTTC somente nos pontos sustentados pelo briefing aprovado.
+- [x] Padronizar a primeira menção como “Certificação Internacional em Personal Training – WTTC”.
+- [x] Permitir a sigla isolada somente após o nome completo estar claro no mesmo contexto.
+- [x] Atualizar calendário, briefings, Stories, e-mails e demais canais afetados sem criar novos conteúdos desnecessários.
+- [x] Atualizar testes para impedir o retorno de comparações, “versus” e siglas ambíguas.
+- [x] Validar TypeScript, testes, build, logs, desktop e mobile.
+- [x] Salvar checkpoint reversível e entregar a versão revisada.

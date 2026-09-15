@@ -44,7 +44,7 @@ describe("lead profile snapshots", () => {
 
   it("maps form labels to the correct congresses", () => {
     expect(INTEREST_FIELDS.find(item => item.key === "sportsPhysioCount")?.congress).toBe("SONAFE");
-    expect(INTEREST_FIELDS.find(item => item.key === "physicalEducationCount")?.congress).toBe("WTTC");
+    expect(INTEREST_FIELDS.find(item => item.key === "physicalEducationCount")?.congress).toBe("Certificação Internacional em Personal Training – WTTC");
     expect(INTEREST_FIELDS.find(item => item.key === "businessManagementCount")?.congress).toBe("Gestão de Academias");
   });
 

@@ -46,7 +46,7 @@ export const conferencePrograms2027: CongressProgram[] = [
   },
   {
     id: "wttc",
-    congress: "Certificação Internacional em Personal Training WTTC",
+    congress: "Certificação Internacional em Personal Training – WTTC",
     status: "aguardando",
     statusLabel: "Aguardando programação 2027",
     source: "Conteúdo programático de 2026 disponível como referência",

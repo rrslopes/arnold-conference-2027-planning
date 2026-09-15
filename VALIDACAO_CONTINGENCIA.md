@@ -6,7 +6,7 @@
 - **Desktop — Mídia Paga:** o módulo mantém quatro packs, zero peças exclusivas aprovadas e apresenta a janela D-7 a D0 como bloco operacional condicionado. O painel preserva a identidade Arnold e mantém boa hierarquia entre comando, gates e packs.
 - **Mobile — hero:** o título, os dois CTAs e os cards iniciais permanecem legíveis em 390 px; o menu móvel continua acessível. Não foi identificada sobreposição ou corte de texto na primeira dobra.
 - **Calendário — 15/09:** o briefing apresenta oito blocos completos, encerra com cadastro para novidades e exibe “Data em confirmação” no contexto da plataforma. O destino LEMBRETE aparece ligado à LP geral e LOTE permanece isolado como pendente.
-- **Calendário — 18/09:** o carrossel está decupado em oito cards e a sequência contém apenas duas enquetes no dia — Gestão de Academias e WTTC — com respostas clicáveis explícitas.
+- **Calendário — 18/09:** o carrossel está decupado em oito cards e demonstra profundidade pelas programações recebidas de Nutrição Estética e SONAFE. O antigo bloco comparativo de Stories sobre Gestão e certificação foi removido.
 - **Calendário — 23/09:** há uma única pauta multiformato de SONAFE. O conteúdo principal apresenta avaliação, carga, prevenção, integração e continuidade; os três Stories são apoio opcional dentro da mesma ativação, não publicações adicionais. A pauta exige revisão técnica e conduz à lista de novidades, sem preço, lote, checkout ou promessa de venda.
 - **Referências audiovisuais:** as seis pautas dependentes de acervo exibem título oficial da íntegra de 2026, minutagem/faixa auditada, excerto, orientação de uso e status de conferência. Os links aparecem somente para as três masterclasses cujas URLs foram fornecidas.
 - **Programação SONAFE 2027:** doze sessões exibidas em 24/04/2027; nove palestras preservam os dois palestrantes, e a mesa-redonda mantém participantes e moderação. O dashboard sinaliza a divergência entre “2º” e “3º Simpósio” encontrada nas fontes.
@@ -26,7 +26,7 @@ Validação concluída; versão pronta para checkpoint e revisão do cliente.
 
 ## Auditoria de duplicidade após a contingência
 
-A comparação considerou título, promessa, argumento central, formato, fonte, CTA, público e sequência de Stories entre 31/08 e 27/09, além da janela móvel. Foram corrigidas três sobreposições comprovadas: 18/09 deixou de repetir os seis perfis e passou a demonstrar profundidade pelas programações recebidas; 22/09 deixou de repetir “copiar preparação” e passou a mostrar a equipe multidisciplinar relatada por Ricardo Pannain; 23/09 deixou de repetir avaliação/recovery e passou a explorar diferentes populações e modalidades da programação SONAFE. A pauta de 24/09 virou checklist de quatro critérios, e D-5 só ganha novo post se houver informação incremental aprovada. A sequência das masterclasses e os Stories segmentados de 18–20/09 foram mantidos por cumprirem progressão de funil e divisão de públicos, não duplicidade.
+A comparação considerou título, promessa, argumento central, formato, fonte, CTA, público e sequência de Stories entre 31/08 e 27/09, além da janela móvel. Foram corrigidas três sobreposições comprovadas: 18/09 deixou de repetir os seis perfis e passou a demonstrar profundidade pelas programações recebidas; 22/09 deixou de repetir “copiar preparação” e passou a mostrar a equipe multidisciplinar relatada por Ricardo Pannain; 23/09 deixou de repetir avaliação/recovery e passou a explorar diferentes populações e modalidades da programação SONAFE. A pauta de 24/09 virou checklist de quatro critérios, e D-5 só ganha novo post se houver informação incremental aprovada. A sequência das masterclasses e os Stories segmentados de 19–20/09 foram mantidos por cumprirem progressão de funil e divisão de públicos, não duplicidade. Em revisão posterior, o conteúdo de 17/09 foi dedicado exclusivamente à Certificação Internacional em Personal Training – WTTC e o bloco comparativo anteriormente previsto em 18/09 foi removido.
 
 Validação final: TypeScript sem erros, **171 testes aprovados** em 30 arquivos, build concluído e nenhum erro recente em servidor, console ou rede.
 
@@ -122,6 +122,14 @@ Validação final: TypeScript sem erros, **204 testes aprovados** em 41 arquivos
 - A sincronização de 01–11/09 atualizou a fotografia existente, mantendo três registros no histórico.
 - O fechamento vigente contém 515 sessões, 210 inscrições brutas no período, 212 acumuladas e 197 pessoas únicas.
 - TypeScript, **206 testes**, build, banco, logs e revisões desktop/mobile foram aprovados.
+
+## Revisão editorial — Gestão de Academias e Certificação Internacional em Personal Training – WTTC
+
+- A pauta de 17/09 aparece como carrossel de seis cards dedicado exclusivamente à certificação, ao público de personal trainers, à chancela WTTC e à possibilidade de atuação em 35 países.
+- A pauta de 17/09 não apresenta Gestão de Academias, versus, escolha binária, compra combinada ou compatibilidade de agendas.
+- O briefing de 18/09 permanece como carrossel de oito cards dedicado às programações recebidas de Nutrição Estética e SONAFE, sem bloco de Stories sobre Gestão/WTTC.
+- Os filtros de Públicos e Programação exibem “Certificação Internacional em Personal Training – WTTC”; a chave interna continua `WTTC` para preservar dados e filtros.
+- O lettering do hero e os cartões do calendário usam o nome completo antes da sigla.
 
 ## Diagnóstico detalhado — rejeição da LP das masterclasses
 

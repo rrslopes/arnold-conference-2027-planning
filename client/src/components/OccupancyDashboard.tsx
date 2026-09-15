@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState, type CSSProperties } from "react";
 import { CalendarRange, CheckCircle2, Cloud, CloudOff, RefreshCw, Save, TriangleAlert, Users } from "lucide-react";
 import { toast } from "sonner";
-import { congresses } from "@/data/planData";
+import { congresses, getCongressDisplayName } from "@/data/planData";
 import { trpc } from "@/lib/trpc";
 import { calculateOccupancy, getActiveCapacity, getExpansionStatus, OCCUPANCY_CONGRESSES, SALES_MONTHS, type OccupancyCongressKey } from "@shared/occupancy";
 
@@ -162,6 +162,7 @@ export default function OccupancyDashboard() {
         {OCCUPANCY_CONGRESSES.map(congress => {
           const calculation = calculations[congress.key];
           const accent = congresses.find(item => item.name === congress.name)?.accent ?? "#CBDB2A";
+          const publicName = getCongressDisplayName(congress.name);
           const expanded = openCongress === congress.key;
           const hasExpansionScenario = congress.key === "nutricao-estetica";
           const baseCapacity = form[congress.key].capacity ? Number(form[congress.key].capacity) : null;
@@ -170,8 +171,8 @@ export default function OccupancyDashboard() {
           const additionalSeats = baseCapacity && expandedCapacity ? Math.max(0, expandedCapacity - baseCapacity) : 0;
           return (
             <article className={`occupancy-card${hasExpansionScenario ? " occupancy-card--expandable" : ""}`} key={congress.key} style={{ "--occupancy-accent": accent } as CSSProperties}>
-              <header><div><span>{congress.key === "gestao-academias" ? "GESTÃO" : congress.name.toUpperCase()}</span><h4>{congress.name}</h4></div><Users size={22} /></header>
-              <label className="capacity-field"><span>CAPACIDADE DA SALA</span><input inputMode="numeric" value={form[congress.key].capacity} onChange={event => updateCapacity(congress.key, event.target.value)} placeholder="A informar" aria-label={`Capacidade da sala de ${congress.name}`} /></label>
+              <header><div><span>{congress.key === "gestao-academias" ? "GESTÃO" : congress.key === "wttc" ? "CERTIFICAÇÃO INTERNACIONAL" : congress.name.toUpperCase()}</span><h4>{publicName}</h4></div><Users size={22} /></header>
+              <label className="capacity-field"><span>CAPACIDADE DA SALA</span><input inputMode="numeric" value={form[congress.key].capacity} onChange={event => updateCapacity(congress.key, event.target.value)} placeholder="A informar" aria-label={`Capacidade da sala de ${publicName}`} /></label>
               {hasExpansionScenario ? (
                 <section className={`capacity-expansion capacity-expansion--${expansionStatus}`} aria-label="Cenário de expansão de Nutrição Estética">
                   <header>
@@ -192,14 +193,14 @@ export default function OccupancyDashboard() {
               ) : null}
               <div className="occupancy-card-progress">
                 <div><span>PROGRESSO DE LOTAÇÃO</span><strong>{calculation.percentage === null ? "Aguardando capacidade" : `${calculation.percentage.toFixed(1).replace(".", ",")}%`}</strong></div>
-                <div className="occupancy-progress" role="progressbar" aria-label={`Lotação de ${congress.name}`} aria-valuemin={0} aria-valuemax={100} aria-valuenow={calculation.percentage === null ? 0 : Math.min(100, calculation.percentage)}><i style={{ width: `${calculation.barPercentage}%` }} /></div>
+                <div className="occupancy-progress" role="progressbar" aria-label={`Lotação de ${publicName}`} aria-valuemin={0} aria-valuemax={100} aria-valuenow={calculation.percentage === null ? 0 : Math.min(100, calculation.percentage)}><i style={{ width: `${calculation.barPercentage}%` }} /></div>
               </div>
               <div className="occupancy-card-numbers">
                 <div><span>VENDIDOS</span><strong>{calculation.sold.toLocaleString("pt-BR")}</strong></div>
                 <div><span>{calculation.overCapacity > 0 ? "ACIMA DA CAPACIDADE" : "RESTANTES"}</span><strong>{calculation.overCapacity > 0 ? calculation.overCapacity.toLocaleString("pt-BR") : calculation.remaining === null ? "—" : calculation.remaining.toLocaleString("pt-BR")}</strong></div>
               </div>
               <button type="button" className="monthly-toggle" aria-expanded={expanded} onClick={() => setOpenCongress(expanded ? null : congress.key)}><CalendarRange size={16} /> {expanded ? "Fechar lançamentos mensais" : "Lançar vendas mensais"}</button>
-              {expanded ? <div className="monthly-sales-grid">{SALES_MONTHS.map(month => <label key={month.key}><span>{month.label}</span><input inputMode="numeric" value={form[congress.key].monthlySales[month.key]} onChange={event => updateSales(congress.key, month.key, event.target.value)} placeholder="0" aria-label={`Vendas de ${congress.name} em ${month.fullLabel}`} /></label>)}</div> : null}
+              {expanded ? <div className="monthly-sales-grid">{SALES_MONTHS.map(month => <label key={month.key}><span>{month.label}</span><input inputMode="numeric" value={form[congress.key].monthlySales[month.key]} onChange={event => updateSales(congress.key, month.key, event.target.value)} placeholder="0" aria-label={`Vendas de ${publicName} em ${month.fullLabel}`} /></label>)}</div> : null}
             </article>
           );
         })}

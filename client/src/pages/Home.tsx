@@ -42,8 +42,10 @@ import {
   emailBase,
   emailNurture,
   futureMaterials,
+  getCongressDisplayName,
   pieceTypes,
   roadmap,
+  WTTC_PUBLIC_NAME,
   whatsappPlan,
 } from "@/data/planData";
 
@@ -134,7 +136,7 @@ function ExecutiveHero() {
         <article><strong>D-7→D0</strong><span>JANELA MÓVEL<br />DATA A CONFIRMAR</span></article>
         <article><strong>ABR.27</strong><span>HORIZONTE<br />ESTRATÉGICO</span></article>
       </div>
-      <div className="hero-rail">ARNOLD CONFERENCE · GESTÃO · WTTC · SONAFE · NUTRIÇÃO · BODYBUILDING</div>
+      <div className="hero-rail">ARNOLD CONFERENCE · GESTÃO DE ACADEMIAS · {WTTC_PUBLIC_NAME.toUpperCase()} · SONAFE · NUTRIÇÃO · BODYBUILDING</div>
     </section>
   );
 }
@@ -170,11 +172,11 @@ function CongressSection() {
   return (
     <section id="publicos" className="section-pad congress-section">
       <SectionHeader index="03" eyebrow="PÚBLICOS E PROPOSTA DE VALOR" title="Seis congressos. Seis tensões profissionais reais." description="As propostas são territórios estratégicos provisórios e devem ser revisadas quando a programação de 2027 estiver confirmada." />
-      <div className="congress-filter"><button type="button" className={active === "Todos" ? "active" : ""} onClick={() => setActive("Todos")}>Visão geral</button>{congresses.map((item) => <button type="button" className={active === item.name ? "active" : ""} key={item.name} onClick={() => setActive(item.name)}>{item.name}</button>)}</div>
+      <div className="congress-filter"><button type="button" className={active === "Todos" ? "active" : ""} onClick={() => setActive("Todos")}>Visão geral</button>{congresses.map((item) => <button type="button" className={active === item.name ? "active" : ""} key={item.name} onClick={() => setActive(item.name)}>{getCongressDisplayName(item.name)}</button>)}</div>
       <div className={`congress-grid ${active !== "Todos" ? "single" : ""}`}>
         {visible.map((item, index) => (
           <article key={item.name} className="congress-card" style={{ "--congress-accent": item.accent } as React.CSSProperties}>
-            <div className="congress-card-top"><span>{String(index + 1).padStart(2, "0")}</span><img src={congressLogos[item.name]} alt={`Logo ${item.name}`} /></div>
+            <div className="congress-card-top"><span>{String(index + 1).padStart(2, "0")}</span><img src={congressLogos[item.name]} alt={`Logo ${getCongressDisplayName(item.name)}`} /></div>
             <div className="congress-card-body"><small>PÚBLICO PRIORITÁRIO</small><p>{item.audience}</p><small>TENSÃO CENTRAL</small><h3>{item.tension}</h3><small>PROMESSA DE COMUNICAÇÃO</small><p className="promise">{item.promise}</p></div>
           </article>
         ))}
@@ -324,7 +326,7 @@ export default function Home() {
       <section id="iscas" className="section-pad lead-magnet-section">
         <SectionHeader index="05" eyebrow="PORTFÓLIO DE AQUISIÇÃO" title="Seis iscas, cada uma com um trabalho diferente" description="As entregas evoluem de prova para diagnóstico, aplicação e decisão. As três masterclasses contam como uma única isca." />
         <LeadMagnetExplorer />
-        <div className="future-materials"><div><p className="eyebrow">INSUMOS FUTUROS</p><h3>WTTC, SONAFE e Bodybuilding</h3><p>Esses materiais não são iscas adicionais. Eles fortalecem conteúdos, páginas, diagnóstico e planejador.</p></div>{futureMaterials.map((item) => <article key={item.congress}><strong>{item.congress}</strong><p>{item.materials}</p><span>{item.use}</span></article>)}</div>
+        <div className="future-materials"><div><p className="eyebrow">INSUMOS FUTUROS</p><h3>{WTTC_PUBLIC_NAME}, SONAFE e Bodybuilding</h3><p>Esses materiais não são iscas adicionais. Eles fortalecem conteúdos, páginas, diagnóstico e planejador.</p></div>{futureMaterials.map((item) => <article key={item.congress}><strong>{item.congress}</strong><p>{item.materials}</p><span>{item.use}</span></article>)}</div>
       </section>
 
       <ContentLab />

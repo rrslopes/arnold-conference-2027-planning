@@ -4,7 +4,7 @@
  */
 import { useEffect, useMemo, useState } from "react";
 import { ArrowUpRight, CalendarDays, ChevronDown, Filter, Flag, Link2, Megaphone, Search, ShieldCheck, Tag, Video } from "lucide-react";
-import { calendar, externalDestinations, keywords, phaseSummary } from "@/data/planData";
+import { calendar, externalDestinations, getCongressDisplayName, keywords, phaseSummary } from "@/data/planData";
 
 const phases = ["Todos", "Reativação", "Transição", "Captação", "Aquecimento", "Janela móvel"];
 
@@ -78,7 +78,7 @@ export default function CalendarExplorer() {
               <article id={`calendar-${item.id}`} key={item.id} className={`calendar-card phase-${item.phase.toLowerCase().replace("-", "")} ${item.milestone ? `is-milestone milestone-${item.milestone.tone}` : ""}`}>
                 <button type="button" className="calendar-card-trigger" onClick={() => setOpen(expanded ? null : item.id)} aria-expanded={expanded}>
                   <span className="calendar-date">{item.date}</span>
-                  <span className="calendar-main"><small>{item.phase} · {item.channel}</small><strong>{item.title}</strong><em>{item.congresses.join(" · ")}</em>{item.milestone ? <span className="milestone-badges"><b><Flag size={12} /> {item.milestone.tone === "lead" ? "Captação prioritária" : "Grande marco"}</b><b><Megaphone size={12} /> Mídia paga</b></span> : null}{item.storyCards ? <span className="option-count">{item.storyCards.length} Stories detalhados</span> : item.productionBrief ? <span className="option-count">{item.productionBrief.units.length} unidades detalhadas</span> : item.options ? <span className="option-count">{item.options.length} opções detalhadas</span> : null}{item.cutValidations ? <span className="cut-count"><ShieldCheck size={12} /> {item.cutValidations.length} {item.cutValidations.length === 1 ? "corte auditado" : "cortes auditados"}</span> : null}</span>
+                  <span className="calendar-main"><small>{item.phase} · {item.channel}</small><strong>{item.title}</strong><em>{item.congresses.map(getCongressDisplayName).join(" · ")}</em>{item.milestone ? <span className="milestone-badges"><b><Flag size={12} /> {item.milestone.tone === "lead" ? "Captação prioritária" : "Grande marco"}</b><b><Megaphone size={12} /> Mídia paga</b></span> : null}{item.storyCards ? <span className="option-count">{item.storyCards.length} Stories detalhados</span> : item.productionBrief ? <span className="option-count">{item.productionBrief.units.length} unidades detalhadas</span> : item.options ? <span className="option-count">{item.options.length} opções detalhadas</span> : null}{item.cutValidations ? <span className="cut-count"><ShieldCheck size={12} /> {item.cutValidations.length} {item.cutValidations.length === 1 ? "corte auditado" : "cortes auditados"}</span> : null}</span>
                   <span className="calendar-card-flags">{item.keyword ? <span className="keyword-mini"><Tag size={13} /> {item.keyword}</span> : null}</span>
                   <ChevronDown size={19} className={expanded ? "rotate" : ""} />
                 </button>

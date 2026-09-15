@@ -15,11 +15,13 @@ import { paidMediaAssets } from "../client/src/data/paidMedia";
 import { conferenceCoordinators } from "../client/src/data/editorialIntelligence";
 
 describe("ajustes estratégicos da plataforma em setembro", () => {
-  it("trata validade internacional como diferencial central do WTTC", () => {
+  it("trata a atuação internacional como diferencial central da certificação", () => {
     const wttc = congresses.find(item => item.name === "WTTC");
-    expect(`${wttc?.audience} ${wttc?.tension} ${wttc?.promise}`.toLocaleLowerCase("pt-BR")).toContain("validade internacional");
-    expect(`${wttc?.audience} ${wttc?.promise}`.toLocaleLowerCase("pt-BR")).toContain("fora do brasil");
-    expect(operationalBriefs["0917"].units.map(item => item.content).join(" ")).toContain("validade internacional");
+    expect(wttc?.displayName).toBe("Certificação Internacional em Personal Training – WTTC");
+    expect(`${wttc?.audience} ${wttc?.promise}`.toLocaleLowerCase("pt-BR")).toContain("atuação profissional internacional");
+    expect(wttc?.promise.toLocaleLowerCase("pt-BR")).toContain("35 países");
+    expect(wttc?.promise.toLocaleLowerCase("pt-BR")).toContain("chancela wttc");
+    expect(operationalBriefs["0917"].units.map(item => item.content).join(" ")).toContain("35 países");
   });
 
   it("mantém prevenção como eixo prioritário da SONAFE", () => {

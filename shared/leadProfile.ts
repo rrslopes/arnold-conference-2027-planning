@@ -15,7 +15,7 @@ export const INTEREST_FIELDS = [
   { key: "sportsNutritionCount", label: "Nutrição Esportiva", congress: "Nutrição Esportiva" },
   { key: "sportsPhysioCount", label: "Fisioterapia Esportiva", congress: "SONAFE" },
   { key: "businessManagementCount", label: "Gestão de Negócios", congress: "Gestão de Academias" },
-  { key: "physicalEducationCount", label: "Educação Física e Personal Training", congress: "WTTC" },
+  { key: "physicalEducationCount", label: "Educação Física e Personal Training", congress: "Certificação Internacional em Personal Training – WTTC" },
   { key: "bodybuildingCount", label: "Bodybuilding", congress: "Bodybuilding" },
   { key: "otherInterestCount", label: "Outra área", congress: "Outra área" },
 ] as const;
