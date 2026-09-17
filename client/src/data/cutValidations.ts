@@ -184,6 +184,40 @@ export const cutAuditByCalendarId: Record<string, CutAuditEntry> = {
       fallback: "Há três buscas auditadas abaixo. Andreia sustenta ciência versus narrativa de marketing; Bruno exige conferência do áudio por truncamento textual; Daniel deve ser enquadrado como custo clínico de caber em um padrão de beleza. Nenhum corte está aprovado até a conferência no vídeo.",
     },
   },
+  "0925": {
+    validations: [{
+      id: "C11",
+      speaker: "Ana Paula Pujol",
+      sourceTitle: "Estratégias Nutricionais para Emagrecimento",
+      sourceUrl: "https://www.youtube.com/watch?v=asItej-OIk8",
+      transcriptStatus: "Confirmado na transcrição",
+      excerpt: "Nós precisamos de estratégias nutricionais para driblar o efeito platô [...] e para prevenir o reganho ponderal.",
+      location: "Trecho inicial 00:00–29:58, linhas 49–51; sem timestamp nativo exato.",
+      productionNote: "Localizar a passagem na íntegra e determinar o tempo real. A transcrição de Ana Paula tem intervalos aproximados, não marcação palavra a palavra.",
+      videoStatus,
+    }, {
+      id: "C12",
+      speaker: "Luisa Wolpe e Sullen Becher",
+      sourceTitle: "Diferenças entre Celulite e Lipedema: Práticas Clínicas",
+      transcriptStatus: "Confirmado na transcrição",
+      excerpt: "A mulher pode, sim, ter a flacidez e a celulite. [...] Na flacidez, as irregularidades são lineares; na celulite, ovais ou em círculo.",
+      location: "19:13.2–19:28.3, linhas 426–429.",
+      productionNote: "Conferir a autoria da fala no vídeo e decidir se o corte tratará celulite versus flacidez. Não incluir lipedema neste recorte sem localizar uma passagem específica adicional.",
+      videoStatus,
+    }, {
+      id: "C13",
+      speaker: "Mika Yamaguchi",
+      sourceTitle: "Impactos das mudanças climáticas na saúde sistêmica e na saúde da pele",
+      transcriptStatus: "Confirmado na transcrição",
+      excerpt: "Pensando no exposoma climático: poluição do ar [...] eventos extremos, incêndios florestais, tempestades de areia.",
+      location: "13:47.5–14:04 aproximadamente, linhas 339–344.",
+      productionNote: "Conferir no vídeo a continuidade até a relação com pele ou saúde; a enumeração sozinha pode precisar da frase seguinte para fechar o raciocínio.",
+      videoStatus,
+    }],
+    overrides: {
+      fallback: "Três cortes foram localizados nas transcrições e aparecem auditados abaixo. Escolher somente um depois de conferir a íntegra: platô/reganho com Ana Paula; celulite versus flacidez com Luisa/Sullen; exposoma climático com Mika.",
+    },
+  },
   "0927": {
     validations: [{
       id: "C14",

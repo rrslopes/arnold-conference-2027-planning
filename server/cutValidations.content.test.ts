@@ -2,20 +2,20 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { calendar } from "../client/src/data/planData";
 
-const auditedIds = ["0904", "0906", "0910", "0911", "0921"];
+const auditedIds = ["0904", "0906", "0910", "0911", "0921", "0925"];
 
 describe("auditoria dos cortes de palestras", () => {
-  it("mantém as cinco pautas dependentes de acervo com evidência explícita", () => {
+  it("mantém as seis pautas dependentes de acervo com evidência explícita", () => {
     const audited = calendar.filter(item => auditedIds.includes(item.id));
-    expect(audited).toHaveLength(5);
+    expect(audited).toHaveLength(6);
     audited.forEach(item => expect(item.cutValidations?.length).toBeGreaterThan(0));
   });
 
-  it("registra dez buscas auditadas com fonte, excerto, localização e orientação de uso", () => {
+  it("registra treze buscas auditadas com fonte, excerto, localização e orientação de uso", () => {
     const appearances = calendar.filter(item => auditedIds.includes(item.id)).flatMap(item => item.cutValidations ?? []);
     const cuts = [...new Map(appearances.map(cut => [cut.id, cut])).values()];
-    expect(appearances).toHaveLength(13);
-    expect(cuts).toHaveLength(10);
+    expect(appearances).toHaveLength(16);
+    expect(cuts).toHaveLength(13);
     cuts.forEach(cut => {
       expect(cut.sourceTitle.length).toBeGreaterThan(15);
       expect(cut.excerpt.length).toBeGreaterThan(35);
@@ -46,12 +46,6 @@ describe("auditoria dos cortes de palestras", () => {
     const reformulated = september21?.cutValidations?.filter(cut => cut.transcriptStatus === "Tema confirmado; recorte reformulado");
     expect(reformulated?.map(cut => cut.id)).toEqual(["C09", "C10"]);
     expect(reformulated?.find(cut => cut.id === "C10")?.productionNote).toContain("custo clínico");
-  });
-
-  it("não associa cortes de 2026 à pauta temática de Nutrição Estética de 25/09", () => {
-    const september25 = calendar.find(item => item.id === "0925");
-    expect(september25?.cutValidations).toBeUndefined();
-    expect(september25?.fallback).toContain("Reel narrado");
   });
 
   it("substitui as formulações genéricas de 04/09 e 10/09 por trechos localizados", () => {
