@@ -48,7 +48,10 @@ describe("contingência comercial sem data fixa", () => {
     const fixedChannels = [...emailBase, ...emailNurture, ...whatsappPlan].map(item => JSON.stringify(item)).join(" ");
     expect(fixedChannels).not.toMatch(/abrem em 23\/09|23 SET|23\/09 às 12h|amanhã às 12h/i);
     const warmingDates = ["15/09", "18/09", "21/09", "22/09", "23/09", "24–25/09"];
-    expect(emailBase.filter(item => warmingDates.includes(item.date)).every(item => item.destination.includes("Landing page geral"))).toBe(true);
+    const warmingEmails = emailBase.filter(item => warmingDates.includes(item.date));
+    expect(warmingEmails.filter(item => item.date !== "18/09").every(item => item.destination.includes("Landing page geral"))).toBe(true);
+    expect(warmingEmails.find(item => item.date === "18/09")?.destination).toContain("LP das masterclasses");
+    expect(warmingEmails.find(item => item.date === "18/09")?.destination).toContain("LP de novidades");
     expect(whatsappPlan.some(item => item.date === "Janela móvel · D-7")).toBe(true);
   });
 

@@ -2,7 +2,7 @@
  * Design philosophy: "Sala de Comando da Campanha" — página executiva, assimétrica
  * e didática, com profundidade por camadas e identidade Arnold aplicada ao sistema inteiro.
  */
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import {
   ArrowDown,
   ArrowRight,
@@ -30,6 +30,7 @@ import OccupancyDashboard from "@/components/OccupancyDashboard";
 import SocialGoalsDashboard from "@/components/SocialGoalsDashboard";
 import EditorialIntelligence from "@/components/EditorialIntelligence";
 import EmailPerformanceDashboard from "@/components/EmailPerformanceDashboard";
+import EmailCampaignBriefDetail from "@/components/EmailCampaignBriefDetail";
 import LandingPageCenter from "@/components/LandingPageCenter";
 import PaidMediaHub from "@/components/PaidMediaHub";
 import WhatsAppPerformanceDashboard from "@/components/WhatsAppPerformanceDashboard";
@@ -218,12 +219,17 @@ function EmailPlan() {
     const requested = new URLSearchParams(window.location.search).get("email-tab");
     return requested === "nurture" || requested === "assets" || requested === "performance" ? requested : "base";
   });
+  useEffect(() => {
+    const emailFocusId = new URLSearchParams(window.location.search).get("email-focus");
+    if (!emailFocusId) return;
+    requestAnimationFrame(() => requestAnimationFrame(() => document.getElementById(emailFocusId)?.scrollIntoView()));
+  }, []);
   return (
     <section id="email" className="section-pad email-section">
-      <SectionHeader index="09" eyebrow="PLANO DE E-MAIL MARKETING" title="Uma base de 10 mil contatos não é uma lista homogênea" description="A intensidade comercial cresce com sinais reais de abertura, clique, histórico e intenção. Todo e-mail tem um CTA clicável e um único destino principal." /><div className="channel-principles"><article><Mail /><strong>Segmentação real</strong><p>Histórico, origem, data do último engajamento, cliques e compra.</p></article><article><MousePointerClick /><strong>Um CTA principal</strong><p>O botão pode se repetir, mas sempre leva ao mesmo destino.</p></article><article><ShieldCheck /><strong>Supressão disciplinada</strong><p>Comprou, recusou ou pediu saída: interromper a pressão comercial.</p></article></div>
+      <SectionHeader index="09" eyebrow="PLANO DE E-MAIL MARKETING" title="Uma base de 10 mil contatos não é uma lista homogênea" description="A intensidade comercial cresce com sinais reais de abertura, clique, histórico e intenção. Cada versão segmentada do e-mail tem um CTA clicável e um único destino principal." /><div className="channel-principles"><article><Mail /><strong>Segmentação real</strong><p>Histórico, origem, data do último engajamento, cliques e compra.</p></article><article><MousePointerClick /><strong>Um CTA por versão</strong><p>O botão pode se repetir, mas sempre leva ao mesmo destino dentro de cada segmento.</p></article><article><ShieldCheck /><strong>Supressão disciplinada</strong><p>Já converteu, comprou, recusou ou pediu saída: não repetir a mesma solicitação.</p></article></div>
       <div className="external-operation-note"><FileText size={19} /><div><span>ORIENTAÇÃO ESTRATÉGICA</span><strong>A plataforma define a lógica da régua; a produção e a aprovação ficam na planilha operacional</strong><p>Aqui permanecem público, objetivo, materiais, CTA, destino e regra de cada envio. Copy final, link da prévia, ajustes e status devem ser controlados com as agências na planilha compartilhada.</p></div></div>
       <div className="email-tabs"><button type="button" className={tab === "base" ? "active" : ""} onClick={() => setTab("base")}>Campanhas para a base</button><button type="button" className={tab === "nurture" ? "active" : ""} onClick={() => setTab("nurture")}>Sequência das masterclasses</button><button type="button" className={tab === "assets" ? "active" : ""} onClick={() => setTab("assets")}>Materiais necessários</button><button type="button" className={tab === "performance" ? "active" : ""} onClick={() => setTab("performance")}>Performance e ranking</button></div>
-      {tab === "base" ? <div className="email-timeline">{emailBase.map((item) => <article id={item.id} key={item.id}><span className="email-date">{item.date}</span><div><small>PÚBLICO</small><p>{item.audience}</p><small>OBJETIVO</small><h3>{item.objective}</h3><p className="material-note"><FileText size={15} /> {item.materials}</p><div className="email-cta"><MousePointerClick size={16} /><strong>{item.cta}</strong><span>{item.destination}</span></div><small className="rule-note">{item.rule}</small></div></article>)}</div> : null}
+      {tab === "base" ? <div className="email-timeline">{emailBase.map((item) => <article id={item.id} key={item.id}><span className="email-date">{item.date}</span><div><small>PÚBLICO</small><p>{item.audience}</p><small>OBJETIVO</small><h3>{item.objective}</h3><p className="material-note"><FileText size={15} /> {item.materials}</p><div className="email-cta"><MousePointerClick size={16} /><strong>{item.cta}</strong><span>{item.destination}</span></div><small className="rule-note">{item.rule}</small><EmailCampaignBriefDetail emailId={item.id} /></div></article>)}</div> : null}
       {tab === "nurture" ? <div className="nurture-grid">{emailNurture.map((item, index) => <article id={item.id} key={item.id}><span>{String(index + 1).padStart(2, "0")}</span><small>{item.moment}</small><h3>{item.content}</h3><div><strong>{item.cta}</strong><p>{item.destination}</p></div><em>{item.condition}</em></article>)}</div> : null}
       {tab === "assets" ? <div className="assets-table"><div className="assets-head"><span>Material</span><span>Conteúdo mínimo</span><span>Prazo</span></div>{emailAssets.map((item) => <div key={item.material}><strong>{item.material}</strong><p>{item.minimum}</p><span>{item.deadline}</span></div>)}</div> : null}
       {tab === "performance" ? <EmailPerformanceDashboard /> : null}

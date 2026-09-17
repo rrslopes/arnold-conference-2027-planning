@@ -567,10 +567,10 @@ img { max-width: 100%; }
 .email-tabs button { flex: 1; border: 0; border-right: 1px solid rgba(255,255,255,.1); background: transparent; color: rgba(255,255,255,.6); padding: 15px; font-size: 10px; font-weight: 750; }
 .email-tabs button.active { background: var(--purple); color: white; box-shadow: inset 0 -4px 0 var(--lime); }
 .email-timeline { background: #f3f2ec; padding: 24px; }
-.email-timeline article { display: grid; grid-template-columns: 110px 1fr; gap: 24px; position: relative; padding: 0 0 26px; }
-.email-timeline article::after { content: ""; position: absolute; left: 51px; top: 36px; bottom: 0; width: 2px; background: var(--taupe); }
+.email-timeline > article { display: grid; grid-template-columns: 110px 1fr; gap: 24px; position: relative; padding: 0 0 26px; }
+.email-timeline > article::after { content: ""; position: absolute; left: 51px; top: 36px; bottom: 0; width: 2px; background: var(--taupe); }
 .email-date { width: 104px; height: 34px; display: grid; place-items: center; background: var(--charcoal); color: var(--lime); font: 600 19px/1 "Teko Arnold"; }
-.email-timeline article > div { background: white; padding: 19px 21px; border-left: 4px solid var(--purple); }
+.email-timeline > article > div { background: white; padding: 19px 21px; border-left: 4px solid var(--purple); }
 .email-timeline small { color: var(--purple); font-size: 7px; font-weight: 850; letter-spacing: .13em; }
 .email-timeline p { margin: 4px 0 12px; color: #6c686a; font-size: 9px; line-height: 1.55; }
 .email-timeline h3 { margin: 5px 0 12px; font: 600 24px/1 "Teko Arnold"; text-transform: uppercase; }
@@ -579,6 +579,58 @@ img { max-width: 100%; }
 .email-cta strong { font-size: 10px; }
 .email-cta span { color: var(--purple); font-size: 8px; }
 .email-timeline .rule-note { display: block; margin-top: 10px; color: #777274; letter-spacing: 0; font-weight: 500; }
+.email-campaign-brief { margin-top: 16px; border: 1px solid rgba(77,70,156,.2); background: #f4f3ed; }
+.email-campaign-brief > summary { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 15px 17px; background: var(--purple); color: white; cursor: pointer; list-style: none; }
+.email-campaign-brief > summary::-webkit-details-marker { display: none; }
+.email-campaign-brief > summary small { display: block; color: var(--lime); font-size: 7px; letter-spacing: .13em; }
+.email-campaign-brief > summary strong { display: block; max-width: 840px; margin-top: 4px; font: 600 20px/1.05 "Teko Arnold"; text-transform: uppercase; }
+.email-campaign-brief > summary svg { flex: 0 0 auto; transition: transform 180ms var(--ease-out); }
+.email-campaign-brief[open] > summary svg { transform: rotate(180deg); }
+.email-campaign-brief-body { padding: 17px; }
+.email-brief-rationale { padding: 14px 16px; border-left: 4px solid var(--lime-dark); background: white; }
+.email-brief-rationale span, .email-brief-context span, .email-brief-action span, .email-brief-footer span { display: block; color: var(--purple); font-size: 7px; font-weight: 900; letter-spacing: .12em; }
+.email-brief-rationale p { margin: 6px 0 0; }
+.email-brief-versions { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 12px; }
+.email-brief-version { min-width: 0; padding: 17px; border-top: 4px solid var(--purple); background: white; }
+.email-brief-version > header small { color: var(--purple); }
+.email-brief-version > header h4 { margin: 6px 0 14px; font: 600 22px/1.05 "Teko Arnold"; text-transform: uppercase; }
+.email-brief-context { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-bottom: 11px; }
+.email-brief-context > div { padding: 11px; background: #f3f2ec; }
+.email-brief-context p { margin: 5px 0 0; }
+.email-brief-steps { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.email-brief-steps > section { padding: 11px; border-left: 3px solid var(--lime-dark); background: #f8f7f3; }
+.email-brief-steps header { display: flex; flex-wrap: wrap; gap: 7px; align-items: center; }
+.email-brief-steps header b { color: var(--purple); font-size: 7px; letter-spacing: .1em; }
+.email-brief-steps header em { padding: 4px 6px; background: #e8e7e0; font-size: 6px; font-style: normal; font-weight: 850; letter-spacing: .08em; text-transform: uppercase; }
+.email-brief-steps > section > p { margin: 7px 0; color: #4d494b; }
+.email-brief-steps > section > div { padding-top: 7px; border-top: 1px solid rgba(51,49,50,.1); }
+.email-brief-steps > section > div span { display: block; color: #868083; font-size: 6px; font-weight: 850; letter-spacing: .1em; }
+.email-brief-steps > section > div strong { display: block; margin-top: 4px; font-size: 8px; line-height: 1.5; }
+.email-brief-action { display: grid; grid-template-columns: 20px 1fr auto; gap: 8px; align-items: center; margin-top: 11px; padding: 12px; background: var(--charcoal); color: white; }
+.email-brief-action svg { color: var(--lime); }
+.email-brief-action strong { display: block; margin-top: 3px; font-size: 9px; }
+.email-brief-action a { display: inline-flex; align-items: center; gap: 5px; color: var(--lime); font-size: 7px; font-weight: 800; text-decoration: none; }
+.email-brief-exclusion { display: flex; align-items: flex-start; gap: 7px; margin: 8px 0 0 !important; padding: 10px; background: #f3eddc; }
+.email-brief-exclusion svg { flex: 0 0 auto; color: #856417; }
+.email-brief-exclusion b { display: block; margin-bottom: 3px; color: #856417; font-size: 7px; letter-spacing: .1em; }
+.email-routing { margin-top: 12px; background: var(--charcoal); color: white; }
+.email-routing > header { display: flex; align-items: center; gap: 9px; padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,.12); }
+.email-routing > header svg { color: var(--lime); }
+.email-routing > header span { display: block; color: var(--lime); font-size: 7px; font-weight: 850; letter-spacing: .12em; }
+.email-routing > header strong { font: 600 20px/1 "Teko Arnold"; text-transform: uppercase; }
+.email-routing-grid { display: grid; grid-template-columns: repeat(2, 1fr); }
+.email-routing-grid article { padding: 13px 15px; border-right: 1px solid rgba(255,255,255,.1); border-bottom: 1px solid rgba(255,255,255,.1); }
+.email-routing-grid article > span { display: block; margin-top: 7px; color: var(--lime); font-size: 6px; font-weight: 900; letter-spacing: .1em; }
+.email-routing-grid article > span:first-child { margin-top: 0; }
+.email-routing-grid article > strong { display: block; margin-top: 4px; font-size: 9px; line-height: 1.45; }
+.email-routing-grid article > p { margin: 4px 0; color: rgba(255,255,255,.78); }
+.email-routing-grid article > small { display: block; margin-top: 8px; color: rgba(255,255,255,.45); font-size: 7px; line-height: 1.5; letter-spacing: 0; }
+.email-brief-footer { display: grid; grid-template-columns: 1.15fr .85fr; gap: 12px; margin-top: 12px; }
+.email-brief-footer section { padding: 14px 16px; background: white; }
+.email-brief-footer p { margin: 7px 0 0; }
+.email-brief-footer section:first-child p { display: flex; align-items: flex-start; gap: 7px; }
+.email-brief-footer section:first-child svg { flex: 0 0 auto; color: var(--lime-dark); }
+.email-brief-footer section:last-child span:not(:first-child) { margin-top: 13px; }
 .nurture-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(51,49,50,.14); border: 1px solid rgba(51,49,50,.14); }
 .nurture-grid article { background: #f7f6f1; padding: 23px; }
 .nurture-grid article > span { font: 600 33px/1 "Teko Arnold"; color: rgba(77,70,156,.35); }
@@ -1362,6 +1414,9 @@ img { max-width: 100%; }
   .paid-media-cta { grid-template-columns: 1fr; }
   .channel-principles, .nurture-grid { grid-template-columns: 1fr; }
   .email-tabs { flex-direction: column; }
+  .email-brief-versions, .email-brief-context, .email-brief-steps, .email-routing-grid, .email-brief-footer { grid-template-columns: 1fr; }
+  .email-brief-action { grid-template-columns: 20px 1fr; }
+  .email-brief-action a { grid-column: 2; }
   .email-performance-head { align-items: flex-start; flex-direction: column; padding: 23px 19px; }
   .email-performance-head .secondary-button { width: 100%; justify-content: center; }
   .email-performance-summary { grid-template-columns: 1fr; }
@@ -1379,8 +1434,8 @@ img { max-width: 100%; }
   .email-rank-actions { grid-column: 3; grid-row: 1; }
   .email-rank-rates > span { padding: 10px 7px; }
   .email-timeline { padding: 15px; }
-  .email-timeline article { grid-template-columns: 1fr; gap: 8px; }
-  .email-timeline article::after { display: none; }
+  .email-timeline > article { grid-template-columns: 1fr; gap: 8px; }
+  .email-timeline > article::after { display: none; }
   .assets-head { display: none; }
   .assets-table > div:not(.assets-head) { grid-template-columns: 1fr; gap: 8px; }
   .roadmap-stage { min-height: 760px; padding: 20px; }
