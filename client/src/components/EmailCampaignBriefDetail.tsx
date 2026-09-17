@@ -17,9 +17,15 @@ export default function EmailCampaignBriefDetail({
 }: EmailCampaignBriefDetailProps) {
   const brief = emailCampaignBriefs[emailId];
   if (!brief) return null;
+  const requestedEmail =
+    typeof window === "undefined"
+      ? null
+      : new URLSearchParams(window.location.search).get("email-focus");
+  const startsOpen =
+    emailId === "email-base-comparativo" || requestedEmail === emailId;
 
   return (
-    <details className="email-campaign-brief" open>
+    <details className="email-campaign-brief" open={startsOpen}>
       <summary>
         <div>
           <small>{brief.label}</small>
@@ -103,7 +109,7 @@ export default function EmailCampaignBriefDetail({
             <GitBranch size={19} />
             <div>
               <span>MATRIZ DE DECISÃO</span>
-              <strong>Quem recebe qual versão e para onde vai</strong>
+              <strong>Quem recebe, o que faz e para onde vai</strong>
             </div>
           </header>
           <div className="email-routing-grid">

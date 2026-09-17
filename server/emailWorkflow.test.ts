@@ -17,12 +17,12 @@ describe("fluxo específico de aprovação dos e-mails", () => {
     ids.forEach(id => expect(id).toMatch(/^email-(base|nurture)-[a-z0-9-]+$/));
   });
 
-  it("detalha 18/09 como um único envio para a isca, sem antecipar a programação", () => {
+  it("detalha 18/09 como um único envio direto para a isca, sem antecipar informações internas", () => {
     const email = emailBase.find(item => item.id === "email-base-comparativo");
     const brief = emailCampaignBriefs["email-base-comparativo"];
 
     expect(email?.date).toBe("18/09");
-    expect(email?.audience).toContain("ainda não converteram nas masterclasses");
+    expect(email?.audience).toContain("ainda não liberaram as aulas");
     expect(email?.destination).toBe("Landing page das masterclasses");
     expect(brief.versions).toHaveLength(1);
     expect(brief.versions.map(version => version.id)).toEqual(["masterclasses"]);
@@ -38,17 +38,70 @@ describe("fluxo específico de aprovação dos e-mails", () => {
       ...brief.versions[0].steps.map(step => step.example),
     ].join(" ");
     expect(publicFacingDirections).not.toMatch(/programaç|sessões confirmadas|palestrantes de 2027/i);
+    expect(publicFacingDirections).not.toMatch(/provocação transversal|tendências rápidas|resposta automática/i);
   });
 
-  it("não repete formulário para convertidos nem associa as masterclasses ao SONAFE", () => {
+  it("não repete formulário para convertidos nem associa as masterclasses a públicos sem aula", () => {
     const brief = emailCampaignBriefs["email-base-comparativo"];
     const serialized = JSON.stringify(brief);
 
-    expect(serialized).toContain("não converteu");
-    expect(serialized).toContain("Suprimir do disparo");
+    expect(serialized).toContain("ainda não se cadastrou");
+    expect(serialized).toContain("Excluir deste disparo");
     expect(brief.versions.some(version => version.id === "sonafe")).toBe(false);
     expect(brief.routing.at(-1)?.reason).toContain("não representam essas áreas");
-    expect(brief.productionChecks.join(" ")).toContain("Bloquear qualquer menção a programação");
+    expect(brief.productionChecks.join(" ")).toContain("Não incluir programação");
+  });
+
+  it("abre briefings operacionais para todos os envios de 18 a 25/09", () => {
+    expect(Object.keys(emailCampaignBriefs)).toEqual([
+      "email-base-comparativo",
+      "email-base-48h",
+      "email-base-vespera",
+      "email-base-vendas-abertas",
+      "email-base-recuperar-inscricao",
+    ]);
+    Object.values(emailCampaignBriefs).forEach(brief => {
+      expect(brief.decision.length).toBeGreaterThan(20);
+      expect(brief.versions.length).toBeGreaterThan(0);
+      expect(brief.routing.length).toBeGreaterThanOrEqual(2);
+      expect(brief.productionChecks.length).toBeGreaterThanOrEqual(4);
+      brief.versions.forEach(version => {
+        expect(version.steps).toHaveLength(4);
+        expect(version.destinationUrl).toMatch(/^https:\/\//);
+        expect(version.cta.length).toBeGreaterThan(10);
+      });
+    });
+  });
+
+  it("equilibra conteúdo, isca e cadastro conforme a etapa da pessoa", () => {
+    const email21 = emailCampaignBriefs["email-base-48h"];
+    const email22 = emailCampaignBriefs["email-base-vespera"];
+    const email23 = emailCampaignBriefs["email-base-vendas-abertas"];
+    const email24 = emailCampaignBriefs["email-base-recuperar-inscricao"];
+
+    expect(email21.versions.map(version => version.destinationUrl)).toEqual([
+      "https://masterclassconference.savagetgroup.com.br/",
+      "https://masterclassconference.savagetgroup.com.br/obrigado",
+    ]);
+    expect(email22.versions.map(version => version.destinationUrl)).toEqual([
+      "https://www.instagram.com/reel/DVZDZWEFPP3/",
+      "https://oferta.savagetgroup.com.br/conference-2027",
+    ]);
+    expect(email23.versions.map(version => version.destinationUrl)).toEqual([
+      "https://www.instagram.com/p/DTnBm0Qlo0Q/?stkn=MW0wbmNwN2c2bmwwMw%3D%3D",
+      "https://oferta.savagetgroup.com.br/conference-2027",
+    ]);
+    expect(email24.versions).toHaveLength(1);
+    expect(email24.versions[0].destinationUrl).toBe("https://oferta.savagetgroup.com.br/conference-2027");
+  });
+
+  it("usa linguagem direta e uma única pauta concreta em cada envio", () => {
+    const serialized = JSON.stringify(emailCampaignBriefs);
+    expect(serialized).not.toMatch(/provocação transversal|tendências rápidas|resposta automática|três tensões/i);
+    expect(emailCampaignBriefs["email-base-48h"].decision).toContain("Andreia Naves");
+    expect(emailCampaignBriefs["email-base-vespera"].decision).toContain("equipe");
+    expect(emailCampaignBriefs["email-base-vendas-abertas"].decision).toMatch(/recovery.*prevenção/i);
+    expect(emailCampaignBriefs["email-base-recuperar-inscricao"].decision).toContain("área de interesse");
   });
 
   it("mantém a programação interna fora dos e-mails públicos de 18 a 25/09", () => {
@@ -59,7 +112,11 @@ describe("fluxo específico de aprovação dos e-mails", () => {
 
     expect(publicFields.join(" ")).not.toMatch(/programaç|grade confirmada|sessões confirmadas/i);
     expect(emailBase.find(item => item.date === "23/09")?.materials).toContain("Carrossel público da SONAFE");
-    expect(emailBase.find(item => item.date === "24–25/09")?.cta).toBe("Quero receber as novidades");
+    expect(emailBase.find(item => item.date === "24–25/09")?.cta).toBe("Escolher minha área de interesse");
+    Object.values(emailCampaignBriefs).forEach(brief => {
+      const publicFacing = brief.versions.flatMap(version => [version.objective, version.subjectDirection, ...version.steps.map(step => step.example)]);
+      expect(publicFacing.join(" ")).not.toMatch(/grade|sessões confirmadas|palestrantes de 2027/i);
+    });
   });
 
   it("organiza os status nas oito etapas operacionais", () => {

@@ -38,7 +38,7 @@ describe("plano de e-mail estratégico simplificado", () => {
     expect(home).toContain("Copy final, link da prévia, ajustes e status");
   });
 
-  it("renderiza o detalhamento de 18/09 com CTA, exemplos e matriz de decisão", () => {
+  it("renderiza os detalhamentos de 18 a 25/09 com CTA, exemplos e matriz de decisão", () => {
     expect(home).toContain("EmailCampaignBriefDetail");
     expect(home).toContain("email-focus");
     expect(home).toContain("Um CTA por envio");
@@ -46,5 +46,11 @@ describe("plano de e-mail estratégico simplificado", () => {
     expect(brief).toContain("EXEMPLO DE DIREÇÃO");
     expect(brief).toContain("MATRIZ DE DECISÃO");
     expect(brief).toContain("EXCLUSÃO OBRIGATÓRIA");
+  });
+
+  it("abre 18/09 por padrão e permite abrir diretamente os demais e-mails", () => {
+    expect(brief).toContain('emailId === "email-base-comparativo"');
+    expect(brief).toContain('get("email-focus")');
+    expect(brief).toContain("open={startsOpen}");
   });
 });
