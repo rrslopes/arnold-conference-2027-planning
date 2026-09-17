@@ -59,22 +59,24 @@ describe("briefings operacionais do calendário", () => {
     expect(item?.optionMode).toBe("inputs");
   });
 
-  it("torna 27/09 um bastidor real, sem métricas públicas nem prova social obrigatória", () => {
+  it("torna 27/09 um teste de cenários executável com a íntegra de Gláucia", () => {
     const item = calendar.find(entry => entry.id === "0927");
-    expect(item?.title).toBe("O que acontece antes de uma novidade do Conference chegar até você");
-    expect(item?.channel).toBe("Carrossel");
+    expect(item?.title).toBe("Seu planejamento resiste a mais de um cenário?");
+    expect(item?.channel).toBe("Reel + carrossel");
+    expect(item?.congresses).toEqual(["Gestão de Academias"]);
     expect(item?.productionBrief?.units).toHaveLength(6);
     expect(item?.productionBrief?.units.map(unit => unit.role)).toEqual([
-      "O processo por trás da novidade",
-      "Construção das programações",
-      "Conferência das informações",
-      "Transformação em conteúdo",
-      "O que vem nas próximas confirmações",
-      "Acompanhe os próximos passos",
+      "A tensão do gestor",
+      "O que cenários fazem",
+      "Escolha uma incerteza",
+      "Desenhe dois cenários",
+      "Teste a estratégia",
+      "Fonte e próximo passo",
     ]);
-    expect(item?.options?.join(" ")).toContain("fotos ou vídeos reais");
-    expect(item?.productionBrief?.note).toContain("Não usar números da LP de Novidades ou das masterclasses");
-    expect(item?.productionBrief?.note).toContain("bastidor encenado");
+    expect(item?.cutValidations?.[0]?.speaker).toBe("Gláucia Guarcello");
+    expect(item?.cutValidations?.[0]?.location).toContain("41:38.1–42:04.0");
+    expect(item?.fallback).toContain("carrossel gráfico de seis cards");
+    expect(item?.productionBrief?.note).toContain("substitui integralmente qualquer menção a bastidores");
     expect(item?.optionMode).toBe("inputs");
   });
 

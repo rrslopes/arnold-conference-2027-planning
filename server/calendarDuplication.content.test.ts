@@ -32,12 +32,14 @@ describe("proteção contra duplicidades no calendário revisado", () => {
     expect(launchWindow.find(entry => entry.moment === "D-5")?.objective).toContain("novas programações");
   });
 
-  it("separa o checklist de 24/09, as dúvidas de 26/09 e os bastidores de 27/09", () => {
+  it("separa o checklist de 24/09, as dúvidas de 26/09 e o teste de cenários de 27/09", () => {
     expect(operationalBriefs["0924"].purpose).toContain("checklist de autoavaliação");
     expect(operationalBriefs["0926"].purpose).toContain("Responder dúvidas de orientação");
-    expect(item("0927").title).toBe("O que acontece antes de uma novidade do Conference chegar até você");
-    expect(operationalBriefs["0927"].purpose).toContain("trabalho real que antecede cada anúncio");
-    expect(JSON.stringify(item("0927"))).not.toContain("Dados agregados de interesse");
+    expect(item("0927").title).toBe("Seu planejamento resiste a mais de um cenário?");
+    expect(item("0927").congresses).toEqual(["Gestão de Academias"]);
+    expect(operationalBriefs["0927"].purpose).toContain("estratégia permanece robusta diante de cenários diferentes");
+    expect(JSON.stringify(item("0927"))).not.toContain("Processo real de curadoria");
+    expect(JSON.stringify(item("0927"))).not.toContain("fotos ou vídeos reais de reuniões");
   });
 
   it("separa Bodybuilding entre individualização e equipe multidisciplinar", () => {

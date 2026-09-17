@@ -218,4 +218,19 @@ export const cutAuditByCalendarId: Record<string, CutAuditEntry> = {
       fallback: "Três cortes foram localizados nas transcrições e aparecem auditados abaixo. Escolher somente um depois de conferir a íntegra: platô/reganho com Ana Paula; celulite versus flacidez com Luisa/Sullen; exposoma climático com Mika.",
     },
   },
+  "0927": {
+    validations: [{
+      id: "C14",
+      speaker: "Gláucia Guarcello",
+      sourceTitle: "Menos Forecast, Mais Foresight — ferramentas que ajudam líderes do fitness a inovar e decidir em tempos de incerteza",
+      transcriptStatus: "Confirmado na transcrição",
+      excerpt: "Baseado nos cenários, eu entendo as implicações pro meu negócio [...] Se esse cenário aqui acontecer, meu negócio fica de pé? [...] E eu vou revisando a minha estratégia pra ela ser à prova de mais cenários.",
+      location: "41:38.1–42:04.0, linhas 935–943.",
+      productionNote: "Conferir no vídeo original se o intervalo funciona sozinho e se os slides exigem contexto visual. Se necessário, abrir com lettering que explique ‘teste de cenários’ e preservar as duas perguntas sobre o negócio continuar de pé.",
+      videoStatus,
+    }],
+    overrides: {
+      fallback: "Se o trecho não funcionar sozinho depois da conferência no vídeo, usar o carrossel gráfico de seis cards. A transcrição sustenta o conceito; os exemplos de incerteza devem ser identificados como exercício editorial, não como fala literal de Gláucia ou previsão de mercado.",
+    },
+  },
 };
