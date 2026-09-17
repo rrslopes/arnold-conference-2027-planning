@@ -209,6 +209,7 @@ export async function saveLeadProfileSnapshot(entry: LeadProfileSnapshotInput) {
     physicalEducationCount: entry.physicalEducationCount,
     bodybuildingCount: entry.bodybuildingCount,
     otherInterestCount: entry.otherInterestCount,
+    unavailableMetricsJson: entry.unavailableMetricsJson ?? null,
     note: entry.note,
     updatedAt: now,
   };

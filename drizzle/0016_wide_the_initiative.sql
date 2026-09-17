@@ -1,0 +1,1 @@
+ALTER TABLE `lead_profile_snapshots` ADD `unavailableMetricsJson` text;

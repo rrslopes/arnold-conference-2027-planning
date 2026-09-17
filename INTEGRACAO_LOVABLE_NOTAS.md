@@ -115,3 +115,11 @@ A série oficial foi atualizada com as dez respostas agregadas obtidas durante o
 Para reduzir falhas externas, a sincronização agora reutiliza dias oficiais já persistidos, consulta apenas datas ausentes ou os três dias mais recentes e sempre atualiza o consolidado. Se o total consolidado divergir da soma armazenada, a própria operação revisa todos os dias antes de gravar. Falhas transitórias têm retry controlado; respostas inválidas não são repetidas. Os testes que dependem de rede externa são opt-in por `RUN_EXTERNAL_INTEGRATION_TESTS=true`.
 
 Validação final: TypeScript sem erros, **212 testes aprovados** e 2 testes externos ignorados em 41 arquivos, build concluído, banco e idempotência conferidos, revisão desktop/mobile e nenhum erro atual de interface após 01h37. O ambiente local perdeu conectividade externa durante a última tentativa pelo botão; por isso, a atualização usou exclusivamente as respostas oficiais já baixadas e validadas pelo mesmo parser.
+
+## LP de novidades — contrato de indicadores da RD Station
+
+Em 17/09/2026, o endpoint passou a declarar explicitamente que a LP de novidades está hospedada na RD Station e que o projeto Lovable recebe somente as conversões por webhook. Por isso, sessões, sessões por origem, inícios e abandonos de formulário e as duas taxas que dependem de sessões são `null` por natureza. Esses valores não representam erro nem dado pendente: a interface deve exibi-los como **Não medido nesta LP**, acompanhados do motivo fornecido em `metricas_indisponiveis`.
+
+O campo `captacao.conversoes_origem_dm` passa a ser a fonte oficial do indicador agregado de **WhatsApp + Instagram DM**. Ele não deve ser reconstruído somente pela linha `instagram_dm` do ranking. O array `origens` inclui todas as origens previstas, inclusive quando o valor é zero, e `sessoes` permanece `null` em cada item.
+
+O parser aceita campos adicionais e listas variáveis, preserva os `null` contratuais, mantém fuso `America/Sao_Paulo` e upsert idempotente por período. A justificativa do endpoint é persistida junto à fotografia para que a Central de Landing Pages e o Pilar 4 distingam indisponibilidade estrutural de uma simples espera por atualização. Para medir tráfego e início de formulário no futuro, será necessária instrumentação própria de GTM/GA4 na página da RD Station.

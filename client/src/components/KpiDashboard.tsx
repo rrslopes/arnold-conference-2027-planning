@@ -102,7 +102,7 @@ export default function KpiDashboard() {
     kpiLayers.forEach(layer => {
       if (integrationState) buildAutomaticKpis(layer.id, integrationState).forEach(metric => {
         const target = automaticTargetByKey[metric.key] ?? null;
-        rows.push([layer.layer, metric.label, target === null ? "Sem meta definida" : formatAutomaticKpi(target, metric.format), formatAutomaticKpi(metric.value, metric.format), metric.mode === "automatic" ? "Automático" : "Calculado", `${metric.source}; ${metric.period}`]);
+        rows.push([layer.layer, metric.label, target === null ? "Sem meta definida" : formatAutomaticKpi(target, metric.format), metric.availability === "not_measured" ? "Não medido nesta LP" : formatAutomaticKpi(metric.value, metric.format), metric.availability === "not_measured" ? "Não medido" : metric.mode === "automatic" ? "Automático" : "Calculado", `${metric.source}; ${metric.period}${metric.availabilityReason ? `; ${metric.availabilityReason}` : ""}`]);
       });
       layer.metrics.forEach(metric => {
         const row = state[`${layer.id}::${metric.key}`];
@@ -142,12 +142,13 @@ export default function KpiDashboard() {
         <div className="metric-table-head"><span>Métrica</span><span>Meta</span><span>Valor atual</span><span>Observação</span><span>Status</span></div>
         {automaticRows.map(metric => {
           const target = automaticTargetByKey[metric.key] ?? null;
+          const notMeasured = metric.availability === "not_measured";
           return <div className="metric-row metric-row-automatic" key={metric.key} aria-label={`${metric.label} ${metric.mode === "automatic" ? "automático" : "calculado"}`}>
             <div className="metric-name"><strong>{metric.label}</strong><small>{metric.description}</small></div>
             <div className={`metric-readonly-field metric-readonly-target ${target === null ? "is-empty" : ""}`}><small>Meta</small><strong>{target === null ? "Sem meta definida" : formatAutomaticKpi(target, metric.format)}</strong><span>{target === null ? "Aguardando referência aprovada" : "Meta operacional mensal · fonte social"}</span></div>
-            <div className="metric-readonly-field metric-readonly-value"><small>Valor atual</small><strong>{formatAutomaticKpi(metric.value, metric.format)}</strong></div>
-            <div className="metric-readonly-field"><small>Período e origem</small><strong>{metric.period}</strong><span>{metric.source}</span></div>
-            <div className={`metric-auto-status ${metric.value === null ? "waiting" : "ready"}`}>{metric.value === null ? <RefreshCw size={17} /> : <CheckCircle2 size={17} />}{metric.value === null ? "Aguardando" : metric.mode === "automatic" ? "Automático" : "Calculado"}</div>
+            <div className={`metric-readonly-field metric-readonly-value ${notMeasured ? "is-not-measured" : ""}`}><small>Valor atual</small><strong>{notMeasured ? "Não medido nesta LP" : formatAutomaticKpi(metric.value, metric.format)}</strong></div>
+            <div className="metric-readonly-field"><small>Período e origem</small><strong>{metric.period}</strong><span>{metric.availabilityReason ?? metric.source}</span></div>
+            <div className={`metric-auto-status ${notMeasured ? "not-measured" : metric.value === null ? "waiting" : "ready"}`}>{notMeasured ? <TriangleAlert size={17} /> : metric.value === null ? <RefreshCw size={17} /> : <CheckCircle2 size={17} />}{notMeasured ? "Não medido" : metric.value === null ? "Aguardando" : metric.mode === "automatic" ? "Automático" : "Calculado"}</div>
           </div>;
         })}
         {currentLayer.metrics.map(metric => {

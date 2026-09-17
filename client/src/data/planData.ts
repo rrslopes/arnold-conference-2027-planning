@@ -525,9 +525,9 @@ export const kpiLayers = [
   {
     id: "landing",
     layer: "Landing pages",
-    purpose: "Mede a passagem do acesso às páginas para conversões identificadas, preservando a origem de cada LP.",
+    purpose: "Consolida as conversões identificadas e, quando a própria LP mede visitas, acompanha a passagem do acesso à conversão sem misturar as fontes.",
     cadence: "Atualize semanalmente e feche cada campanha; use o acumulado somente quando o relatório reunir todas as páginas sem duplicidade.",
-    source: "Cada LP possui uma área específica. A LP de novidades alimenta automaticamente as linhas de sessões, leads, DM, conversão e abandono abaixo.",
+    source: "Cada LP possui uma área específica. O painel traz os valores medidos e identifica claramente o que cada fonte não consegue medir.",
     avoid: "Não registre seguidores, interações sociais ou compras nesta etapa.",
     metrics: [
       { key: "Conversões", label: "Leads convertidos — consolidado de todas as origens", description: "Total mensal de leads de todas as LPs e canais, conciliado sem duplicidade. A contribuição da LP de novidades já aparece automaticamente acima." },

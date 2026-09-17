@@ -27,6 +27,7 @@ export type LeadProfileBreakdown = { canal: string; conversoes: number };
 export type LeadProfileCity = { opcao: string; pessoas: number; percentual: number };
 export type LeadProfileClickOrigin = { canal: string; cliques: number };
 export type LeadProfileSnapshotKind = "daily" | "rollup" | "manual";
+export type NewsUnavailableMetrics = { campos: string[]; motivo: string };
 
 export const NEWS_DAILY_SYNC_SOURCE = "lovable-api-daily";
 export const NEWS_ROLLUP_SYNC_SOURCE = "lovable-api-rollup";
@@ -61,6 +62,7 @@ export type LeadProfileSnapshotDraft = {
   syncSource?: string;
   providerUpdatedAt?: number | null;
   providerObservation?: string | null;
+  unavailableMetricsJson?: string | null;
   note: string;
 };
 
@@ -77,6 +79,7 @@ export type LeadProfileSnapshot = LeadProfileSnapshotDraft & {
   syncSource: string;
   providerUpdatedAt: number | null;
   providerObservation: string | null;
+  unavailableMetricsJson: string | null;
   updatedAt: number;
 };
 
@@ -113,6 +116,17 @@ export function getLeadProfileSnapshotKind(snapshot: { syncSource?: string | nul
   if (snapshot.syncSource === NEWS_DAILY_SYNC_SOURCE) return "daily";
   if (snapshot.syncSource === NEWS_ROLLUP_SYNC_SOURCE) return "rollup";
   return "manual";
+}
+
+export function parseNewsUnavailableMetrics(value: string | null | undefined): NewsUnavailableMetrics | null {
+  if (!value) return null;
+  try {
+    const parsed = JSON.parse(value) as Partial<NewsUnavailableMetrics>;
+    if (!Array.isArray(parsed.campos) || typeof parsed.motivo !== "string" || !parsed.motivo.trim()) return null;
+    return { campos: parsed.campos.filter((field): field is string => typeof field === "string"), motivo: parsed.motivo.trim() };
+  } catch {
+    return null;
+  }
 }
 
 export function getLatestLeadProfileSnapshot<T extends { periodEndAt: number; updatedAt: number; syncSource?: string | null }>(snapshots: T[]): T | null {

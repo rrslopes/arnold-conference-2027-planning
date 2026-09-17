@@ -62,4 +62,13 @@ describe("news landing page lead profile UI", () => {
     expect(panel).toContain("AVANÇO VINDO DAS MASTERCLASSES");
     expect(panel).toContain("ORIGENS DAS CONVERSÕES");
   });
+
+  it("distingue dados não medidos de indicadores aguardando atualização", () => {
+    expect(panel).toContain("Não medido");
+    expect(panel).toContain("GTM/GA4");
+    expect(panel).toContain("CONVERSÕES VIA WHATSAPP + INSTAGRAM DM");
+    expect(panel).toContain("lead-origin-bar");
+    expect(kpis).toContain('metric.availability === "not_measured"');
+    expect(kpis).toContain("Não medido nesta LP");
+  });
 });

@@ -10,6 +10,7 @@ import {
   calculateLpConversionRate,
   getLeadProfileSnapshotKind,
   getLatestLeadProfileSnapshot,
+  parseNewsUnavailableMetrics,
   percentageOfLeads,
   profilePercentageBase,
   sortInterestProfile,
@@ -116,8 +117,10 @@ export default function LeadProfileDashboard() {
   const abandonments = latest ? calculateLpAbandonments(latest.formStarts, latest.newLeads) : null;
   const profileBase = latest ? profilePercentageBase(latest) : 0;
   const cities = useMemo(() => parseList<{ opcao: string; pessoas: number; percentual: number }>(latest?.topCitiesJson), [latest?.topCitiesJson]);
-  const origins = useMemo(() => parseList<{ canal: string; conversoes: number }>(latest?.originsJson), [latest?.originsJson]);
+  const unavailableMetrics = useMemo(() => parseNewsUnavailableMetrics(latest?.unavailableMetricsJson), [latest?.unavailableMetricsJson]);
+  const origins = useMemo(() => parseList<{ canal: string; conversoes: number; sessoes?: number | null }>(latest?.originsJson).sort((a, b) => b.conversoes - a.conversoes), [latest?.originsJson]);
   const masterclassClickOrigins = useMemo(() => parseList<{ canal: string; cliques: number }>(latest?.masterclassClickOriginsJson), [latest?.masterclassClickOriginsJson]);
+  const isUnavailable = (field: string) => unavailableMetrics?.campos.includes(field) === true;
 
   const saveMutation = trpc.planning.saveLeadProfileSnapshot.useMutation({
     onSuccess: async () => {
@@ -209,12 +212,14 @@ export default function LeadProfileDashboard() {
           <article><strong>{formatDate(latest.periodStartAt)}</strong><span>INÍCIO DO PERÍODO</span></article>
           <article><strong>{formatDate(latest.periodEndAt)}</strong><span>DATA DE REFERÊNCIA</span></article>
         </div>
-        <div className="lead-performance-summary">
-          <article><strong>{countValue(latest.sessions)}</strong><span>SESSÕES NESTA LP</span><small>Informado no fechamento</small></article>
-          <article><strong>{formatPercent(conversionRate)}</strong><span>TAXA DE CONVERSÃO</span><small>Novos leads ÷ sessões</small></article>
-          <article><strong>{countValue(latest.formStarts)}</strong><span>INÍCIOS DE FORMULÁRIO</span><small>Quando o evento existir</small></article>
-          <article><strong>{countValue(abandonments)}</strong><span>ABANDONOS CALCULADOS</span><small>Inícios − novos leads</small></article>
+        <div className="lead-performance-summary lead-performance-summary-five">
+          <article className={isUnavailable("sessoes_na_lp") ? "is-not-measured" : ""}><strong>{isUnavailable("sessoes_na_lp") ? "Não medido" : countValue(latest.sessions)}</strong><span>SESSÕES NESTA LP</span><small>{isUnavailable("sessoes_na_lp") ? "A RD Station não envia este evento" : "Informado no fechamento"}</small></article>
+          <article className={isUnavailable("taxa_de_conversao_bruta") ? "is-not-measured" : ""}><strong>{isUnavailable("taxa_de_conversao_bruta") ? "Não medido" : formatPercent(conversionRate)}</strong><span>TAXA DE CONVERSÃO</span><small>{isUnavailable("taxa_de_conversao_bruta") ? "Sem sessões, não há denominador" : "Novos leads ÷ sessões"}</small></article>
+          <article><strong>{countValue(latest.dmConversions)}</strong><span>CONVERSÕES VIA WHATSAPP + INSTAGRAM DM</span><small>Valor agregado enviado pelo Lovable</small></article>
+          <article className={isUnavailable("inicios_de_formulario") ? "is-not-measured" : ""}><strong>{isUnavailable("inicios_de_formulario") ? "Não medido" : countValue(latest.formStarts)}</strong><span>INÍCIOS DE FORMULÁRIO</span><small>{isUnavailable("inicios_de_formulario") ? "O webhook registra só a conversão" : "Evento de início"}</small></article>
+          <article className={isUnavailable("abandonos_de_formulario") ? "is-not-measured" : ""}><strong>{isUnavailable("abandonos_de_formulario") ? "Não medido" : countValue(abandonments)}</strong><span>ABANDONOS DE FORMULÁRIO</span><small>{isUnavailable("abandonos_de_formulario") ? "Sem inícios, não há cálculo" : "Inícios − novos leads"}</small></article>
         </div>
+        {unavailableMetrics ? <div className="lead-unavailable-note"><CircleAlert size={20} /><p><strong>Não medido nesta LP:</strong> {unavailableMetrics.motivo} Para medir sessões e inícios no futuro, será necessário instrumentar a página da RD Station com GTM/GA4.</p></div> : null}
         <div className="lead-profile-notice"><CircleAlert size={20} /><p><strong>Leitura correta:</strong> {latest.providerObservation || "as áreas permitem múltiplas escolhas. A soma dos percentuais de interesse pode ultrapassar 100% e representa menções, não pessoas únicas."} Base deste perfil: {profileBase.toLocaleString("pt-BR")} respostas do período. Quando há recadastros, essa base pode ser maior que o número de pessoas únicas.</p></div>
         <div className="lead-profile-grid">
           <section className="lead-interest-panel"><header><BarChart3 size={20} /><div><span>RANKING DE INTERESSES</span><p>Opção do formulário → congresso relacionado</p></div></header><div>{interests.map(item => <article key={item.key}><div><strong>{item.label}</strong><small>{item.congress !== item.label ? `Leitura: ${item.congress}` : item.congress}</small></div><div className="lead-interest-value"><b>{countValue(item.count)}</b><span>{formatPercent(item.percentage)}</span></div><div className="lead-interest-bar"><i style={{ width: `${Math.min(item.percentage ?? 0, 100)}%` }} /></div></article>)}</div></section>
@@ -223,7 +228,7 @@ export default function LeadProfileDashboard() {
             {cities.length ? <section><header><MapPin size={19} /><span>PRINCIPAIS CIDADES · TOP 20</span></header>{cities.map(city => <article key={city.opcao}><div><strong>{city.opcao}</strong><small>Residência declarada</small></div><b>{city.pessoas.toLocaleString("pt-BR")}<small>{formatPercent(city.percentual)}</small></b></article>)}</section> : null}
           </div>
         </div>
-        {origins.length ? <section className="lead-profile-origins"><header><BarChart3 size={19} /><div><span>ORIGENS DAS CONVERSÕES</span><p>Conversões brutas atribuídas pelo endpoint no mesmo período.</p></div></header><div>{origins.map(origin => <article key={origin.canal}><strong>{origin.canal.replaceAll("_", " ")}</strong><span>{origin.conversoes.toLocaleString("pt-BR")} conversões</span></article>)}</div></section> : null}
+        {origins.length ? <section className="lead-profile-origins"><header><BarChart3 size={19} /><div><span>ORIGENS DAS CONVERSÕES</span><p>Todas as origens previstas, inclusive as que tiveram zero conversão. Sessões por origem não são medidas nesta LP.</p></div></header><div>{origins.map(origin => { const share = latest.newLeads > 0 ? Math.min(100, origin.conversoes / latest.newLeads * 100) : 0; return <article key={origin.canal}><strong>{origin.canal.replaceAll("_", " ")}</strong><span>{origin.conversoes.toLocaleString("pt-BR")} {origin.conversoes === 1 ? "conversão" : "conversões"}</span><div className="lead-origin-bar"><i style={{ width: `${share}%` }} /></div></article>; })}</div></section> : null}
         {latest.masterclassClicks !== null ? <section className="lead-profile-referral"><header><MousePointerClick size={19} /><div><span>AVANÇO VINDO DAS MASTERCLASSES</span><p>Cliques que chegaram à LP de novidades; não são somados novamente às pessoas únicas.</p></div></header><strong>{latest.masterclassClicks.toLocaleString("pt-BR")}</strong><div>{masterclassClickOrigins.map(origin => <span key={origin.canal}>{origin.canal.replaceAll("_", " ")} · {origin.cliques.toLocaleString("pt-BR")}</span>)}</div></section> : null}
         {latest.note ? <div className="lead-profile-note"><strong>NOTA DO FECHAMENTO</strong><p>{latest.note}</p></div> : null}
       </div> : <div className="lead-profile-empty"><Users size={34} /><div><strong>Nenhuma fotografia registrada</strong><p>Faça o primeiro fechamento agregado da LP de novidades. Nenhum dado pessoal deve ser inserido.</p><button type="button" className="primary-button" onClick={() => setView("form")}><Plus size={16} /> Registrar primeira fotografia</button></div></div> : null}

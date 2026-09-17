@@ -1056,11 +1056,17 @@ img { max-width: 100%; }
 .lead-profile-summary-six article:nth-child(n+5) strong { font-size: 23px; white-space: nowrap; }
 .lead-profile-summary span { display: block; margin-top: 4px; color: rgba(255,255,255,.7); font-size: 6px; font-weight: 850; letter-spacing: .08em; }
 .lead-performance-summary { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid rgba(51,49,50,.1); background: #f4f4ee; }
+.lead-performance-summary-five { grid-template-columns: repeat(5, 1fr); }
 .lead-performance-summary article { min-width: 0; padding: 14px 18px; border-right: 1px solid rgba(51,49,50,.1); }
 .lead-performance-summary article:last-child { border-right: 0; }
 .lead-performance-summary strong { display: block; color: var(--purple); font: 600 27px/1 "Teko Arnold"; }
 .lead-performance-summary span { display: block; margin-top: 3px; color: var(--charcoal); font-size: 6px; font-weight: 850; letter-spacing: .07em; }
 .lead-performance-summary small { display: block; margin-top: 4px; color: #827d7f; font-size: 6px; }
+.lead-performance-summary article.is-not-measured { background: #eeece5; }
+.lead-performance-summary article.is-not-measured strong { color: #706b6d; font: 800 9px/1.25 "Montserrat Arnold"; text-transform: uppercase; }
+.lead-unavailable-note { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 9px; align-items: start; padding: 14px 18px; border-bottom: 1px solid rgba(51,49,50,.1); background: #f4eedb; color: #5d595b; }
+.lead-unavailable-note svg { color: #9b6b00; }
+.lead-unavailable-note p { margin: 0; font-size: 8px; line-height: 1.55; }
 .lead-profile-notice { display: grid; grid-template-columns: 24px 1fr; gap: 9px; align-items: start; padding: 14px 18px; border-bottom: 1px solid rgba(51,49,50,.1); background: #eef1c9; color: #5d595b; }
 .lead-profile-notice svg { color: var(--purple); }
 .lead-profile-notice p { margin: 0; font-size: 8px; line-height: 1.55; }
@@ -1093,6 +1099,8 @@ img { max-width: 100%; }
 .lead-profile-origins article { padding: 13px 16px; border-right: 1px solid rgba(51,49,50,.08); border-bottom: 1px solid rgba(51,49,50,.08); }
 .lead-profile-origins article strong { display: block; color: var(--purple); font-size: 8px; text-transform: capitalize; }
 .lead-profile-origins article span { display: block; margin-top: 4px; color: #716c6e; font-size: 7px; }
+.lead-origin-bar { height: 4px; margin-top: 8px; overflow: hidden; background: #e9e7e1; }
+.lead-origin-bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--purple), var(--lime-dark)); }
 .lead-profile-referral { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(220px, auto); align-items: stretch; }
 .lead-profile-referral > header { border-bottom: 0; border-right: 1px solid rgba(51,49,50,.1); }
 .lead-profile-referral > strong { display: grid; min-width: 95px; padding: 14px 20px; place-items: center; color: var(--lime-dark); background: var(--charcoal); font: 600 34px/1 "Teko Arnold"; }
@@ -1224,9 +1232,11 @@ img { max-width: 100%; }
 .metric-readonly-target strong { color: var(--purple); font: 600 21px/1 "Teko Arnold"; text-transform: uppercase; }
 .metric-readonly-target.is-empty strong { color: #777174; font: 800 7px/1.3 "Montserrat Arnold"; }
 .metric-readonly-value strong { color: var(--purple); font: 600 24px/1 "Teko Arnold"; }
+.metric-readonly-value.is-not-measured strong { color: #706b6d; font: 800 7px/1.3 "Montserrat Arnold"; text-transform: uppercase; }
 .metric-auto-status { min-height: 34px; display: flex; align-items: center; justify-content: center; gap: 5px; border: 1px solid rgba(51,49,50,.13); font-size: 7px; font-weight: 850; }
 .metric-auto-status.ready { background: var(--lime); color: var(--charcoal); }
 .metric-auto-status.waiting { background: #f0eee8; color: #746f71; }
+.metric-auto-status.not-measured { background: #f4eedb; color: #76530b; }
 .metric-row input { width: 100%; min-width: 0; border: 1px solid rgba(51,49,50,.14); background: white; padding: 9px 10px; font-size: 9px; outline: none; }
 .metric-row input:focus { border-color: var(--purple); }
 .metric-row button { min-height: 34px; display: flex; align-items: center; justify-content: center; gap: 5px; border: 1px solid rgba(51,49,50,.16); background: white; color: #736f71; font-size: 8px; font-weight: 750; }

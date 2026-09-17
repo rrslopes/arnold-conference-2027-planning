@@ -14,9 +14,13 @@ export const LOVABLE_NEWS_METRICS_URL = "https://masterclassconference.savagetgr
 
 const count = z.number().int().min(0).max(100_000_000);
 const percent = z.number().min(0).max(100);
-const breakdown = z.object({ opcao: z.string().trim().min(1).max(180), pessoas: count, percentual: percent }).strict();
-const channelConversions = z.object({ canal: z.string().trim().min(1).max(80), conversoes: count }).strict();
-const clickOrigin = z.object({ canal: z.string().trim().min(1).max(80), cliques: count }).strict();
+const breakdown = z.object({ opcao: z.string().trim().min(1).max(180), pessoas: count, percentual: percent });
+const channelConversions = z.object({
+  canal: z.string().trim().min(1).max(80),
+  conversoes: count,
+  sessoes: count.nullable().optional(),
+});
+const clickOrigin = z.object({ canal: z.string().trim().min(1).max(80), cliques: count });
 
 export type NewsRejectedField = {
   field: string;
@@ -86,33 +90,46 @@ export const lovableNewsMetricsSchema = z.object({
     inicio: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
     fim: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
     fuso: z.literal("America/Sao_Paulo"),
-  }).strict(),
+  }),
   atualizado_em: z.string().datetime(),
   captacao: z.object({
     conversoes_no_periodo: count,
     pessoas_unicas_no_periodo: count,
-    total_acumulado_conversoes: count,
+    conversoes_origem_dm: count,
+    total_acumulado_conversoes: count.nullable(),
     total_acumulado_pessoas_unicas: count,
-  }).strict(),
+    sessoes_na_lp: z.null(),
+    sessoes_origem_dm: z.null(),
+    sessoes_por_origem: z.null(),
+    inicios_de_formulario: z.null(),
+    abandonos_de_formulario: z.null(),
+    taxa_de_conversao_bruta: z.null(),
+    taxa_de_conversao_pessoas_unicas: z.null(),
+  }),
+  metricas_indisponiveis: z.object({
+    campos: z.array(z.string().trim().min(1).max(120)),
+    motivo: z.string().trim().min(1).max(2000),
+  }),
   avanco_no_funil: z.object({
     cliques_vindos_da_masterclass: count,
     origens_dos_cliques: z.array(clickOrigin).max(100),
-  }).strict(),
+  }),
   origens: z.array(channelConversions).max(100),
-  areas_de_interesse: z.array(z.object({ area: z.string().trim().min(1).max(180), pessoas: count, percentual: percent }).strict()).max(30),
+  areas_de_interesse: z.array(z.object({ area: z.string().trim().min(1).max(180), pessoas: count, percentual: percent })).max(30),
   campos_personalizados: z.object({
     base_de_calculo: count,
     areas_de_interesse: z.array(breakdown).max(30),
     historico_no_arnold: z.array(breakdown),
     observacao: z.string().trim().min(1).max(2000),
     cidades: z.array(breakdown).max(20),
-  }).strict(),
-}).strict().superRefine((payload, ctx) => {
+  }),
+}).superRefine((payload, ctx) => {
   const { captacao, campos_personalizados } = payload;
   if (payload.periodo.inicio > payload.periodo.fim) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["periodo", "inicio"], message: "O início deve ser anterior ao fim." });
-  if (captacao.conversoes_no_periodo > captacao.total_acumulado_conversoes) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["captacao", "conversoes_no_periodo"], message: "Conversões do período não podem superar o acumulado." });
+  if (captacao.total_acumulado_conversoes !== null && captacao.conversoes_no_periodo > captacao.total_acumulado_conversoes) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["captacao", "conversoes_no_periodo"], message: "Conversões do período não podem superar o acumulado." });
   if (captacao.pessoas_unicas_no_periodo > captacao.conversoes_no_periodo) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["captacao", "pessoas_unicas_no_periodo"], message: "Pessoas únicas não podem superar conversões brutas." });
-  if (captacao.total_acumulado_pessoas_unicas > captacao.total_acumulado_conversoes) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["captacao", "total_acumulado_pessoas_unicas"], message: "Pessoas únicas acumuladas não podem superar conversões acumuladas." });
+  if (captacao.total_acumulado_conversoes !== null && captacao.total_acumulado_pessoas_unicas > captacao.total_acumulado_conversoes) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["captacao", "total_acumulado_pessoas_unicas"], message: "Pessoas únicas acumuladas não podem superar conversões acumuladas." });
+  if (captacao.conversoes_origem_dm > captacao.conversoes_no_periodo) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["captacao", "conversoes_origem_dm"], message: "Conversões com origem DM não podem superar as conversões do período." });
   const validProfileBases = new Set([
     captacao.pessoas_unicas_no_periodo,
     captacao.conversoes_no_periodo,
@@ -192,12 +209,11 @@ export function mapLovableNewsMetricsToSnapshot(payload: LovableNewsMetrics, kin
   const profile = payload.campos_personalizados;
   const interests = Object.fromEntries(INTEREST_FIELDS.map(field => [field.key, countByOption(profile.areas_de_interesse, field.label)]));
   const participation = Object.fromEntries(PARTICIPATION_FIELDS.map(field => [field.key, countByOption(profile.historico_no_arnold, field.sourceLabel)]));
-  const dmConversions = payload.origens.find(item => item.canal === "instagram_dm")?.conversoes ?? null;
   return {
     sourceKey: NEWS_LP_SOURCE.key,
     periodStartAt: civilDateToUtcNoon(payload.periodo.inicio),
     periodEndAt: civilDateToUtcNoon(payload.periodo.fim),
-    totalLeads: payload.captacao.total_acumulado_conversoes,
+    totalLeads: payload.captacao.total_acumulado_conversoes ?? payload.captacao.conversoes_no_periodo,
     newLeads: payload.captacao.conversoes_no_periodo,
     uniquePeopleInPeriod: payload.captacao.pessoas_unicas_no_periodo,
     totalUniquePeople: payload.captacao.total_acumulado_pessoas_unicas,
@@ -205,7 +221,7 @@ export function mapLovableNewsMetricsToSnapshot(payload: LovableNewsMetrics, kin
     sessions: null,
     dmSessions: null,
     formStarts: null,
-    dmConversions,
+    dmConversions: payload.captacao.conversoes_origem_dm,
     ...participation,
     ...interests,
     singleInterestCount: null,
@@ -217,6 +233,7 @@ export function mapLovableNewsMetricsToSnapshot(payload: LovableNewsMetrics, kin
     syncSource: kind === "daily" ? NEWS_DAILY_SYNC_SOURCE : kind === "rollup" ? NEWS_ROLLUP_SYNC_SOURCE : "manual",
     providerUpdatedAt: Date.parse(payload.atualizado_em),
     providerObservation: profile.observacao,
+    unavailableMetricsJson: JSON.stringify(payload.metricas_indisponiveis),
     note: "Dados agregados sincronizados do endpoint oficial da LP de novidades.",
   };
 }

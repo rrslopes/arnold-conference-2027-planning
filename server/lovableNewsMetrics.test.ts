@@ -6,14 +6,41 @@ const areas = [
   ["Fisioterapia Esportiva", 4, 25], ["Educação Física e Personal Training", 3, 18.8], ["Bodybuilding", 2, 12.5], ["Outra área", 2, 12.5],
 ] as const;
 
+const unavailableReason = "A LP de novidades 2027 é hospedada na RD Station. Só recebemos as conversões por webhook; visitas e inícios de formulário dessa página não são medidos por este projeto.";
+
 const fixture = {
   origem: "LP de Novidades 2027",
   url: "https://oferta.savagetgroup.com.br/conference-2027",
   periodo: { inicio: "2026-09-09", fim: "2026-09-10", fuso: "America/Sao_Paulo" },
   atualizado_em: "2026-09-11T04:22:59.020Z",
-  captacao: { conversoes_no_periodo: 16, pessoas_unicas_no_periodo: 16, total_acumulado_conversoes: 120, total_acumulado_pessoas_unicas: 120 },
+  captacao: {
+    conversoes_no_periodo: 16,
+    pessoas_unicas_no_periodo: 16,
+    conversoes_origem_dm: 1,
+    total_acumulado_conversoes: 120,
+    total_acumulado_pessoas_unicas: 120,
+    sessoes_na_lp: null,
+    sessoes_origem_dm: null,
+    sessoes_por_origem: null,
+    inicios_de_formulario: null,
+    abandonos_de_formulario: null,
+    taxa_de_conversao_bruta: null,
+    taxa_de_conversao_pessoas_unicas: null,
+  },
+  metricas_indisponiveis: {
+    campos: ["sessoes_na_lp", "sessoes_origem_dm", "sessoes_por_origem", "inicios_de_formulario", "abandonos_de_formulario", "taxa_de_conversao_bruta", "taxa_de_conversao_pessoas_unicas"],
+    motivo: unavailableReason,
+  },
   avanco_no_funil: { cliques_vindos_da_masterclass: 31, origens_dos_cliques: [{ canal: "instagram_ads", cliques: 13 }] },
-  origens: [{ canal: "instagram_dm", conversoes: 3 }, { canal: "sem_origem", conversoes: 13 }],
+  origens: [
+    { canal: "whatsapp", conversoes: 1, sessoes: null },
+    { canal: "instagram_ads", conversoes: 2, sessoes: null },
+    { canal: "instagram_dm", conversoes: 0, sessoes: null },
+    { canal: "email", conversoes: 8, sessoes: null },
+    { canal: "direto", conversoes: 1, sessoes: null },
+    { canal: "sem_origem", conversoes: 3, sessoes: null },
+    { canal: "outros", conversoes: 1, sessoes: null },
+  ],
   areas_de_interesse: areas.map(([area, pessoas, percentual]) => ({ area, pessoas, percentual })),
   campos_personalizados: {
     base_de_calculo: 16,
@@ -32,22 +59,40 @@ describe("contrato agregado da LP de novidades", () => {
   it("aceita o contrato real e mapeia somente dados agregados", () => {
     const payload = lovableNewsMetricsSchema.parse(fixture);
     const mapped = mapLovableNewsMetricsToSnapshot(payload);
-    expect(mapped).toMatchObject({ totalLeads: 120, newLeads: 16, uniquePeopleInPeriod: 16, totalUniquePeople: 120, profileBaseCount: 16, dmConversions: 3, sportsNutritionCount: 7, nutritionAestheticsCount: 6, attended2026Count: 8, firstTimeCount: 7, attendedPastCount: 1, masterclassClicks: 31, syncSource: "lovable-api-rollup" });
+    expect(mapped).toMatchObject({ totalLeads: 120, newLeads: 16, uniquePeopleInPeriod: 16, totalUniquePeople: 120, profileBaseCount: 16, dmConversions: 1, sportsNutritionCount: 7, nutritionAestheticsCount: 6, attended2026Count: 8, firstTimeCount: 7, attendedPastCount: 1, masterclassClicks: 31, syncSource: "lovable-api-rollup" });
+    expect(JSON.parse(mapped.unavailableMetricsJson)).toEqual(fixture.metricas_indisponiveis);
     expect(mapLovableNewsMetricsToSnapshot(payload, "daily").syncSource).toBe("lovable-api-daily");
     expect(JSON.parse(mapped.topCitiesJson)).toEqual([{ opcao: "São Paulo", pessoas: 4, percentual: 25 }]);
     expect(mapped).not.toHaveProperty("email");
     expect(mapped).not.toHaveProperty("telefone");
   });
 
-  it("rejeita campos inesperados e rankings divergentes", () => {
-    expect(lovableNewsMetricsSchema.safeParse({ ...fixture, email: "nao@deve.existir" }).success).toBe(false);
+  it("ignora campos novos e continua rejeitando rankings divergentes", () => {
+    expect(lovableNewsMetricsSchema.safeParse({ ...fixture, versao_futura: { campo: null } }).success).toBe(true);
     expect(lovableNewsMetricsSchema.safeParse({ ...fixture, areas_de_interesse: fixture.areas_de_interesse.slice(1) }).success).toBe(false);
+  });
+
+  it("aceita nulos estruturais e recusa conversão DM acima do total do período", () => {
+    expect(lovableNewsMetricsSchema.safeParse(fixture).success).toBe(true);
+    expect(lovableNewsMetricsSchema.safeParse({
+      ...fixture,
+      captacao: { ...fixture.captacao, conversoes_origem_dm: 17 },
+    }).success).toBe(false);
+  });
+
+  it("usa as conversões do período quando o acumulado vier nulo", () => {
+    const payload = lovableNewsMetricsSchema.parse({
+      ...fixture,
+      captacao: { ...fixture.captacao, total_acumulado_conversoes: null },
+    });
+    expect(mapLovableNewsMetricsToSnapshot(payload).totalLeads).toBe(16);
   });
 
   it("aceita recadastros quando a base do perfil corresponde às respostas brutas do período", () => {
     const withRegistrations = {
       ...fixture,
       captacao: {
+        ...fixture.captacao,
         conversoes_no_periodo: 130,
         pessoas_unicas_no_periodo: 127,
         total_acumulado_conversoes: 130,
@@ -125,6 +170,7 @@ describe("contrato agregado da LP de novidades", () => {
         ...fixture,
         periodo: { ...fixture.periodo, inicio: from, fim: to },
         captacao: {
+          ...fixture.captacao,
           conversoes_no_periodo: conversions,
           pessoas_unicas_no_periodo: conversions,
           total_acumulado_conversoes: 120,
@@ -152,6 +198,7 @@ describe("contrato agregado da LP de novidades", () => {
         ...fixture,
         periodo: { ...fixture.periodo, inicio: from, fim: to },
         captacao: {
+          ...fixture.captacao,
           conversoes_no_periodo: conversions,
           pessoas_unicas_no_periodo: conversions,
           total_acumulado_conversoes: 120,
@@ -183,6 +230,7 @@ describe("contrato agregado da LP de novidades", () => {
         ...fixture,
         periodo: { ...fixture.periodo, inicio: from, fim: to },
         captacao: {
+          ...fixture.captacao,
           conversoes_no_periodo: conversions,
           pessoas_unicas_no_periodo: conversions,
           total_acumulado_conversoes: 120,

@@ -14,9 +14,17 @@ describe("consolidação automática dos KPIs", () => {
   });
 
   it("não estima taxa ou abandono quando sessões e inícios não foram medidos", () => {
-    const rows = buildAutomaticKpis("landing", state({ leadProfileResults: [{ periodStartAt: 1, periodEndAt: 2, totalLeads: 94, newLeads: 94, sessions: null, dmSessions: null, formStarts: null, dmConversions: null, updatedAt: 3 }] }));
+    const unavailableMetricsJson = JSON.stringify({
+      campos: ["sessoes_na_lp", "sessoes_origem_dm", "inicios_de_formulario", "abandonos_de_formulario", "taxa_de_conversao_bruta", "taxa_de_conversao_pessoas_unicas"],
+      motivo: "A página da RD Station não envia visitas ou inícios pelo webhook.",
+    });
+    const rows = buildAutomaticKpis("landing", state({ leadProfileResults: [{ periodStartAt: 1, periodEndAt: 2, totalLeads: 94, newLeads: 94, sessions: null, dmSessions: null, formStarts: null, dmConversions: 4, unavailableMetricsJson, updatedAt: 3 }] }));
     expect(rows.find(row => row.key === "lp-conversion-rate")?.value).toBeNull();
     expect(rows.find(row => row.key === "lp-abandonments")?.value).toBeNull();
+    expect(rows.find(row => row.key === "lp-sessions")?.availability).toBe("not_measured");
+    expect(rows.find(row => row.key === "lp-form-starts")?.availabilityReason).toContain("RD Station");
+    expect(rows.find(row => row.key === "lp-dm-conversions")?.value).toBe(4);
+    expect(rows.find(row => row.key === "lp-dm-conversions")?.label).toContain("WhatsApp + Instagram DM");
   });
 
   it("usa a campanha de e-mail mais recente como fonte única", () => {

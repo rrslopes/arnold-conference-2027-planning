@@ -199,6 +199,7 @@ export const leadProfileSnapshots = mysqlTable("lead_profile_snapshots", {
   syncSource: varchar("syncSource", { length: 32 }).default("manual").notNull(),
   providerUpdatedAt: bigint("providerUpdatedAt", { mode: "number" }),
   providerObservation: text("providerObservation"),
+  unavailableMetricsJson: text("unavailableMetricsJson"),
   note: text("note").notNull(),
   updatedAt: bigint("updatedAt", { mode: "number" }).notNull(),
 }, table => ({
