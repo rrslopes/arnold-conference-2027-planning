@@ -61,7 +61,7 @@ describe("briefings operacionais do calendário", () => {
 
   it("torna 27/09 um teste de cenários executável com a íntegra de Gláucia", () => {
     const item = calendar.find(entry => entry.id === "0927");
-    expect(item?.title).toBe("Seu planejamento resiste a mais de um cenário?");
+    expect(item?.title).toBe("Sua academia resiste a um cenário que você não projetou?");
     expect(item?.channel).toBe("Reel + carrossel");
     expect(item?.congresses).toEqual(["Gestão de Academias"]);
     expect(item?.productionBrief?.units).toHaveLength(6);
@@ -71,11 +71,17 @@ describe("briefings operacionais do calendário", () => {
       "Escolha uma incerteza",
       "Desenhe dois cenários",
       "Teste a estratégia",
-      "Fonte e próximo passo",
+      "Aprofundamento na masterclass",
     ]);
     expect(item?.cutValidations?.[0]?.speaker).toBe("Gláucia Guarcello");
     expect(item?.cutValidations?.[0]?.location).toContain("41:38.1–42:04.0");
     expect(item?.fallback).toContain("carrossel gráfico de seis cards");
+    expect(item?.keyword).toBe("AULAS");
+    expect(item?.destination).toBe("Landing page das masterclasses");
+    expect(item?.cta).toContain("Academias em Alta Potência");
+    expect(item?.productionBrief?.units[5]?.content).toContain("Roberto Tranjan");
+    expect(item?.productionBrief?.note).toContain("Não misturar as falas");
+    expect(item?.productionBrief?.note).toContain("não atribuir a Roberto o método de cenários");
     expect(item?.productionBrief?.note).toContain("substitui integralmente qualquer menção a bastidores");
     expect(item?.optionMode).toBe("inputs");
   });
