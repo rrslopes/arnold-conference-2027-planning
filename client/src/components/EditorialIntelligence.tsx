@@ -4,6 +4,7 @@ import {
   audienceAttractionAxes,
   conferenceCoordinators,
   conferencePrograms2027,
+  confirmedProgramPublicationPolicy,
   nutritionAesthetic2026Priorities,
   speakerContentRequests,
 } from "@/data/editorialIntelligence";
@@ -31,6 +32,15 @@ export default function EditorialIntelligence() {
 
       {view === "programas" ? (
         <div className="program-view">
+          <div className="intelligence-rule program-publication-rule">
+            <Radar size={23} />
+            <p>
+              <strong>{confirmedProgramPublicationPolicy.status}.</strong>{" "}
+              {confirmedProgramPublicationPolicy.allowed}{" "}
+              {confirmedProgramPublicationPolicy.reserved}{" "}
+              <b>{confirmedProgramPublicationPolicy.criterion}</b>
+            </p>
+          </div>
           <div className="program-selector" aria-label="Selecionar congresso">
             {conferencePrograms2027.map(item => (
               <button type="button" className={item.id === selectedProgram.id ? "active" : ""} key={item.id} onClick={() => setProgramId(item.id)}>

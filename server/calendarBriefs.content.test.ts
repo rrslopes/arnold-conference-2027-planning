@@ -34,12 +34,33 @@ describe("briefings operacionais do calendário", () => {
     expect(item?.optionMode).toBe("inputs");
   });
 
-  it("transforma 25/09 em um único carrossel de seis cards ancorado em 2026", () => {
+  it("transforma 25/09 em um único carrossel de seis cards ancorado nos temas centrais de 2027", () => {
     const item = calendar.find(entry => entry.id === "0925");
+    expect(item?.title).toBe("Nutrição Estética 2027: uma resposta isolada não basta");
     expect(item?.productionBrief?.units).toHaveLength(6);
-    expect(JSON.stringify(item?.productionBrief)).toContain("2026");
-    expect(item?.productionBrief?.note).toContain("Não afirmar");
+    expect(JSON.stringify(item?.productionBrief)).toContain("Programação definitiva de Nutrição Estética 2027");
+    expect(item?.productionBrief?.note).toContain("temas centrais confirmados");
+    expect(item?.productionBrief?.note).toContain("grade completa permanece reservada");
+    expect(item?.options).toHaveLength(4);
     expect(item?.optionMode).toBe("inputs");
+  });
+
+  it("usa temas centrais de 18, 23 e 25/09 sem revelar horários, palestrantes ou a grade completa", () => {
+    for (const id of ["0918", "0923", "0925"]) {
+      const item = calendar.find(entry => entry.id === id);
+      const serialized = JSON.stringify({
+        title: item?.title,
+        idea: item?.idea,
+        options: item?.options,
+        brief: item?.productionBrief,
+      });
+      expect(serialized, id).toContain("temas centrais");
+      expect(serialized, id).not.toMatch(/\b\d{1,2}h\d{0,2}\b/);
+      expect(serialized, id).not.toMatch(/Marília Lacerda|Bruno Baroni|André Fujita|Ana Paula Pujol/);
+    }
+
+    expect(calendar.find(entry => entry.id === "0918")?.productionBrief?.note).toContain("não substitui o lançamento completo");
+    expect(calendar.find(entry => entry.id === "0923")?.productionBrief?.note).toContain("Preservar títulos completos");
   });
 
   it("torna 24/09 um checklist didático com quatro decisões e exemplos de aplicação", () => {

@@ -4,6 +4,7 @@ import {
   audienceAttractionAxes,
   conferenceCoordinators,
   conferencePrograms2027,
+  confirmedProgramPublicationPolicy,
   nutritionAesthetic2026Priorities,
   speakerContentRequests,
 } from "../client/src/data/editorialIntelligence";
@@ -28,6 +29,8 @@ describe("inteligência editorial por programação", () => {
     expect(program?.source).toContain("11/09/2026");
     expect(program?.assetSourceUrl).toContain("1cbpsKRniKhToysrglTtyyCpQwPeHffcs");
     expect(program?.note).toContain("dez sessões");
+    expect(program?.statusLabel).toContain("definitiva");
+    expect(program?.note).toContain("temas centrais podem ser divulgados seletivamente");
   });
 
   it("associa somente as oito fotos inequivocamente identificadas e mantém as lacunas visíveis", () => {
@@ -61,6 +64,19 @@ describe("inteligência editorial por programação", () => {
     expect(program?.sessions.at(-1)?.speakers).toContain("Moderação: Bruno Baroni");
     expect(program?.sourceUrl).toContain("1P6EooZAA6mVkYVMC-hVUfbBvGfxxCx-8");
     expect(program?.note).toContain("numeração oficial");
+    expect(program?.statusLabel).toContain("definitiva");
+    expect(program?.note).toContain("sem revelar a grade completa");
+  });
+
+  it("autoriza temas centrais sem tornar seu uso obrigatório nem antecipar a grade completa", () => {
+    expect(confirmedProgramPublicationPolicy.congresses).toEqual([
+      "Nutrição Estética",
+      "SONAFE — Simpósio de Fisioterapia Esportiva",
+    ]);
+    expect(confirmedProgramPublicationPolicy.allowed).toContain("quando melhorarem a jornada");
+    expect(confirmedProgramPublicationPolicy.reserved).toContain("grade completa");
+    expect(confirmedProgramPublicationPolicy.reserved).toContain("palestrantes");
+    expect(confirmedProgramPublicationPolicy.criterion).toContain("não cria obrigação editorial");
   });
 
   it("mantém eixos e solicitações operacionais completos", () => {
@@ -101,6 +117,7 @@ describe("inteligência editorial por programação", () => {
     expect(component).toContain("COORDENAÇÃO CIENTÍFICA CONFIRMADA");
     expect(component).toContain("coordinator-grid");
     expect(component).toContain("program-review");
+    expect(component).toContain("confirmedProgramPublicationPolicy");
     expect(component).toContain("Abrir planilha");
     expect(component).toContain("Abrir pasta de fotos");
     expect(component).toContain("program-speaker-assets");

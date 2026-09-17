@@ -104,18 +104,23 @@ describe("fluxo específico de aprovação dos e-mails", () => {
     expect(emailCampaignBriefs["email-base-recuperar-inscricao"].decision).toContain("área de interesse");
   });
 
-  it("mantém a programação interna fora dos e-mails públicos de 18 a 25/09", () => {
+  it("permite temas centrais no e-mail SONAFE e preserva a grade completa", () => {
     const auditedDates = new Set(["18/09", "21/09", "22/09", "23/09", "24–25/09"]);
     const publicFields = emailBase
       .filter(item => auditedDates.has(item.date))
       .flatMap(item => [item.objective, item.materials, item.cta]);
 
-    expect(publicFields.join(" ")).not.toMatch(/programaç|grade confirmada|sessões confirmadas/i);
+    expect(publicFields.join(" ")).not.toMatch(/grade completa|horários de 2027|títulos integrais de 2027|palestrantes de 2027/i);
+    expect(emailBase.find(item => item.date === "23/09")?.objective).toContain("temas centrais confirmados para 2027");
     expect(emailBase.find(item => item.date === "23/09")?.materials).toContain("Carrossel público da SONAFE");
     expect(emailBase.find(item => item.date === "24–25/09")?.cta).toBe("Escolher minha área de interesse");
+    const sonafeBrief = emailCampaignBriefs["email-base-vendas-abertas"];
+    expect(sonafeBrief.rationale).toContain("temas centrais confirmados para 2027");
+    expect(JSON.stringify(sonafeBrief.versions)).toContain("controle de carga");
+    expect(sonafeBrief.productionChecks.join(" ")).toContain("Preservar títulos integrais");
     Object.values(emailCampaignBriefs).forEach(brief => {
       const publicFacing = brief.versions.flatMap(version => [version.objective, version.subjectDirection, ...version.steps.map(step => step.example)]);
-      expect(publicFacing.join(" ")).not.toMatch(/grade|sessões confirmadas|palestrantes de 2027/i);
+      expect(publicFacing.join(" ")).not.toMatch(/grade completa|horários|títulos integrais|palestrantes de 2027/i);
     });
   });
 

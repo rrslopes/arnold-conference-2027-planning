@@ -30,10 +30,10 @@ export const calendarMilestones: Record<string, CalendarMilestone> = {
   "0918": {
     label: "Profundidade confirmada",
     tone: "lead",
-    description: "Segundo marco de captação: mostrar o que as programações já recebidas de Nutrição Estética e SONAFE revelam, com transparência sobre as salas ainda pendentes.",
+    description: "Segundo marco de captação: antecipar os temas centrais autorizados de Nutrição Estética e SONAFE sem revelar as grades completas.",
     paidMediaPack: {
       label: "Pack de artes para mídia paga",
-      requirement: "A agência deve redimensionar a mesma peça editorial de 18/09 para 1:1, 4:5 e 9:16, sem criar conteúdo exclusivo. Manter a landing page de novidades como destino e segmentar por afinidade com Nutrição Estética, SONAFE e públicos engajados.",
+      requirement: "A agência deve redimensionar a mesma peça editorial de 18/09 para 1:1, 4:5 e 9:16, sem criar conteúdo exclusivo. Manter a landing page de novidades como destino, segmentar por afinidade e preservar títulos integrais, horários e palestrantes para o lançamento das programações.",
     },
   },
 };

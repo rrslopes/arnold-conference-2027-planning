@@ -412,7 +412,7 @@ export const emailCampaignBriefs: Record<string, EmailCampaignBrief> = {
     decision:
       "Aquecer SONAFE com um conteúdo público sobre recovery, prevenção e avaliação.",
     rationale:
-      "Sem uma isca própria da SONAFE, o e-mail precisa entregar uma ideia útil antes de pedir cadastro. O conteúdo-base já é público: recovery não começa no recurso da moda, mas na avaliação, na organização da carga e no respeito aos limites. Quem já está na lista vai para o post; quem ainda não está pode cadastrar seu interesse.",
+      "Sem uma isca própria da SONAFE, o e-mail precisa entregar uma ideia útil antes de pedir cadastro. O conteúdo-base já é público: recovery não começa no recurso da moda, mas na avaliação, na organização da carga e no respeito aos limites. Esses eixos também aparecem entre os temas centrais confirmados para 2027. Quem já está na lista vai para o post; quem ainda não está pode cadastrar seu interesse.",
     versions: [
       {
         id: "sonafe-conteudo",
@@ -442,11 +442,11 @@ export const emailCampaignBriefs: Record<string, EmailCampaignBrief> = {
           },
           {
             step: "Bloco 3",
-            role: "Papel da prevenção",
+            role: "Prevenção e aderência a 2027",
             direction:
-              "Explicar que observar sobrecargas e fatores de risco faz parte do processo, sem transformar o e-mail em orientação clínica.",
+              "Explicar que observar sobrecargas e fatores de risco faz parte do processo e que avaliação, carga e prevenção estão entre os temas centrais confirmados para 2027, sem abrir a grade.",
             example:
-              "Prevenir também é reconhecer sinais e ajustar decisões antes que o problema se agrave.",
+              "Na edição de 2027, avaliação, controle de carga e prevenção estarão entre os eixos de aprofundamento da SONAFE.",
           },
           {
             step: "Bloco 4",
@@ -489,11 +489,11 @@ export const emailCampaignBriefs: Record<string, EmailCampaignBrief> = {
           },
           {
             step: "Bloco 3",
-            role: "Conexão com SONAFE",
+            role: "Conexão com SONAFE 2027",
             direction:
-              "Relacionar o tema ao campo da Fisioterapia Esportiva, sem anunciar sessões ou palestrantes.",
+              "Relacionar o tema aos eixos confirmados de avaliação, controle de carga, prevenção e retorno ao esporte, sem anunciar sessões ou palestrantes.",
             example:
-              "É esse tipo de discussão que interessa a quem atua com prevenção, recuperação e retorno ao esporte.",
+              "Esses temas centrais conectam prevenção, recuperação e retorno ao esporte na SONAFE 2027.",
           },
           {
             step: "Bloco 4",
@@ -533,7 +533,8 @@ export const emailCampaignBriefs: Record<string, EmailCampaignBrief> = {
     productionChecks: [
       "Usar o carrossel público DTnBm0Qlo0Q como fonte principal.",
       "Submeter a versão final à revisão técnica de profissional da SONAFE.",
-      "Não citar palestrantes, sessões ou programação de 2027.",
+      "Apresentar somente avaliação, controle de carga, prevenção e retorno ao esporte como temas centrais confirmados para 2027.",
+      "Preservar títulos integrais, horários, sequência e palestrantes para a divulgação completa da programação.",
       "Não transformar os conceitos em protocolo clínico.",
       "Separar cadastrados e não cadastrados antes de definir o CTA.",
     ],

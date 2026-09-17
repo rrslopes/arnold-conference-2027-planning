@@ -58,6 +58,13 @@ describe("proteção contra duplicidades no calendário revisado", () => {
     expect(operationalBriefs["0923"].purpose).toContain("população, modalidade e demanda");
   });
 
+  it("separa a visão ampla de 18/09 dos aprofundamentos de SONAFE e Nutrição Estética", () => {
+    expect(operationalBriefs["0918"].purpose).toContain("duas programações definitivas");
+    expect(operationalBriefs["0923"].purpose).toContain("população, modalidade e demanda");
+    expect(item("0925").title).toBe("Nutrição Estética 2027: uma resposta isolada não basta");
+    expect(operationalBriefs["0925"].purpose).toContain("leitura profissional integrada");
+  });
+
   it("mantém o pack de 18/09 sincronizado com a pauta orgânica sem criar peça exclusiva", () => {
     const september18 = paidMediaAssets.find(asset => asset.id === "resize-0918");
     expect(september18?.title).toBe(item("0918").title);

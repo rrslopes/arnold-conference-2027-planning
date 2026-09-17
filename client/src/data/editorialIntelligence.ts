@@ -34,6 +34,17 @@ export type ConferenceCoordinator = {
   bioSource?: string;
 };
 
+export const confirmedProgramPublicationPolicy = {
+  congresses: ["Nutrição Estética", "SONAFE — Simpósio de Fisioterapia Esportiva"],
+  status: "Programações definitivas · divulgação temática autorizada",
+  allowed:
+    "Os temas centrais podem ser usados em posts e e-mails quando melhorarem a jornada, o storytelling ou o avanço do público.",
+  reserved:
+    "Preservar para um lançamento próprio da programação: grade completa, sequência, horários, títulos integrais das sessões, composição completa de palestrantes e materiais ainda pendentes.",
+  criterion:
+    "Disponibilidade não cria obrigação editorial. Usar somente quando o tema tiver função clara na campanha e não substituir uma pauta mais forte.",
+};
+
 export const conferencePrograms2027: CongressProgram[] = [
   {
     id: "gestao",
@@ -57,12 +68,12 @@ export const conferencePrograms2027: CongressProgram[] = [
     id: "sonafe",
     congress: "SONAFE — Simpósio de Fisioterapia Esportiva",
     status: "recebida",
-    statusLabel: "Programação 2027 recebida · provisória",
+    statusLabel: "Programação 2027 definitiva · temas liberados",
     date: "24 de abril de 2027",
     room: "Sala a confirmar",
     source: "Programação_Simposio_Sonafe_2027.xls · Google Sheets do projeto",
     sourceUrl: "https://docs.google.com/spreadsheets/d/1P6EooZAA6mVkYVMC-hVUfbBvGfxxCx-8/edit?gid=656380718#gid=656380718",
-    note: "Doze sessões consolidadas, incluindo nove palestras em dupla e uma mesa-redonda. A planilha da programação identifica o encontro como 2º Simpósio, enquanto o arquivo de coordenadores usa 3º Simpósio; confirmar a numeração oficial antes de publicar peças externas.",
+    note: "Doze sessões definitivas, incluindo nove palestras em dupla e uma mesa-redonda. Os temas centrais podem ser divulgados seletivamente, sem revelar a grade completa. A planilha identifica o encontro como 2º Simpósio, enquanto o arquivo de coordenadores usa 3º Simpósio; confirmar a numeração oficial antes de publicar peças externas.",
     sessions: [
       { time: "9h00", speakers: "Anderson José Santana", title: "Crioterapia no Esporte: novas perspectivas e caminhos" },
       { time: "9h30", speakers: "Adriane Vanin", title: "Fotobiomodulação no Esporte: a luz no fim do túnel — evidências atuais" },
@@ -82,12 +93,12 @@ export const conferencePrograms2027: CongressProgram[] = [
     id: "nutricao-estetica",
     congress: "Nutrição Estética",
     status: "recebida",
-    statusLabel: "Programação 2027 recebida · provisória",
+    statusLabel: "Programação 2027 definitiva · temas liberados",
     date: "23 de abril de 2027",
     room: "Sala a confirmar",
     source: "Programação_Conference_NutriçãoEstética_2027.xlsx · versão atualizada recebida em 11/09/2026",
     assetSourceUrl: "https://drive.google.com/drive/folders/1cbpsKRniKhToysrglTtyyCpQwPeHffcs?usp=drive_link",
-    note: "As dez sessões, horários, títulos e palestrantes permanecem iguais à versão anterior. A atualização acrescenta ementas e materiais individuais para seis sessões. A pasta principal contém nove pastas de palestrantes; oito fotos foram associadas com segurança. O arquivo da pasta Diogo Viana está nomeado “Diogo Pinto” e permanece bloqueado até confirmação. Outros oito palestrantes ainda não possuem foto nessa pasta.",
+    note: "As dez sessões são definitivas e seus temas centrais podem ser divulgados seletivamente, sem revelar a grade completa. A atualização acrescenta ementas e materiais individuais para seis sessões. A pasta principal contém nove pastas de palestrantes; oito fotos foram associadas com segurança. O arquivo da pasta Diogo Viana está nomeado “Diogo Pinto” e permanece bloqueado até confirmação. Outros oito palestrantes ainda não possuem foto nessa pasta.",
     sessions: [
       {
         time: "9h00",
