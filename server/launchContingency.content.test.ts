@@ -50,8 +50,7 @@ describe("contingência comercial sem data fixa", () => {
     const warmingDates = ["15/09", "18/09", "21/09", "22/09", "23/09", "24–25/09"];
     const warmingEmails = emailBase.filter(item => warmingDates.includes(item.date));
     expect(warmingEmails.filter(item => item.date !== "18/09").every(item => item.destination.includes("Landing page geral"))).toBe(true);
-    expect(warmingEmails.find(item => item.date === "18/09")?.destination).toContain("LP das masterclasses");
-    expect(warmingEmails.find(item => item.date === "18/09")?.destination).toContain("LP de novidades");
+    expect(warmingEmails.find(item => item.date === "18/09")?.destination).toBe("Landing page das masterclasses");
     expect(whatsappPlan.some(item => item.date === "Janela móvel · D-7")).toBe(true);
   });
 

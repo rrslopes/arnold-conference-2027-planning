@@ -17,41 +17,49 @@ describe("fluxo específico de aprovação dos e-mails", () => {
     ids.forEach(id => expect(id).toMatch(/^email-(base|nurture)-[a-z0-9-]+$/));
   });
 
-  it("detalha 18/09 em duas versões segmentadas com um CTA coerente por público", () => {
+  it("detalha 18/09 como um único envio para a isca, sem antecipar a programação", () => {
     const email = emailBase.find(item => item.id === "email-base-comparativo");
     const brief = emailCampaignBriefs["email-base-comparativo"];
 
     expect(email?.date).toBe("18/09");
-    expect(email?.audience).toContain("Duas segmentações");
-    expect(brief.versions).toHaveLength(2);
-    expect(brief.versions.map(version => version.id)).toEqual([
-      "nutricao-estetica",
-      "sonafe",
-    ]);
+    expect(email?.audience).toContain("ainda não converteram nas masterclasses");
+    expect(email?.destination).toBe("Landing page das masterclasses");
+    expect(brief.versions).toHaveLength(1);
+    expect(brief.versions.map(version => version.id)).toEqual(["masterclasses"]);
     expect(brief.versions.every(version => version.steps.length === 4)).toBe(
       true
     );
-    expect(
-      brief.versions.find(version => version.id === "nutricao-estetica")
-        ?.destinationUrl
-    ).toBe("https://masterclassconference.savagetgroup.com.br/");
-    expect(
-      brief.versions.find(version => version.id === "sonafe")?.destinationUrl
-    ).toBe("https://oferta.savagetgroup.com.br/conference-2027");
+    expect(brief.versions[0].destinationUrl).toBe(
+      "https://masterclassconference.savagetgroup.com.br/"
+    );
+    const publicFacingDirections = [
+      brief.versions[0].objective,
+      brief.versions[0].subjectDirection,
+      ...brief.versions[0].steps.map(step => step.example),
+    ].join(" ");
+    expect(publicFacingDirections).not.toMatch(/programaç|sessões confirmadas|palestrantes de 2027/i);
   });
 
   it("não repete formulário para convertidos nem associa as masterclasses ao SONAFE", () => {
     const brief = emailCampaignBriefs["email-base-comparativo"];
     const serialized = JSON.stringify(brief);
-    const sonafe = brief.versions.find(version => version.id === "sonafe");
 
     expect(serialized).toContain("não converteu");
-    expect(serialized).toContain("Não reenviar");
-    expect(JSON.stringify(sonafe)).toContain(
-      "não existe uma isca específica"
-    );
-    expect(sonafe?.cta).toBe("Quero acompanhar as novidades do SONAFE");
-    expect(brief.productionChecks.join(" ")).toContain("programação antiga");
+    expect(serialized).toContain("Suprimir do disparo");
+    expect(brief.versions.some(version => version.id === "sonafe")).toBe(false);
+    expect(brief.routing.at(-1)?.reason).toContain("não representam essas áreas");
+    expect(brief.productionChecks.join(" ")).toContain("Bloquear qualquer menção a programação");
+  });
+
+  it("mantém a programação interna fora dos e-mails públicos de 18 a 25/09", () => {
+    const auditedDates = new Set(["18/09", "21/09", "22/09", "23/09", "24–25/09"]);
+    const publicFields = emailBase
+      .filter(item => auditedDates.has(item.date))
+      .flatMap(item => [item.objective, item.materials, item.cta]);
+
+    expect(publicFields.join(" ")).not.toMatch(/programaç|grade confirmada|sessões confirmadas/i);
+    expect(emailBase.find(item => item.date === "23/09")?.materials).toContain("Carrossel público da SONAFE");
+    expect(emailBase.find(item => item.date === "24–25/09")?.cta).toBe("Quero receber as novidades");
   });
 
   it("organiza os status nas oito etapas operacionais", () => {

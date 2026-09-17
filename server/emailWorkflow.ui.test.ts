@@ -38,10 +38,10 @@ describe("plano de e-mail estratégico simplificado", () => {
     expect(home).toContain("Copy final, link da prévia, ajustes e status");
   });
 
-  it("renderiza o detalhamento segmentado de 18/09 com CTA, exemplos e matriz de decisão", () => {
+  it("renderiza o detalhamento de 18/09 com CTA, exemplos e matriz de decisão", () => {
     expect(home).toContain("EmailCampaignBriefDetail");
     expect(home).toContain("email-focus");
-    expect(home).toContain("Um CTA por versão");
+    expect(home).toContain("Um CTA por envio");
     expect(brief).toContain("DECISÃO SOBRE O CTA");
     expect(brief).toContain("EXEMPLO DE DIREÇÃO");
     expect(brief).toContain("MATRIZ DE DECISÃO");
