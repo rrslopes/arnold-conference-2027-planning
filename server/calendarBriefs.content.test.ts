@@ -42,6 +42,42 @@ describe("briefings operacionais do calendário", () => {
     expect(item?.optionMode).toBe("inputs");
   });
 
+  it("torna 24/09 um checklist didático com quatro decisões e exemplos de aplicação", () => {
+    const item = calendar.find(entry => entry.id === "0924");
+    expect(item?.title).toBe("Antes de escolher seu congresso, responda a estas 4 perguntas");
+    expect(item?.productionBrief?.units).toHaveLength(6);
+    expect(item?.productionBrief?.units.map(unit => unit.role)).toEqual([
+      "Por que usar o checklist",
+      "1. Momento profissional",
+      "2. Desafio prioritário",
+      "3. Profundidade esperada",
+      "4. Aplicação desejada",
+      "Síntese e próximo passo",
+    ]);
+    expect(item?.productionBrief?.units[2]?.content).toContain("Exemplos possíveis");
+    expect(item?.productionBrief?.note).toContain("não é um comparativo");
+    expect(item?.optionMode).toBe("inputs");
+  });
+
+  it("torna 27/09 um bastidor real, sem métricas públicas nem prova social obrigatória", () => {
+    const item = calendar.find(entry => entry.id === "0927");
+    expect(item?.title).toBe("O que acontece antes de uma novidade do Conference chegar até você");
+    expect(item?.channel).toBe("Carrossel");
+    expect(item?.productionBrief?.units).toHaveLength(6);
+    expect(item?.productionBrief?.units.map(unit => unit.role)).toEqual([
+      "O processo por trás da novidade",
+      "Construção das programações",
+      "Conferência das informações",
+      "Transformação em conteúdo",
+      "O que vem nas próximas confirmações",
+      "Acompanhe os próximos passos",
+    ]);
+    expect(item?.options?.join(" ")).toContain("fotos ou vídeos reais");
+    expect(item?.productionBrief?.note).toContain("Não usar números da LP de Novidades ou das masterclasses");
+    expect(item?.productionBrief?.note).toContain("bastidor encenado");
+    expect(item?.optionMode).toBe("inputs");
+  });
+
   it("distingue insumos da sequência e alternativas excludentes", () => {
     expect(calendar.find(item => item.id === "0904")?.optionMode).toBe("alternatives");
     expect(calendar.find(item => item.id === "0915")?.optionMode).toBe("inputs");
@@ -49,6 +85,7 @@ describe("briefings operacionais do calendário", () => {
     expect(calendar.find(item => item.id === "0903")?.optionMode).toBe("inputs");
     expect(calendar.find(item => item.id === "0921")?.optionMode).toBe("inputs");
     expect(calendar.find(item => item.id === "0925")?.optionMode).toBe("inputs");
+    expect(calendar.find(item => item.id === "0927")?.optionMode).toBe("inputs");
   });
 
   it("mantém 23/09 como uma única pauta multiformato de aquecimento", () => {

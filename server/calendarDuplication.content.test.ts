@@ -23,13 +23,21 @@ describe("proteção contra duplicidades no calendário revisado", () => {
     expect(item("0918").origin).toContain("Nutrição Estética e SONAFE 2027");
     expect(item("0918").idea.toLocaleLowerCase("pt-BR")).not.toContain("seis perfis");
 
-    expect(item("0924").title).toBe("Quatro critérios para validar sua escolha de congresso");
+    expect(item("0924").title).toBe("Antes de escolher seu congresso, responda a estas 4 perguntas");
     expect(item("0924").options).toHaveLength(4);
-    expect(item("0924").idea.toLocaleLowerCase("pt-BR")).toContain("sem repetir os seis perfis");
+    expect(item("0924").idea.toLocaleLowerCase("pt-BR")).toContain("não compara salas");
 
     expect(item("0926").title).toBe("Cinco perguntas para escolher melhor");
     expect(launchWindow.find(entry => entry.moment === "D-5")?.title).toBe("O que mudou desde o aquecimento");
     expect(launchWindow.find(entry => entry.moment === "D-5")?.objective).toContain("novas programações");
+  });
+
+  it("separa o checklist de 24/09, as dúvidas de 26/09 e os bastidores de 27/09", () => {
+    expect(operationalBriefs["0924"].purpose).toContain("checklist de autoavaliação");
+    expect(operationalBriefs["0926"].purpose).toContain("Responder dúvidas de orientação");
+    expect(item("0927").title).toBe("O que acontece antes de uma novidade do Conference chegar até você");
+    expect(operationalBriefs["0927"].purpose).toContain("trabalho real que antecede cada anúncio");
+    expect(JSON.stringify(item("0927"))).not.toContain("Dados agregados de interesse");
   });
 
   it("separa Bodybuilding entre individualização e equipe multidisciplinar", () => {

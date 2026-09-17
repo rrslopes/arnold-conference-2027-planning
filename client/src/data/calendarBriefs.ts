@@ -227,16 +227,16 @@ export const operationalBriefs: Record<string, ProductionBrief> = {
   },
   "0924": {
     format: "Carrossel de 6 cards",
-    purpose: "Entregar um checklist para validar a escolha sem repetir os seis perfis apresentados no aquecimento.",
+    purpose: "Entregar um checklist de autoavaliação para o profissional filtrar qual congresso faz sentido para seu momento, sem comparar salas nem repetir os seis perfis apresentados no aquecimento.",
     units: [
-      { unit: "Card 1", role: "Instrução", content: "Apresentar quatro critérios para validar a escolha depois de reconhecer as áreas de interesse." },
-      { unit: "Card 2", role: "Aderência profissional", content: "Perguntar se a sala conversa com a atuação atual ou com o próximo passo profissional buscado." },
-      { unit: "Card 3", role: "Problema prioritário", content: "Definir qual desafio concreto a pessoa deseja compreender melhor, evitando uma escolha apenas pelo nome do congresso." },
-      { unit: "Card 4", role: "Profundidade", content: "Verificar se os temas confirmados vão além de uma visão introdutória e correspondem ao nível de aprofundamento esperado." },
-      { unit: "Card 5", role: "Aplicação", content: "Identificar que decisão, método ou repertório a pessoa espera levar para sua prática." },
-      { unit: "Card 6", role: "Próximo passo", content: "Orientar a salvar o checklist, acompanhar as programações e comentar CONGRESSO para receber novidades." },
+      { unit: "Card 1", role: "Por que usar o checklist", content: "Explicar que escolher apenas pelo nome da sala ou por um assunto isolado pode não ser suficiente. A decisão deve considerar momento profissional, desafio prioritário, profundidade e aplicação." },
+      { unit: "Card 2", role: "1. Momento profissional", content: "Perguntar: você quer aprimorar sua atuação atual ou preparar um próximo passo na carreira? Exemplo: fortalecer o trabalho que já realiza ou ampliar uma nova frente de atuação." },
+      { unit: "Card 3", role: "2. Desafio prioritário", content: "Pedir que a pessoa nomeie um problema concreto que deseja compreender melhor. Exemplos possíveis: fortalecer a gestão do negócio, ampliar a atuação internacional, individualizar decisões em nutrição, aprofundar prevenção e reabilitação ou integrar variáveis de uma preparação esportiva." },
+      { unit: "Card 4", role: "3. Profundidade esperada", content: "Orientar a verificar se os temas confirmados correspondem ao nível de experiência e ao aprofundamento buscado. Observar contextos, populações e decisões presentes na programação; não se limitar ao nome do congresso." },
+      { unit: "Card 5", role: "4. Aplicação desejada", content: "Perguntar o que a pessoa espera conseguir analisar, decidir ou estruturar melhor depois do evento. Usar exemplos de aplicação profissional sem prometer método ou resultado que ainda não esteja confirmado." },
+      { unit: "Card 6", role: "Síntese e próximo passo", content: "Explicar que as quatro respostas ajudam a filtrar interesses, mas a escolha final depende das programações oficiais. Orientar a salvar o checklist e cadastrar-se para acompanhar as próximas confirmações." },
     ],
-    note: "Não listar novamente os seis perfis nem indicar compatibilidade entre congressos sem agenda oficial. O checklist organiza critérios; a programação confirmada sustenta a decisão final.",
+    note: "Este não é um comparativo entre congressos nem uma nova lista de perfis. Não indicar compatibilidade de horários, preço, lote, data de abertura ou conteúdo ainda não confirmado. A programação oficial de cada sala sustenta a decisão final. Se usar CONGRESSO, confirmar antes que a automação por mensagem direta esteja ativa; caso contrário, direcionar para o link da bio.",
   },
   "0925": {
     format: "Carrossel de 6 cards",
@@ -265,16 +265,17 @@ export const operationalBriefs: Record<string, ProductionBrief> = {
     note: "Não inserir preço, lote, data, horário, logística ou promessa de inscrição até que as informações estejam confirmadas e a janela móvel seja ativada.",
   },
   "0927": {
-    format: "Carrossel ou post de 5 blocos para feed",
-    purpose: "Usar uma prova real para sustentar confiança e explicar os próximos passos da campanha.",
+    format: "Carrossel de 6 cards com registros reais; alternativa gráfica se não houver imagens",
+    purpose: "Mostrar com transparência o trabalho real que antecede cada anúncio do Arnold Conference 2027 e explicar como as próximas informações chegarão ao público, sem usar métricas das landing pages como prova social.",
     units: [
-      { unit: "Bloco 1", role: "Prova escolhida", content: "Selecionar uma única prova verificável: comentário autorizado, dúvida resolvida, depoimento anterior ou dado aprovado.", source: "Material autorizado" },
-      { unit: "Bloco 2", role: "Origem", content: "Identificar de que edição ou momento veio a prova e preservar o contexto." },
-      { unit: "Bloco 3", role: "O que ela demonstra", content: "Explicar somente o aspecto comprovado: interesse, dúvida resolvida ou valor percebido." },
-      { unit: "Bloco 4", role: "Próximos conteúdos", content: "Informar que a campanha seguirá ajudando na escolha, programação e preparação para o evento." },
-      { unit: "Bloco 5", role: "Ação", content: "Orientar a acompanhar os próximos anúncios pela landing page geral de novidades." },
+      { unit: "Card 1", role: "O processo por trás da novidade", content: "Explicar que programações, palestrantes, informações comerciais e conteúdos passam por organização e confirmação antes de serem divulgados. A ideia é demonstrar cuidado, não justificar demora." },
+      { unit: "Card 2", role: "Construção das programações", content: "Mostrar o trabalho de organização dos temas e sessões por sala. Exemplo de registro: recorte autorizado de planilha, reunião de curadoria ou alinhamento com coordenação, sem revelar informação confidencial.", source: "Foto, vídeo ou documento real autorizado pelo cliente" },
+      { unit: "Card 3", role: "Conferência das informações", content: "Explicar que nomes, títulos, horários e diferenciais são conferidos antes da publicação. Exemplo: revisão de um título ou checagem de uma grade já autorizada, sem exibir pendências internas." },
+      { unit: "Card 4", role: "Transformação em conteúdo", content: "Mostrar que programações, materiais de edições anteriores e dúvidas reais são analisados para criar conteúdos que ajudem cada público a compreender as propostas dos congressos. Não afirmar que a audiência define a programação." },
+      { unit: "Card 5", role: "O que vem nas próximas confirmações", content: "Mencionar somente categorias aprovadas, sem prometer ordem ou data: novas programações, palestrantes, coordenadores, conteúdos e informações sobre inscrições serão divulgados à medida que forem oficialmente confirmados." },
+      { unit: "Card 6", role: "Acompanhe os próximos passos", content: "Convidar o público a cadastrar-se na Landing Page de Novidades para acompanhar programações, confirmações e informações oficiais do Arnold Conference 2027." },
     ],
-    note: "Escolher apenas uma fonte de prova por peça. Sem prova autorizada, usar bastidores reais da equipe e explicar os próximos conteúdos.",
+    note: "Antes da produção, validar com o cliente o fluxo real, o que já pode ser divulgado, os próximos tipos de anúncio e de três a cinco registros autorizados. Não usar números da LP de Novidades ou das masterclasses, ranking de interesse, depoimento não autorizado, bastidor encenado, documento confidencial, data comercial ou falsa escassez. Se não houver imagens reais, assumir claramente o formato gráfico ‘O que já está em andamento’ e não chamar a peça de bastidores.",
   },
 };
 
@@ -296,5 +297,5 @@ export const optionModes: Record<string, "alternatives" | "inputs"> = {
   "0923": "inputs",
   "0924": "inputs",
   "0925": "inputs",
-  "0927": "alternatives",
+  "0927": "inputs",
 };
