@@ -41,13 +41,15 @@ describe("plano de e-mail estratégico simplificado", () => {
   it("renderiza os detalhamentos de 18 a 25/09 com CTA, exemplos e regra de distribuição", () => {
     expect(home).toContain("EmailCampaignBriefDetail");
     expect(home).toContain("email-focus");
-    expect(home).toContain("Um CTA por envio");
+    expect(home).toContain("Um CTA principal");
     expect(brief).toContain("DECISÃO SOBRE O CTA");
     expect(brief).toContain("EXEMPLO DE DIREÇÃO");
-    expect(brief).toContain("CTA ÚNICO DESTE ENVIO");
+    expect(brief).toContain("CTA PRINCIPAL DESTE ENVIO");
     expect(brief).toContain("REGRA DE DISTRIBUIÇÃO");
     expect(brief).toContain("Quem priorizar sem criar novas versões");
     expect(brief).toContain("REGRA DE ENVIO");
+    expect(brief).toContain("REFERÊNCIA SECUNDÁRIA · ACERVO CONTEXTUALIZADO");
+    expect(brief).toContain("version.secondaryAction");
   });
 
   it("abre 18/09 por padrão e permite abrir diretamente os demais e-mails", () => {

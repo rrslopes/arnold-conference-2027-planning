@@ -81,7 +81,7 @@ export default function EmailCampaignBriefDetail({
               <div className="email-brief-action">
                 <MousePointerClick size={18} />
                 <div>
-                  <span>CTA ÚNICO DESTE ENVIO</span>
+                  <span>CTA PRINCIPAL DESTE ENVIO</span>
                   <strong>{version.cta}</strong>
                 </div>
                 <a
@@ -93,6 +93,23 @@ export default function EmailCampaignBriefDetail({
                   <ArrowUpRight size={14} />
                 </a>
               </div>
+              {version.secondaryAction ? (
+                <div className="email-brief-secondary">
+                  <div>
+                    <span>REFERÊNCIA SECUNDÁRIA · ACERVO CONTEXTUALIZADO</span>
+                    <strong>{version.secondaryAction.label}</strong>
+                    <p>{version.secondaryAction.context}</p>
+                  </div>
+                  <a
+                    href={version.secondaryAction.destinationUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {version.secondaryAction.destinationLabel}
+                    <ArrowUpRight size={14} />
+                  </a>
+                </div>
+              ) : null}
               <p className="email-brief-exclusion">
                 <ShieldCheck size={15} />
                 <span>

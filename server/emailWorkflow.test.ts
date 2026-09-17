@@ -85,13 +85,20 @@ describe("fluxo específico de aprovação dos e-mails", () => {
       "email-base-48h":
         "https://masterclassconference.savagetgroup.com.br/",
       "email-base-vespera":
-        "https://www.instagram.com/reel/DVZDZWEFPP3/",
+        "https://oferta.savagetgroup.com.br/conference-2027",
       "email-base-vendas-abertas":
         "https://oferta.savagetgroup.com.br/conference-2027",
       "email-base-recuperar-inscricao":
         "https://oferta.savagetgroup.com.br/conference-2027",
     });
-    expect(new Set(Object.values(destinations)).size).toBe(3);
+    expect(new Set(Object.values(destinations)).size).toBe(2);
+    const bodybuilding = emailCampaignBriefs["email-base-vespera"].versions[0];
+    expect(bodybuilding.secondaryAction).toEqual({
+      label: "Assistir ao registro de 2026 com Ricardo Pannain",
+      destinationLabel: "Reel do acervo Arnold Conference 2026",
+      destinationUrl: "https://www.instagram.com/reel/DVZDZWEFPP3/",
+      context: expect.stringContaining("02/03/2026"),
+    });
   });
 
   it("restaura os cinco temas publicados e apenas os detalha", () => {
@@ -130,7 +137,23 @@ describe("fluxo específico de aprovação dos e-mails", () => {
     ).toContain("e-mail continua útil como conteúdo");
     expect(
       emailCampaignBriefs["email-base-vespera"].rationale
-    ).toContain("entrega contexto antes do clique");
+    ).toContain("registro do Arnold Conference 2026");
+  });
+
+  it("contextualiza o Reel antigo de Bodybuilding e faz a ponte com 2027", () => {
+    const email = emailBase.find(item => item.date === "22/09");
+    const brief = emailCampaignBriefs["email-base-vespera"];
+    const version = brief.versions[0];
+    const serialized = JSON.stringify(brief);
+
+    expect(email?.destination).toBe("Landing page geral de novidades");
+    expect(email?.rule).toContain("referência secundária clicável");
+    expect(serialized).toContain("publicado em 2 de março de 2026");
+    expect(serialized).toContain("O registro pertence à edição anterior");
+    expect(serialized).toContain("Acompanhe as próximas novidades da sala Bodybuilding em 2027");
+    expect(version.secondaryAction?.context).toContain("data e o CTA comercial daquela edição");
+    expect(brief.limits).toContain("tendência comprovada");
+    expect(brief.limits).toContain("não confirma Ricardo Pannain nem esse tema em 2027");
   });
 
   it("usa temas centrais autorizados sem consumir o lançamento das grades", () => {

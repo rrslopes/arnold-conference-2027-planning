@@ -15,6 +15,12 @@ export type EmailBriefVersion = {
   cta: string;
   destinationLabel: string;
   destinationUrl: string;
+  secondaryAction?: {
+    label: string;
+    destinationLabel: string;
+    destinationUrl: string;
+    context: string;
+  };
   exclusion: string;
 };
 
@@ -223,7 +229,7 @@ export const emailCampaignBriefs: Record<string, EmailCampaignBrief> = {
     decision:
       "Manter a pauta publicada: a equipe multidisciplinar que sustenta decisões de preparação no Bodybuilding.",
     rationale:
-      "A mensagem usa um material público real e entrega contexto antes do clique. O Reel funciona como aprofundamento natural e permite variar o CTA da régua sem criar outra versão para quem já está cadastrado na lista de novidades.",
+      "A mensagem usa um registro do Arnold Conference 2026 para entregar uma reflexão que continua relevante. A Landing Page de Novidades é o CTA principal e conecta o assunto ao que vem pela frente em 2027. O Reel aparece como referência secundária, já contextualizada como acervo de 2026, sem criar outra versão do e-mail.",
     versions: [
       {
         id: "equipe-bodybuilding",
@@ -245,11 +251,11 @@ export const emailCampaignBriefs: Record<string, EmailCampaignBrief> = {
           },
           {
             step: "Bloco 2",
-            role: "Relato de Ricardo Pannain",
+            role: "O que o acervo de 2026 mostrou",
             direction:
-              "Apresentar o material como experiência da própria equipe de Ricardo, não como modelo obrigatório.",
+              "Identificar explicitamente que o Reel foi publicado em 2 de março de 2026 e apresenta a experiência da própria equipe de Ricardo, não uma novidade nem um modelo obrigatório.",
             example:
-              "Ricardo relata a presença de medicina, Educação Física, nutrição, LPF e psicologia na estrutura de trabalho com atletas.",
+              "Em um registro do Arnold Conference 2026, Ricardo relata a presença de medicina, Educação Física, nutrição, LPF e psicologia na estrutura de trabalho com atletas.",
           },
           {
             step: "Bloco 3",
@@ -261,14 +267,23 @@ export const emailCampaignBriefs: Record<string, EmailCampaignBrief> = {
           },
           {
             step: "Bloco 4",
-            role: "Aprofundamento no conteúdo original",
-            direction: "Convidar para assistir ao Reel completo.",
-            example: "Veja o relato de Ricardo Pannain no conteúdo original.",
+            role: "Ponte entre o acervo e 2027",
+            direction:
+              "Fechar mostrando que discussões como essa compõem o repertório já construído pelo Conference e convidar a acompanhar o que vem pela frente na sala Bodybuilding. O Reel pode ser oferecido, depois do fechamento, como referência secundária.",
+            example:
+              "Em 2026, Ricardo Pannain mostrou como a preparação de alto rendimento passou a envolver profissionais de diferentes especialidades. O registro pertence à edição anterior, mas a pergunta permanece atual: como integrar conhecimento, papéis e decisões sem reduzir a preparação ao que aparece no palco? Esse é o tipo de discussão que faz parte do repertório do Arnold Conference. Acompanhe as próximas novidades da sala Bodybuilding em 2027.",
           },
         ],
-        cta: "Assistir ao Reel de Ricardo Pannain",
-        destinationLabel: "Reel público do Arnold Conference",
-        destinationUrl: bodybuildingReelUrl,
+        cta: "Acompanhar as novidades de Bodybuilding",
+        destinationLabel: "Landing page de novidades",
+        destinationUrl: newsUrl,
+        secondaryAction: {
+          label: "Assistir ao registro de 2026 com Ricardo Pannain",
+          destinationLabel: "Reel do acervo Arnold Conference 2026",
+          destinationUrl: bodybuildingReelUrl,
+          context:
+            "Referência secundária. O Reel foi publicado em 02/03/2026 e sua legenda contém a data e o CTA comercial daquela edição; não reutilizar esse fechamento como mensagem de 2027.",
+        },
         exclusion:
           "Excluir apenas contatos sem consentimento ou sem qualquer afinidade com Bodybuilding e performance. Não criar variação por status de cadastro.",
       },
@@ -276,8 +291,10 @@ export const emailCampaignBriefs: Record<string, EmailCampaignBrief> = {
     routing: [
       {
         condition: "Interesse em Bodybuilding ou engajamento com conteúdos de performance",
-        action: "Enviar a versão única com o Reel como destino.",
-        reason: "O conteúdo público é útil para qualquer estágio da jornada.",
+        action:
+          "Enviar a versão única com a Landing Page de Novidades como destino principal e o Reel como referência secundária.",
+        reason:
+          "O e-mail conecta o repertório de 2026 à continuidade de Bodybuilding em 2027.",
       },
       {
         condition: "Já está cadastrado na lista de novidades",
@@ -292,15 +309,17 @@ export const emailCampaignBriefs: Record<string, EmailCampaignBrief> = {
     ],
     productionChecks: [
       "Produzir uma única versão.",
-      "Usar somente o Reel DVZDZWEFPP3 como fonte principal.",
-      "Identificar o conteúdo como relato de Ricardo Pannain.",
+      "Identificar o Reel DVZDZWEFPP3 como acervo do Arnold Conference 2026, publicado em 02/03/2026.",
+      "Usar a Landing Page de Novidades como CTA principal e o Reel como referência secundária.",
+      "Não reproduzir a data de 26/04 nem o CTA de inscrição presentes na legenda antiga.",
+      "Identificar o conteúdo como relato de Ricardo Pannain, não como confirmação de 2027.",
       "Revisar a nomenclatura das especialidades.",
       "Não criar relação causal entre equipe, saúde, performance ou títulos.",
     ],
     fallback:
-      "Se o Reel não puder ser usado como destino, manter o mesmo e-mail e trocar apenas o botão pela Landing Page de Novidades. Não criar outra pauta.",
+      "Se o Reel não puder ser usado como referência secundária, manter o mesmo e-mail e o CTA principal para a Landing Page de Novidades. Não criar outra pauta.",
     limits:
-      "O e-mail não apresenta protocolo de preparação, composição obrigatória de equipe, programação de 2027 ou promessa de resultado.",
+      "O e-mail não trata a fala de 2026 como novidade ou tendência comprovada, não confirma Ricardo Pannain nem esse tema em 2027 e não apresenta protocolo, composição obrigatória de equipe ou promessa de resultado.",
   },
 
   "email-base-vendas-abertas": {

@@ -51,7 +51,7 @@ describe("contingência comercial sem data fixa", () => {
     const warmingEmails = emailBase.filter(item => warmingDates.includes(item.date));
     expect(warmingEmails.find(item => item.date === "18/09")?.destination).toBe("Landing page geral de novidades");
     expect(warmingEmails.find(item => item.date === "21/09")?.destination).toBe("Landing page das masterclasses");
-    expect(warmingEmails.find(item => item.date === "22/09")?.destination).toContain("Reel público");
+    expect(warmingEmails.find(item => item.date === "22/09")?.destination).toBe("Landing page geral de novidades");
     expect(warmingEmails.find(item => item.date === "23/09")?.destination).toBe("Landing page geral de novidades");
     expect(warmingEmails.find(item => item.date === "24–25/09")?.destination).toBe("Landing page geral de novidades");
     expect(warmingEmails.map(item => item.destination).join(" ")).not.toMatch(/vendas|checkout|compra/i);
