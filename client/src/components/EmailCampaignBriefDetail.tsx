@@ -81,7 +81,7 @@ export default function EmailCampaignBriefDetail({
               <div className="email-brief-action">
                 <MousePointerClick size={18} />
                 <div>
-                  <span>CTA ÚNICO DESTA VERSÃO</span>
+                  <span>CTA ÚNICO DESTE ENVIO</span>
                   <strong>{version.cta}</strong>
                 </div>
                 <a
@@ -96,7 +96,7 @@ export default function EmailCampaignBriefDetail({
               <p className="email-brief-exclusion">
                 <ShieldCheck size={15} />
                 <span>
-                  <b>EXCLUSÃO OBRIGATÓRIA</b>
+                  <b>REGRA DE ENVIO</b>
                   {version.exclusion}
                 </span>
               </p>
@@ -108,8 +108,8 @@ export default function EmailCampaignBriefDetail({
           <header>
             <GitBranch size={19} />
             <div>
-              <span>MATRIZ DE DECISÃO</span>
-              <strong>Quem recebe, o que faz e para onde vai</strong>
+              <span>REGRA DE DISTRIBUIÇÃO</span>
+              <strong>Quem priorizar sem criar novas versões</strong>
             </div>
           </header>
           <div className="email-routing-grid">

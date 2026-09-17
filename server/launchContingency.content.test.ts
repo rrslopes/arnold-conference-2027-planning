@@ -49,11 +49,11 @@ describe("contingência comercial sem data fixa", () => {
     expect(fixedChannels).not.toMatch(/abrem em 23\/09|23 SET|23\/09 às 12h|amanhã às 12h/i);
     const warmingDates = ["15/09", "18/09", "21/09", "22/09", "23/09", "24–25/09"];
     const warmingEmails = emailBase.filter(item => warmingDates.includes(item.date));
-    expect(warmingEmails.find(item => item.date === "18/09")?.destination).toBe("Landing page das masterclasses");
-    expect(warmingEmails.find(item => item.date === "21/09")?.destination).toContain("página das aulas");
+    expect(warmingEmails.find(item => item.date === "18/09")?.destination).toBe("Landing page geral de novidades");
+    expect(warmingEmails.find(item => item.date === "21/09")?.destination).toBe("Landing page das masterclasses");
     expect(warmingEmails.find(item => item.date === "22/09")?.destination).toContain("Reel público");
-    expect(warmingEmails.find(item => item.date === "23/09")?.destination).toContain("Carrossel público");
-    expect(warmingEmails.find(item => item.date === "24–25/09")?.destination).toBe("Landing page geral");
+    expect(warmingEmails.find(item => item.date === "23/09")?.destination).toBe("Landing page geral de novidades");
+    expect(warmingEmails.find(item => item.date === "24–25/09")?.destination).toBe("Landing page geral de novidades");
     expect(warmingEmails.map(item => item.destination).join(" ")).not.toMatch(/vendas|checkout|compra/i);
     expect(whatsappPlan.some(item => item.date === "Janela móvel · D-7")).toBe(true);
   });

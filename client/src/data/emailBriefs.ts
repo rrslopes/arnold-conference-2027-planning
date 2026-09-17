@@ -36,600 +36,447 @@ export type EmailCampaignBrief = {
 };
 
 const masterclassesUrl = "https://masterclassconference.savagetgroup.com.br/";
-const masterclassesThankYouUrl =
-  "https://masterclassconference.savagetgroup.com.br/obrigado";
 const newsUrl = "https://oferta.savagetgroup.com.br/conference-2027";
 const bodybuildingReelUrl = "https://www.instagram.com/reel/DVZDZWEFPP3/";
-const sonafePostUrl =
-  "https://www.instagram.com/p/DTnBm0Qlo0Q/?stkn=MW0wbmNwN2c2bmwwMw%3D%3D";
 
 export const emailCampaignBriefs: Record<string, EmailCampaignBrief> = {
   "email-base-comparativo": {
     label: "Briefing detalhado · envio de 18/09",
     decision:
-      "Usar as três masterclasses como próximo passo para quem ainda não liberou as aulas.",
+      "Manter a pauta publicada: mostrar a profundidade já visível nos temas centrais de Nutrição Estética e SONAFE.",
     rationale:
-      "Este envio não precisa levar novamente à Landing Page de Novidades. Para quem ainda não se cadastrou nas masterclasses, o avanço mais útil é receber três aulas completas de 2026. O e-mail apresenta essa entrega de forma simples e exclui quem já liberou as aulas.",
+      "O próprio e-mail entrega a prévia temática e mantém o público aquecido. Não é necessário criar versões diferentes para quem já está ou não está na lista. O único botão leva à Landing Page de Novidades; quem já se cadastrou continua recebendo valor pelo conteúdo e não precisa preencher o formulário novamente.",
     versions: [
       {
-        id: "masterclasses",
-        label: "Versão única · três aulas disponíveis",
+        id: "programacoes-em-profundidade",
+        label: "Versão única · prévia temática",
         audience:
-          "Contatos engajados e participantes anteriores com interesse em Nutrição Estética, Nutrição Esportiva ou Gestão de Academias que ainda não se cadastraram nas masterclasses.",
+          "Base engajada e participantes anteriores. Se os campos de interesse estiverem disponíveis, priorizar afinidade com Nutrição Estética ou SONAFE, sem criar peças diferentes.",
         objective:
-          "Mostrar o que a pessoa recebe: três aulas completas da edição de 2026, uma de cada área representada na isca.",
+          "Demonstrar a profundidade já visível em Nutrição Estética e SONAFE por meio dos temas centrais autorizados.",
         subjectDirection:
-          "Dizer de forma direta que há três aulas gratuitas disponíveis. Exemplos de direção: ‘Três aulas completas do Arnold Conference para assistir gratuitamente’ ou ‘Escolha por qual das três masterclasses começar’. A copy final passa por aprovação.",
+          "Apresentar a ideia de profundidade de forma direta. Exemplos: ‘O que os temas de Nutrição Estética e SONAFE já revelam’ ou ‘Duas salas, diferentes desafios profissionais e mais profundidade em 2027’. Não comparar os congressos.",
         steps: [
           {
             step: "Bloco 1",
-            role: "Oferta clara",
+            role: "Por que olhar para os temas",
             direction:
-              "Abrir informando que três aulas completas da edição de 2026 estão disponíveis gratuitamente.",
+              "Abrir explicando que a qualidade de uma programação aparece nas perguntas profissionais que ela ajuda a aprofundar, não apenas na quantidade de palestras.",
             example:
-              "Você pode assistir gratuitamente a três aulas completas do Arnold Conference 2026.",
+              "Uma programação relevante ajuda o profissional a analisar melhor situações que não cabem em respostas genéricas.",
           },
           {
             step: "Bloco 2",
-            role: "Quais são as aulas",
+            role: "Nutrição Estética",
             direction:
-              "Listar palestrante, título e área de cada aula. Não citar informações de 2027 que ainda sejam internas.",
+              "Agrupar os temas centrais autorizados em uma leitura simples, sem revelar grade, horários, títulos integrais ou palestrantes.",
             example:
-              "Ana Paula Pujol — Estratégias Nutricionais para Emagrecimento; Andreia Naves — Update na Suplementação de Carboidratos; Roberto Tranjan — Academias em Alta Potência: de corpo, mente e alma.",
+              "Metabolismo, GLP-1, cirurgia plástica, lipedema, saúde da mulher, composição corporal e performance aparecem como territórios de aprofundamento da sala.",
           },
           {
             step: "Bloco 3",
-            role: "Como escolher",
+            role: "SONAFE",
             direction:
-              "Relacionar cada aula a uma necessidade simples, sem comparar congressos.",
+              "Apresentar os eixos centrais da Fisioterapia Esportiva sem transformar os temas em protocolo clínico.",
             example:
-              "Emagrecimento e reganho: Ana Paula. Carboidratos e performance: Andreia. Gestão, direção e equipe: Roberto.",
+              "Avaliação, prevenção, controle de carga, diferentes populações esportivas, concussão e retorno ao esporte ampliam as perguntas da prática profissional.",
           },
           {
             step: "Bloco 4",
-            role: "Ação",
+            role: "Continuidade da jornada",
             direction:
-              "Explicar que um único cadastro libera as três aulas e usar apenas um botão para a Landing Page das masterclasses.",
+              "Explicar que esta é uma prévia temática e convidar a acompanhar as próximas confirmações. Informar que quem já está cadastrado não precisa se cadastrar novamente.",
             example:
-              "Cadastre-se uma vez, libere as três aulas e comece pelo tema mais próximo do seu trabalho.",
+              "Esta é apenas uma visão dos temas centrais. Acompanhe as próximas divulgações; se você já está na lista, não precisa preencher o formulário outra vez.",
           },
         ],
-        cta: "Liberar as 3 masterclasses gratuitas",
-        destinationLabel: "Landing page das masterclasses",
-        destinationUrl: masterclassesUrl,
+        cta: "Acompanhar as próximas programações",
+        destinationLabel: "Landing page de novidades",
+        destinationUrl: newsUrl,
         exclusion:
-          "Não enviar a quem já se cadastrou nas masterclasses. Esse público deve receber conteúdo de continuidade, e não outro pedido para preencher o mesmo formulário.",
+          "Excluir apenas descadastrados, inválidos e contatos sem base legal. Quem já está na lista pode receber o mesmo e-mail porque a mensagem entrega conteúdo, não apenas um pedido de cadastro.",
       },
     ],
     routing: [
       {
-        condition:
-          "Tem interesse em uma das três áreas representadas e ainda não se cadastrou nas masterclasses",
-        action:
-          "Enviar o e-mail de 18/09 com o botão para a Landing Page das masterclasses.",
-        reason: "A pessoa ainda não recebeu a isca compatível com sua área.",
-      },
-      {
-        condition: "Já se cadastrou nas masterclasses",
-        action:
-          "Excluir deste disparo e manter na sequência de consumo das aulas.",
-        reason: "Repetir o cadastro cria atrito e não acrescenta conteúdo.",
-      },
-      {
-        condition:
-          "Tem interesse apenas em SONAFE, Bodybuilding ou Certificação Internacional em Personal Training – WTTC",
-        action: "Não enviar esta campanha.",
+        condition: "Contato engajado ou participante anterior",
+        action: "Enviar a mesma campanha, sem variações de criação.",
         reason:
-          "As três aulas não representam essas áreas. Cada público deve receber conteúdo compatível com seu interesse.",
+          "O conteúdo tem função de aquecimento e pode ser consumido independentemente do cadastro anterior.",
+      },
+      {
+        condition: "Contato já cadastrado na Landing Page de Novidades",
+        action:
+          "Manter no envio e informar, junto ao fechamento, que não precisa preencher o formulário novamente.",
+        reason:
+          "O valor está na prévia temática; o clique não é necessário para que o e-mail cumpra sua função.",
+      },
+      {
+        condition: "Contato inválido, descadastrado ou sem base legal",
+        action: "Não enviar.",
+        reason: "A regra de consentimento e supressão continua obrigatória.",
       },
     ],
     productionChecks: [
-      "Selecionar apenas contatos das três áreas representadas pelas aulas.",
-      "Excluir todos os contatos que já converteram na Landing Page das masterclasses.",
-      "Usar um único botão e uma UTM específica para o disparo de 18/09.",
-      "Conferir títulos, nomes e descrições nas próprias aulas de 2026.",
-      "Não incluir programação, sessões, palestrantes ou promessas de 2027 ainda não divulgadas.",
+      "Produzir uma única versão do e-mail.",
+      "Não apresentar Nutrição Estética e SONAFE como alternativas concorrentes.",
+      "Usar somente temas centrais autorizados; preservar grade, horários, títulos integrais e palestrantes.",
+      "Manter um único botão para a Landing Page de Novidades.",
+      "Avisar no fechamento que quem já está cadastrado não precisa preencher novamente.",
     ],
     fallback:
-      "Se não houver segmentação por área, enviar somente a contatos que abriram ou clicaram nos e-mails anteriores das masterclasses e ainda não converteram.",
+      "Se não houver segmentação por interesse, usar a mesma mensagem apenas para a parcela engajada da base. Não criar versões extras.",
     limits:
-      "O e-mail não anuncia data de vendas, preço ou lote. Ele promove somente as três aulas de 2026 já disponíveis.",
+      "O e-mail não anuncia vendas nem entrega a programação completa. Também não transforma temas técnicos em protocolo ou promessa clínica.",
   },
+
   "email-base-48h": {
     label: "Briefing detalhado · envio de 21/09",
     decision:
-      "Aprofundar Nutrição Esportiva com uma ideia concreta da aula de Andreia Naves.",
+      "Manter a pauta publicada: três decisões que exigem critério na Nutrição Esportiva.",
     rationale:
-      "Este envio não mistura três palestrantes nem três teses. Ele usa uma única questão: como separar evolução científica de argumento de marketing na suplementação de carboidratos. Quem ainda não liberou as aulas vai para a isca; quem já se cadastrou retorna diretamente à página das aulas.",
+      "O e-mail avança o storytelling ao sair da apresentação geral das salas e demonstrar o tipo de raciocínio profissional discutido no Conference. A mensagem entrega os três contrastes no próprio corpo e usa a masterclass de Andreia Naves como aprofundamento disponível, sem criar versões diferentes por estágio de cadastro.",
     versions: [
       {
-        id: "nutricao-esportiva-nao-converteu",
-        label: "Versão A · ainda não liberou as aulas",
+        id: "tres-decisoes-nutricao-esportiva",
+        label: "Versão única · três decisões",
         audience:
-          "Nutricionistas e profissionais ligados à Nutrição Esportiva que ainda não se cadastraram nas masterclasses.",
+          "Quem abriu ou clicou nos e-mails de 15 ou 18/09 e profissionais com interesse em Nutrição Esportiva. Usar a mesma criação para toda a audiência selecionada.",
         objective:
-          "Apresentar uma pergunta relevante da aula de Andreia Naves e convidar a pessoa a assistir ao conteúdo completo.",
+          "Demonstrar profundidade por três tensões: evidência versus moda, individualização versus receita pronta e desempenho imediato versus saúde sustentável.",
         subjectDirection:
-          "Usar uma pergunta direta. Exemplos: ‘Suplementação de carboidratos: evolução ou argumento de marketing?’ ou ‘Antes de aumentar a dose, o que precisa ser avaliado?’. Não colocar dose no assunto.",
+          "Usar uma chamada objetiva. Exemplos: ‘Três decisões que exigem critério na Nutrição Esportiva’ ou ‘Quando a novidade não deve virar conduta automática’. Não usar dose, produto ou promessa de performance no assunto.",
         steps: [
           {
             step: "Bloco 1",
-            role: "Pergunta central",
+            role: "Evidência versus moda",
             direction:
-              "Abrir com a dúvida que orienta o e-mail: como diferenciar atualização científica de uma promessa comercial.",
+              "Mostrar que novidade e popularidade não substituem evidência, contexto e objetivo do atleta.",
             example:
-              "Quando surge uma nova estratégia de suplementação, o primeiro passo não é copiar: é entender a evidência, o contexto e para quem ela se aplica.",
+              "Antes de adotar uma tendência, o profissional precisa perguntar o que a sustenta, para quem ela se aplica e qual problema pretende resolver.",
           },
           {
             step: "Bloco 2",
-            role: "Exemplo da aula",
+            role: "Individualização versus receita pronta",
             direction:
-              "Explicar que Andreia questiona recomendações concentradas tratadas como solução universal e relaciona estratégia à adaptação do atleta. Não prescrever quantidade.",
+              "Explicar que modalidade, duração, rotina, tolerância e histórico mudam a decisão nutricional.",
             example:
-              "Na aula, Andreia mostra por que uma recomendação popular pode exigir mais contexto antes de virar conduta profissional.",
+              "A mesma estratégia pode produzir respostas diferentes porque atletas, demandas e contextos não são iguais.",
           },
           {
             step: "Bloco 3",
-            role: "O que a pessoa encontra",
+            role: "Desempenho versus saúde",
             direction:
-              "Apresentar o título oficial da aula e deixar claro que o conteúdo é da edição de 2026.",
+              "Apresentar a necessidade de observar o custo clínico de uma decisão orientada somente pelo resultado imediato.",
             example:
-              "Masterclass: Update na Suplementação de Carboidratos — da Tecnologia à Ciência e Aplicação Prática.",
+              "Uma estratégia não deve ser avaliada apenas pelo resultado de curto prazo, mas também pelos sinais de recuperação, disponibilidade energética e saúde.",
           },
           {
             step: "Bloco 4",
-            role: "Ação",
+            role: "Aprofundamento disponível",
             direction:
-              "Convidar para liberar as três masterclasses; a aula de Andreia é o ponto de entrada desta segmentação.",
+              "Apresentar a masterclass de Andreia Naves como aprofundamento do primeiro eixo, deixando claro que ela não representa sozinha os três temas do e-mail.",
             example:
-              "Libere as três masterclasses e comece pela aula de Nutrição Esportiva.",
+              "Na masterclass de Andreia Naves, o eixo evidência versus argumento de marketing é aprofundado a partir da suplementação de carboidratos.",
           },
         ],
-        cta: "Assistir à masterclass de Andreia Naves",
+        cta: "Aprofundar com a masterclass de Andreia Naves",
         destinationLabel: "Landing page das masterclasses",
         destinationUrl: masterclassesUrl,
         exclusion:
-          "Não enviar esta versão a quem já se cadastrou nas masterclasses.",
-      },
-      {
-        id: "nutricao-esportiva-ja-converteu",
-        label: "Versão B · já liberou as aulas",
-        audience:
-          "Contatos com interesse em Nutrição Esportiva que já se cadastraram nas masterclasses.",
-        objective:
-          "Fazer a pessoa retornar à aula de Andreia Naves sem pedir novo cadastro.",
-        subjectDirection:
-          "Tratar como retomada de conteúdo. Exemplo: ‘Uma pergunta para levar à aula de Andreia Naves’. Não apresentar a aula como nova inscrição.",
-        steps: [
-          {
-            step: "Bloco 1",
-            role: "Retomada",
-            direction:
-              "Lembrar que a aula já está liberada e apresentar a pergunta sobre evidência e marketing.",
-            example:
-              "Sua aula já está disponível. Ao assistir, observe como Andreia diferencia atualização científica de uma recomendação transformada em tendência.",
-          },
-          {
-            step: "Bloco 2",
-            role: "Onde prestar atenção",
-            direction:
-              "Orientar a atenção para critérios, contexto e adaptação, sem antecipar prescrição.",
-            example:
-              "Procure os momentos em que a palestrante questiona soluções universais e reforça a necessidade de adaptação.",
-          },
-          {
-            step: "Bloco 3",
-            role: "Aplicação editorial",
-            direction:
-              "Propor uma pergunta de reflexão profissional, não um protocolo.",
-            example:
-              "Que informação você verificaria antes de transformar uma tendência em conduta para um atleta?",
-          },
-          {
-            step: "Bloco 4",
-            role: "Ação",
-            direction:
-              "Levar diretamente à página onde as aulas já estão disponíveis.",
-            example: "Retome a aula de Andreia Naves no ponto que preferir.",
-          },
-        ],
-        cta: "Retomar a aula de Nutrição Esportiva",
-        destinationLabel: "Página das três aulas",
-        destinationUrl: masterclassesThankYouUrl,
-        exclusion:
-          "Não pedir novo cadastro. O acesso depende do mesmo navegador ou da identificação por e-mail já prevista na página.",
+          "Não criar uma versão separada para quem já liberou as aulas. O e-mail continua útil como conteúdo; quem já tem acesso pode retomar a aula pelos links recebidos anteriormente.",
       },
     ],
     routing: [
       {
-        condition: "Interesse em Nutrição Esportiva + ainda não se cadastrou",
-        action: "Enviar a Versão A para a Landing Page das masterclasses.",
-        reason: "A isca oferece uma aula diretamente relacionada ao interesse.",
+        condition: "Interesse ou engajamento em Nutrição Esportiva",
+        action: "Enviar a versão única.",
+        reason: "A pauta é específica e dá continuidade ao aquecimento da sala.",
       },
       {
-        condition: "Interesse em Nutrição Esportiva + já se cadastrou",
-        action: "Enviar a Versão B para a página das aulas.",
-        reason:
-          "O próximo passo é consumir o conteúdo, não preencher o formulário novamente.",
+        condition: "Já liberou as masterclasses",
+        action:
+          "Manter no envio; não criar outra peça. O conteúdo é autossuficiente e o contato pode retomar a aula pelo acesso anterior.",
+        reason: "Evita duplicação operacional sem retirar conteúdo de quem já converteu.",
       },
       {
-        condition: "Não há sinal de interesse em Nutrição Esportiva",
-        action: "Não enviar este e-mail.",
-        reason:
-          "O tema é específico e não deve ser usado como disparo genérico.",
+        condition: "Sem sinal de interesse em Nutrição Esportiva",
+        action: "Não priorizar neste disparo.",
+        reason: "O assunto deve chegar a uma audiência aderente.",
       },
     ],
     productionChecks: [
-      "Separar convertidos e não convertidos antes de preparar os links.",
-      "Usar o título oficial da aula e identificar que o conteúdo é de 2026.",
-      "Não colocar doses, protocolos ou promessas de performance na copy.",
-      "Usar UTM diferente em cada versão.",
+      "Produzir uma única versão do e-mail.",
+      "Manter os três contrastes no mesmo encadeamento narrativo.",
+      "Usar as transcrições de Andreia Naves, Bruno Zylber e Daniel Coimbra como sustentação editorial.",
+      "Deixar claro que a masterclass de Andreia aprofunda o primeiro eixo, não os três.",
+      "Não incluir doses, protocolos ou promessas de performance.",
     ],
     fallback:
-      "Se não for possível separar convertidos, não disparar para toda a base. Priorizar quem clicou nos e-mails das masterclasses e usar a rota de acesso já compatível com esse histórico.",
+      "Se a masterclass não puder ser usada como destino, manter o mesmo conteúdo e direcionar para a Landing Page de Novidades. Não alterar o tema do e-mail.",
     limits:
-      "A pauta é evidência versus argumento de marketing. Não é um guia de suplementação e não antecipa a programação de 2027.",
+      "O e-mail não prescreve conduta, não anuncia a programação de 2027 e não cria urgência comercial sem data de abertura confirmada.",
   },
+
   "email-base-vespera": {
     label: "Briefing detalhado · envio de 22/09",
     decision:
-      "Aquecer Bodybuilding com um conteúdo público sobre a equipe que sustenta a preparação.",
+      "Manter a pauta publicada: a equipe multidisciplinar que sustenta decisões de preparação no Bodybuilding.",
     rationale:
-      "Como ainda não existe uma isca específica de Bodybuilding, o e-mail entrega valor no próprio corpo da mensagem e oferece o Reel original como aprofundamento. A Landing Page de Novidades aparece somente para quem ainda não está cadastrado.",
+      "A mensagem usa um material público real e entrega contexto antes do clique. O Reel funciona como aprofundamento natural e permite variar o CTA da régua sem criar outra versão para quem já está cadastrado na lista de novidades.",
     versions: [
       {
-        id: "bodybuilding-conteudo",
-        label: "Versão A · contato já está na lista de novidades",
+        id: "equipe-bodybuilding",
+        label: "Versão única · equipe multidisciplinar",
         audience:
-          "Leads com interesse em Bodybuilding que já estão cadastrados na Landing Page de Novidades.",
+          "Leads com interesse em Bodybuilding e públicos de performance. A mesma peça serve para cadastrados e não cadastrados.",
         objective:
-          "Mostrar que a preparação de alto rendimento envolve diferentes especialidades e não se limita ao treino visível no palco.",
+          "Mostrar que a preparação de alto rendimento não se resume ao atleta e ao treinador e pode envolver diferentes especialidades.",
         subjectDirection:
-          "Usar uma chamada direta. Exemplos: ‘Quem trabalha por trás de uma preparação de alto rendimento?’ ou ‘O físico de palco não é construído por uma única especialidade’. A copy final passa por revisão técnica.",
+          "Usar uma pergunta concreta. Exemplos: ‘Quem trabalha por trás de uma preparação de alto rendimento?’ ou ‘O físico de palco não mostra toda a equipe’. Não prometer títulos, saúde ou performance.",
         steps: [
           {
             step: "Bloco 1",
-            role: "Pergunta",
+            role: "O que o público vê",
             direction:
-              "Abrir perguntando quais profissionais participam de uma preparação de alto rendimento.",
+              "Abrir com o contraste entre o resultado visível no palco e as decisões que acontecem fora dele.",
             example:
-              "Treino e nutrição aparecem primeiro. Mas uma preparação pode envolver também medicina, fisioterapia, LPF e psicologia.",
+              "No palco aparece o atleta. A preparação, porém, pode envolver uma rede de profissionais e decisões que o público não vê.",
           },
           {
             step: "Bloco 2",
-            role: "Relato disponível",
+            role: "Relato de Ricardo Pannain",
             direction:
-              "Apresentar como experiência relatada por Ricardo Pannain, não como regra universal.",
+              "Apresentar o material como experiência da própria equipe de Ricardo, não como modelo obrigatório.",
             example:
-              "No Reel, Ricardo Pannain explica como ampliou a equipe e por que passou a incluir apoio psicológico no trabalho com atletas.",
+              "Ricardo relata a presença de medicina, Educação Física, nutrição, LPF e psicologia na estrutura de trabalho com atletas.",
           },
           {
             step: "Bloco 3",
-            role: "Pergunta para reflexão",
+            role: "Integração com limites",
             direction:
-              "Mostrar que integrar especialidades também exige coordenação, limites de atuação e decisões compartilhadas.",
+              "Explicar que reunir especialidades não basta: integração exige comunicação, definição de papéis e respeito aos limites profissionais.",
             example:
-              "Não basta reunir profissionais: é preciso definir o papel de cada especialidade e como as decisões serão integradas.",
+              "O valor da equipe não está apenas na quantidade de especialistas, mas em como as decisões são coordenadas.",
           },
           {
             step: "Bloco 4",
-            role: "Ação",
-            direction: "Convidar para assistir ao Reel original.",
-            example: "Veja o relato completo de Ricardo Pannain.",
+            role: "Aprofundamento no conteúdo original",
+            direction: "Convidar para assistir ao Reel completo.",
+            example: "Veja o relato de Ricardo Pannain no conteúdo original.",
           },
         ],
-        cta: "Assistir ao Reel",
+        cta: "Assistir ao Reel de Ricardo Pannain",
         destinationLabel: "Reel público do Arnold Conference",
         destinationUrl: bodybuildingReelUrl,
         exclusion:
-          "Não usar este conteúdo para afirmar que uma especialidade isolada causa títulos, performance ou saúde.",
-      },
-      {
-        id: "bodybuilding-cadastro",
-        label: "Versão B · contato ainda não está na lista",
-        audience:
-          "Leads com interesse em Bodybuilding que ainda não se cadastraram na Landing Page de Novidades.",
-        objective:
-          "Entregar o mesmo conteúdo e, no final, oferecer a inscrição para receber futuras novidades da sala.",
-        subjectDirection:
-          "Manter o mesmo tema da Versão A. O cadastro entra como próximo passo, não como assunto principal.",
-        steps: [
-          {
-            step: "Bloco 1",
-            role: "Pergunta",
-            direction:
-              "Abrir com a pergunta sobre quem trabalha por trás de uma preparação.",
-            example:
-              "O público vê o atleta no palco. A preparação, porém, pode envolver uma equipe muito maior.",
-          },
-          {
-            step: "Bloco 2",
-            role: "Exemplo",
-            direction:
-              "Resumir o relato de Ricardo Pannain e oferecer o Reel como link secundário no texto.",
-            example:
-              "Ricardo relata a presença de medicina, Educação Física, nutrição, LPF e psicologia em sua equipe.",
-          },
-          {
-            step: "Bloco 3",
-            role: "Conexão com a sala",
-            direction:
-              "Relacionar o tema ao tipo de discussão que interessa ao público de Bodybuilding, sem anunciar programação.",
-            example:
-              "Esse olhar multidisciplinar ajuda a entender a preparação para além do resultado visual.",
-          },
-          {
-            step: "Bloco 4",
-            role: "Ação",
-            direction:
-              "Convidar a pessoa a cadastrar seu interesse para receber novidades de Bodybuilding.",
-            example:
-              "Cadastre-se para acompanhar as próximas novidades do Arnold Conference.",
-          },
-        ],
-        cta: "Quero receber novidades de Bodybuilding",
-        destinationLabel: "Landing page de novidades",
-        destinationUrl: newsUrl,
-        exclusion:
-          "Não enviar esta versão a quem já está cadastrado na Landing Page de Novidades.",
+          "Excluir apenas contatos sem consentimento ou sem qualquer afinidade com Bodybuilding e performance. Não criar variação por status de cadastro.",
       },
     ],
     routing: [
       {
-        condition: "Interesse em Bodybuilding + já está na lista de novidades",
-        action: "Enviar a Versão A e usar o Reel como destino principal.",
-        reason:
-          "A pessoa já cumpriu a etapa de cadastro e deve receber conteúdo.",
+        condition: "Interesse em Bodybuilding ou engajamento com conteúdos de performance",
+        action: "Enviar a versão única com o Reel como destino.",
+        reason: "O conteúdo público é útil para qualquer estágio da jornada.",
       },
       {
-        condition: "Interesse em Bodybuilding + ainda não está na lista",
-        action:
-          "Enviar a Versão B e usar a Landing Page de Novidades como CTA principal.",
-        reason:
-          "O conteúdo aquece; o cadastro registra a preferência para próximos envios.",
+        condition: "Já está cadastrado na lista de novidades",
+        action: "Manter no envio, sem trocar CTA ou criação.",
+        reason: "A pessoa recebe aprofundamento, não um novo pedido de cadastro.",
       },
       {
-        condition: "Sem sinal de interesse em Bodybuilding",
-        action: "Não enviar este e-mail.",
-        reason:
-          "A pauta é específica e não deve ser enviada indiscriminadamente.",
+        condition: "Sem afinidade com Bodybuilding ou performance",
+        action: "Não priorizar neste disparo.",
+        reason: "A pauta é específica.",
       },
     ],
     productionChecks: [
+      "Produzir uma única versão.",
       "Usar somente o Reel DVZDZWEFPP3 como fonte principal.",
       "Identificar o conteúdo como relato de Ricardo Pannain.",
-      "Revisar nomenclaturas das especialidades antes da aprovação.",
-      "Não transformar a fala em relação causal entre equipe, saúde e títulos.",
-      "Separar cadastrados e não cadastrados antes de definir o CTA.",
+      "Revisar a nomenclatura das especialidades.",
+      "Não criar relação causal entre equipe, saúde, performance ou títulos.",
     ],
     fallback:
-      "Se a equipe não conseguir separar cadastrados, enviar somente a quem ainda não está na lista e usar a Landing Page de Novidades. Não pedir novo cadastro a uma base sem conferência.",
+      "Se o Reel não puder ser usado como destino, manter o mesmo e-mail e trocar apenas o botão pela Landing Page de Novidades. Não criar outra pauta.",
     limits:
-      "O e-mail não apresenta programação de 2027, protocolo de preparação ou promessa de resultado.",
+      "O e-mail não apresenta protocolo de preparação, composição obrigatória de equipe, programação de 2027 ou promessa de resultado.",
   },
+
   "email-base-vendas-abertas": {
     label: "Briefing detalhado · envio de 23/09",
     decision:
-      "Aquecer SONAFE com um conteúdo público sobre recovery, prevenção e avaliação.",
+      "Manter a pauta publicada: mostrar como diferentes populações e modalidades ampliam as perguntas da Fisioterapia Esportiva.",
     rationale:
-      "Sem uma isca própria da SONAFE, o e-mail precisa entregar uma ideia útil antes de pedir cadastro. O conteúdo-base já é público: recovery não começa no recurso da moda, mas na avaliação, na organização da carga e no respeito aos limites. Esses eixos também aparecem entre os temas centrais confirmados para 2027. Quem já está na lista vai para o post; quem ainda não está pode cadastrar seu interesse.",
+      "O e-mail usa temas centrais autorizados da programação definitiva da SONAFE para demonstrar especificidade profissional. A mensagem entrega a reflexão no próprio corpo e mantém a Landing Page de Novidades como continuidade. Não há necessidade de criar versões diferentes por cadastro.",
     versions: [
       {
-        id: "sonafe-conteudo",
-        label: "Versão A · contato já está na lista de novidades",
+        id: "diversidade-sonafe",
+        label: "Versão única · diferentes contextos esportivos",
         audience:
-          "Fisioterapeutas e profissionais ligados à Fisioterapia Esportiva que já estão cadastrados na Landing Page de Novidades.",
+          "Leads com interesse em SONAFE e profissionais ligados à Fisioterapia Esportiva. A mesma criação atende cadastrados e não cadastrados.",
         objective:
-          "Mostrar que recovery também envolve prevenção, avaliação e organização de carga, e não apenas técnicas aplicadas depois da dor.",
+          "Mostrar como população, modalidade e demanda mudam as perguntas da Fisioterapia Esportiva.",
         subjectDirection:
-          "Usar uma pergunta simples. Exemplos: ‘Recovery começa antes da dor?’ ou ‘Antes do gelo e da massagem, o que precisa ser avaliado?’. Evitar promessas clínicas.",
+          "Usar uma pergunta clara. Exemplos: ‘Existe uma única resposta para todo tipo de atleta?’ ou ‘O contexto muda a decisão na Fisioterapia Esportiva’. Evitar chamada clínica ou promessa de prevenção.",
         steps: [
           {
             step: "Bloco 1",
-            role: "Quebra de expectativa",
+            role: "Tensão central",
             direction:
-              "Abrir dizendo que recovery não se resume a gelo, botas ou massagens.",
+              "Abrir dizendo que não existe um único tipo de atleta nem uma única pergunta profissional para todos os contextos.",
             example:
-              "Recovery não começa quando aparece a dor e não depende apenas de uma técnica isolada.",
+              "Idade, modalidade, sexo, histórico e demanda esportiva mudam o que precisa ser observado.",
           },
           {
             step: "Bloco 2",
-            role: "O que vem antes",
+            role: "Populações diferentes",
             direction:
-              "Apresentar os três pontos do material público: avaliação, organização do treino e respeito aos limites do corpo.",
+              "Usar mulher no futebol, crianças atletas e esporte paralímpico como exemplos de contextos confirmados, sem anunciar sessões ou palestrantes.",
             example:
-              "Antes de escolher um recurso, é preciso entender carga, contexto e sinais do atleta.",
+              "A atleta de futebol, a criança que pratica esporte e o atleta paralímpico apresentam demandas que não devem ser tratadas como equivalentes.",
           },
           {
             step: "Bloco 3",
-            role: "Prevenção e aderência a 2027",
+            role: "Demandas diferentes",
             direction:
-              "Explicar que observar sobrecargas e fatores de risco faz parte do processo e que avaliação, carga e prevenção estão entre os temas centrais confirmados para 2027, sem abrir a grade.",
+              "Relacionar avaliação funcional, concussão e retorno ao esporte à necessidade de leitura contextual, sem formular protocolo.",
             example:
-              "Na edição de 2027, avaliação, controle de carga e prevenção estarão entre os eixos de aprofundamento da SONAFE.",
+              "A pergunta profissional muda conforme o risco, a modalidade, a fase de recuperação e o objetivo de retorno.",
           },
           {
             step: "Bloco 4",
-            role: "Ação",
-            direction: "Convidar para ler o carrossel público da SONAFE.",
-            example: "Veja o conteúdo completo sobre recovery e prevenção.",
+            role: "Continuidade da jornada",
+            direction:
+              "Apresentar os exemplos como prévia temática e convidar a acompanhar as próximas novidades da SONAFE. Informar que quem já está na lista não precisa se cadastrar novamente.",
+            example:
+              "Acompanhe as próximas divulgações da SONAFE; se você já está cadastrado, não precisa preencher o formulário outra vez.",
           },
         ],
-        cta: "Ler o conteúdo sobre recovery",
-        destinationLabel: "Carrossel público da SONAFE",
-        destinationUrl: sonafePostUrl,
-        exclusion:
-          "Não transformar o conteúdo em protocolo, diagnóstico ou recomendação clínica individual.",
-      },
-      {
-        id: "sonafe-cadastro",
-        label: "Versão B · contato ainda não está na lista",
-        audience:
-          "Fisioterapeutas e profissionais ligados à Fisioterapia Esportiva que ainda não se cadastraram na Landing Page de Novidades.",
-        objective:
-          "Entregar o mesmo conteúdo e convidar a pessoa a registrar interesse em SONAFE para receber futuras novidades.",
-        subjectDirection:
-          "Manter o tema de recovery como assunto. O cadastro aparece somente no fechamento.",
-        steps: [
-          {
-            step: "Bloco 1",
-            role: "Quebra de expectativa",
-            direction:
-              "Abrir dizendo que recovery não se resume à técnica usada depois da dor.",
-            example:
-              "Gelo, botas e massagem não respondem sozinhos a todas as perguntas do recovery.",
-          },
-          {
-            step: "Bloco 2",
-            role: "Critérios",
-            direction:
-              "Apresentar avaliação, carga, contexto e prevenção como pontos a considerar.",
-            example:
-              "O raciocínio começa por entender o atleta, a modalidade, a carga e os sinais observados.",
-          },
-          {
-            step: "Bloco 3",
-            role: "Conexão com SONAFE 2027",
-            direction:
-              "Relacionar o tema aos eixos confirmados de avaliação, controle de carga, prevenção e retorno ao esporte, sem anunciar sessões ou palestrantes.",
-            example:
-              "Esses temas centrais conectam prevenção, recuperação e retorno ao esporte na SONAFE 2027.",
-          },
-          {
-            step: "Bloco 4",
-            role: "Ação",
-            direction:
-              "Convidar a pessoa a cadastrar seu interesse para acompanhar novidades da SONAFE.",
-            example: "Cadastre-se e indique SONAFE como área de interesse.",
-          },
-        ],
-        cta: "Quero receber novidades da SONAFE",
+        cta: "Acompanhar as novidades da SONAFE",
         destinationLabel: "Landing page de novidades",
         destinationUrl: newsUrl,
         exclusion:
-          "Não enviar esta versão a quem já está cadastrado na Landing Page de Novidades.",
+          "Excluir apenas contatos sem consentimento ou sem afinidade com Fisioterapia Esportiva. Quem já está cadastrado pode receber o conteúdo sem obrigação de clicar.",
       },
     ],
     routing: [
       {
-        condition: "Interesse em SONAFE + já está na lista de novidades",
-        action: "Enviar a Versão A e direcionar para o carrossel público.",
-        reason:
-          "A pessoa já se cadastrou; agora precisa receber conteúdo útil.",
+        condition: "Interesse em SONAFE ou Fisioterapia Esportiva",
+        action: "Enviar a versão única.",
+        reason: "O conteúdo é aderente e mantém a sala aquecida.",
       },
       {
-        condition: "Interesse em SONAFE + ainda não está na lista",
+        condition: "Já está cadastrado na Landing Page de Novidades",
         action:
-          "Enviar a Versão B e direcionar para a Landing Page de Novidades.",
-        reason:
-          "O cadastro registra a preferência para a continuidade da jornada.",
+          "Manter no envio e sinalizar que não precisa se cadastrar outra vez.",
+        reason: "O e-mail entrega conteúdo útil antes do CTA.",
       },
       {
-        condition: "Sem sinal de interesse em Fisioterapia Esportiva",
-        action: "Não enviar este e-mail.",
-        reason: "O assunto é específico e deve chegar ao público aderente.",
+        condition: "Sem afinidade com Fisioterapia Esportiva",
+        action: "Não priorizar neste disparo.",
+        reason: "O assunto é específico.",
       },
     ],
     productionChecks: [
-      "Usar o carrossel público DTnBm0Qlo0Q como fonte principal.",
-      "Submeter a versão final à revisão técnica de profissional da SONAFE.",
-      "Apresentar somente avaliação, controle de carga, prevenção e retorno ao esporte como temas centrais confirmados para 2027.",
+      "Produzir uma única versão do e-mail.",
+      "Usar somente os contextos temáticos autorizados da SONAFE 2027.",
       "Preservar títulos integrais, horários, sequência e palestrantes para a divulgação completa da programação.",
-      "Não transformar os conceitos em protocolo clínico.",
-      "Separar cadastrados e não cadastrados antes de definir o CTA.",
+      "Não transformar os exemplos em protocolo, diagnóstico ou recomendação clínica.",
+      "Manter um único botão para a Landing Page de Novidades.",
     ],
     fallback:
-      "Se não houver separação segura entre cadastrados e não cadastrados, priorizar a versão de conteúdo e direcionar ao carrossel público. É melhor entregar valor do que pedir um cadastro possivelmente repetido.",
+      "Se a revisão técnica não for concluída, usar uma versão mais geral sobre como modalidade, população e demanda mudam as perguntas profissionais, sem listar exemplos clínicos.",
     limits:
-      "O e-mail não promete prevenção de lesões, diagnóstico, tratamento ou resultado clínico.",
+      "O e-mail não apresenta programação completa, protocolo, promessa de prevenção de lesões, diagnóstico ou resultado clínico.",
   },
+
   "email-base-recuperar-inscricao": {
     label: "Briefing detalhado · envio de 24–25/09",
     decision:
-      "Usar este envio somente para registrar a área de interesse de quem ainda não a informou.",
+      "Manter a pauta publicada: quatro critérios para validar a escolha de congresso.",
     rationale:
-      "Este não é um comparativo entre congressos e não deve ser enviado a toda a base. A função é ajudar contatos engajados, mas ainda sem área de interesse registrada, a reconhecer qual opção corresponde à sua atuação e atualizar a preferência na Landing Page de Novidades.",
+      "O último envio da sequência ajuda a audiência a organizar a própria decisão antes da abertura do carrinho. O conteúdo funciona mesmo para quem já informou interesse, porque apresenta um checklist de reflexão. A Landing Page de Novidades permanece como próximo passo opcional para registrar ou atualizar a área de interesse, sem exigir versões diferentes.",
     versions: [
       {
-        id: "preferencia-pendente",
-        label: "Versão única · preferência ainda não registrada",
+        id: "quatro-criterios",
+        label: "Versão única · checklist de escolha",
         audience:
-          "Contatos engajados que ainda não escolheram uma área de interesse na Landing Page de Novidades.",
+          "Base engajada que acompanha o aquecimento. Priorizar quem ainda não declarou área de interesse, mas usar a mesma criação para todos os destinatários selecionados.",
         objective:
-          "Explicar os seis públicos em uma frase cada e pedir que a pessoa registre apenas a área ligada à sua atuação.",
+          "Oferecer quatro critérios para validar a escolha de congresso sem repetir o comparativo de perfis.",
         subjectDirection:
-          "Usar uma pergunta objetiva. Exemplos: ‘Qual área do Arnold Conference acompanha o seu trabalho?’ ou ‘Escolha a área sobre a qual você quer receber novidades’. Evitar ‘qual congresso é melhor para você’. ",
+          "Usar uma pergunta prática. Exemplos: ‘Antes de escolher seu congresso, responda a estas quatro perguntas’ ou ‘Quatro critérios para avaliar qual conteúdo faz sentido para você’. Não usar formato versus.",
         steps: [
           {
             step: "Bloco 1",
-            role: "Por que responder",
+            role: "Momento profissional",
             direction:
-              "Explicar que a escolha serve para receber comunicações mais relevantes e evitar assuntos que não tenham relação com a profissão da pessoa.",
+              "Perguntar se a pessoa quer fortalecer a atuação atual ou preparar um próximo passo na carreira.",
             example:
-              "Indique sua área para receber novidades mais próximas do seu trabalho.",
+              "Você busca resolver melhor um desafio que já enfrenta ou desenvolver uma nova frente profissional?",
           },
           {
             step: "Bloco 2",
-            role: "Seis públicos",
+            role: "Problema prioritário",
             direction:
-              "Apresentar cada congresso pelo público, sem colocar um contra o outro.",
+              "Pedir que a pessoa nomeie o problema concreto sobre o qual precisa de mais repertório.",
             example:
-              "Gestão de Academias: gestores e proprietários. Certificação Internacional em Personal Training – WTTC: personal trainers. SONAFE: fisioterapeutas. Nutrição Estética e Nutrição Esportiva: nutricionistas de cada área. Bodybuilding: profissionais e público especializado na preparação de atletas.",
+              "Qual decisão, situação ou dificuldade profissional você precisa compreender melhor agora?",
           },
           {
             step: "Bloco 3",
-            role: "Critério simples",
+            role: "Profundidade e aplicação",
             direction:
-              "Orientar a pessoa a escolher pela própria atuação e pelo tema profissional que deseja acompanhar.",
+              "Orientar a observar se os temas correspondem ao seu nível de experiência e o que espera analisar, decidir ou estruturar melhor depois do evento.",
             example:
-              "Escolha a área que corresponde ao seu trabalho hoje ou ao campo em que pretende se desenvolver.",
+              "O conteúdo vai além de uma introdução e ajuda você a aplicar o aprendizado no seu contexto?",
           },
           {
             step: "Bloco 4",
-            role: "Ação",
+            role: "Próximo passo",
             direction:
-              "Levar à Landing Page de Novidades para registrar a preferência.",
+              "Explicar que o checklist ajuda a filtrar interesses. Convidar a registrar ou atualizar a área de interesse, sem obrigar quem já fez isso a preencher novamente.",
             example:
-              "Cadastre sua área de interesse para receber as próximas novidades.",
+              "Use suas respostas para acompanhar a sala mais aderente ao seu momento. Se sua preferência já foi informada, não é necessário refazer o cadastro.",
           },
         ],
-        cta: "Escolher minha área de interesse",
+        cta: "Registrar ou atualizar minha área de interesse",
         destinationLabel: "Landing page de novidades",
         destinationUrl: newsUrl,
         exclusion:
-          "Excluir quem já informou uma área de interesse. Esse público deve continuar recebendo conteúdo específico da área escolhida.",
+          "Excluir descadastrados, inválidos e contatos sem base legal. Não criar uma segunda peça para quem já informou interesse; o checklist continua útil para esse público.",
       },
     ],
     routing: [
       {
-        condition: "Contato engajado + ainda não informou área de interesse",
-        action:
-          "Enviar este e-mail e direcionar para a Landing Page de Novidades.",
-        reason:
-          "Há uma informação útil de segmentação que ainda precisa ser registrada.",
+        condition: "Contato engajado no aquecimento",
+        action: "Enviar a mesma versão do checklist.",
+        reason: "O conteúdo ajuda a organizar a decisão antes da abertura do carrinho.",
       },
       {
-        condition: "Já informou uma ou mais áreas de interesse",
-        action: "Não enviar este e-mail.",
-        reason: "A pergunta já foi respondida e não deve ser repetida.",
+        condition: "Já informou uma área de interesse",
+        action:
+          "Manter no envio e dizer que não precisa refazer o cadastro; o CTA pode ser usado apenas se quiser atualizar a preferência.",
+        reason: "O valor principal está no checklist, não no formulário.",
       },
       {
         condition: "Contato sem engajamento recente",
         action: "Não priorizar neste disparo.",
-        reason:
-          "A mensagem exige uma ação de atualização e funciona melhor com audiência ativa.",
+        reason: "A mensagem exige atenção e funciona melhor com audiência aquecida.",
       },
     ],
     productionChecks: [
-      "Cruzar a base com o campo de interesse antes de montar o disparo.",
-      "Apresentar os seis públicos separadamente, sem formato versus.",
-      "Escrever sempre Certificação Internacional em Personal Training – WTTC antes da sigla.",
-      "Não citar programação, sessões, palestrantes, preços ou data de abertura.",
-      "Usar uma única UTM para esta campanha de atualização de preferência.",
+      "Produzir uma única versão.",
+      "Manter os quatro critérios da pauta publicada.",
+      "Não transformar o e-mail em comparação entre congressos.",
+      "Usar um único botão para registrar ou atualizar a preferência.",
+      "Informar que quem já declarou interesse não precisa preencher novamente.",
+      "Não citar preço, lote, data de abertura ou compatibilidade de horários.",
     ],
     fallback:
-      "Se não for possível identificar quem já informou a preferência, não disparar para toda a base. Manter o conteúdo nas redes sociais e retomar o e-mail quando a segmentação estiver disponível.",
+      "Se a atualização de preferência não funcionar tecnicamente, manter o checklist no e-mail e trocar somente o fechamento por ‘Acompanhe as próximas novidades’. Não criar outra campanha.",
     limits:
-      "Este envio não recomenda um congresso nem compara produtos. Ele apenas identifica a área profissional sobre a qual o contato quer receber novidades.",
+      "O envio não recomenda um congresso, não promete compatibilidade entre salas e não antecipa a abertura de vendas.",
   },
 };
