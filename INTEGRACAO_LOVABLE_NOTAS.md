@@ -123,3 +123,11 @@ Em 17/09/2026, o endpoint passou a declarar explicitamente que a LP de novidades
 O campo `captacao.conversoes_origem_dm` passa a ser a fonte oficial do indicador agregado de **WhatsApp + Instagram DM**. Ele não deve ser reconstruído somente pela linha `instagram_dm` do ranking. O array `origens` inclui todas as origens previstas, inclusive quando o valor é zero, e `sessoes` permanece `null` em cada item.
 
 O parser aceita campos adicionais e listas variáveis, preserva os `null` contratuais, mantém fuso `America/Sao_Paulo` e upsert idempotente por período. A justificativa do endpoint é persistida junto à fotografia para que a Central de Landing Pages e o Pilar 4 distingam indisponibilidade estrutural de uma simples espera por atualização. Para medir tráfego e início de formulário no futuro, será necessária instrumentação própria de GTM/GA4 na página da RD Station.
+
+## LP de novidades — sessões históricas GA4 e medição própria
+
+Em 18/09/2026, o endpoint oficial passou a fornecer sessões, sessões por origem, inícios e abandonos de formulário e as taxas derivadas. O parser aceita número ou `null` nesses campos, ignora extensões futuras e preserva `metricas_indisponiveis.observacao`, `observacao_medicao` e `base_historica_ga4`.
+
+O consolidado de 04 a 18/09 aplicou uma base histórica do Google Analytics de 300 sessões para 04 a 17/09: 226 de e-mail, 4 diretas e 70 em outros. A partir de 18/09, sessões e eventos de formulário passam a vir da medição própria instalada via GTM. Inícios e abandonos anteriores a essa data são legitimamente zero e não podem bloquear a sincronização.
+
+Sessões por origem, abandonos reportados e a proveniência da medição são persistidos separadamente. A Central de LPs exibe rankings independentes de conversões e sessões; o Pilar 4 usa as sessões para calcular as duas taxas, mas usa o abandono reportado pelo endpoint porque os inícios só existem a partir de 18/09. Fotografias existentes permanecem intactas e a atualização do mesmo período continua idempotente.

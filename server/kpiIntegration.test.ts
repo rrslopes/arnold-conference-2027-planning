@@ -7,16 +7,17 @@ function state(overrides: Partial<KpiIntegrationState> = {}): KpiIntegrationStat
 
 describe("consolidação automática dos KPIs", () => {
   it("calcula conversão e abandono da LP somente com os denominadores informados", () => {
-    const rows = buildAutomaticKpis("landing", state({ leadProfileResults: [{ periodStartAt: Date.UTC(2026, 8, 1), periodEndAt: Date.UTC(2026, 8, 30), totalLeads: 140, newLeads: 40, sessions: 200, dmSessions: 35, formStarts: 60, dmConversions: 8, updatedAt: Date.UTC(2026, 8, 30) }] }));
+    const rows = buildAutomaticKpis("landing", state({ leadProfileResults: [{ periodStartAt: Date.UTC(2026, 8, 1), periodEndAt: Date.UTC(2026, 8, 30), totalLeads: 140, newLeads: 40, sessions: 200, dmSessions: 35, formStarts: 60, formAbandonments: 7, dmConversions: 8, providerMeasurementObservation: "GA4 histórico + GTM próprio", updatedAt: Date.UTC(2026, 8, 30) }] }));
     expect(rows.find(row => row.key === "lp-conversion-rate")?.value).toBe(20);
-    expect(rows.find(row => row.key === "lp-abandonments")?.value).toBe(20);
+    expect(rows.find(row => row.key === "lp-abandonments")?.value).toBe(7);
+    expect(rows.find(row => row.key === "lp-sessions")?.source).toContain("GA4 histórico");
     expect(rows.find(row => row.key === "lp-leads")?.source).toContain("Novidades");
   });
 
   it("não estima taxa ou abandono quando sessões e inícios não foram medidos", () => {
     const unavailableMetricsJson = JSON.stringify({
       campos: ["sessoes_na_lp", "sessoes_origem_dm", "inicios_de_formulario", "abandonos_de_formulario", "taxa_de_conversao_bruta", "taxa_de_conversao_pessoas_unicas"],
-      motivo: "A página da RD Station não envia visitas ou inícios pelo webhook.",
+      observacao: "A página da RD Station não envia visitas ou inícios pelo webhook.",
     });
     const rows = buildAutomaticKpis("landing", state({ leadProfileResults: [{ periodStartAt: 1, periodEndAt: 2, totalLeads: 94, newLeads: 94, sessions: null, dmSessions: null, formStarts: null, dmConversions: 4, unavailableMetricsJson, updatedAt: 3 }] }));
     expect(rows.find(row => row.key === "lp-conversion-rate")?.value).toBeNull();

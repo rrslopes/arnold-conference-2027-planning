@@ -26,8 +26,10 @@ export type LeadProfileCountField = ParticipationField | InterestField;
 export type LeadProfileBreakdown = { canal: string; conversoes: number };
 export type LeadProfileCity = { opcao: string; pessoas: number; percentual: number };
 export type LeadProfileClickOrigin = { canal: string; cliques: number };
+export type NewsSessionOrigin = { canal: string; sessoes: number };
+export type NewsHistoricalAnalyticsBase = { inicio: string; fim: string; sessoes: number; aplicada_no_periodo: boolean };
 export type LeadProfileSnapshotKind = "daily" | "rollup" | "manual";
-export type NewsUnavailableMetrics = { campos: string[]; motivo: string };
+export type NewsUnavailableMetrics = { campos: string[]; observacao: string };
 
 export const NEWS_DAILY_SYNC_SOURCE = "lovable-api-daily";
 export const NEWS_ROLLUP_SYNC_SOURCE = "lovable-api-rollup";
@@ -44,6 +46,7 @@ export type LeadProfileSnapshotDraft = {
   sessions: number | null;
   dmSessions: number | null;
   formStarts: number | null;
+  formAbandonments?: number | null;
   dmConversions: number | null;
   firstTimeCount: number | null;
   attended2026Count: number | null;
@@ -57,11 +60,14 @@ export type LeadProfileSnapshotDraft = {
   otherInterestCount: number | null;
   topCitiesJson?: string;
   originsJson?: string | null;
+  sessionsByOriginJson?: string | null;
+  ga4HistoricalBaseJson?: string | null;
   masterclassClicks?: number | null;
   masterclassClickOriginsJson?: string | null;
   syncSource?: string;
   providerUpdatedAt?: number | null;
   providerObservation?: string | null;
+  providerMeasurementObservation?: string | null;
   unavailableMetricsJson?: string | null;
   note: string;
 };
@@ -74,11 +80,14 @@ export type LeadProfileSnapshot = LeadProfileSnapshotDraft & {
   profileBaseCount: number | null;
   topCitiesJson: string;
   originsJson: string | null;
+  sessionsByOriginJson: string | null;
+  ga4HistoricalBaseJson: string | null;
   masterclassClicks: number | null;
   masterclassClickOriginsJson: string | null;
   syncSource: string;
   providerUpdatedAt: number | null;
   providerObservation: string | null;
+  providerMeasurementObservation: string | null;
   unavailableMetricsJson: string | null;
   updatedAt: number;
 };
@@ -107,7 +116,8 @@ export function calculateUniquePeopleConversionRate(uniquePeople: number | null 
   return Math.round((uniquePeople / sessions) * 10_000) / 100;
 }
 
-export function calculateLpAbandonments(formStarts: number | null, newLeads: number) {
+export function calculateLpAbandonments(formStarts: number | null, newLeads: number, reported?: number | null) {
+  if (reported !== null && reported !== undefined) return reported;
   if (formStarts === null) return null;
   return Math.max(0, formStarts - newLeads);
 }
@@ -121,9 +131,21 @@ export function getLeadProfileSnapshotKind(snapshot: { syncSource?: string | nul
 export function parseNewsUnavailableMetrics(value: string | null | undefined): NewsUnavailableMetrics | null {
   if (!value) return null;
   try {
-    const parsed = JSON.parse(value) as Partial<NewsUnavailableMetrics>;
-    if (!Array.isArray(parsed.campos) || typeof parsed.motivo !== "string" || !parsed.motivo.trim()) return null;
-    return { campos: parsed.campos.filter((field): field is string => typeof field === "string"), motivo: parsed.motivo.trim() };
+    const parsed = JSON.parse(value) as Partial<NewsUnavailableMetrics> & { motivo?: string };
+    const observation = typeof parsed.observacao === "string" ? parsed.observacao : parsed.motivo;
+    if (!Array.isArray(parsed.campos) || typeof observation !== "string" || !observation.trim()) return null;
+    return { campos: parsed.campos.filter((field): field is string => typeof field === "string"), observacao: observation.trim() };
+  } catch {
+    return null;
+  }
+}
+
+export function parseNewsHistoricalAnalyticsBase(value: string | null | undefined): NewsHistoricalAnalyticsBase | null {
+  if (!value) return null;
+  try {
+    const parsed = JSON.parse(value) as Partial<NewsHistoricalAnalyticsBase>;
+    if (typeof parsed.inicio !== "string" || typeof parsed.fim !== "string" || typeof parsed.sessoes !== "number" || typeof parsed.aplicada_no_periodo !== "boolean") return null;
+    return { inicio: parsed.inicio, fim: parsed.fim, sessoes: parsed.sessoes, aplicada_no_periodo: parsed.aplicada_no_periodo };
   } catch {
     return null;
   }

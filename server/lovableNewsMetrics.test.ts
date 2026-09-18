@@ -6,7 +6,7 @@ const areas = [
   ["Fisioterapia Esportiva", 4, 25], ["Educação Física e Personal Training", 3, 18.8], ["Bodybuilding", 2, 12.5], ["Outra área", 2, 12.5],
 ] as const;
 
-const unavailableReason = "A LP de novidades 2027 é hospedada na RD Station. Só recebemos as conversões por webhook; visitas e inícios de formulário dessa página não são medidos por este projeto.";
+const measurementObservation = "Sessões de 04/09 a 17/09/2026 vêm do Google Analytics; a partir de 18/09/2026 vêm da medição própria via GTM.";
 
 const fixture = {
   origem: "LP de Novidades 2027",
@@ -19,18 +19,28 @@ const fixture = {
     conversoes_origem_dm: 1,
     total_acumulado_conversoes: 120,
     total_acumulado_pessoas_unicas: 120,
-    sessoes_na_lp: null,
-    sessoes_origem_dm: null,
-    sessoes_por_origem: null,
-    inicios_de_formulario: null,
-    abandonos_de_formulario: null,
-    taxa_de_conversao_bruta: null,
-    taxa_de_conversao_pessoas_unicas: null,
+    sessoes_na_lp: 300,
+    sessoes_origem_dm: 0,
+    sessoes_por_origem: [
+      { canal: "whatsapp", sessoes: 0 },
+      { canal: "instagram_ads", sessoes: 0 },
+      { canal: "instagram_dm", sessoes: 0 },
+      { canal: "email", sessoes: 226 },
+      { canal: "direto", sessoes: 4 },
+      { canal: "sem_origem", sessoes: 0 },
+      { canal: "outros", sessoes: 70 },
+    ],
+    inicios_de_formulario: 0,
+    abandonos_de_formulario: 0,
+    taxa_de_conversao_bruta: 5.3,
+    taxa_de_conversao_pessoas_unicas: 5.3,
   },
   metricas_indisponiveis: {
-    campos: ["sessoes_na_lp", "sessoes_origem_dm", "sessoes_por_origem", "inicios_de_formulario", "abandonos_de_formulario", "taxa_de_conversao_bruta", "taxa_de_conversao_pessoas_unicas"],
-    motivo: unavailableReason,
+    campos: [],
+    observacao: "Inícios de formulário só existem a partir de 18/09/2026.",
   },
+  base_historica_ga4: { inicio: "2026-09-04", fim: "2026-09-17", sessoes: 300, aplicada_no_periodo: true },
+  observacao_medicao: measurementObservation,
   avanco_no_funil: { cliques_vindos_da_masterclass: 31, origens_dos_cliques: [{ canal: "instagram_ads", cliques: 13 }] },
   origens: [
     { canal: "whatsapp", conversoes: 1, sessoes: null },
@@ -59,8 +69,11 @@ describe("contrato agregado da LP de novidades", () => {
   it("aceita o contrato real e mapeia somente dados agregados", () => {
     const payload = lovableNewsMetricsSchema.parse(fixture);
     const mapped = mapLovableNewsMetricsToSnapshot(payload);
-    expect(mapped).toMatchObject({ totalLeads: 120, newLeads: 16, uniquePeopleInPeriod: 16, totalUniquePeople: 120, profileBaseCount: 16, dmConversions: 1, sportsNutritionCount: 7, nutritionAestheticsCount: 6, attended2026Count: 8, firstTimeCount: 7, attendedPastCount: 1, masterclassClicks: 31, syncSource: "lovable-api-rollup" });
+    expect(mapped).toMatchObject({ totalLeads: 120, newLeads: 16, uniquePeopleInPeriod: 16, totalUniquePeople: 120, profileBaseCount: 16, sessions: 300, dmSessions: 0, formStarts: 0, formAbandonments: 0, dmConversions: 1, sportsNutritionCount: 7, nutritionAestheticsCount: 6, attended2026Count: 8, firstTimeCount: 7, attendedPastCount: 1, masterclassClicks: 31, syncSource: "lovable-api-rollup" });
     expect(JSON.parse(mapped.unavailableMetricsJson)).toEqual(fixture.metricas_indisponiveis);
+    expect(JSON.parse(mapped.sessionsByOriginJson)).toHaveLength(7);
+    expect(JSON.parse(mapped.ga4HistoricalBaseJson)).toEqual(fixture.base_historica_ga4);
+    expect(mapped.providerMeasurementObservation).toBe(measurementObservation);
     expect(mapLovableNewsMetricsToSnapshot(payload, "daily").syncSource).toBe("lovable-api-daily");
     expect(JSON.parse(mapped.topCitiesJson)).toEqual([{ opcao: "São Paulo", pessoas: 4, percentual: 25 }]);
     expect(mapped).not.toHaveProperty("email");
@@ -72,8 +85,20 @@ describe("contrato agregado da LP de novidades", () => {
     expect(lovableNewsMetricsSchema.safeParse({ ...fixture, areas_de_interesse: fixture.areas_de_interesse.slice(1) }).success).toBe(false);
   });
 
-  it("aceita nulos estruturais e recusa conversão DM acima do total do período", () => {
-    expect(lovableNewsMetricsSchema.safeParse(fixture).success).toBe(true);
+  it("aceita números ou nulos e recusa conversão DM acima do total do período", () => {
+    expect(lovableNewsMetricsSchema.safeParse({
+      ...fixture,
+      captacao: {
+        ...fixture.captacao,
+        sessoes_na_lp: null,
+        sessoes_origem_dm: null,
+        sessoes_por_origem: null,
+        inicios_de_formulario: null,
+        abandonos_de_formulario: null,
+        taxa_de_conversao_bruta: null,
+        taxa_de_conversao_pessoas_unicas: null,
+      },
+    }).success).toBe(true);
     expect(lovableNewsMetricsSchema.safeParse({
       ...fixture,
       captacao: { ...fixture.captacao, conversoes_origem_dm: 17 },
@@ -209,7 +234,7 @@ describe("contrato agregado da LP de novidades", () => {
     });
 
     const result = await fetchLovableNewsOfficialSeries("2026-09-09", "2026-09-10", {
-      existingDaily: [{ date: "2026-09-09", conversions: 8 }],
+      existingDaily: [{ date: "2026-09-09", conversions: 8, sessions: 0 }],
       refreshRecentDays: 1,
     });
 
@@ -241,7 +266,7 @@ describe("contrato agregado da LP de novidades", () => {
     });
 
     const result = await fetchLovableNewsOfficialSeries("2026-09-09", "2026-09-10", {
-      existingDaily: [{ date: "2026-09-09", conversions: 7 }],
+      existingDaily: [{ date: "2026-09-09", conversions: 7, sessions: 0 }],
       refreshRecentDays: 1,
     });
 

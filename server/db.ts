@@ -226,6 +226,7 @@ export async function getOfficialLeadProfileDailySnapshots(from: number, to: num
     periodStartAt: leadProfileSnapshots.periodStartAt,
     periodEndAt: leadProfileSnapshots.periodEndAt,
     conversions: leadProfileSnapshots.newLeads,
+    sessions: leadProfileSnapshots.sessions,
   }).from(leadProfileSnapshots).where(and(
     eq(leadProfileSnapshots.sourceKey, NEWS_LP_SOURCE.key),
     eq(leadProfileSnapshots.syncSource, NEWS_DAILY_SYNC_SOURCE),
@@ -234,7 +235,7 @@ export async function getOfficialLeadProfileDailySnapshots(from: number, to: num
   ));
   return rows
     .filter(row => row.periodStartAt === row.periodEndAt)
-    .map(row => ({ date: new Date(row.periodStartAt).toISOString().slice(0, 10), conversions: row.conversions }));
+    .map(row => ({ date: new Date(row.periodStartAt).toISOString().slice(0, 10), conversions: row.conversions, sessions: row.sessions }));
 }
 
 export async function upsertSyncedLeadProfileSnapshot(entry: SyncedLeadProfileSnapshotInput) {

@@ -20,6 +20,7 @@ const channelConversions = z.object({
   conversoes: count,
   sessoes: count.nullable().optional(),
 });
+const channelSessions = z.object({ canal: z.string().trim().min(1).max(80), sessoes: count });
 const clickOrigin = z.object({ canal: z.string().trim().min(1).max(80), cliques: count });
 
 export type NewsRejectedField = {
@@ -98,18 +99,27 @@ export const lovableNewsMetricsSchema = z.object({
     conversoes_origem_dm: count,
     total_acumulado_conversoes: count.nullable(),
     total_acumulado_pessoas_unicas: count,
-    sessoes_na_lp: z.null(),
-    sessoes_origem_dm: z.null(),
-    sessoes_por_origem: z.null(),
-    inicios_de_formulario: z.null(),
-    abandonos_de_formulario: z.null(),
-    taxa_de_conversao_bruta: z.null(),
-    taxa_de_conversao_pessoas_unicas: z.null(),
+    sessoes_na_lp: count.nullable(),
+    sessoes_origem_dm: count.nullable(),
+    sessoes_por_origem: z.array(channelSessions).nullable(),
+    inicios_de_formulario: count.nullable(),
+    abandonos_de_formulario: count.nullable(),
+    taxa_de_conversao_bruta: percent.nullable(),
+    taxa_de_conversao_pessoas_unicas: percent.nullable(),
   }),
   metricas_indisponiveis: z.object({
     campos: z.array(z.string().trim().min(1).max(120)),
-    motivo: z.string().trim().min(1).max(2000),
+    observacao: z.string().trim().min(1).max(2000).optional(),
+    motivo: z.string().trim().min(1).max(2000).optional(),
+  }).refine(value => Boolean(value.observacao || value.motivo), "Informe a observação das métricas indisponíveis.")
+    .transform(value => ({ campos: value.campos, observacao: value.observacao ?? value.motivo! })),
+  base_historica_ga4: z.object({
+    inicio: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+    fim: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+    sessoes: count,
+    aplicada_no_periodo: z.boolean(),
   }),
+  observacao_medicao: z.string().trim().min(1).max(2000),
   avanco_no_funil: z.object({
     cliques_vindos_da_masterclass: count,
     origens_dos_cliques: z.array(clickOrigin).max(100),
@@ -218,9 +228,10 @@ export function mapLovableNewsMetricsToSnapshot(payload: LovableNewsMetrics, kin
     uniquePeopleInPeriod: payload.captacao.pessoas_unicas_no_periodo,
     totalUniquePeople: payload.captacao.total_acumulado_pessoas_unicas,
     profileBaseCount: profile.base_de_calculo,
-    sessions: null,
-    dmSessions: null,
-    formStarts: null,
+    sessions: payload.captacao.sessoes_na_lp,
+    dmSessions: payload.captacao.sessoes_origem_dm,
+    formStarts: payload.captacao.inicios_de_formulario,
+    formAbandonments: payload.captacao.abandonos_de_formulario,
     dmConversions: payload.captacao.conversoes_origem_dm,
     ...participation,
     ...interests,
@@ -228,11 +239,14 @@ export function mapLovableNewsMetricsToSnapshot(payload: LovableNewsMetrics, kin
     multipleInterestsCount: null,
     topCitiesJson: JSON.stringify(profile.cidades),
     originsJson: JSON.stringify(payload.origens),
+    sessionsByOriginJson: JSON.stringify(payload.captacao.sessoes_por_origem ?? []),
+    ga4HistoricalBaseJson: JSON.stringify(payload.base_historica_ga4),
     masterclassClicks: payload.avanco_no_funil.cliques_vindos_da_masterclass,
     masterclassClickOriginsJson: JSON.stringify(payload.avanco_no_funil.origens_dos_cliques),
     syncSource: kind === "daily" ? NEWS_DAILY_SYNC_SOURCE : kind === "rollup" ? NEWS_ROLLUP_SYNC_SOURCE : "manual",
     providerUpdatedAt: Date.parse(payload.atualizado_em),
     providerObservation: profile.observacao,
+    providerMeasurementObservation: payload.observacao_medicao,
     unavailableMetricsJson: JSON.stringify(payload.metricas_indisponiveis),
     note: "Dados agregados sincronizados do endpoint oficial da LP de novidades.",
   };
@@ -252,14 +266,15 @@ function listCivilDates(from: string, to: string) {
 export async function fetchLovableNewsOfficialSeries(
   from: string,
   to: string,
-  options: { existingDaily?: Array<{ date: string; conversions: number }>; refreshRecentDays?: number } = {},
+  options: { existingDaily?: Array<{ date: string; conversions: number; sessions?: number | null }>; refreshRecentDays?: number } = {},
 ) {
   const dates = listCivilDates(from, to);
   if (!dates.length || dates.length > 120) throw new Error("O lote diário deve conter entre 1 e 120 dias.");
+  const existingRows = new Map((options.existingDaily ?? []).map(item => [item.date, item]));
   const existingConversions = new Map((options.existingDaily ?? []).map(item => [item.date, item.conversions]));
   const refreshRecentDays = Math.max(1, Math.min(options.refreshRecentDays ?? 3, dates.length));
   const recentDates = new Set(dates.slice(-refreshRecentDays));
-  const datesToFetch = dates.filter(date => !existingConversions.has(date) || recentDates.has(date));
+  const datesToFetch = dates.filter(date => !existingRows.has(date) || existingRows.get(date)?.sessions === null || existingRows.get(date)?.sessions === undefined || recentDates.has(date));
   const dailyPayloads: LovableNewsMetrics[] = [];
   for (const date of datesToFetch) {
     dailyPayloads.push(await fetchLovableNewsMetrics(date, date));

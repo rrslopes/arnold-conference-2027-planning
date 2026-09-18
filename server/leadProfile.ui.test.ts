@@ -65,10 +65,18 @@ describe("news landing page lead profile UI", () => {
 
   it("distingue dados não medidos de indicadores aguardando atualização", () => {
     expect(panel).toContain("Não medido");
-    expect(panel).toContain("GTM/GA4");
+    expect(panel).toContain("Origem da medição");
     expect(panel).toContain("CONVERSÕES VIA WHATSAPP + INSTAGRAM DM");
     expect(panel).toContain("lead-origin-bar");
     expect(kpis).toContain('metric.availability === "not_measured"');
     expect(kpis).toContain("Não medido nesta LP");
+  });
+
+  it("exibe sessões por origem e separa a base histórica GA4 da medição própria", () => {
+    expect(panel).toContain("SESSÕES POR ORIGEM");
+    expect(panel).toContain("Origem da medição");
+    expect(panel).toContain("historicalAnalyticsBase.sessoes");
+    expect(integration).toContain("Sessões registradas na página /conference-2027");
+    expect(integration).toContain("providerMeasurementObservation");
   });
 });
