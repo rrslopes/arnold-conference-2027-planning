@@ -69,12 +69,13 @@ export default function EditorialIntelligence() {
                       {session.speakerAssets?.length ? (
                         <div className="program-speaker-assets" aria-label={`Materiais dos palestrantes de ${session.title}`}>
                           {session.speakerAssets.map(asset => (
-                            <div className={`program-speaker-asset ${asset.photo ? "has-photo" : "is-pending"}`} key={`${session.time}-${asset.name}`}>
+                            <div className={`program-speaker-asset ${asset.photo ? "has-photo" : asset.materialUrl ? "has-material" : "is-pending"}`} key={`${session.time}-${asset.name}`}>
                               {asset.photo ? <img src={asset.photo} alt={`Foto de ${asset.name}`} loading="lazy" /> : <span className="program-speaker-placeholder" aria-hidden="true">{asset.name.split(" ").slice(0, 2).map(part => part[0]).join("")}</span>}
                               <div>
                                 <b>{asset.name}</b>
-                                {asset.note ? <em>{asset.note}</em> : <em>Foto confirmada no Drive</em>}
+                                {asset.note ? <em>{asset.note}</em> : asset.photo ? <em>Foto confirmada no acervo</em> : <em>Pasta individual indicada na planilha; imagem ainda não exibida</em>}
                                 {asset.social?.length ? <div className="program-speaker-socials">{asset.social.map(profile => <a key={profile.url} href={profile.url} target="_blank" rel="noreferrer"><Instagram size={11} /> {profile.label}</a>)}</div> : null}
+                                {asset.materialUrl ? <a className="program-speaker-material" href={asset.materialUrl} target="_blank" rel="noreferrer">Abrir material <ArrowUpRight size={10} /></a> : null}
                               </div>
                             </div>
                           ))}

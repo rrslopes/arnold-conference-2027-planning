@@ -26,14 +26,17 @@ describe("inteligência editorial por programação", () => {
     expect(program?.sessions[0]).toMatchObject({ time: "9h00", speakers: "Marília Lacerda" });
     expect(program?.sessions.at(-1)?.title).toContain("Performance Feminina");
     expect(program?.source).toContain("Programação_Conference_NutriçãoEstética_2027.xlsx");
-    expect(program?.source).toContain("11/09/2026");
+    expect(program?.source).toContain("18/09/2026");
     expect(program?.assetSourceUrl).toContain("1cbpsKRniKhToysrglTtyyCpQwPeHffcs");
     expect(program?.note).toContain("dez sessões");
     expect(program?.statusLabel).toContain("definitiva");
     expect(program?.note).toContain("temas centrais podem ser divulgados seletivamente");
+    expect(program?.note).toContain("15 dos 17 palestrantes");
+    expect(program?.sessions.every(item => item.materialStatus)).toBe(true);
+    expect(program?.sessions.find(item => item.time === "16h00")?.speakers).toBe("Andréia Naves");
   });
 
-  it("associa somente as oito fotos inequivocamente identificadas e mantém as lacunas visíveis", () => {
+  it("associa somente as dez fotos inequivocamente identificadas e mantém as lacunas visíveis", () => {
     const program = conferencePrograms2027.find(item => item.id === "nutricao-estetica");
     const assets = program?.sessions.flatMap(item => item.speakerAssets ?? []) ?? [];
     const photoNames = assets.filter(item => item.photo).map(item => item.name);
@@ -41,17 +44,24 @@ describe("inteligência editorial por programação", () => {
     expect(photoNames).toEqual([
       "Marília Lacerda",
       "Gabriel Ximenes",
+      "Luísa Wolpe",
+      "Luísa Wolpe",
       "Suellen Becher",
       "Dr. Vinicius Ortiz",
       "Ana Paula Pujol",
+      "Andréia Naves",
       "Faruk Kalil",
       "Vanessa Erthal",
       "Alessandra Pinheiro",
     ]);
     expect(assets.filter(item => item.photo).every(item => item.photo?.startsWith("/manus-storage/"))).toBe(true);
+    expect(new Set(photoNames).size).toBe(10);
     expect(assets.find(item => item.name === "Diogo Viana")?.photo).toBeUndefined();
-    expect(assets.find(item => item.name === "Diogo Viana")?.note).toContain("Diogo Pinto");
+    expect(assets.find(item => item.name === "Diogo Viana")?.materialUrl).toContain("1FSxtY4fM");
+    expect(assets.find(item => item.name === "Diogo Viana")?.note).toContain("imagem ainda não exibida");
     expect(assets.find(item => item.name === "Pedro Perim")?.note).toContain("pendentes");
+    expect(assets.find(item => item.name === "Dr. Leandro Lucerna")?.note).toContain("pendentes");
+    expect(new Set(assets.filter(item => item.materialUrl).map(item => item.name)).size).toBe(15);
     expect(program?.sessions.find(item => item.time === "17h20")?.speakerAssets).toHaveLength(3);
   });
 
@@ -60,12 +70,26 @@ describe("inteligência editorial por programação", () => {
     expect(program?.date).toBe("24 de abril de 2027");
     expect(program?.sessions).toHaveLength(12);
     expect(program?.sessions.find(item => item.time === "10h00")?.speakers).toBe("Leonardo Luiz Barretti Secchi e Priscila Alvarenga");
+    expect(program?.sessions.find(item => item.time === "10h30")?.speakers).toBe("Paulo Ricardo Celestino Leite e Mariana Vido Corassini");
+    expect(program?.sessions.find(item => item.time === "11h00")?.speakers).toBe("Marco Antônio Ferreira Alves e Cristina Alcantara");
+    expect(program?.sessions.find(item => item.time === "16h00")?.speakers).toBe("Maria Eugênia Ortiz (Gegê) e Klever Shinji");
     expect(program?.sessions.find(item => item.time === "16h30")?.speakers).toBe("André Fujita e Bárbara Pocceschi");
     expect(program?.sessions.at(-1)?.speakers).toContain("Moderação: Bruno Baroni");
     expect(program?.sourceUrl).toContain("1P6EooZAA6mVkYVMC-hVUfbBvGfxxCx-8");
+    expect(program?.source).toContain("18/09/2026");
     expect(program?.note).toContain("numeração oficial");
+    expect(program?.note).toContain("15 dos 20 palestrantes");
     expect(program?.statusLabel).toContain("definitiva");
     expect(program?.note).toContain("sem revelar a grade completa");
+    const assets = program?.sessions.flatMap(item => item.speakerAssets ?? []) ?? [];
+    expect(new Set(assets.filter(item => item.materialUrl).map(item => item.name)).size).toBe(15);
+    expect(assets.filter(item => item.note?.includes("pendentes")).map(item => item.name)).toEqual([
+      "Larissa Pechincha",
+      "Giovana Steiner",
+      "Bruno Baroni",
+      "Katherine Ferro",
+      "Fabricio Rapelo",
+    ]);
   });
 
   it("autoriza temas centrais sem tornar seu uso obrigatório nem antecipar a grade completa", () => {
@@ -120,12 +144,14 @@ describe("inteligência editorial por programação", () => {
     expect(component).toContain("confirmedProgramPublicationPolicy");
     expect(component).toContain("Abrir planilha");
     expect(component).toContain("Abrir pasta de fotos");
+    expect(component).toContain("Abrir material");
     expect(component).toContain("program-speaker-assets");
     expect(component).toContain("intelligence-review");
     expect(home).toContain("isIntelligenceReview");
     expect(styles).toContain(".intelligence-tabs");
     expect(styles).toContain(".program-sessions");
     expect(styles).toContain(".program-speaker-asset");
+    expect(styles).toContain(".program-speaker-material");
     expect(styles).toContain(".coordinator-panel");
     expect(styles).toContain("@media (max-width: 860px)");
   });

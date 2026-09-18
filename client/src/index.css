@@ -1507,9 +1507,11 @@ img { max-width: 100%; }
 .program-speaker-asset b { display: block; color: var(--charcoal); font-size: 7px; line-height: 1.3; }
 .program-speaker-asset em { display: block; margin-top: 2px; color: #7a7577; font-size: 6.5px; font-style: normal; line-height: 1.35; }
 .program-speaker-asset.has-photo em { color: #557311; }
+.program-speaker-asset.has-material { border-color: rgba(77,70,156,.2); }
 .program-speaker-asset.is-pending { border-style: dashed; }
 .program-speaker-socials { display: flex; flex-wrap: wrap; gap: 3px 7px; margin-top: 4px; }
 .program-speaker-socials a { display: inline-flex; align-items: center; gap: 3px; color: var(--purple); font-size: 6.5px; font-weight: 800; text-decoration: none; }
+.program-speaker-material { display: inline-flex; align-items: center; gap: 3px; margin-top: 5px; color: #557311; font-size: 6.5px; font-weight: 850; text-decoration: none; text-transform: uppercase; }
 .program-empty { min-height: 250px; display: flex; align-items: center; justify-content: center; gap: 14px; background: white; border: 1px dashed rgba(51,49,50,.22); padding: 30px; text-align: left; }
 .program-empty svg { color: var(--purple); flex: 0 0 auto; }
 .program-empty strong { display: block; font: 600 22px/1 "Teko Arnold"; text-transform: uppercase; }
