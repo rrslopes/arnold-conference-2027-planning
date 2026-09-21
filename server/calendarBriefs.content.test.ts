@@ -34,6 +34,15 @@ describe("briefings operacionais do calendário", () => {
     expect(item?.optionMode).toBe("inputs");
   });
 
+  it("oferece acesso direto ao Reel usado como referência em 22/09", () => {
+    const item = calendar.find(entry => entry.id === "0922");
+    const reelUrl = "https://www.instagram.com/reel/DVZDZWEFPP3/";
+    expect(item?.originUrl).toBe(reelUrl);
+    expect(item?.originLinkLabel).toBe("Abrir Reel de referência no Instagram");
+    expect(item?.productionBrief?.units.filter(unit => unit.sourceUrl)).toHaveLength(2);
+    expect(item?.productionBrief?.units.filter(unit => unit.sourceUrl).every(unit => unit.sourceUrl === reelUrl)).toBe(true);
+  });
+
   it("transforma 25/09 em um único carrossel de seis cards ancorado em 2026", () => {
     const item = calendar.find(entry => entry.id === "0925");
     expect(item?.productionBrief?.units).toHaveLength(6);

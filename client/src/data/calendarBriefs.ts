@@ -6,6 +6,7 @@ export type ProductionBrief = {
     role: string;
     content: string;
     source?: string;
+    sourceUrl?: string;
   }>;
   note: string;
 };
@@ -204,8 +205,8 @@ export const operationalBriefs: Record<string, ProductionBrief> = {
     purpose: "Mostrar a estrutura multidisciplinar relatada por Ricardo Pannain sem repetir a pauta de 13/09 sobre copiar preparação.",
     units: [
       { unit: "Bloco 1", role: "Tensão", content: "Abrir com a ideia de que o físico visto no palco não revela toda a equipe envolvida nas decisões de preparação." },
-      { unit: "Bloco 2", role: "Fonte", content: "Identificar Ricardo Pannain e contextualizar a fala como relato sobre a evolução da estrutura de sua própria equipe.", source: "Reel Arnold Conference DVZDZWEFPP3 · aproximadamente 00:00–01:06" },
-      { unit: "Bloco 3", role: "Especialidades", content: "Apresentar medicina, Educação Física, nutrição, LPF e psicologia exatamente como áreas citadas no relato, sem ampliar a lista por inferência.", source: "Reel Arnold Conference DVZDZWEFPP3" },
+      { unit: "Bloco 2", role: "Fonte", content: "Identificar Ricardo Pannain e contextualizar a fala como relato sobre a evolução da estrutura de sua própria equipe.", source: "Reel Arnold Conference DVZDZWEFPP3 · aproximadamente 00:00–01:06", sourceUrl: "https://www.instagram.com/reel/DVZDZWEFPP3/" },
+      { unit: "Bloco 3", role: "Especialidades", content: "Apresentar medicina, Educação Física, nutrição, LPF e psicologia exatamente como áreas citadas no relato, sem ampliar a lista por inferência.", source: "Reel Arnold Conference DVZDZWEFPP3", sourceUrl: "https://www.instagram.com/reel/DVZDZWEFPP3/" },
       { unit: "Bloco 4", role: "Saúde mental", content: "Se usar a fala sobre psicologia, preservar o contexto completo e não convertê-la em afirmação causal universal.", source: "Trecho principal aproximado 00:52–01:06" },
       { unit: "Bloco 5", role: "Leitura segura", content: "Explicar que integração exige comunicação e respeito aos limites profissionais; não sugerir que toda equipe precisa ter a mesma composição." },
       { unit: "Bloco 6", role: "Continuidade", content: "Convidar a comentar BODY e acompanhar as novidades." },
