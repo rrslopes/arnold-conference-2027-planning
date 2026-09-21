@@ -39,8 +39,29 @@ describe("briefings operacionais do calendário", () => {
     const reelUrl = "https://www.instagram.com/reel/DVZDZWEFPP3/";
     expect(item?.originUrl).toBe(reelUrl);
     expect(item?.originLinkLabel).toBe("Abrir Reel de referência no Instagram");
-    expect(item?.productionBrief?.units.filter(unit => unit.sourceUrl)).toHaveLength(2);
+    expect(item?.productionBrief?.units.filter(unit => unit.sourceUrl)).toHaveLength(3);
     expect(item?.productionBrief?.units.filter(unit => unit.sourceUrl).every(unit => unit.sourceUrl === reelUrl)).toBe(true);
+  });
+
+  it("vincula somente os materiais com correspondência inequívoca às pautas", () => {
+    const linkedItems = calendar.filter(item => item.materialLinks?.length).map(item => item.id);
+    expect(linkedItems).toEqual(["0904", "0906", "0908", "0910", "0911", "0918", "0919", "0921", "0923", "0925"]);
+
+    const links = calendar.flatMap(item => item.materialLinks ?? []);
+    expect(new Set(links.map(link => link.url))).toEqual(new Set([
+      "https://www.youtube.com/watch?v=asItej-OIk8",
+      "https://youtu.be/tAqcK_GgzD8",
+      "https://youtu.be/QSjVRVEvZMs",
+      "https://youtu.be/8hnvXCzfd3U",
+      "https://youtu.be/qCvC2bwxV_0",
+      "https://youtu.be/nze1GDIzj9c",
+      "https://www.instagram.com/reels/DYfnzGHP81D/",
+      "https://www.instagram.com/p/DTnBm0Qlo0Q/",
+      "https://docs.google.com/spreadsheets/d/1P6EooZAA6mVkYVMC-hVUfbBvGfxxCx-8/edit?gid=656380718#gid=656380718",
+    ]));
+
+    expect(calendar.find(item => item.id === "0925")?.materialLinks?.map(link => link.label).join(" ")).not.toContain("Luisa");
+    expect(calendar.find(item => item.id === "0927")?.materialLinks).toBeUndefined();
   });
 
   it("transforma 25/09 em um único carrossel de seis cards ancorado em 2026", () => {

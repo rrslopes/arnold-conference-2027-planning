@@ -29,7 +29,10 @@ describe("auditoria dos cortes de palestras", () => {
     const urls = [...new Set(cuts.flatMap(cut => cut.sourceUrl ? [cut.sourceUrl] : []))];
     expect(urls.sort()).toEqual([
       "https://www.youtube.com/watch?v=asItej-OIk8",
+      "https://youtu.be/8hnvXCzfd3U",
       "https://youtu.be/QSjVRVEvZMs",
+      "https://youtu.be/nze1GDIzj9c",
+      "https://youtu.be/qCvC2bwxV_0",
       "https://youtu.be/tAqcK_GgzD8",
     ].sort());
     expect(cuts.filter(cut => cut.speaker === "Ana Paula Pujol").every(cut => cut.location.toLowerCase().includes("aproxim") || cut.location.toLowerCase().includes("sem timestamp nativo"))).toBe(true);

@@ -73,6 +73,9 @@ describe("ajustes estratégicos da plataforma em setembro", () => {
     const paidSource = readFileSync(new URL("../client/src/components/PaidMediaHub.tsx", import.meta.url), "utf8");
     expect(calendarSource).toContain("Abrir destino de");
     expect(calendarSource).toContain("calendar-origin-link");
+    expect(calendarSource).toContain("calendar-origin-links");
+    expect(calendarSource).toContain("item.materialLinks");
+    expect(calendarSource).toContain('link.kind === "video"');
     expect(calendarSource).toContain("unit.sourceUrl");
     expect(paidSource).toContain("Peças exclusivas");
     expect(paidSource).toContain("URL COMERCIAL PENDENTE");
