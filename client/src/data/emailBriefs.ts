@@ -1,3 +1,5 @@
+import { octoberEmailBriefs } from "./octoberPlan";
+
 export type EmailBriefStep = {
   step: string;
   role: string;
@@ -498,4 +500,5 @@ export const emailCampaignBriefs: Record<string, EmailCampaignBrief> = {
     limits:
       "O envio não recomenda um congresso, não promete compatibilidade entre salas e não antecipa a abertura de vendas.",
   },
+  ...octoberEmailBriefs,
 };

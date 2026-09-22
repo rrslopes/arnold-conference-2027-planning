@@ -1,4 +1,5 @@
 import { externalDestinations } from "./planData";
+import { octoberPaidMediaAssets } from "./octoberPlan";
 
 export type PaidMediaAsset = {
   id: string;
@@ -17,7 +18,7 @@ export type PaidMediaAsset = {
   status: "liberada" | "condicionada";
 };
 
-export const paidMediaAssets: PaidMediaAsset[] = [
+const septemberPaidMediaAssets: PaidMediaAsset[] = [
   {
     id: "resize-0908",
     category: "redimensionamento",
@@ -66,19 +67,9 @@ export const paidMediaAssets: PaidMediaAsset[] = [
     gate: "LIBERAR somente com URL rastreável, segmentação aprovada e coerência entre anúncio e formulário.",
     status: "liberada",
   },
-  {
-    id: "resize-launch-window",
-    category: "redimensionamento",
-    date: "Janela móvel · D-7 a D0",
-    phase: "Janela móvel",
-    title: "Reserva operacional da abertura",
-    source: "Reprogramação dos desdobramentos comerciais já previstos; não é solicitação de peça exclusiva nova",
-    objective: "Preservar a capacidade de anunciar data confirmada, abertura e dúvidas reais quando todos os gates estiverem verdes.",
-    audience: "Leads da lista de novidades, públicos de retargeting e alta intenção, conforme consentimentos e política de mídia.",
-    formats: ["9:16", "Template adaptável"],
-    deliverables: ["Template para data confirmada", "Template para vendas abertas", "Template para dúvidas reais", "Fechamento para compra ou atendimento"],
-    cta: "Definir conforme o marco D-7, D-1 ou D0",
-    gate: "BLOQUEADA até ticketeira contratada, checkout testado, data e horário aprovados, condições fechadas, URLs, pixel/UTMs, atendimento e supressões validados.",
-    status: "condicionada",
-  },
+];
+
+export const paidMediaAssets: PaidMediaAsset[] = [
+  ...septemberPaidMediaAssets,
+  ...(octoberPaidMediaAssets as PaidMediaAsset[]),
 ];

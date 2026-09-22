@@ -41,16 +41,17 @@ describe("ajustes estratégicos da plataforma em setembro", () => {
     expect(keywords.filter(item => !("url" in item)).every(item => item.destination.includes("pendente"))).toBe(true);
   });
 
-  it("mantém Mídia Paga somente com os quatro packs já previstos nos marcos", () => {
+  it("mantém os três packs históricos de setembro e separa as frentes condicionadas de outubro", () => {
     expect(navigation.some(item => item.id === "midia-paga" && item.label === "Mídia paga")).toBe(true);
-    expect(paidMediaAssets).toHaveLength(4);
-    expect(paidMediaAssets.filter(item => item.category === "redimensionamento")).toHaveLength(4);
+    expect(paidMediaAssets.filter(item => !item.id.includes("-oct-"))).toHaveLength(3);
+    expect(paidMediaAssets.filter(item => item.id.includes("-oct-"))).toHaveLength(5);
+    expect(paidMediaAssets.filter(item => item.category === "redimensionamento")).toHaveLength(8);
     expect(paidMediaAssets.filter(item => item.category === "exclusiva")).toHaveLength(0);
-    expect(paidMediaAssets.map(item => item.id).sort()).toEqual(["resize-0908", "resize-0915", "resize-0918", "resize-launch-window"]);
-    expect(Object.keys(calendarMilestones).sort()).toEqual(["0908", "0915", "0918"]);
+    expect(paidMediaAssets.filter(item => !item.id.includes("-oct-")).map(item => item.id).sort()).toEqual(["resize-0908", "resize-0915", "resize-0918"]);
+    expect(Object.keys(calendarMilestones).sort()).toEqual(["0908", "0915", "0918", "0930", "1006"]);
     expect(paidMediaAssets.filter(item => item.status === "liberada").every(item => item.destination)).toBe(true);
-    expect(paidMediaAssets.filter(item => item.phase === "Janela móvel").every(item => item.status === "condicionada" && !item.destination)).toBe(true);
-    expect(launchWindow.map(item => item.moment)).toEqual(["D-7", "D-5", "D-3", "D-1", "D0"]);
+    expect(paidMediaAssets.filter(item => item.id.includes("-oct-")).every(item => item.status === "condicionada")).toBe(true);
+    expect(launchWindow.map(item => item.moment)).toEqual(["D-8 · 28/09", "D-6 · 30/09", "D-4 · 02/10", "D-1 · 05/10", "D0 · 06/10", "D+1 a D+25"]);
   });
 
   it("exibe somente os coordenadores confirmados no arquivo recebido", () => {

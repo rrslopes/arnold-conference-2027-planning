@@ -28,8 +28,8 @@ describe("proteção contra duplicidades no calendário revisado", () => {
     expect(item("0924").idea.toLocaleLowerCase("pt-BR")).toContain("não compara salas");
 
     expect(item("0926").title).toBe("Cinco perguntas para escolher melhor");
-    expect(launchWindow.find(entry => entry.moment === "D-5")?.title).toBe("O que mudou desde o aquecimento");
-    expect(launchWindow.find(entry => entry.moment === "D-5")?.objective).toContain("novas programações");
+    expect(launchWindow.find(entry => entry.moment === "D-6 · 30/09")?.title).toBe("Data anunciada");
+    expect(launchWindow.find(entry => entry.moment === "D0 · 06/10")?.objective).toContain("checkout do produto correspondente");
   });
 
   it("separa o checklist de 24/09, as dúvidas de 26/09 e o teste de cenários de 27/09", () => {

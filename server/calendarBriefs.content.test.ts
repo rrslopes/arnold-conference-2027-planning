@@ -2,8 +2,8 @@ import { describe, expect, it } from "vitest";
 import { calendar } from "../client/src/data/planData";
 
 describe("briefings operacionais do calendário", () => {
-  it("cobre todas as 28 pautas com sequência explícita ou aprovação prévia", () => {
-    expect(calendar).toHaveLength(28);
+  it("cobre as 28 pautas históricas e as 21 entradas da nova fase com sequência explícita ou aprovação prévia", () => {
+    expect(calendar).toHaveLength(49);
     for (const item of calendar) {
       const hasExplicitSequence = Boolean(item.productionBrief?.units.length || item.storyCards?.length);
       const isPreviouslyApproved = item.id === "0831";

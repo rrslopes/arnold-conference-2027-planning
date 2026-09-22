@@ -36,4 +36,22 @@ export const calendarMilestones: Record<string, CalendarMilestone> = {
       requirement: "A agência deve redimensionar a mesma peça editorial de 18/09 para 1:1, 4:5 e 9:16, sem criar conteúdo exclusivo. Manter a landing page de novidades como destino e segmentar por afinidade com Nutrição Estética, SONAFE e públicos engajados.",
     },
   },
+  "0930": {
+    label: "Anúncio da abertura em 06/10",
+    tone: "sales",
+    description: "Início da intensificação pública: confirmar a data e orientar a audiência sem afirmar que as vendas já estão abertas.",
+    paidMediaPack: {
+      label: "Pack de artes para mídia paga",
+      requirement: "Redimensionar a mesma peça orgânica para 1:1, 4:5 e 9:16. Só veicular após validar checkout, links, condições públicas, tracking, UTMs, suporte e regras comerciais. O destino pré-abertura é a landing page de novidades.",
+    },
+  },
+  "1006": {
+    label: "Abertura das inscrições",
+    tone: "sales",
+    description: "Marco comercial de 06/10: seis produtos com rotas independentes e compra confirmada como verdade de ocupação.",
+    paidMediaPack: {
+      label: "Pack de artes para mídia paga",
+      requirement: "Redimensionar a peça aprovada de abertura para 1:1, 4:5 e 9:16 e separar a distribuição por produto. Liberar somente após o gate D0, com compra-teste, URLs, condições, eventos, UTMs, atendimento e supressões validados.",
+    },
+  },
 };

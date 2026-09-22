@@ -9,12 +9,12 @@ import {
 } from "../shared/emailWorkflow";
 
 describe("fluxo específico de aprovação dos e-mails", () => {
-  it("atribui identificadores únicos aos nove e-mails de base e sete de nutrição", () => {
-    expect(emailBase).toHaveLength(9);
+  it("atribui identificadores únicos aos nove e-mails históricos, doze slots de outubro e sete de nutrição", () => {
+    expect(emailBase).toHaveLength(21);
     expect(emailNurture).toHaveLength(7);
     const ids = [...emailBase, ...emailNurture].map(item => item.id);
-    expect(new Set(ids).size).toBe(16);
-    ids.forEach(id => expect(id).toMatch(/^email-(base|nurture)-[a-z0-9-]+$/));
+    expect(new Set(ids).size).toBe(28);
+    ids.forEach(id => expect(id).toMatch(/^email-(base|nurture|oct)-[a-z0-9-]+$/));
   });
 
   it("mantém 18/09 como prévia temática de Nutrição Estética e SONAFE", () => {
@@ -52,14 +52,15 @@ describe("fluxo específico de aprovação dos e-mails", () => {
     expect(serialized).not.toContain("masterclassconference.savagetgroup.com.br/obrigado");
   });
 
-  it("abre briefings operacionais para todos os envios de 18 a 25/09", () => {
-    expect(Object.keys(emailCampaignBriefs)).toEqual([
+  it("preserva os briefings de 18 a 25/09 e acrescenta os doze slots de outubro", () => {
+    expect(Object.keys(emailCampaignBriefs).filter(id => id.startsWith("email-base-"))).toEqual([
       "email-base-comparativo",
       "email-base-48h",
       "email-base-vespera",
       "email-base-vendas-abertas",
       "email-base-recuperar-inscricao",
     ]);
+    expect(Object.keys(emailCampaignBriefs).filter(id => id.startsWith("email-oct-"))).toHaveLength(12);
     Object.values(emailCampaignBriefs).forEach(brief => {
       expect(brief.decision.length).toBeGreaterThan(20);
       expect(brief.versions).toHaveLength(1);
@@ -79,7 +80,7 @@ describe("fluxo específico de aprovação dos e-mails", () => {
       ])
     );
 
-    expect(destinations).toEqual({
+    expect(Object.fromEntries(Object.entries(destinations).filter(([id]) => id.startsWith("email-base-")))).toEqual({
       "email-base-comparativo":
         "https://oferta.savagetgroup.com.br/conference-2027",
       "email-base-48h":
@@ -91,7 +92,8 @@ describe("fluxo específico de aprovação dos e-mails", () => {
       "email-base-recuperar-inscricao":
         "https://oferta.savagetgroup.com.br/conference-2027",
     });
-    expect(new Set(Object.values(destinations)).size).toBe(2);
+    expect(destinations["email-oct-announcement"]).toBe("https://oferta.savagetgroup.com.br/conference-2027");
+    expect(destinations["email-oct-opening"]).toBe("https://arnold.savagetgroup.com.br/conference/");
     const bodybuilding = emailCampaignBriefs["email-base-vespera"].versions[0];
     expect(bodybuilding.secondaryAction).toEqual({
       label: "Assistir ao registro de 2026 com Ricardo Pannain",

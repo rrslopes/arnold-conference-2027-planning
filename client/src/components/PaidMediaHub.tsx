@@ -12,20 +12,22 @@ const filters: Array<{ id: Filter; label: string }> = [
 ];
 
 export default function PaidMediaHub() {
+  const [month, setMonth] = useState<"Setembro" | "Outubro">("Outubro");
   const [filter, setFilter] = useState<Filter>(() => {
     if (typeof window === "undefined") return "todas";
     const requested = new URLSearchParams(window.location.search).get("paid-media-filter");
     return requested === "redimensionamento" || requested === "exclusiva" ? requested : "todas";
   });
-  const visible = useMemo(() => paidMediaAssets.filter(item => filter === "todas" || item.category === filter), [filter]);
-  const resized = paidMediaAssets.filter(item => item.category === "redimensionamento").length;
-  const exclusive = paidMediaAssets.filter(item => item.category === "exclusiva").length;
-  const milestones = new Set(paidMediaAssets.map(item => item.date.split(" · ")[0])).size;
+  const monthAssets = useMemo(() => paidMediaAssets.filter(item => month === "Outubro" ? item.id.includes("-oct-") : !item.id.includes("-oct-")), [month]);
+  const visible = useMemo(() => monthAssets.filter(item => filter === "todas" || item.category === filter), [filter, monthAssets]);
+  const resized = monthAssets.filter(item => item.category === "redimensionamento").length;
+  const exclusive = monthAssets.filter(item => item.category === "exclusiva").length;
+  const milestones = new Set(monthAssets.map(item => item.date.split(" · ")[0])).size;
 
   return (
     <div className="paid-media-hub">
       <div className="paid-media-command">
-        <div><Megaphone size={28} /><span>ESCOPO JÁ PREVISTO PARA MÍDIA</span><h3>Somente os packs já solicitados e reaproveitados.</h3><p>Este módulo não cria novas peças exclusivas. Ele reúne os desdobramentos orgânicos já previstos para 08/09, 15/09 e 18/09 e preserva a reserva comercial para a janela móvel.</p></div>
+        <div><Megaphone size={28} /><span>ESCOPO JÁ PREVISTO PARA MÍDIA</span><h3>Somente packs derivados de conteúdos previstos.</h3><p>Setembro permanece como histórico. Outubro organiza preparação, anúncio, abertura, prospecção e retargeting sem autorizar nenhuma peça exclusiva nova.</p></div>
         <div className="paid-media-stats"><article><strong>{resized}</strong><span>PACKS PREVISTOS</span></article><article><strong>{milestones}</strong><span>MARCOS DO CALENDÁRIO</span></article><article><strong>{exclusive}</strong><span>PEÇAS EXCLUSIVAS APROVADAS</span></article></div>
       </div>
 
@@ -36,11 +38,13 @@ export default function PaidMediaHub() {
       </div>
 
       <section className="launch-window-panel" aria-labelledby="launch-window-title">
-        <header><CalendarClock size={23} /><div><span>JANELA COMERCIAL MÓVEL</span><h3 id="launch-window-title">D-7 só começa quando a operação estiver verde.</h3><p>A sequência abaixo não tem data de calendário. Ela será deslocada em bloco após confirmação da ticketeira, do checkout, das condições comerciais e do atendimento.</p></div></header>
+        <header><CalendarClock size={23} /><div><span>JANELA COMERCIAL CONFIRMADA</span><h3 id="launch-window-title">30/09 anuncia. 06/10 abre — somente com os gates verdes.</h3><p>As datas estão definidas, mas o anúncio e a abertura continuam condicionados a checkout, links, condições, tracking, UTMs, suporte e regras comerciais validados.</p></div></header>
         <div className="launch-window-grid">
           {launchWindow.map(item => <article key={item.moment}><b>{item.moment}</b><div><strong>{item.title}</strong><small>{item.channels}</small><p>{item.objective}</p><em>{item.gate}</em></div></article>)}
         </div>
       </section>
+
+      <div className="plan-month-tabs" role="tablist" aria-label="Mês do plano de mídia paga"><button type="button" role="tab" aria-selected={month === "Setembro"} className={month === "Setembro" ? "active" : ""} onClick={() => setMonth("Setembro")}>Setembro · histórico</button><button type="button" role="tab" aria-selected={month === "Outubro"} className={month === "Outubro" ? "active" : ""} onClick={() => setMonth("Outubro")}>Outubro · abertura e venda</button></div>
 
       <div className="paid-media-filters" role="tablist" aria-label="Filtrar solicitações de mídia paga">
         {filters.map(item => <button type="button" role="tab" aria-selected={filter === item.id} className={filter === item.id ? "active" : ""} key={item.id} onClick={() => setFilter(item.id)}>{item.label}</button>)}

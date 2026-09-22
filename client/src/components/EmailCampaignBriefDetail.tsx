@@ -22,7 +22,7 @@ export default function EmailCampaignBriefDetail({
       ? null
       : new URLSearchParams(window.location.search).get("email-focus");
   const startsOpen =
-    emailId === "email-base-comparativo" || requestedEmail === emailId;
+    emailId === "email-base-comparativo" || emailId === "email-oct-announcement" || requestedEmail === emailId;
 
   return (
     <details className="email-campaign-brief" open={startsOpen}>

@@ -1,6 +1,13 @@
 import { operationalBriefs, optionModes, type ProductionBrief } from "./calendarBriefs";
 import { cutAuditByCalendarId, type CutValidation } from "./cutValidations";
 import { calendarMilestones, type CalendarMilestone } from "./calendarMilestones";
+import {
+  octoberCalendarBase,
+  octoberDestinations,
+  octoberEmailBase,
+  octoberLaunchWindow,
+  octoberWhatsAppPlan,
+} from "./octoberPlan";
 
 /**
  * Design philosophy: "Sala de Comando da Campanha" — conteúdo estratégico profundo,
@@ -415,6 +422,7 @@ export type CalendarItem = {
   cta: string;
   keyword?: string;
   destination: string;
+  destinationUrl?: string;
   congresses: string[];
 };
 
@@ -461,14 +469,14 @@ const calendarBase: CalendarItem[] = [
   { id: "0927", date: "27/09", phase: "Aquecimento", channel: "Reel + carrossel", title: "Sua academia resiste a um cenário que você não projetou?", origin: "Íntegra de Gláucia Guarcello no Arnold Conference 2026; transcrição validada, com conferência final no vídeo original", idea: "Levar gestores, diretores e proprietários de academias a questionar planejamentos que dependem de uma única previsão. A partir da fala de Gláucia Guarcello, mostrar que cenários não servem para adivinhar o futuro: servem para testar se a estratégia continua de pé diante de incertezas diferentes. No fechamento, oferecer a masterclass Academias em Alta Potência, de Roberto Tranjan, como aprofundamento complementar sobre direção estratégica, relação com alunos, equipe e equilíbrio do negócio — sem apresentá-la como continuação da fala de Gláucia. Identificar as duas palestras como acervo de 2026, sem afirmar que os temas ou palestrantes integram a programação de 2027.", optionLabel: "Sequência e insumos para produzir", options: ["Pergunta de abertura: sua academia resiste a um cenário que você não projetou?", "Contexto: escolher uma incerteza de alto impacto para a academia; exemplos de pergunta, e não previsões, podem envolver comportamento do aluno, adoção de serviços digitais ou pressão sobre custos.", "Teste: desenhar dois cenários opostos e plausíveis para a mesma incerteza, sem tentar escolher qual deles vai acontecer.", "Decisão: perguntar o que precisa ser ajustado agora para a academia permanecer de pé nos dois cenários.", "Fonte principal: corte aproximado de 41:38 a 42:04 da íntegra de Gláucia; conferir começo, fim, áudio, imagem e slides antes da edição.", "Ponte para a isca: apresentar Academias em Alta Potência, de Roberto Tranjan, como uma segunda perspectiva sobre direção, relação com alunos e equipe — não como resposta direta ao teste de cenários."], fallback: "Carrossel gráfico de seis cards com pergunta, conceito de cenários, uma incerteza exemplificativa, dois cenários opostos, teste de robustez e convite para a masterclass. Não depende de depoimento, bastidor ou nova gravação.", cta: "Comente AULAS para acessar gratuitamente a masterclass Academias em Alta Potência", keyword: "AULAS", destination: "Landing page das masterclasses", congresses: ["Gestão de Academias"] },
 ];
 
-export const calendar: CalendarItem[] = calendarBase.map(item => {
+export const calendar: CalendarItem[] = [...calendarBase, ...(octoberCalendarBase as CalendarItem[])].map(item => {
   const cutAudit = cutAuditByCalendarId[item.id];
   return {
     ...item,
     ...(cutAudit?.overrides ?? {}),
-    productionBrief: operationalBriefs[item.id],
+    productionBrief: item.productionBrief ?? operationalBriefs[item.id],
     optionMode: optionModes[item.id],
-    cutValidations: cutAudit?.validations,
+    cutValidations: item.cutValidations ?? cutAudit?.validations,
     milestone: calendarMilestones[item.id],
   };
 });
@@ -483,6 +491,7 @@ export const emailBase = [
   { id: "email-base-vespera", date: "22/09", audience: "Leads com interesse em Bodybuilding e públicos de performance", objective: "Mostrar a equipe multidisciplinar que sustenta decisões de preparação além do que aparece no palco.", materials: "Reel DVZDZWEFPP3, publicado em 02/03/2026, apresentado como acervo e relato profissional de Ricardo Pannain; fechamento faz a ponte com o repertório e as próximas novidades de 2027.", cta: "Acompanhar as novidades de Bodybuilding", destination: "Landing page geral de novidades", rule: "Uma única versão. Reel como referência secundária clicável; não reproduzir a data e o CTA comercial antigos, não confirmar tema ou palestrante em 2027 e não inferir efeito causal sobre performance, títulos ou saúde." },
   { id: "email-base-vendas-abertas", date: "23/09", audience: "Leads com interesse em SONAFE e profissionais ligados à Fisioterapia Esportiva", objective: "Mostrar como diferentes populações, modalidades e demandas ampliam as perguntas da Fisioterapia Esportiva.", materials: "Temas centrais autorizados da programação definitiva SONAFE 2027: mulher no futebol, crianças atletas, esporte paralímpico, concussão e retorno ao esporte.", cta: "Acompanhar as novidades da SONAFE", destination: "Landing page geral de novidades", rule: "Uma única versão; preservar grade completa e não transformar temas em protocolo ou afirmação clínica." },
   { id: "email-base-recuperar-inscricao", date: "24–25/09", audience: "Base engajada; priorizar quem ainda não declarou área de interesse", objective: "Oferecer quatro critérios para validar a escolha de congresso sem repetir o comparativo de perfis.", materials: "Checklist de momento profissional, problema prioritário, profundidade dos temas e aplicação esperada.", cta: "Registrar ou atualizar minha área de interesse", destination: "Landing page geral de novidades", rule: "Uma única versão; quem já declarou interesse não precisa preencher novamente." },
+  ...octoberEmailBase,
 ];
 
 export const emailNurture = [
@@ -507,13 +516,11 @@ export const emailAssets = [
 export const whatsappPlan = [
   { date: "08/09", segment: "Participantes, abandonadores anteriores e leads recentes com consentimento", function: "Convidar para as masterclasses com valor", destination: "Landing page das masterclasses" },
   { date: "15/09", segment: "Consumiu as masterclasses, participou antes ou demonstrou alta intenção", function: "Convidar para a lista de novidades e registrar o congresso de interesse, sem anunciar data", destination: "Landing page geral de novidades" },
-  { date: "Janela móvel · D-7", segment: "Alta intenção, participantes anteriores e cadastrados para novidades", function: "Informar a data oficialmente confirmada e orientar como se preparar", destination: "Landing page geral de novidades" },
-  { date: "Janela móvel · D0", segment: "Alta intenção, abandonadores anteriores e cadastrados para novidades", function: "Informar vendas abertas somente após checkout e links testados", destination: "Página comercial confirmada" },
-  { date: "Pós-abertura", segment: "Checkout abandonado atual, com consentimento", function: "Recuperação comportamental", destination: "Checkout ou atendimento" },
+  ...octoberWhatsAppPlan,
 ];
 
 export const roadmap = [
-  { month: "Out", title: "Aprender e corrigir", summary: "Analisar setembro, comparar origens, mapear objeções, melhorar páginas e preparar o diagnóstico.", deliverables: ["Relatório por origem", "Mapa de interesse", "Revisão da jornada", "Workshop de conteúdo"] },
+  { month: "Out", title: "Abrir, converter e aprender", summary: "Anunciar 06/10 com gates verdes, abrir as seis rotas de venda e usar compra confirmada e ocupação por sala para orientar conteúdo, CRM e mídia.", deliverables: ["Abertura em 06/10", "Venda por produto", "Recuperação de checkout", "Fechamento de ocupação"] },
   { month: "Nov", title: "Diagnóstico abrangente", summary: "Captar e reativar públicos dos seis congressos por meio de dilemas e perfis profissionais.", deliverables: ["Diagnóstico Profissional", "Páginas de resultado", "Distribuição por parceiros", "E-mail para não compradores"] },
   { month: "Dez", title: "Relacionar e produzir", summary: "Manter presença útil, responder dúvidas e concentrar a equipe na produção dos guias de janeiro.", deliverables: ["Curadoria de conteúdo", "Bastidores", "Revisões técnicas", "Produção dos três guias"] },
   { month: "Jan", title: "Ferramentas de aplicação", summary: "Lançar de forma escalonada os três guias especializados previstos no contrato.", deliverables: ["Guia de Gestão", "Guia de Nutrição Estética", "Guia de Nutrição Esportiva"] },
@@ -522,13 +529,7 @@ export const roadmap = [
   { month: "Abr", title: "Conversão e experiência", summary: "Equilibrar decisão final dos não compradores com preparação e experiência dos inscritos.", deliverables: ["Conversão final", "Guia do Participante", "Credenciamento e agenda", "Prova e pré-lista de 2028"] },
 ];
 
-export const launchWindow = [
-  { moment: "D-7", title: "Data oficialmente confirmada", channels: "Feed/Reel · Stories · E-mail · WhatsApp qualificado · Mídia paga", objective: "Abrir a semana de antecipação e ampliar a lista de interessados.", cta: "Quero receber as novidades", destination: "Landing page geral de novidades", gate: "Ativar somente com ticketeira contratada, checkout funcional, data e horário formalmente aprovados." },
-  { moment: "D-5", title: "O que mudou desde o aquecimento", channels: "Carrossel · Stories · E-mail · Mídia paga", objective: "Apresentar somente novas programações, condições ou informações confirmadas depois do aquecimento; se não houver novidade real, reaproveitar em retargeting o melhor conteúdo existente sem criar outro post orgânico.", cta: "Acompanhar as informações confirmadas", destination: "Landing page geral de novidades", gate: "Só produzir nova publicação quando existir informação incremental aprovada. Programações e propostas exibidas precisam estar atualizadas." },
-  { moment: "D-3", title: "Objeções reais respondidas", channels: "Reel/Carrossel · Stories · Retargeting", objective: "Responder perguntas efetivamente recebidas pela audiência ou pelo atendimento e preparar a decisão sem repetir os perfis dos seis congressos.", cta: "Cadastrar-se para acompanhar a abertura", destination: "Landing page geral de novidades", gate: "Preço ou condição comercial só entra se estiver aprovado; perguntas devem vir da audiência ou do atendimento." },
-  { moment: "D-1", title: "Amanhã: serviço e orientação", channels: "Stories · E-mail", objective: "Reforçar data, horário, caminhos e suporte com uma única chamada clara.", cta: "Acompanhar a abertura", destination: "Landing page geral de novidades", gate: "Página comercial, suporte e links precisam ter sido retestados no mesmo dia." },
-  { moment: "D0", title: "Vendas abertas", channels: "Feed/Reel · Stories · E-mail · WhatsApp · Mídia paga", objective: "Conduzir para a compra dos seis congressos com informações comerciais verificadas.", cta: "Escolher meu congresso e fazer a inscrição", destination: "Página central de vendas confirmada", gate: "Só publicar depois de teste real do checkout, URLs, condições, rastreamento e atendimento." },
-];
+export const launchWindow = octoberLaunchWindow;
 
 export const kpiLayers = [
   {
@@ -602,5 +603,7 @@ export const phaseSummary = [
   { label: "Transição", period: "07/09", count: "Stories", purpose: "Antecipar a liberação" },
   { label: "Captação", period: "08–14/09", count: "5 feed/reels + 2 Stories", purpose: "Levar às aulas e registrar interesse" },
   { label: "Aquecimento", period: "15–27/09", count: "Conteúdo contínuo + Stories segmentados", purpose: "Ajudar na escolha e ampliar a lista sem prometer data" },
-  { label: "Janela móvel", period: "D-7 a D0", count: "5 marcos condicionados", purpose: "Antecipar e abrir vendas somente após confirmação operacional" },
+  { label: "Intensificação", period: "28/09–05/10", count: "6 feed/reels + 2 Stories", purpose: "Começar na primeira data livre, anunciar 06/10 e preparar a escolha" },
+  { label: "Abertura", period: "06/10", count: "Feed/Reel + Stories", purpose: "Levar cada público ao produto correto" },
+  { label: "Venda contínua", period: "08–31/10", count: "9 feed/reels + 4 Stories", purpose: "Aprofundar, converter e prestar serviço sem falsa urgência" },
 ];

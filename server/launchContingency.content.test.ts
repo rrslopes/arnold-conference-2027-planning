@@ -3,8 +3,11 @@ import { describe, expect, it } from "vitest";
 import { calendar, emailBase, emailNurture, launchWindow, phaseSummary, whatsappPlan } from "../client/src/data/planData";
 import { paidMediaAssets } from "../client/src/data/paidMedia";
 
-describe("contingência comercial sem data fixa", () => {
-  const warmingCalendar = calendar.filter(item => Number(item.id.slice(0, 4)) >= 915);
+describe("abertura confirmada com gates operacionais", () => {
+  const warmingCalendar = calendar.filter(item => {
+    const id = Number(item.id.slice(0, 4));
+    return id >= 915 && id <= 927;
+  });
 
   it("mantém 15 a 27/09 como aquecimento, sem CTA de compra ou promessa de abertura", () => {
     expect(warmingCalendar.length).toBeGreaterThan(10);
@@ -32,8 +35,8 @@ describe("contingência comercial sem data fixa", () => {
     }
   });
 
-  it("institui uma janela móvel completa e bloqueada por prontidão operacional", () => {
-    expect(launchWindow.map(item => item.moment)).toEqual(["D-7", "D-5", "D-3", "D-1", "D0"]);
+  it("institui uma janela fixa completa e bloqueada por prontidão operacional", () => {
+    expect(launchWindow.map(item => item.moment)).toEqual(["D-8 · 28/09", "D-6 · 30/09", "D-4 · 02/10", "D-1 · 05/10", "D0 · 06/10", "D+1 a D+25"]);
     const gates = launchWindow.map(item => item.gate).join(" ").toLocaleLowerCase("pt-BR");
     expect(gates).toContain("ticketeira");
     expect(gates).toContain("checkout");
@@ -41,10 +44,10 @@ describe("contingência comercial sem data fixa", () => {
     expect(gates).toContain("condições");
     expect(gates).toContain("rastreamento");
     expect(gates).toContain("atendimento");
-    expect(phaseSummary.at(-1)?.label).toBe("Janela móvel");
+    expect(phaseSummary.slice(-3).map(item => item.label)).toEqual(["Intensificação", "Abertura", "Venda contínua"]);
   });
 
-  it("mantém e-mail e WhatsApp em captação até a ativação expressa de D-7", () => {
+  it("preserva setembro em captação e ativa outubro somente nos segmentos elegíveis", () => {
     const fixedChannels = [...emailBase, ...emailNurture, ...whatsappPlan].map(item => JSON.stringify(item)).join(" ");
     expect(fixedChannels).not.toMatch(/abrem em 23\/09|23 SET|23\/09 às 12h|amanhã às 12h/i);
     const warmingDates = ["15/09", "18/09", "21/09", "22/09", "23/09", "24–25/09"];
@@ -55,13 +58,14 @@ describe("contingência comercial sem data fixa", () => {
     expect(warmingEmails.find(item => item.date === "23/09")?.destination).toBe("Landing page geral de novidades");
     expect(warmingEmails.find(item => item.date === "24–25/09")?.destination).toBe("Landing page geral de novidades");
     expect(warmingEmails.map(item => item.destination).join(" ")).not.toMatch(/vendas|checkout|compra/i);
-    expect(whatsappPlan.some(item => item.date === "Janela móvel · D-7")).toBe(true);
+    expect(whatsappPlan.filter(item => item.date.includes("/10"))).toHaveLength(4);
+    expect(whatsappPlan.find(item => item.date === "06/10")?.segment).toContain("consentimento explícito");
   });
 
-  it("reaproveita apenas quatro packs e mantém peças exclusivas vazias", () => {
-    expect(paidMediaAssets).toHaveLength(4);
+  it("reaproveita somente ativos previstos e mantém peças exclusivas vazias", () => {
+    expect(paidMediaAssets).toHaveLength(8);
     expect(paidMediaAssets.every(item => item.category === "redimensionamento")).toBe(true);
-    expect(paidMediaAssets.find(item => item.id === "resize-launch-window")?.status).toBe("condicionada");
+    expect(paidMediaAssets.find(item => item.id === "resize-oct-opening")?.status).toBe("condicionada");
     expect(paidMediaAssets.filter(item => item.phase === "Aquecimento").every(item => item.destination?.url.includes("conference-2027"))).toBe(true);
   });
 

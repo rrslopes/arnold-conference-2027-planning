@@ -3,7 +3,7 @@ export type CutValidation = {
   speaker: string;
   sourceTitle: string;
   sourceUrl?: string;
-  transcriptStatus: "Confirmado na transcrição" | "Tema confirmado; recorte reformulado";
+  transcriptStatus: "Confirmado na transcrição" | "Tema confirmado; recorte reformulado" | "Tema localizado na transcrição automática";
   excerpt: string;
   location: string;
   productionNote: string;

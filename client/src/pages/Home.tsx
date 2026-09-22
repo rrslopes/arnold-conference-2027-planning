@@ -127,7 +127,7 @@ function ExecutiveHero() {
           </div>
         </div>
         <div className="hero-actions">
-          <button type="button" className="lime-button" onClick={() => scrollToSection("calendario")}>Explorar primeira fase <ArrowDown size={17} /></button>
+          <button type="button" className="lime-button" onClick={() => scrollToSection("calendario")}>Explorar calendário <ArrowDown size={17} /></button>
           <button type="button" className="ghost-button" onClick={() => scrollToSection("objetivos")}>Registrar avanços <Target size={17} /></button>
         </div>
       </div>
@@ -148,18 +148,18 @@ function ExecutiveSummary() {
       <div className="summary-manifesto">
         <p className="eyebrow">SUMÁRIO EXECUTIVO</p>
         <Quote size={30} />
-        <h2>O plano não é uma sucessão de posts. É uma jornada que transforma atenção em decisão.</h2>
+        <h2>Outubro leva cada público de um problema reconhecido à inscrição no congresso certo.</h2>
       </div>
       <div className="summary-copy">
-        <p>O Arnold Conference 2027 será trabalhado como <strong>um ecossistema de seis congressos</strong>. Cada conteúdo precisa recuperar atenção, captar, identificar interesses, provar profundidade, orientar a escolha, preparar a decisão, vender ou acompanhar o participante.</p>
-        <p>A primeira campanha usa três masterclasses de 2026 — Ana Paula Pujol, Andreia Naves e Roberto Tranjan — como prova de qualidade. A estratégia segue até abril com diagnóstico, guias especializados, planejador e integração do participante.</p>
+        <p>A nova fase começa em 28/09, primeira data livre do calendário. Em 30/09, a campanha anuncia que as inscrições abrem em 06/10. Na abertura, quem já escolheu segue diretamente para a página do próprio congresso. Depois, conteúdo, e-mail, mídia e WhatsApp ajudam a esclarecer adequação, recuperar decisões interrompidas e perseguir a lotação máxima de cada sala.</p>
+        <p>A geração de leads continua em paralelo para quem ainda está pesquisando. Ela não substitui venda: a LP de novidades identifica interesse, enquanto compra confirmada e ocupação por congresso passam a ser os indicadores principais da fase.</p>
         <div className="command-status">
           <article><span>ESTADO DO PLANO</span><strong><CircleDot size={15} /> Em revisão executiva</strong><p>Conteúdo consolidado; validação do cliente e do marketing interno em andamento.</p></article>
           <article><span>PRÓXIMA DECISÃO</span><strong><Target size={15} /> Preparar a abertura de 06/10</strong><p>Fechar checkout, links de venda, condições públicas e suporte antes de ativar a campanha comercial.</p></article>
           <article><span>DEPENDÊNCIA CRÍTICA</span><strong><CalendarClock size={15} /> Operação comercial</strong><p>Preços e lotes já estão documentados internamente; publicar somente após a validação comercial final dos materiais e destinos.</p></article>
         </div>
         <div className="journey-line" aria-label="Etapas da jornada">
-          {["Reativar", "Captar", "Ativar", "Qualificar", "Vender", "Expandir", "Experiência"].map((step, index) => <div key={step}><span>{index + 1}</span><strong>{step}</strong></div>)}
+          {["Reconhecer", "Escolher", "Acompanhar", "Inscrever", "Retomar", "Confirmar", "Ocupar"].map((step, index) => <div key={step}><span>{index + 1}</span><strong>{step}</strong></div>)}
         </div>
       </div>
     </section>
@@ -172,13 +172,13 @@ function CongressSection() {
 
   return (
     <section id="publicos" className="section-pad congress-section">
-      <SectionHeader index="03" eyebrow="PÚBLICOS E PROPOSTA DE VALOR" title="Seis congressos. Seis tensões profissionais reais." description="As propostas são territórios estratégicos provisórios e devem ser revisadas quando a programação de 2027 estiver confirmada." />
+      <SectionHeader index="03" eyebrow="PÚBLICOS E PROPOSTA DE VALOR" title="Seis congressos. Seis problemas profissionais específicos." description="Cada proposta parte de uma situação reconhecível, sem frases genéricas e sem comparar produtos de públicos diferentes." />
       <div className="congress-filter"><button type="button" className={active === "Todos" ? "active" : ""} onClick={() => setActive("Todos")}>Visão geral</button>{congresses.map((item) => <button type="button" className={active === item.name ? "active" : ""} key={item.name} onClick={() => setActive(item.name)}>{getCongressDisplayName(item.name)}</button>)}</div>
       <div className={`congress-grid ${active !== "Todos" ? "single" : ""}`}>
         {visible.map((item, index) => (
           <article key={item.name} className="congress-card" style={{ "--congress-accent": item.accent } as React.CSSProperties}>
             <div className="congress-card-top"><span>{String(index + 1).padStart(2, "0")}</span><img src={congressLogos[item.name]} alt={`Logo ${getCongressDisplayName(item.name)}`} /></div>
-            <div className="congress-card-body"><small>PÚBLICO PRIORITÁRIO</small><p>{item.audience}</p><small>TENSÃO CENTRAL</small><h3>{item.tension}</h3><small>PROMESSA DE COMUNICAÇÃO</small><p className="promise">{item.promise}</p></div>
+            <div className="congress-card-body"><small>PÚBLICO PRIORITÁRIO</small><p>{item.audience}</p><small>PROBLEMA CENTRAL</small><h3>{item.tension}</h3><small>PROMESSA DE COMUNICAÇÃO</small><p className="promise">{item.promise}</p></div>
           </article>
         ))}
       </div>
@@ -219,6 +219,8 @@ function EmailPlan() {
     const requested = new URLSearchParams(window.location.search).get("email-tab");
     return requested === "nurture" || requested === "assets" || requested === "performance" ? requested : "base";
   });
+  const [campaignMonth, setCampaignMonth] = useState<"Setembro" | "Outubro">("Outubro");
+  const visibleEmailBase = emailBase.filter(item => campaignMonth === "Outubro" ? item.id.startsWith("email-oct-") : !item.id.startsWith("email-oct-"));
   useEffect(() => {
     const emailFocusId = new URLSearchParams(window.location.search).get("email-focus");
     if (!emailFocusId) return;
@@ -229,7 +231,7 @@ function EmailPlan() {
       <SectionHeader index="09" eyebrow="PLANO DE E-MAIL MARKETING" title="Uma base de 10 mil contatos não é uma lista homogênea" description="A intensidade comercial cresce com sinais reais de abertura, clique, histórico e intenção. Cada envio tem um CTA clicável e um único destino principal." /><div className="channel-principles"><article><Mail /><strong>Segmentação real</strong><p>Histórico, origem, data do último engajamento, cliques e compra.</p></article><article><MousePointerClick /><strong>Um CTA principal</strong><p>O botão conduz ao próximo passo da jornada; uma referência secundária só entra quando aprofunda o conteúdo sem competir com ele.</p></article><article><ShieldCheck /><strong>Supressão disciplinada</strong><p>Já converteu, comprou, recusou ou pediu saída: não repetir a mesma solicitação.</p></article></div>
       <div className="external-operation-note"><FileText size={19} /><div><span>ORIENTAÇÃO ESTRATÉGICA</span><strong>A plataforma define a lógica da régua; a produção e a aprovação ficam na planilha operacional</strong><p>Aqui permanecem público, objetivo, materiais, CTA, destino e regra de cada envio. Copy final, link da prévia, ajustes e status devem ser controlados com as agências na planilha compartilhada.</p></div></div>
       <div className="email-tabs"><button type="button" className={tab === "base" ? "active" : ""} onClick={() => setTab("base")}>Campanhas para a base</button><button type="button" className={tab === "nurture" ? "active" : ""} onClick={() => setTab("nurture")}>Sequência das masterclasses</button><button type="button" className={tab === "assets" ? "active" : ""} onClick={() => setTab("assets")}>Materiais necessários</button><button type="button" className={tab === "performance" ? "active" : ""} onClick={() => setTab("performance")}>Performance e ranking</button></div>
-      {tab === "base" ? <div className="email-timeline">{emailBase.map((item) => <article id={item.id} key={item.id}><span className="email-date">{item.date}</span><div><small>PÚBLICO</small><p>{item.audience}</p><small>OBJETIVO</small><h3>{item.objective}</h3><p className="material-note"><FileText size={15} /> {item.materials}</p><div className="email-cta"><MousePointerClick size={16} /><strong>{item.cta}</strong><span>{item.destination}</span></div><small className="rule-note">{item.rule}</small><EmailCampaignBriefDetail emailId={item.id} /></div></article>)}</div> : null}
+      {tab === "base" ? <><div className="plan-month-tabs" role="tablist" aria-label="Mês das campanhas de e-mail"><button type="button" role="tab" aria-selected={campaignMonth === "Setembro"} className={campaignMonth === "Setembro" ? "active" : ""} onClick={() => setCampaignMonth("Setembro")}>Setembro · histórico e produção</button><button type="button" role="tab" aria-selected={campaignMonth === "Outubro"} className={campaignMonth === "Outubro" ? "active" : ""} onClick={() => setCampaignMonth("Outubro")}>Outubro · abertura e venda</button></div><div className="email-timeline">{visibleEmailBase.map((item) => <article id={item.id} key={item.id}><span className="email-date">{item.date}</span><div><small>PÚBLICO</small><p>{item.audience}</p><small>OBJETIVO</small><h3>{item.objective}</h3><p className="material-note"><FileText size={15} /> {item.materials}</p><div className="email-cta"><MousePointerClick size={16} /><strong>{item.cta}</strong><span>{item.destination}</span></div><small className="rule-note">{item.rule}</small><EmailCampaignBriefDetail emailId={item.id} /></div></article>)}</div></> : null}
       {tab === "nurture" ? <div className="nurture-grid">{emailNurture.map((item, index) => <article id={item.id} key={item.id}><span>{String(index + 1).padStart(2, "0")}</span><small>{item.moment}</small><h3>{item.content}</h3><div><strong>{item.cta}</strong><p>{item.destination}</p></div><em>{item.condition}</em></article>)}</div> : null}
       {tab === "assets" ? <div className="assets-table"><div className="assets-head"><span>Material</span><span>Conteúdo mínimo</span><span>Prazo</span></div>{emailAssets.map((item) => <div key={item.material}><strong>{item.material}</strong><p>{item.minimum}</p><span>{item.deadline}</span></div>)}</div> : null}
       {tab === "performance" ? <EmailPerformanceDashboard /> : null}
@@ -238,11 +240,13 @@ function EmailPlan() {
 }
 
 function WhatsAppPlan() {
+  const [planMonth, setPlanMonth] = useState<"Setembro" | "Outubro">("Outubro");
+  const visibleWhatsAppPlan = whatsappPlan.filter(item => planMonth === "Outubro" ? item.date.includes("/10") : item.date.includes("/09"));
   return (
     <section id="whatsapp" className="section-pad whatsapp-section">
       <div className="whatsapp-strategy-grid">
         <div className="whatsapp-heading"><div><p className="eyebrow">PLANO DE WHATSAPP</p><h2>Alta intenção.<br /><em>Baixo ruído.</em></h2><p>O canal não repete redes sociais e e-mail. Ele entra onde há consentimento, urgência real e próximo passo claro.</p></div><MessageCircleMore size={72} /></div>
-        <div className="whatsapp-flow">{whatsappPlan.map((item, index) => <article key={item.date}><span className="whatsapp-step">{index + 1}</span><div><small>{item.date}</small><h3>{item.function}</h3><p>{item.segment}</p><strong><ArrowRight size={15} /> {item.destination}</strong></div></article>)}</div>
+        <div><div className="plan-month-tabs on-purple" role="tablist" aria-label="Mês do plano de WhatsApp"><button type="button" role="tab" aria-selected={planMonth === "Setembro"} className={planMonth === "Setembro" ? "active" : ""} onClick={() => setPlanMonth("Setembro")}>Setembro</button><button type="button" role="tab" aria-selected={planMonth === "Outubro"} className={planMonth === "Outubro" ? "active" : ""} onClick={() => setPlanMonth("Outubro")}>Outubro</button></div><div className="whatsapp-flow">{visibleWhatsAppPlan.map((item, index) => <article key={`${item.date}-${item.function}`}><span className="whatsapp-step">{index + 1}</span><div><small>{item.date}</small><h3>{item.function}</h3><p>{item.segment}</p><strong><ArrowRight size={15} /> {item.destination}</strong></div></article>)}</div></div>
         <div className="whatsapp-rule"><ShieldCheck size={21} /><p>Recuperação pós-abertura não é disparo em massa. Interromper após compra, resposta negativa ou pedido de saída. Pagamento pendente e abandono de checkout recebem fluxos distintos.</p></div>
       </div>
       <WhatsAppPerformanceDashboard />
@@ -255,7 +259,7 @@ function RoadmapSection() {
   const current = roadmap.find((item) => item.month === selected) ?? roadmap[0];
   return (
     <section id="roadmap" className="section-pad roadmap-section">
-      <SectionHeader index="11" eyebrow="ROADMAP ATÉ O EVENTO" title="Setembro aquece e prepara. A abertura acontece quando a operação estiver pronta." description="As fases futuras permanecem em nível estratégico para que o calendário seja revisto conforme dados, programação, oferta, data comercial e capacidade real da equipe." />
+      <SectionHeader index="11" eyebrow="ROADMAP ATÉ O EVENTO" title="Outubro abre as vendas e começa a perseguição da lotação por sala." description="A abertura está confirmada para 06/10, mas a comunicação comercial só entra com checkout, links, condições, tracking e suporte validados. As fases futuras serão revistas com vendas e ocupação reais." />
       <div className="roadmap-stage">
         <img src={brandAssets.roadmap} alt="Representação abstrata da jornada estratégica até o evento" />
         <div className="roadmap-months">{roadmap.map((item) => <button type="button" className={selected === item.month ? "active" : ""} key={item.month} onClick={() => setSelected(item.month)}><span>{item.month}</span><strong>{item.title}</strong></button>)}</div>
@@ -338,7 +342,7 @@ export default function Home() {
       <ContentLab />
 
       <section id="calendario" className="section-pad calendar-section">
-        <SectionHeader index="07" eyebrow="CALENDÁRIO EDITORIAL · PRIMEIRA FASE" title="Cada dia precisa responder: por que publicar e para onde levar" description="De 31/08 a 27/09, pauta, fonte, alternativa e CTA aparecem no mesmo cartão. Use os filtros para revisar por fase, formato ou congresso." />
+        <SectionHeader index="07" eyebrow="CALENDÁRIO EDITORIAL · SETEMBRO E OUTUBRO" title="Cada peça precisa responder: para quem, por que agora e qual é o próximo passo" description="Setembro permanece preservado em sua própria aba. A nova fase começa na primeira data livre, 28/09; 30/09 fica exclusivamente para o anúncio da abertura em 06/10, seguido por conteúdo, serviço e conversão." />
         <CalendarExplorer />
       </section>
 
