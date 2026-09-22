@@ -815,6 +815,48 @@ img { max-width: 100%; }
 .occupancy-overall p { margin: 7px 0 0; color: #777174; font-size: 8px; }
 .occupancy-progress { height: 13px; margin-top: 9px; overflow: hidden; background: #dfddd5; border: 1px solid rgba(51,49,50,.07); }
 .occupancy-progress i { display: block; width: 0; height: 100%; background: linear-gradient(90deg, var(--lime-dark), var(--lime)); transition: width 240ms var(--ease-out); }
+.commercial-lots-panel { margin: 18px 18px 0; border: 1px solid rgba(51,49,50,.16); background: white; box-shadow: 0 9px 24px rgba(51,49,50,.05); }
+.commercial-lots-trigger { width: 100%; display: grid; grid-template-columns: 46px minmax(0, 1fr) auto; gap: 14px; align-items: center; border: 0; background: var(--charcoal); color: white; padding: 17px 19px; text-align: left; }
+.commercial-lots-trigger-icon { display: grid; width: 42px; height: 42px; place-items: center; background: var(--lime); color: var(--charcoal); }
+.commercial-lots-trigger-copy { min-width: 0; }
+.commercial-lots-trigger-copy small { display: block; color: var(--lime); font-size: 7px; font-weight: 900; letter-spacing: .13em; }
+.commercial-lots-trigger-copy strong { display: block; margin-top: 4px; font: 600 27px/1 "Teko Arnold"; text-transform: uppercase; }
+.commercial-lots-trigger-copy em { display: block; margin-top: 5px; color: rgba(255,255,255,.62); font-size: 8px; font-style: normal; line-height: 1.45; }
+.commercial-lots-trigger-action { display: flex; align-items: center; gap: 7px; color: rgba(255,255,255,.72); font-size: 7px; font-weight: 850; letter-spacing: .08em; text-transform: uppercase; }
+.commercial-lots-trigger-action svg { transition: transform 180ms var(--ease-out); }
+.commercial-lots-panel.is-open .commercial-lots-trigger-action svg { transform: rotate(180deg); }
+.commercial-lots-content { background: #f7f6f1; }
+.commercial-lots-notice { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 11px; align-items: start; padding: 16px 19px; background: #eee9d8; color: #5f4913; }
+.commercial-lots-notice svg { margin-top: 1px; }
+.commercial-lots-notice strong { display: block; font-size: 9px; }
+.commercial-lots-notice p { margin: 4px 0 0; font-size: 7px; line-height: 1.55; }
+.commercial-lots-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: rgba(51,49,50,.1); }
+.commercial-lots-facts article { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 9px; align-items: center; padding: 14px 17px; background: white; }
+.commercial-lots-facts svg { color: var(--purple); }
+.commercial-lots-facts span { display: block; color: #7d777a; font-size: 6px; font-weight: 850; letter-spacing: .1em; }
+.commercial-lots-facts strong { display: block; margin-top: 3px; color: var(--charcoal); font-size: 9px; }
+.commercial-lots-tabs { display: flex; overflow-x: auto; gap: 6px; padding: 14px 15px; border-top: 1px solid rgba(51,49,50,.08); border-bottom: 1px solid rgba(51,49,50,.1); background: #eeece6; }
+.commercial-lots-tabs button { flex: 1 0 auto; min-height: 34px; border: 1px solid rgba(51,49,50,.14); background: white; color: #6f696c; padding: 8px 12px; font-size: 7px; font-weight: 850; text-transform: uppercase; }
+.commercial-lots-tabs button.active { border-color: var(--purple); background: var(--purple); color: white; box-shadow: inset 0 -4px 0 var(--lime); }
+.commercial-offer { margin: 15px; border: 1px solid rgba(51,49,50,.13); background: white; }
+.commercial-offer > header { display: flex; justify-content: space-between; gap: 20px; align-items: flex-start; padding: 18px 19px; border-bottom: 1px solid rgba(51,49,50,.1); }
+.commercial-offer > header span { color: var(--purple); font-size: 6px; font-weight: 900; letter-spacing: .12em; }
+.commercial-offer > header h4 { margin: 5px 0 0; font: 600 29px/1 "Teko Arnold"; text-transform: uppercase; }
+.commercial-offer > header p { margin: 5px 0 0; color: #756f72; font-size: 7px; font-weight: 750; text-transform: uppercase; }
+.commercial-offer > header > strong { flex: 0 0 auto; padding: 6px 8px; background: rgba(203,219,42,.28); color: #56600c; font-size: 6px; letter-spacing: .08em; text-transform: uppercase; }
+.commercial-lot-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1px; background: rgba(51,49,50,.1); }
+.commercial-lot-card { min-width: 0; background: #fbfaf6; }
+.commercial-lot-card > header { min-height: 62px; padding: 12px; background: var(--charcoal); color: white; }
+.commercial-lot-card > header span { display: block; color: var(--lime); font: 600 20px/1 "Teko Arnold"; text-transform: uppercase; }
+.commercial-lot-card > header small { display: block; margin-top: 5px; color: rgba(255,255,255,.64); font-size: 6px; line-height: 1.4; }
+.commercial-lot-card > div { padding: 11px 12px 13px; }
+.commercial-lot-card p { margin: 0; }
+.commercial-lot-card p + p { margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(51,49,50,.1); }
+.commercial-lot-card p span { display: block; color: #777174; font-size: 6px; font-weight: 800; text-transform: uppercase; }
+.commercial-lot-card p strong { display: block; margin-top: 4px; color: var(--purple); font: 600 22px/1 "Teko Arnold"; white-space: nowrap; }
+.commercial-lots-content > footer { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 15px; padding: 15px 19px; border-top: 1px solid rgba(51,49,50,.1); background: white; }
+.commercial-lots-content > footer strong { color: var(--purple); font-size: 7px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+.commercial-lots-content > footer p { margin: 0; color: #686365; font-size: 7px; line-height: 1.55; }
 .occupancy-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; padding: 18px; }
 .occupancy-card { min-width: 0; overflow: hidden; background: white; border-top: 5px solid var(--occupancy-accent); box-shadow: 0 8px 25px rgba(51,49,50,.06); }
 .occupancy-card > header { display: flex; justify-content: space-between; align-items: center; gap: 15px; padding: 18px 20px 13px; }
@@ -1305,6 +1347,8 @@ img { max-width: 100%; }
   .occupancy-summary { grid-template-columns: repeat(2, 1fr); }
   .occupancy-summary article:nth-child(2) { border-right: 0; }
   .occupancy-summary article:nth-child(-n+2) { border-bottom: 1px solid rgba(255,255,255,.1); }
+  .commercial-lot-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .commercial-lot-card:last-child { grid-column: 1 / -1; }
   .occupancy-grid { grid-template-columns: 1fr; }
   .indicator-guide { grid-template-columns: 1fr; }
   .indicator-guide-grid, .kpi-layer-guide { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -1346,6 +1390,13 @@ img { max-width: 100%; }
   .occupancy-summary strong { font-size: 34px; }
   .occupancy-overall { padding: 20px; }
   .occupancy-overall > div:first-child { align-items: flex-start; flex-direction: column; gap: 4px; }
+  .commercial-lots-panel { margin: 10px 10px 0; }
+  .commercial-lots-trigger { grid-template-columns: 40px minmax(0, 1fr); padding: 15px; }
+  .commercial-lots-trigger-icon { width: 38px; height: 38px; }
+  .commercial-lots-trigger-action { grid-column: 2; justify-self: start; }
+  .commercial-lots-facts { grid-template-columns: 1fr; }
+  .commercial-offer > header { flex-direction: column; }
+  .commercial-lots-content > footer { grid-template-columns: 1fr; }
   .occupancy-grid { padding: 10px; }
   .capacity-field { grid-template-columns: 1fr 120px; margin-left: 14px; margin-right: 14px; }
   .capacity-expansion { margin-left: 14px; margin-right: 14px; }
@@ -1839,6 +1890,9 @@ img { max-width: 100%; }
   .indicator-accordion-copy strong { font-size: 21px; }
   .indicator-accordion-action { grid-column: 2; justify-self: start; }
   .indicator-accordion-panel { padding: 7px; }
+  .commercial-lot-grid { grid-template-columns: 1fr; }
+  .commercial-lot-card:last-child { grid-column: auto; }
+  .commercial-lot-card > header { min-height: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {

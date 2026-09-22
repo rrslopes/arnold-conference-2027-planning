@@ -134,7 +134,7 @@ function ExecutiveHero() {
       <div className="hero-stats">
         <article><strong>06</strong><span>CONGRESSOS<br />EM UM ECOSSISTEMA</span></article>
         <article><strong>06</strong><span>ISCAS DIGITAIS<br />CONTRATADAS</span></article>
-        <article><strong>D-7→D0</strong><span>JANELA MÓVEL<br />DATA A CONFIRMAR</span></article>
+        <article><strong>06/10</strong><span>ABERTURA DE VENDAS<br />DATA CONFIRMADA</span></article>
         <article><strong>ABR.27</strong><span>HORIZONTE<br />ESTRATÉGICO</span></article>
       </div>
       <div className="hero-rail">ARNOLD CONFERENCE · GESTÃO DE ACADEMIAS · {WTTC_PUBLIC_NAME.toUpperCase()} · SONAFE · NUTRIÇÃO · BODYBUILDING</div>
@@ -155,8 +155,8 @@ function ExecutiveSummary() {
         <p>A primeira campanha usa três masterclasses de 2026 — Ana Paula Pujol, Andreia Naves e Roberto Tranjan — como prova de qualidade. A estratégia segue até abril com diagnóstico, guias especializados, planejador e integração do participante.</p>
         <div className="command-status">
           <article><span>ESTADO DO PLANO</span><strong><CircleDot size={15} /> Em revisão executiva</strong><p>Conteúdo consolidado; validação do cliente e do marketing interno em andamento.</p></article>
-          <article><span>PRÓXIMA DECISÃO</span><strong><Target size={15} /> Confirmar a janela comercial</strong><p>Validar ticketeira, checkout, data, horário, condições e suporte antes de iniciar a contagem D-7.</p></article>
-          <article><span>DEPENDÊNCIA CRÍTICA</span><strong><CalendarClock size={15} /> Operação de vendas</strong><p>Até todos os gates ficarem verdes, a campanha aquece e capta interessados na LP de novidades sem prometer abertura.</p></article>
+          <article><span>PRÓXIMA DECISÃO</span><strong><Target size={15} /> Preparar a abertura de 06/10</strong><p>Fechar checkout, links de venda, condições públicas e suporte antes de ativar a campanha comercial.</p></article>
+          <article><span>DEPENDÊNCIA CRÍTICA</span><strong><CalendarClock size={15} /> Operação comercial</strong><p>Preços e lotes já estão documentados internamente; publicar somente após a validação comercial final dos materiais e destinos.</p></article>
         </div>
         <div className="journey-line" aria-label="Etapas da jornada">
           {["Reativar", "Captar", "Ativar", "Qualificar", "Vender", "Expandir", "Experiência"].map((step, index) => <div key={step}><span>{index + 1}</span><strong>{step}</strong></div>)}
@@ -270,8 +270,8 @@ function IndicatorsSection() {
   return <section id="indicadores" className="section-pad kpi-section">
     <SectionHeader index="12" eyebrow="PAINEL DE ACOMPANHAMENTO" title="Quatro camadas, quatro perguntas diferentes" description="Comece pela lotação, identifique quem está sendo captado pela LP de novidades, diagnostique o Instagram e use o funil para localizar avanços e travas. Cada dado deve entrar uma única vez." />
     <div className="indicator-accordion" aria-label="Camadas do painel de Indicadores">
-      <IndicatorAccordionItem id="lotacao" number="01" level="RESULTADO PRINCIPAL" title="Lotação das salas" summary="Inscrições confirmadas, capacidade e ritmo de ocupação por congresso." primary open={openIndicatorLayer === "lotacao"} onToggle={() => setOpenIndicatorLayer(current => current === "lotacao" ? null : "lotacao")}>
-        <IndicatorGuide number="01" level="RESULTADO PRINCIPAL" title="Lotação das salas" purpose="Quantas inscrições confirmadas cada congresso acumulou em relação à capacidade vigente da sala." cadence="Registre as vendas confirmadas no fechamento de cada mês e corrija o mês quando houver conciliação." source="Plataforma de vendas, pedidos pagos e relatório financeiro conciliado por congresso." avoid="Leads, checkouts iniciados, pagamentos pendentes, seguidores, alcance ou qualquer intenção ainda não convertida em inscrição." primary />
+      <IndicatorAccordionItem id="lotacao" number="01" level="RESULTADO PRINCIPAL" title="Lotação das salas" summary="Inscrições confirmadas, capacidade, ritmo de ocupação e consulta comercial separada." primary open={openIndicatorLayer === "lotacao"} onToggle={() => setOpenIndicatorLayer(current => current === "lotacao" ? null : "lotacao")}>
+        <IndicatorGuide number="01" level="RESULTADO PRINCIPAL" title="Lotação das salas" purpose="Quantas inscrições confirmadas cada congresso acumulou em relação à capacidade vigente da sala. Preços e lotes ficam em um bloco separado de consulta." cadence="Registre as vendas confirmadas no fechamento de cada mês e corrija o mês quando houver conciliação. Consulte a virada de lote ao planejar a comunicação." source="Plataforma de vendas, pedidos pagos e relatório financeiro conciliado por congresso; planilha comercial interna para preços e lotes." avoid="Leads, checkouts iniciados, pagamentos pendentes, seguidores ou alcance. Preço e lote orientam a estratégia, mas não entram no percentual de ocupação." primary />
         <OccupancyDashboard />
       </IndicatorAccordionItem>
       <IndicatorAccordionItem id="leads" number="02" level="FONTES DE AQUISIÇÃO" title="Central de Landing Pages" summary="Tráfego, captação, perfil e consumo separados por página de origem." open={openIndicatorLayer === "leads"} onToggle={() => setOpenIndicatorLayer(current => current === "leads" ? null : "leads")}>

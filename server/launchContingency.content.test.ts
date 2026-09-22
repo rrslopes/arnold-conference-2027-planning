@@ -65,11 +65,12 @@ describe("contingência comercial sem data fixa", () => {
     expect(paidMediaAssets.filter(item => item.phase === "Aquecimento").every(item => item.destination?.url.includes("conference-2027"))).toBe(true);
   });
 
-  it("remove a data fixa do hero e da navegação", () => {
+  it("remove a antiga data de 23/09 e exibe a abertura confirmada", () => {
     const home = readFileSync(new URL("../client/src/pages/Home.tsx", import.meta.url), "utf8");
     const layout = readFileSync(new URL("../client/src/components/StrategyLayout.tsx", import.meta.url), "utf8");
     expect(`${home} ${layout}`).not.toMatch(/23\.09|23 SET|ABERTURA\s*<br\s*\/>\s*ÀS 12H/i);
-    expect(home).toContain("JANELA MÓVEL");
-    expect(layout).toContain("DATA EM CONFIRMAÇÃO");
+    expect(home).toContain("ABERTURA DE VENDAS");
+    expect(home).toContain("DATA CONFIRMADA");
+    expect(layout).toContain("06 OUT · 2026");
   });
 });

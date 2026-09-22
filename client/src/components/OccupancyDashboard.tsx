@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState, type CSSProperties } from "react";
 import { CalendarRange, CheckCircle2, Cloud, CloudOff, RefreshCw, Save, TriangleAlert, Users } from "lucide-react";
 import { toast } from "sonner";
+import CommercialLotsPanel from "@/components/CommercialLotsPanel";
 import { congresses, getCongressDisplayName } from "@/data/planData";
 import { trpc } from "@/lib/trpc";
 import { calculateOccupancy, getActiveCapacity, getExpansionStatus, OCCUPANCY_CONGRESSES, SALES_MONTHS, type OccupancyCongressKey } from "@shared/occupancy";
@@ -157,6 +158,8 @@ export default function OccupancyDashboard() {
         <div className="occupancy-progress" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={summary.percentage === null ? 0 : Math.min(100, summary.percentage)}><i style={{ width: `${summary.percentage === null ? 0 : Math.min(100, summary.percentage)}%` }} /></div>
         <p>{summary.percentage === null ? "Os percentuais serão calculados automaticamente assim que a primeira capacidade for informada." : `Cálculo baseado em ${summary.knownCount} ${summary.knownCount === 1 ? "sala configurada" : "salas configuradas"}.`}</p>
       </div>
+
+      <CommercialLotsPanel />
 
       <div className="occupancy-grid">
         {OCCUPANCY_CONGRESSES.map(congress => {

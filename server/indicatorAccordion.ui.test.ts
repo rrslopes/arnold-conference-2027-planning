@@ -21,7 +21,7 @@ describe("Acordeão e metas sincronizadas dos Indicadores", () => {
     expect(home).toContain('const indicatorLayerIds: IndicatorLayerId[] = ["lotacao", "leads", "social", "funil"]');
     expect(home).toContain('window.location.hash.replace("#indicadores-", "")');
     expect(home).toContain("setOpenIndicatorLayer(current => current ===");
-    expect(home).toContain("Inscrições confirmadas, capacidade e ritmo de ocupação");
+    expect(home).toContain("Inscrições confirmadas, capacidade, ritmo de ocupação e consulta comercial separada");
     expect(home).toContain("KPIs automáticos de Social, LPs, E-mail, WhatsApp e Vendas");
   });
 
