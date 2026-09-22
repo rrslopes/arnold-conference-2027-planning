@@ -31,7 +31,7 @@ function getInitialView(): SocialView {
 }
 
 const fieldLabels: Partial<Record<SocialResultField, string>> = {
-  metaMessagesSent: "Mensagens automáticas enviadas — total geral",
+  metaMessagesSent: "Conversas por mensagem iniciadas — total geral",
   reelsPublished: "Reels publicados",
   reelsMedianReach: "Alcance mediano",
   reelsMedianViews: "Visualizações medianas",
@@ -252,7 +252,7 @@ export default function SocialGoalsDashboard() {
           </div>
 
           <div className="social-detail-grid">
-            {renderFormatInputs("Mensagens da Meta · relatório geral", ["metaMessagesSent"], "Total agregado da Meta; não separar por automação ou palavra-chave.", "compact")}
+            {renderFormatInputs("Mensagens da Meta · relatório geral", ["metaMessagesSent"], "Conversas iniciadas no Instagram, conforme o relatório geral da Meta. Não separar por automação ou palavra-chave.", "compact")}
             {renderFormatInputs(`Reels · ${formatStatisticMode(activeValues.reelsPublished)}`, ["reelsPublished", "reelsMedianReach", "reelsMedianViews", "reelsMedianInteractions", "reelsMedianLikes", "reelsMedianComments", "reelsMedianShares", "reelsMedianSaves"], "A partir de três Reels, use mediana; com um ou dois, registre apenas o resultado do período.", "wide")}
             {renderFormatInputs(`Posts não Reels · ${formatStatisticMode(activeValues.postsPublished)}`, ["postsPublished", "postsTypicalReach", "postsTypicalViews", "postsTypicalInteractions", "postsTypicalLikes", "postsTypicalComments", "postsTypicalShares", "postsTypicalSaves"], "Agrupa carrosséis e imagens estáticas. O modo de leitura muda conforme o tamanho da amostra.")}
             {renderFormatInputs("Stories · totais do período", ["storiesPublished", "storiesTotalViews", "storiesAverageViews", "storiesBestViews", "storyReplies", "storyLinkClicks", "storyStickerTaps", "storyProfileVisits"], "Informe apenas totais disponíveis. Navegação permanece agregada; não estime eventos ausentes.")}

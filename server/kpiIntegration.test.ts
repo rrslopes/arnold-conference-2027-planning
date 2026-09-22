@@ -57,7 +57,10 @@ describe("consolidação automática dos KPIs", () => {
     expect(reward.find(row => row.key === "reward-access-rate")?.value).toBe(80);
     expect(reward.find(row => row.key === "reward-ana-rate")?.value).toBe(50);
     expect(reward.find(row => row.key === "reward-andreia-rate")?.value).toBeNull();
-    expect(buildAutomaticKpis("dm", base).map(row => row.value)).toEqual([30000, 50000, 2200, 90, 700]);
+    const social = buildAutomaticKpis("dm", base);
+    expect(social.map(row => row.value)).toEqual([30000, 50000, 2200, 90, 700]);
+    expect(social.find(row => row.key === "meta-messages")?.label).toBe("Conversas por mensagem iniciadas — total geral");
+    expect(social.find(row => row.key === "meta-messages")?.description).toContain("Conversas iniciadas no Instagram");
     expect(buildSourceSummary(base).find(item => item.key === "social")?.value).toBe(2200);
     expect(buildSourceSummary(base).find(item => item.key === "landing")?.value).toBe(26);
   });

@@ -46,7 +46,7 @@ export function buildAutomaticKpis(layerId: string, state: KpiIntegrationState):
       { key: "social-views", label: "Visualizações", description: "Visualizações registradas no fechamento social mais recente.", value: latest?.views ?? null, format: "number", source, period, mode: "automatic" },
       { key: "social-interactions", label: "Interações com o conteúdo", description: "Interações registradas no fechamento social mais recente.", value: latest?.interactions ?? null, format: "number", source, period, mode: "automatic" },
       { key: "social-followers", label: "Crescimento líquido de seguidores", description: "Saldo de seguidores registrado no fechamento social mais recente.", value: latest?.netFollowers ?? null, format: "number", source, period, mode: "automatic" },
-      { key: "meta-messages", label: "Mensagens automáticas enviadas — total geral", description: "Consolidado do relatório geral da Meta; sem divisão por automação ou palavra-chave.", value: latest?.metaMessagesSent ?? null, format: "number", source, period, mode: "automatic" },
+      { key: "meta-messages", label: "Conversas por mensagem iniciadas — total geral", description: "Conversas iniciadas no Instagram conforme o relatório geral da Meta; sem divisão por automação ou palavra-chave.", value: latest?.metaMessagesSent ?? null, format: "number", source, period, mode: "automatic" },
     ];
   }
 

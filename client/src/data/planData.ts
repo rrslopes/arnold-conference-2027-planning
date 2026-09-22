@@ -534,11 +534,11 @@ export const kpiLayers = [
   {
     id: "dm",
     layer: "Social e Meta",
-    purpose: "Consolida alcance, visualizações, interações, seguidores e o volume geral de mensagens automáticas do fechamento social mensal.",
+    purpose: "Consolida alcance, visualizações, interações, seguidores e conversas por mensagem iniciadas no fechamento social mensal.",
     cadence: "Preencha uma única vez em Metas sociais e resultado mensal; esta camada recebe automaticamente o fechamento mais recente.",
     source: "Indicadores → Metas sociais e resultado mensal, com dados exportados do Instagram e do relatório geral de mensagens da Meta.",
     avoid: `Não redigite os resultados nesta tabela nem desdobre AULAS, FISIO, a palavra-chave WTTC da ${WTTC_PUBLIC_NAME} ou outra automação: a Meta não oferece essa granularidade.`,
-    constraint: "LIMITAÇÃO DA FONTE: o relatório da Meta consolida o envio de mensagens. Ele não permite comparar individualmente automações ou palavras-chave. Use UTMs nas páginas de destino apenas para medir o tráfego e as conversões agregadas provenientes de DM.",
+    constraint: "LIMITAÇÃO DA FONTE: o relatório da Meta consolida conversas iniciadas e contatos, mas não permite comparar individualmente automações ou palavras-chave. Use UTMs nas páginas de destino apenas para medir o tráfego e as conversões agregadas provenientes de DM.",
     metrics: [],
   },
   {

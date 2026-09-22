@@ -33,7 +33,8 @@ describe("partial social reporting interface", () => {
   });
 
   it("uses proportional cards without changing the social result fields", () => {
-    expect(dashboard).toContain('"metaMessagesSent"], "Total agregado da Meta; não separar por automação ou palavra-chave.", "compact"');
+    expect(dashboard).toContain('metaMessagesSent: "Conversas por mensagem iniciadas — total geral"');
+    expect(dashboard).toContain('"metaMessagesSent"], "Conversas iniciadas no Instagram, conforme o relatório geral da Meta. Não separar por automação ou palavra-chave.", "compact"');
     expect(dashboard).toContain('"reelsMedianSaves"], "A partir de três Reels');
     expect(dashboard).toContain('"wide")');
     expect(dashboard).toContain('"postsTypicalSaves"], "Agrupa carrosséis e imagens estáticas.');
