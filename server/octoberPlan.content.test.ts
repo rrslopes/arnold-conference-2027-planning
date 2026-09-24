@@ -48,7 +48,7 @@ describe("plano multicanal de outubro de 2026", () => {
     const publicFields = octoberCalendar.flatMap(entry => [entry.title, entry.idea, entry.cta]);
     expect(publicFields.join(" ")).not.toMatch(/tensão profissional|mais do que uma resposta pronta|provocação transversal/i);
     expect(item("0928").title).toContain("perda muscular");
-    expect(item("1003").title).toContain("gestor");
+    expect(item("1003").title).toContain("academia");
     expect(item("1004").title).toContain("Faltam dois dias");
     expect(item("1012").title).toContain("peso caiu");
   });
@@ -62,29 +62,21 @@ describe("plano multicanal de outubro de 2026", () => {
     expect(JSON.stringify([...management, ...certification])).not.toMatch(/versus/i);
   });
 
-  it("registra evidências audiovisuais e distingue cortes conferidos de pendências humanas", () => {
-    const cutItems = octoberCalendar.filter(entry => entry.cutValidations?.length);
-    expect(cutItems.map(entry => entry.id)).toEqual(["0928", "1001", "1003", "1012", "1014", "1018", "1020", "1031"]);
-    const cuts = cutItems.flatMap(entry => entry.cutValidations ?? []);
-    expect(cuts).toHaveLength(8);
-    for (const cut of cuts) {
-      expect(cut.sourceUrl).toMatch(/^https:\/\/(youtu\.be|www\.youtube\.com|www\.instagram\.com)\//);
-      expect(cut.location).toMatch(/\d{2}:\d{2}/);
-      expect(["Tema localizado na transcrição automática", "Confirmado na transcrição", "Conferido no audiovisual original"]).toContain(cut.transcriptStatus);
-      expect(["Conferência no vídeo original pendente", "Conferido no audiovisual original", "Conferência humana no player original pendente"]).toContain(cut.videoStatus);
-    }
-    expect(cuts.filter(cut => cut.videoStatus === "Conferido no audiovisual original").map(cut => cut.id)).toEqual(["C18", "C15", "C17", "C21", "C23"]);
-    expect(cuts.filter(cut => cut.videoStatus === "Conferência humana no player original pendente").map(cut => cut.id)).toEqual(["C19", "C16", "C22"]);
-    expect(JSON.stringify(item("1001").productionBrief)).not.toContain("01:03:08");
-    expect(JSON.stringify(item("1012").productionBrief)).not.toContain("43:52");
-    expect(JSON.stringify(item("1018").productionBrief)).not.toContain("00:50–00:58");
+  it("coloca fonte, link e minutagem útil dentro do briefing, sem notas internas de auditoria", () => {
+    const sourceItems = ["0928", "1001", "1003", "1012", "1014", "1018", "1020", "1031"].map(item);
+    expect(sourceItems.every(entry => !entry.cutValidations?.length)).toBe(true);
+    const sources = sourceItems.flatMap(entry => entry.productionBrief?.units.filter(unit => unit.source) ?? []);
+    expect(sources).toHaveLength(8);
+    expect(sources.every(unit => unit.sourceUrl?.match(/^https:\/\/(youtu\.be|www\.instagram\.com)\//))).toBe(true);
+    expect(sources.map(unit => unit.source).join(" ")).toMatch(/17:30–18:13|53:05–53:25|08:56–09:18|43:52–44:16|36:20–36:51|00:00|15:18\.9–15:27\.6|00:16/i);
+    expect(JSON.stringify(sourceItems)).not.toMatch(/inválid|diverg|conferência humana|player original|timecode anterior/i);
   });
 
   it("inclui formatos simples pedidos pelo cliente sem inventar fatos ou depoimentos", () => {
     expect(item("1010").title).toBe("5 motivos para participar do Congresso de Nutrição Esportiva");
     expect(item("1013").title).toBe("6 motivos para fisioterapeutas esportivos participarem do SONAFE");
     expect(item("1027").title).toContain("5 fatos da trajetória de Dudu Netto");
-    expect(item("1027").agencyResearch?.deliverables.join(" ")).toContain("fonte primária para cada fato");
+    expect(item("1027").agencyResearch?.deliverables.join(" ")).toContain("Uma referência para cada fato");
     expect(item("1022").title).toBe("Qual aprendizado do Arnold Conference você já levou para a prática?");
     expect(JSON.stringify(item("1022"))).toMatch(/autorização|autorizada/i);
     expect(JSON.stringify(item("1022"))).not.toMatch(/inscrição travou|dados financeiros/i);
@@ -198,7 +190,7 @@ describe("plano multicanal de outubro de 2026", () => {
     expect(JSON.stringify(aesthetic)).toMatch(/queda capilar|ferritina|inflamação|GLP-1/i);
     expect(JSON.stringify(sonafe)).toMatch(/quem é o atleta|modalidade|fase|objetivo|retorno ao esporte/i);
     expect(management.sourceLinks?.[0]).toMatchObject({ url: "https://youtu.be/7nACkId-GGw" });
-    expect(JSON.stringify(management)).toContain("36:21–36:49");
+    expect(JSON.stringify(management)).toContain("36:20–36:51");
     expect(JSON.stringify(wttc)).toMatch(/Cris Parente|quatro verificações|divergência pública/i);
     expect(`${bodybuilding.versions[0].objective} ${bodybuilding.versions[0].subjectDirection}`).not.toMatch(/equipe multidisciplinar/i);
     expect(JSON.stringify(bodybuilding)).toMatch(/sem repetir.*equipe multidisciplinar/i);
@@ -208,14 +200,14 @@ describe("plano multicanal de outubro de 2026", () => {
     expect(JSON.stringify(help)).toMatch(/FAQ|congresso@savagetgroup.com.br|WhatsApp/i);
   });
 
-  it("transforma pesquisa, direitos e validação em obrigação explícita da agência", () => {
+  it("entrega à agência somente materiais e fontes necessários para a produção", () => {
     const researched = octoberCalendar.filter(entry => entry.agencyResearch);
     expect(researched.length).toBeGreaterThanOrEqual(12);
-    expect(JSON.stringify(researched)).toMatch(/fonte|direitos|autoriza/i);
+    expect(JSON.stringify(researched)).toMatch(/fonte|mini-bio|trecho|foto/i);
     expect(item("1002").agencyResearch?.deliverables.join(" ")).toMatch(/licença|autorização/i);
-    expect(item("1021").agencyResearch?.validation).toMatch(/palestrantes|cliente/i);
-    expect(item("1027").agencyResearch?.deliverables.join(" ")).toMatch(/coordenação 2027|autorização/i);
-    expect(item("1029").agencyResearch?.validation).toMatch(/institucional|jurídica|coordenador/i);
+    expect(item("1021").agencyResearch?.deliverables.join(" ")).toMatch(/mini-bios oficiais|fotos e créditos/i);
+    expect(item("1027").agencyResearch?.deliverables.join(" ")).toMatch(/mini-bio oficial|referência para cada fato/i);
+    expect(item("1029").agencyResearch?.deliverables.join(" ")).toMatch(/mini-bio oficial|fontes dos cargos/i);
   });
 
   it("limita WhatsApp a uma janela semanal e exige consentimento ou evento verificável", () => {

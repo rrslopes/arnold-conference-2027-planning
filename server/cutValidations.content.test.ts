@@ -24,46 +24,24 @@ describe("auditoria dos cortes de palestras", () => {
     });
   });
 
-  it("informa a íntegra e a minutagem sem inventar precisão ou URL", () => {
-    const cuts = [...new Map(calendar.flatMap(item => item.cutValidations ?? []).map(cut => [cut.id, cut])).values()];
+  it("mantém as URLs auditadas do histórico de setembro sem misturá-las aos briefings de outubro", () => {
+    const cuts = [...new Map(calendar.filter(item => auditedIds.includes(item.id)).flatMap(item => item.cutValidations ?? []).map(cut => [cut.id, cut])).values()];
     const urls = [...new Set(cuts.flatMap(cut => cut.sourceUrl ? [cut.sourceUrl] : []))];
     expect(urls.sort()).toEqual([
-      "https://www.instagram.com/reel/DXXimnVFX4X/",
-      "https://www.instagram.com/reel/DcmNMWJhMN0/",
       "https://www.youtube.com/watch?v=asItej-OIk8",
-      "https://youtu.be/7nACkId-GGw",
       "https://youtu.be/8hnvXCzfd3U",
-      "https://youtu.be/A3so_9sBi0M",
       "https://youtu.be/QSjVRVEvZMs",
-      "https://youtu.be/Z9ZiclgTjG8",
-      "https://youtu.be/iJLL-3OZmrE",
       "https://youtu.be/nze1GDIzj9c",
       "https://youtu.be/qCvC2bwxV_0",
       "https://youtu.be/tAqcK_GgzD8",
-      "https://youtu.be/v0BaKxCH-2A",
     ].sort());
     expect(cuts.filter(cut => cut.speaker === "Ana Paula Pujol").every(cut => cut.location.toLowerCase().includes("aproxim") || cut.location.toLowerCase().includes("sem timestamp nativo"))).toBe(true);
     expect(cuts.filter(cut => cut.speaker !== "Ana Paula Pujol").every(cut => /\d{2}:\d{2}/.test(cut.location))).toBe(true);
   });
 
-  it("distingue cortes conferidos no audiovisual de buscas e pendências humanas", () => {
-    const cuts = calendar.flatMap(item => item.cutValidations ?? []);
-    const allowedVideoStatuses = [
-      "Conferência no vídeo original pendente",
-      "Conferido no audiovisual original",
-      "Conferência humana no player original pendente",
-    ];
-    cuts.forEach(cut => expect(allowedVideoStatuses).toContain(cut.videoStatus));
-
-    const verified = cuts.filter(cut => cut.videoStatus === "Conferido no audiovisual original");
-    expect(verified.length).toBeGreaterThan(0);
-    verified.forEach(cut => {
-      expect(cut.transcriptStatus).toBe("Conferido no audiovisual original");
-      expect(`${cut.location} ${cut.productionNote}`).toMatch(/conferido|confirmado/i);
-    });
-
-    const humanPending = cuts.filter(cut => cut.videoStatus === "Conferência humana no player original pendente");
-    humanPending.forEach(cut => expect(`${cut.location} ${cut.productionNote}`).toMatch(/não publicar|conferir|conferência humana|localizar manualmente/i));
+  it("não expõe auditoria interna nos posts de outubro", () => {
+    const october = calendar.filter(item => Number(item.id.slice(0, 4)) >= 928);
+    expect(october.every(item => !item.cutValidations?.length)).toBe(true);
   });
 
   it("sinaliza os dois recortes cuja formulação precisou ser alterada", () => {
@@ -83,10 +61,12 @@ describe("auditoria dos cortes de palestras", () => {
     }
   });
 
-  it("exibe título da íntegra, minutagem e link somente quando disponível", () => {
+  it("exibe material, fonte e link diretamente no briefing da agência", () => {
     const source = readFileSync(new URL("../client/src/components/CalendarExplorer.tsx", import.meta.url), "utf8");
-    expect(source).toContain("ÍNTEGRA 2026");
-    expect(source).toContain("MINUTAGEM");
-    expect(source).toContain("cut.sourceUrl ?");
+    expect(source).toContain("ORIGEM / MATERIAL");
+    expect(source).toContain("FONTE");
+    expect(source).toContain("getSourceUrl(unit)");
+    expect(source).not.toContain("EVIDÊNCIA DE CORTE");
+    expect(source).not.toContain("MINUTAGEM");
   });
 });

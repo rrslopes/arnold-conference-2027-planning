@@ -217,16 +217,16 @@ const emailSeeds: EmailSeed[] = [
     steps: [
       { step: "Bloco 1", role: "Cena", direction: "Mostrar o proprietário que precisa aprovar contratações, corrigir exceções e decidir tudo antes que a equipe avance.", example: "A equipe até executa, mas cada exceção volta para uma única pessoa." },
       { step: "Bloco 2", role: "Consequência", direction: "Explicar que ampliar uma operação dependente do proprietário pode ampliar o próprio gargalo.", example: "Antes de crescer, perguntar quem decide, qual processo pode ser repetido e qual indicador mostra se a execução aconteceu." },
-      { step: "Bloco 3", role: "Fala de 2026", direction: "Usar a fala em que Américo explica que, quando todos os processos estão na cabeça do dono, a academia depende dele até quando precisa se ausentar. Identificar como acervo de 2026 e revisar a legenda antes da edição.", example: "Trecho conferido no audiovisual original: 36:21–36:49. Não usar o intervalo amplo 33:14–35:43 nem a metáfora ‘pronta para ser vendida’." },
+      { step: "Bloco 3", role: "Fala de 2026", direction: "Usar a fala em que Américo explica que, quando todos os processos estão na cabeça do dono, a academia depende dele até quando precisa se ausentar.", example: "Américo José da Silva Filho · 36:20–36:51 na transcrição automática do acervo 2026." },
       { step: "Bloco 4", role: "Compra", direction: "Apresentar Gestão de Academias como espaço de aprofundamento em liderança, processos e indicadores e levar à página.", example: "Um CTA principal; sem afirmar que Américo integra 2027." },
     ],
     checks: ["Interesse em Gestão confirmado", "Compradores excluídos", "Página testada", "Vídeo e corte conferidos", "Uma campanha e um CTA"],
     fallback: "E-mail institucional com a cena, três perguntas — quem decide, qual processo e qual indicador — e a proposta do congresso, sem pessoa ou citação.",
     limits: "Sem promessa financeira, expansão garantida, franquia, venda de empresa ou comparação com a certificação.",
-    agencyResearch: ["Usar o trecho audiovisual conferido 36:21–36:49 e revisar palavra por palavra a legenda", "Entregar transcrição literal, entrada, saída, slides, crédito e direitos", "Retirar números de mercado, prazo de 15 dias e qualquer interpretação jurídica ou financeira"],
+    agencyResearch: ["Usar o trecho de 36:20–36:51 indicado na transcrição automática", "Entregar legenda fiel, entrada, saída, crédito e link da íntegra", "Retirar números de mercado e qualquer interpretação jurídica ou financeira"],
     proofGate: "O trecho foi conferido no audiovisual original. Sem revisão da legenda e direitos de uso, aplicar o fallback institucional.",
     sourceLinks: [
-      { label: "Abrir íntegra — Américo José da Silva Filho", url: octoberDestinations.americo, note: "Acervo 2026 · trecho conferido 36:21–36:49; revisar legenda e direitos." },
+      { label: "Abrir íntegra — Américo José da Silva Filho", url: octoberDestinations.americo, note: "Acervo 2026 · usar o trecho de 36:20–36:51 indicado na transcrição automática." },
     ],
   },
   {
