@@ -31,7 +31,6 @@ describe("auditoria dos cortes de palestras", () => {
       "https://www.youtube.com/watch?v=asItej-OIk8",
       "https://youtu.be/7nACkId-GGw",
       "https://youtu.be/8hnvXCzfd3U",
-      "https://youtu.be/9jqd11aRhVw",
       "https://youtu.be/A3so_9sBi0M",
       "https://youtu.be/QSjVRVEvZMs",
       "https://youtu.be/Z9ZiclgTjG8",

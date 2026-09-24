@@ -61,17 +61,27 @@ describe("plano multicanal de outubro de 2026", () => {
     expect(JSON.stringify([...management, ...certification])).not.toMatch(/versus/i);
   });
 
-  it("registra sete pontos de busca de íntegras sem tratá-los como cortes aprovados", () => {
+  it("registra seis pontos de busca de íntegras sem tratá-los como cortes aprovados", () => {
     const cutItems = octoberCalendar.filter(entry => entry.cutValidations?.length);
-    expect(cutItems.map(entry => entry.id)).toEqual(["0928", "1001", "1003", "1010", "1012", "1014", "1020"]);
+    expect(cutItems.map(entry => entry.id)).toEqual(["0928", "1001", "1003", "1012", "1014", "1020"]);
     const cuts = cutItems.flatMap(entry => entry.cutValidations ?? []);
-    expect(cuts).toHaveLength(7);
+    expect(cuts).toHaveLength(6);
     for (const cut of cuts) {
       expect(cut.sourceUrl).toMatch(/^https:\/\/(youtu\.be|www\.youtube\.com)\//);
       expect(cut.location).toMatch(/\d{2}:\d{2}/);
       expect(["Tema localizado na transcrição automática", "Confirmado na transcrição"]).toContain(cut.transcriptStatus);
       expect(cut.videoStatus).toBe("Conferência no vídeo original pendente");
     }
+  });
+
+  it("inclui formatos simples pedidos pelo cliente sem inventar fatos ou depoimentos", () => {
+    expect(item("1010").title).toBe("5 motivos para participar do Congresso de Nutrição Esportiva");
+    expect(item("1013").title).toBe("6 motivos para fisioterapeutas esportivos participarem do SONAFE");
+    expect(item("1027").title).toContain("5 fatos da trajetória de Dudu Netto");
+    expect(item("1027").agencyResearch?.deliverables.join(" ")).toContain("fonte primária para cada fato");
+    expect(item("1022").title).toBe("Qual aprendizado do Arnold Conference você já levou para a prática?");
+    expect(JSON.stringify(item("1022"))).toMatch(/autorização|autorizada/i);
+    expect(JSON.stringify(item("1022"))).not.toMatch(/inscrição travou|dados financeiros/i);
   });
 
   it("organiza dezoito pautas temáticas em três ciclos iguais iniciados por Nutrição Esportiva", () => {

@@ -612,5 +612,5 @@ export const phaseSummary = [
   { label: "Aquecimento", period: "15–27/09", count: "Conteúdo contínuo + Stories segmentados", purpose: "Ajudar na escolha e ampliar a lista sem prometer data" },
   { label: "Intensificação", period: "28/09–05/10", count: "6 feed/reels + 2 Stories", purpose: "Abrir por Nutrição Esportiva, avançar pela ordem multiprofissional e anunciar 06/10" },
   { label: "Abertura", period: "06/10", count: "Feed/Reel + Stories", purpose: "Levar cada público ao produto correto" },
-  { label: "Venda contínua", period: "08–31/10", count: "14 feed/reels + 1 sequência de Stories", purpose: "Completar três ciclos iguais, sempre de Nutrição Esportiva a Bodybuilding, para converter sem falsa urgência" },
+  { label: "Venda contínua", period: "08–31/10", count: "15 feed/reels + 1 sequência de Stories", purpose: "Completar três ciclos iguais, sempre de Nutrição Esportiva a Bodybuilding, e incluir uma pauta geral de comunidade para converter sem falsa urgência" },
 ];

@@ -70,7 +70,7 @@ describe("briefings operacionais do calendário", () => {
 
   it("explicita pesquisa, entregas, validação e fallback quando a agência precisa buscar prova", () => {
     const researchItems = calendar.filter(item => item.agencyResearch);
-    expect(researchItems.map(item => item.id)).toEqual(["0928", "1001", "1002", "1003", "1008", "1010", "1012", "1013", "1014", "1016", "1018", "1020", "1021", "1024", "1027", "1029", "1031"]);
+    expect(researchItems.map(item => item.id)).toEqual(["0928", "1001", "1002", "1003", "1008", "1012", "1014", "1016", "1018", "1020", "1021", "1024", "1027", "1029", "1031"]);
     for (const item of researchItems) {
       expect(item.agencyResearch?.owner.length, item.id).toBeGreaterThan(10);
       expect(item.agencyResearch?.deliverables.length, item.id).toBeGreaterThanOrEqual(4);
