@@ -130,11 +130,13 @@ describe("plano multicanal de outubro de 2026", () => {
     }
   });
 
-  it("mantém dez slots de e-mail segmentados, sem envios redundantes em 02 e 05/10", () => {
-    expect(octoberEmails).toHaveLength(10);
-    expect(Object.keys(emailCampaignBriefs).filter(id => id.startsWith("email-oct-"))).toHaveLength(10);
+  it("mantém onze slots de e-mail, com lembrete segmentado em 04/10 e sem envio redundante em 02 ou 05/10", () => {
+    expect(octoberEmails).toHaveLength(11);
+    expect(Object.keys(emailCampaignBriefs).filter(id => id.startsWith("email-oct-"))).toHaveLength(11);
     expect(octoberEmails.map(item => item.date)).not.toContain("02/10");
     expect(octoberEmails.map(item => item.date)).not.toContain("05/10");
+    expect(octoberEmails.find(item => item.id === "email-oct-reminder")?.date).toBe("04/10");
+    expect(emailCampaignBriefs["email-oct-reminder"].versions[0].audience).toMatch(/clicaram|visitaram/i);
     for (const campaign of octoberEmails) {
       const brief = emailCampaignBriefs[campaign.id];
       expect(brief.versions).toHaveLength(1);
@@ -142,6 +144,28 @@ describe("plano multicanal de outubro de 2026", () => {
       expect(brief.versions[0].destinationUrl).toMatch(/^https:\/\//);
       expect(`${brief.versions[0].exclusion} ${brief.productionChecks.join(" ")}`).toMatch(/excluir|suprimir|cancelar|uma única versão/i);
     }
+  });
+
+  it("torna os e-mails questionados específicos, auditáveis e compatíveis com a operação disponível", () => {
+    const aesthetic = emailCampaignBriefs["email-oct-aesthetic"];
+    const sonafe = emailCampaignBriefs["email-oct-sonafe"];
+    const management = emailCampaignBriefs["email-oct-management"];
+    const wttc = emailCampaignBriefs["email-oct-wttc"];
+    const bodybuilding = emailCampaignBriefs["email-oct-bodybuilding"];
+    const recovery = emailCampaignBriefs["email-oct-recovery"];
+    const help = emailCampaignBriefs["email-oct-consideration"];
+
+    expect(JSON.stringify(aesthetic)).toMatch(/queda capilar|ferritina|inflamação|GLP-1/i);
+    expect(JSON.stringify(sonafe)).toMatch(/quem é o atleta|modalidade|fase|objetivo|retorno ao esporte/i);
+    expect(management.sourceLinks?.[0]).toMatchObject({ url: "https://youtu.be/7nACkId-GGw" });
+    expect(JSON.stringify(management)).toContain("33:14–35:43");
+    expect(JSON.stringify(wttc)).toMatch(/Cris Parente|quatro verificações|divergência pública/i);
+    expect(`${bodybuilding.versions[0].objective} ${bodybuilding.versions[0].subjectDirection}`).not.toMatch(/equipe multidisciplinar/i);
+    expect(JSON.stringify(bodybuilding)).toMatch(/sem repetir.*equipe multidisciplinar/i);
+    expect(recovery.versions[0].audience).toMatch(/sem personalizar|rota universal/i);
+    expect(recovery.versions[0].subjectDirection).not.toMatch(/congresso específico|produto específico/i);
+    expect(help.versions[0].subjectDirection).toContain("Como podemos te ajudar a concluir sua inscrição?");
+    expect(JSON.stringify(help)).toMatch(/FAQ|congresso@savagetgroup.com.br|WhatsApp/i);
   });
 
   it("transforma pesquisa, direitos e validação em obrigação explícita da agência", () => {

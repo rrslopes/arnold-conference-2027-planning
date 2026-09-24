@@ -9,11 +9,11 @@ import {
 } from "../shared/emailWorkflow";
 
 describe("fluxo específico de aprovação dos e-mails", () => {
-  it("atribui identificadores únicos aos nove e-mails históricos, dez slots de outubro e sete de nutrição", () => {
-    expect(emailBase).toHaveLength(19);
+  it("atribui identificadores únicos aos nove e-mails históricos, onze slots de outubro e sete de nutrição", () => {
+    expect(emailBase).toHaveLength(20);
     expect(emailNurture).toHaveLength(7);
     const ids = [...emailBase, ...emailNurture].map(item => item.id);
-    expect(new Set(ids).size).toBe(26);
+    expect(new Set(ids).size).toBe(27);
     ids.forEach(id => expect(id).toMatch(/^email-(base|nurture|oct)-[a-z0-9-]+$/));
   });
 
@@ -52,7 +52,7 @@ describe("fluxo específico de aprovação dos e-mails", () => {
     expect(serialized).not.toContain("masterclassconference.savagetgroup.com.br/obrigado");
   });
 
-  it("preserva os briefings de 18 a 25/09 e acrescenta os dez slots de outubro", () => {
+  it("preserva os briefings de 18 a 25/09 e acrescenta os onze slots de outubro", () => {
     expect(Object.keys(emailCampaignBriefs).filter(id => id.startsWith("email-base-"))).toEqual([
       "email-base-comparativo",
       "email-base-48h",
@@ -60,7 +60,7 @@ describe("fluxo específico de aprovação dos e-mails", () => {
       "email-base-vendas-abertas",
       "email-base-recuperar-inscricao",
     ]);
-    expect(Object.keys(emailCampaignBriefs).filter(id => id.startsWith("email-oct-"))).toHaveLength(10);
+    expect(Object.keys(emailCampaignBriefs).filter(id => id.startsWith("email-oct-"))).toHaveLength(11);
     Object.values(emailCampaignBriefs).forEach(brief => {
       expect(brief.decision.length).toBeGreaterThan(20);
       expect(brief.versions).toHaveLength(1);

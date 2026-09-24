@@ -32,6 +32,12 @@ export type EmailDecisionRule = {
   reason: string;
 };
 
+export type EmailSourceLink = {
+  label: string;
+  url: string;
+  note: string;
+};
+
 export type EmailCampaignBrief = {
   label: string;
   decision: string;
@@ -41,6 +47,7 @@ export type EmailCampaignBrief = {
   productionChecks: string[];
   agencyResearch?: string[];
   proofGate?: string;
+  sourceLinks?: EmailSourceLink[];
   fallback: string;
   limits: string;
 };

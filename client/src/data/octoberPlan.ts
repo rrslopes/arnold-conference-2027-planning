@@ -1,7 +1,7 @@
-import { octoberEmailBase, octoberEmailBriefs } from "./octoberEmailPlan";
+import { emailOperationalGates, octoberEmailBase, octoberEmailBriefs } from "./octoberEmailPlan";
 import { octoberCalendarBase, octoberDestinations } from "./octoberSocialPlan";
 
-export { octoberCalendarBase, octoberDestinations, octoberEmailBase, octoberEmailBriefs };
+export { emailOperationalGates, octoberCalendarBase, octoberDestinations, octoberEmailBase, octoberEmailBriefs };
 
 export const octoberWhatsAppPlan = [
   {
@@ -116,7 +116,7 @@ export const octoberLaunchWindow = [
   { moment: "D-8 · 28/09", title: "Nutrição Esportiva abre a nova fase", channels: "Reel + pílula", objective: "Começar pela primeira data livre com o coração científico do Conference e uma pergunta concreta sobre método de medida, sem antecipar a data comercial.", cta: "Acompanhar as próximas informações", destination: "Landing page geral de novidades", gate: "Vídeo, fala, slides e revisão científica validados; destino de captação funcional; ainda não anunciar 06/10." },
   { moment: "D-6 · 30/09", title: "Data anunciada", channels: "Feed/Stories · E-mail · Mídia paga", objective: "Confirmar 06/10 e gerar lembrança sem afirmar vendas abertas.", cta: "Acompanhar a abertura", destination: "Landing page geral de novidades", gate: "Só ativar com ticketeira, data e horário, checkout, links, condições públicas, rastreamento, UTMs, atendimento e regras validados." },
   { moment: "D-4 · 02/10", title: "Decisão por produto", channels: "Social · Retargeting", objective: "Ajudar públicos específicos a verificar credencial, contexto ou adequação sem novo e-mail de base.", cta: "Acompanhar a abertura", destination: "Landing page geral de novidades", gate: "Fontes e afirmações de produto aprovadas." },
-  { moment: "D-2 · 04/10", title: "Segundo reforço de feed", channels: "Feed/Stories · Mídia paga", objective: "Reforçar a proximidade de 06/10 com urgência de calendário verdadeira.", cta: "Cadastrar-se para receber o aviso", destination: "Landing page geral de novidades", gate: "Mesmo gate do anúncio; sem preço, lote ou quantidade não publicados." },
+  { moment: "D-2 · 04/10", title: "Segundo reforço condicionado", channels: "Feed/Stories · E-mail para engajados · Mídia paga", objective: "Reforçar a proximidade de 06/10 com urgência de calendário verdadeira, sem transformar o lembrete em outro disparo amplo de base.", cta: "Acompanhar a abertura em 06/10", destination: "Landing page geral de novidades", gate: "D-6 ainda verde, evento real de clique ou visita, frequência e supressões; sem preço, lote ou quantidade não publicados." },
   { moment: "D-1 · 05/10", title: "Véspera", channels: "Stories", objective: "Usar a ansiedade natural da véspera e orientar a acompanhar o hub.", cta: "Acompanhar a abertura", destination: "Hub oficial", gate: "Retestar as seis rotas; cancelar a chamada se houver falha." },
   { moment: "D0 · 06/10", title: "Inscrições abertas", channels: "Feed/Stories · E-mail · WhatsApp qualificado · Mídia paga", objective: "Conduzir cada público ao checkout do produto correspondente.", cta: "Escolher e fazer a inscrição", destination: "Hub e páginas específicas", gate: "Novo gate D0 com compra real, confirmação, conciliação, links, condições, suporte e supressão." },
   { moment: "D+1 a D+25", title: "Venda contínua", channels: "Conteúdo · CRM · Mídia · Suporte", objective: "Alternar histórias, autoridade, profundidade e serviço; recuperar eventos reais e redistribuir investimento conforme ocupação.", cta: "Conhecer ou retomar a inscrição", destination: "Página do mesmo produto", gate: "Compra confirmada é a verdade de ocupação; pessoa, case e depoimento exigem fonte, direitos e validação." },

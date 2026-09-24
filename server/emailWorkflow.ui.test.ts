@@ -36,6 +36,9 @@ describe("plano de e-mail estratégico simplificado", () => {
       "A plataforma define a lógica da régua; a produção e a aprovação ficam na planilha operacional"
     );
     expect(home).toContain("Copy final, link da prévia, ajustes e status");
+    expect(home).toContain("GATES DE LIBERAÇÃO · ACESSO DA AGÊNCIA");
+    expect(home).toContain("Requisito escrito não significa status verde");
+    expect(home).toContain("emailOperationalGates.map");
   });
 
   it("renderiza os detalhamentos de 18 a 25/09 com CTA, exemplos e regra de distribuição", () => {
@@ -50,6 +53,8 @@ describe("plano de e-mail estratégico simplificado", () => {
     expect(brief).toContain("REGRA DE ENVIO");
     expect(brief).toContain("REFERÊNCIA SECUNDÁRIA · ACERVO CONTEXTUALIZADO");
     expect(brief).toContain("version.secondaryAction");
+    expect(brief).toContain("FONTES E PONTOS DE BUSCA");
+    expect(brief).toContain("brief.sourceLinks");
   });
 
   it("abre 18/09 por padrão e permite abrir diretamente os demais e-mails", () => {

@@ -5,6 +5,7 @@ import {
   octoberCalendarBase,
   octoberDestinations,
   octoberEmailBase,
+  emailOperationalGates,
   octoberLaunchWindow,
   octoberWhatsAppPlan,
 } from "./octoberPlan";
@@ -537,6 +538,7 @@ export const roadmap = [
 ];
 
 export const launchWindow = octoberLaunchWindow;
+export { emailOperationalGates };
 
 export const kpiLayers = [
   {

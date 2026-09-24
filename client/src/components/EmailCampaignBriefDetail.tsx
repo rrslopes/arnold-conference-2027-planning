@@ -3,6 +3,7 @@ import {
   CheckCircle2,
   ChevronDown,
   GitBranch,
+  Link2,
   MousePointerClick,
   Search,
   ShieldCheck,
@@ -156,6 +157,29 @@ export default function EmailCampaignBriefDetail({
               <p key={item}><ShieldCheck size={14} />{item}</p>
             ))}
             {brief.proofGate ? <div><span>GATE DE PROVA</span><p>{brief.proofGate}</p></div> : null}
+          </section>
+        ) : null}
+
+        {brief.sourceLinks?.length ? (
+          <section className="email-source-links">
+            <header>
+              <Link2 size={19} />
+              <div>
+                <span>FONTES E PONTOS DE BUSCA</span>
+                <strong>Abrir o material original antes de produzir</strong>
+              </div>
+            </header>
+            <div>
+              {brief.sourceLinks.map(source => (
+                <a key={`${source.label}-${source.url}`} href={source.url} target="_blank" rel="noreferrer">
+                  <div>
+                    <strong>{source.label}</strong>
+                    <p>{source.note}</p>
+                  </div>
+                  <ArrowUpRight size={14} />
+                </a>
+              ))}
+            </div>
           </section>
         ) : null}
 
