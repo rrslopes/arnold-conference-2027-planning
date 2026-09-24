@@ -462,37 +462,37 @@ export const octoberCalendarBase = [
         "card": "Story 1 de 6",
         "format": "Abertura + link",
         "prompt": "Nutrição Esportiva: inscrições abertas. Lote 1 limitado.",
-        "note": "Figurinha de link para https://arnold.savagetgroup.com.br/conference2/nutricao-esportiva/. Checkout a partir de cada página: confirmar antes de publicar."
+        "note": "Figurinha de link para https://arnold.savagetgroup.com.br/conference2/nutricao-esportiva/. [CHECKOUT A PARTIR DE CADA PÁGINA – A CONFIRMAR]"
       },
       {
         "card": "Story 2 de 6",
         "format": "Abertura + link",
         "prompt": "Nutrição Estética: inscrições abertas. Lote 1 limitado.",
-        "note": "Figurinha de link para https://arnold.savagetgroup.com.br/conference2/nutricao-estetica/. Checkout a partir de cada página: confirmar antes de publicar."
+        "note": "Figurinha de link para https://arnold.savagetgroup.com.br/conference2/nutricao-estetica/. [CHECKOUT A PARTIR DE CADA PÁGINA – A CONFIRMAR]"
       },
       {
         "card": "Story 3 de 6",
         "format": "Abertura + link",
         "prompt": "3º Simpósio de Fisioterapia Esportiva da SONAFE: inscrições abertas. Lote 1 limitado.",
-        "note": "Figurinha de link para https://arnold.savagetgroup.com.br/2-simposio-de-fisioterapia-esportiva-sonafe/. Checkout a partir de cada página: confirmar antes de publicar."
+        "note": "Figurinha de link para https://arnold.savagetgroup.com.br/2-simposio-de-fisioterapia-esportiva-sonafe/. [CHECKOUT A PARTIR DE CADA PÁGINA – A CONFIRMAR]"
       },
       {
         "card": "Story 4 de 6",
         "format": "Abertura + link",
         "prompt": "8º Congresso de Gestão de Academias: inscrições abertas. Lote 1 limitado.",
-        "note": "Figurinha de link para https://arnold.savagetgroup.com.br/gestao-de-academias/. Checkout a partir de cada página: confirmar antes de publicar."
+        "note": "Figurinha de link para https://arnold.savagetgroup.com.br/gestao-de-academias/. [CHECKOUT A PARTIR DE CADA PÁGINA – A CONFIRMAR]"
       },
       {
         "card": "Story 5 de 6",
         "format": "Abertura + link",
         "prompt": "Certificação Internacional em Personal Training – WTTC: inscrições abertas. Lote 1 limitado.",
-        "note": "Figurinha de link para https://arnold.savagetgroup.com.br/certificacao-internacional-em-personal-training-wttc/. Checkout a partir de cada página: confirmar antes de publicar."
+        "note": "Figurinha de link para https://arnold.savagetgroup.com.br/certificacao-internacional-em-personal-training-wttc/. [CHECKOUT A PARTIR DE CADA PÁGINA – A CONFIRMAR]"
       },
       {
         "card": "Story 6 de 6",
         "format": "Abertura + link",
         "prompt": "Bodybuilding: inscrições abertas. Lote 1 limitado.",
-        "note": "Figurinha de link para https://arnold.savagetgroup.com.br/conference2/bodybuilding/. Checkout a partir de cada página: confirmar antes de publicar."
+        "note": "Figurinha de link para https://arnold.savagetgroup.com.br/conference2/bodybuilding/. [CHECKOUT A PARTIR DE CADA PÁGINA – A CONFIRMAR]"
       }
     ],
     "fallback": "estático único \"Inscrições abertas. Lote 1 limitado.\" + os 6 nomes + \"Link na bio\".",
@@ -1148,7 +1148,7 @@ export const octoberCalendarBase = [
           "content": "Linha 1: a pergunta da capa. Linha 2: uma frase resumindo a fala da pílula. Linha 3: \"Arnold Conference 2026 · Bruno Zylber.\" Linha 4: CTA."
         }
       ],
-      "note": "sem prescrição, doses ou promessa de performance. Não sugerir que Bruno estará em 2027."
+      "note": "sem prescrição, doses ou promessa de performance. Não sugerir que Bruno estará em 2027. Se for recortar de novo a íntegra do Bruno Zylber: a transcrição validada começa 14:36 depois do vídeo do YouTube. Minutagem do YouTube = minutagem da transcrição + 14:36."
     },
     "fallback": "pílula de Daniel Coimbra (\"26_Daniel Coimbra\"), com a mesma estrutura de legenda.",
     "cta": "Congresso de Nutrição Esportiva 2027: lote 1 limitado. Link na bio.",
@@ -1180,7 +1180,9 @@ export const octoberCalendarBase = [
         {
           "unit": "Tela 2",
           "role": "Relato",
-          "content": "Resumo do que Ricardo Pannain relata no Reel: menos volume por dia, mais intensidade, volume distribuído na semana e recuperação para o treino seguinte. Crédito: \"Relato de Ricardo Pannain.\""
+          "content": "Resumo do que Ricardo Pannain relata no Reel: menos volume por dia, mais intensidade, volume distribuído na semana e recuperação para o treino seguinte. Crédito: \"Relato de Ricardo Pannain.\"",
+          "source": "Ricardo Pannain · falas em 00:00, 00:10 e 00:50 do Reel",
+          "sourceUrl": "https://www.instagram.com/reel/DcmNMWJhMN0/"
         },
         {
           "unit": "Tela 3",
@@ -1212,11 +1214,12 @@ export const octoberCalendarBase = [
     },
     "agencyResearch": {
       "owner": "Agência de conteúdo e pesquisa",
-      "request": "conferir as três falas no Reel e confirmar a autorização de uso com o cliente.",
+      "request": "Conferir as três falas no player do Instagram antes da edição. Se não for possível conferir, usar a alternativa segura. Confirmar a autorização de uso com o cliente.",
       "deliverables": [
-        "conferir as três falas no Reel e confirmar a autorização de uso com o cliente."
+        "Conferir as três falas no player do Instagram antes da edição. Se não for possível conferir, usar a alternativa segura.",
+        "Confirmar a autorização de uso com o cliente."
       ],
-      "validation": "Validar todas as afirmações e materiais solicitados antes da publicação. conferir as três falas no Reel e confirmar a autorização de uso com o cliente.",
+      "validation": "Validar todas as afirmações e materiais solicitados antes da publicação. Conferir as três falas no player do Instagram antes da edição. Se não for possível conferir, usar a alternativa segura. Confirmar a autorização de uso com o cliente.",
       "fallback": "carrossel tipográfico com as telas 1, 3, 4, 5 e 6, sem citar o Reel."
     },
     "fallback": "carrossel tipográfico com as telas 1, 3, 4, 5 e 6, sem citar o Reel.",
@@ -1888,7 +1891,9 @@ export const octoberCalendarBase = [
         {
           "unit": "Tela 2",
           "role": "Relato",
-          "content": "Resumo das falas de Ricardo Pannain sobre comprometimento e tamanho da competição. Crédito: \"Relato de Ricardo Pannain · Arnold Conference 2026.\""
+          "content": "Resumo das falas de Ricardo Pannain sobre comprometimento e tamanho da competição. Crédito: \"Relato de Ricardo Pannain · Arnold Conference 2026.\"",
+          "source": "Ricardo Pannain · falas em 00:16 e 00:33 do Reel",
+          "sourceUrl": "https://www.instagram.com/reel/DXXimnVFX4X/"
         },
         {
           "unit": "Tela 3",

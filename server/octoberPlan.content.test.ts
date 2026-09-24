@@ -74,8 +74,12 @@ describe("pacote editorial de 28/09 a 31/10 de 2026", () => {
     expect(sources.every(unit => unit.sourceUrl?.match(/^https:\/\/(youtu\.be|www\.youtube\.com)\//))).toBe(true);
     expect(sources.map(unit => unit.source).join(" ")).toMatch(/17:36 a 18:13|52:47 a 53:08|43:52 a 44:14|36:20 a 36:51|15:18\.9 a 15:27\.6/);
     expect(JSON.stringify(octoberCalendar)).not.toMatch(/timecode anterior|inválid|diverg|conferência humana|player original|auditoria interna/i);
-    expect(item("1018").productionBrief?.units.some(unit => unit.source)).toBe(false);
-    expect(item("1031").productionBrief?.units.some(unit => unit.source)).toBe(false);
+    const reelSource = (id: string) => item(id).productionBrief?.units.filter(unit => unit.source) ?? [];
+    expect(reelSource("1018")).toHaveLength(1);
+    expect(reelSource("1018")[0]).toMatchObject({ role: "Relato", source: "Ricardo Pannain · falas em 00:00, 00:10 e 00:50 do Reel", sourceUrl: "https://www.instagram.com/reel/DcmNMWJhMN0/" });
+    expect(item("1018").agencyResearch?.request).toContain("Conferir as três falas no player do Instagram antes da edição. Se não for possível conferir, usar a alternativa segura.");
+    expect(reelSource("1031")).toHaveLength(1);
+    expect(reelSource("1031")[0]).toMatchObject({ role: "Relato", source: "Ricardo Pannain · falas em 00:16 e 00:33 do Reel", sourceUrl: "https://www.instagram.com/reel/DXXimnVFX4X/" });
   });
 
   it("preserva os formatos simples, histórias e provas de autoridade solicitados", () => {
