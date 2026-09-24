@@ -154,11 +154,11 @@ export const objectives = [
 ];
 
 export const congresses = [
+  { name: "Nutrição Esportiva", audience: "Nutricionistas, médicos, treinadores e profissionais de desempenho", tension: "Marketing, hiper-suplementação e receita universal versus fisiologia, saúde e contexto", promise: "Decisões mais criteriosas para um desempenho esportivo sustentável", accent: "#F2C667" },
+  { name: "Nutrição Estética", audience: "Nutricionistas e profissionais habilitados em estética e saúde", tension: "Platô, reganho, lipedema, pele, metabolismo e excesso de protocolos genéricos", promise: "Avaliação mais refinada e estratégias individualizadas, com base técnica", accent: "#E7A7C8" },
+  { name: "SONAFE", audience: "Fisioterapeutas esportivos e equipes multidisciplinares que atuam da prevenção ao retorno ao esporte", tension: "Decisões fragmentadas entre prevenção, avaliação, recuperação, reabilitação e retorno", promise: "Atualização aplicada e integração para prevenir lesões, qualificar a reabilitação e sustentar um retorno mais seguro ao esporte", accent: "#9DD9D2" },
   { name: "Gestão de Academias", audience: "Proprietários, gestores, coordenadores e líderes", tension: "Crescer sem exaurir o dono, perder equipe ou competir apenas por estrutura", promise: "Gestão, cultura, estratégia e inovação para negócios mais fortes no setor de academias e atividade física", accent: "#CBDB2A" },
   { name: "WTTC", displayName: WTTC_PUBLIC_NAME, audience: "Personal trainers com carreira em desenvolvimento que buscam ampliar sua atuação profissional internacional", tension: "Carreira consolidada no mercado local, mas ainda sem certificação internacional, método reconhecido ou mobilidade profissional estruturada", promise: "Certificação Internacional em Personal Training com chancela WTTC e possibilidade de atuação profissional em 35 países", accent: "#CCB9A6" },
-  { name: "SONAFE", audience: "Fisioterapeutas esportivos e equipes multidisciplinares que atuam da prevenção ao retorno ao esporte", tension: "Decisões fragmentadas entre prevenção, avaliação, recuperação, reabilitação e retorno", promise: "Atualização aplicada e integração para prevenir lesões, qualificar a reabilitação e sustentar um retorno mais seguro ao esporte", accent: "#9DD9D2" },
-  { name: "Nutrição Estética", audience: "Nutricionistas e profissionais habilitados em estética e saúde", tension: "Platô, reganho, lipedema, pele, metabolismo e excesso de protocolos genéricos", promise: "Avaliação mais refinada e estratégias individualizadas, com base técnica", accent: "#E7A7C8" },
-  { name: "Nutrição Esportiva", audience: "Nutricionistas, médicos, treinadores e profissionais de desempenho", tension: "Marketing, hiper-suplementação e receita universal versus fisiologia, saúde e contexto", promise: "Decisões mais criteriosas para um desempenho esportivo sustentável", accent: "#F2C667" },
   { name: "Bodybuilding", audience: "Treinadores, nutricionistas, fisioterapeutas, atletas e equipes", tension: "Copiar preparação, negligenciar recuperação ou reduzir o processo a fármacos", promise: "Preparação integrada: treino, nutrição, recuperação, estética e competição", accent: "#F48C5A" },
 ];
 
@@ -610,7 +610,7 @@ export const phaseSummary = [
   { label: "Transição", period: "07/09", count: "Stories", purpose: "Antecipar a liberação" },
   { label: "Captação", period: "08–14/09", count: "5 feed/reels + 2 Stories", purpose: "Levar às aulas e registrar interesse" },
   { label: "Aquecimento", period: "15–27/09", count: "Conteúdo contínuo + Stories segmentados", purpose: "Ajudar na escolha e ampliar a lista sem prometer data" },
-  { label: "Intensificação", period: "28/09–05/10", count: "6 feed/reels + 2 Stories", purpose: "Começar na primeira data livre, anunciar 06/10 e preparar a escolha" },
+  { label: "Intensificação", period: "28/09–05/10", count: "6 feed/reels + 2 Stories", purpose: "Abrir por Nutrição Esportiva, avançar pela ordem multiprofissional e anunciar 06/10" },
   { label: "Abertura", period: "06/10", count: "Feed/Reel + Stories", purpose: "Levar cada público ao produto correto" },
-  { label: "Venda contínua", period: "08–31/10", count: "11 feed/reels + 4 Stories", purpose: "Alternar histórias, autoridade, profundidade e serviço para converter sem falsa urgência" },
+  { label: "Venda contínua", period: "08–31/10", count: "14 feed/reels + 1 sequência de Stories", purpose: "Completar três ciclos iguais, sempre de Nutrição Esportiva a Bodybuilding, para converter sem falsa urgência" },
 ];

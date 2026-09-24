@@ -137,7 +137,7 @@ function ExecutiveHero() {
         <article><strong>06/10</strong><span>ABERTURA DE VENDAS<br />DATA CONFIRMADA</span></article>
         <article><strong>ABR.27</strong><span>HORIZONTE<br />ESTRATÉGICO</span></article>
       </div>
-      <div className="hero-rail">ARNOLD CONFERENCE · GESTÃO DE ACADEMIAS · {WTTC_PUBLIC_NAME.toUpperCase()} · SONAFE · NUTRIÇÃO · BODYBUILDING</div>
+      <div className="hero-rail">ARNOLD CONFERENCE · NUTRIÇÃO ESPORTIVA · NUTRIÇÃO ESTÉTICA · SONAFE · GESTÃO DE ACADEMIAS · {WTTC_PUBLIC_NAME.toUpperCase()} · BODYBUILDING</div>
     </section>
   );
 }
@@ -151,7 +151,7 @@ function ExecutiveSummary() {
         <h2>Outubro leva cada público de um problema reconhecido à inscrição no congresso certo.</h2>
       </div>
       <div className="summary-copy">
-        <p>A nova fase começa em 28/09, primeira data livre do calendário. Em 30/09, a campanha anuncia que as inscrições abrem em 06/10. Na abertura, quem já escolheu segue diretamente para a página do próprio congresso. Depois, conteúdo, e-mail, mídia e WhatsApp ajudam a esclarecer adequação, recuperar decisões interrompidas e perseguir a lotação máxima de cada sala.</p>
+        <p>A nova fase começa em 28/09, primeira data livre do calendário, com Nutrição Esportiva. Os ciclos seguem por Nutrição Estética, SONAFE, Gestão de Academias, Certificação Internacional em Personal Training – WTTC e Bodybuilding, mantendo três pautas para cada congresso. Em 30/09, a campanha anuncia que as inscrições abrem em 06/10. Depois da abertura, conteúdo, e-mail, mídia e WhatsApp ajudam a converter e perseguir a lotação máxima de cada sala.</p>
         <p>A geração de leads continua em paralelo para quem ainda está pesquisando. Ela não substitui venda: a LP de novidades identifica interesse, enquanto compra confirmada e ocupação por congresso passam a ser os indicadores principais da fase.</p>
         <div className="command-status">
           <article><span>ESTADO DO PLANO</span><strong><CircleDot size={15} /> Em revisão executiva</strong><p>Conteúdo consolidado; validação do cliente e do marketing interno em andamento.</p></article>
@@ -342,7 +342,7 @@ export default function Home() {
       <ContentLab />
 
       <section id="calendario" className="section-pad calendar-section">
-        <SectionHeader index="07" eyebrow="CALENDÁRIO EDITORIAL · SETEMBRO E OUTUBRO" title="Cada peça precisa responder: para quem, por que agora e qual é o próximo passo" description="Setembro permanece preservado em sua própria aba. A nova fase começa na primeira data livre, 28/09; 30/09 fica exclusivamente para o anúncio da abertura em 06/10, seguido por conteúdo, serviço e conversão." />
+        <SectionHeader index="07" eyebrow="CALENDÁRIO EDITORIAL · SETEMBRO E OUTUBRO" title="Cada peça precisa responder: para quem, por que agora e qual é o próximo passo" description="Setembro permanece preservado. A nova fase começa em 28/09 por Nutrição Esportiva e repete três ciclos na mesma ordem, sem mudar o peso entre congressos. O dia 30/09 fica exclusivamente para o anúncio da abertura em 06/10." />
         <CalendarExplorer />
       </section>
 

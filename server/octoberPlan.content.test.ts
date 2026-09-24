@@ -7,6 +7,14 @@ const octoberCalendar = calendar.filter(item => Number(item.id.slice(0, 4)) >= 9
 const octoberEmails = emailBase.filter(item => item.id.startsWith("email-oct-"));
 const octoberWhatsApp = whatsappPlan.filter(item => item.date.includes("/10"));
 const octoberPaid = paidMediaAssets.filter(item => item.id.includes("-oct-"));
+const preferredOrder = [
+  "Nutrição Esportiva",
+  "Nutrição Estética",
+  "SONAFE",
+  "Gestão de Academias",
+  "WTTC",
+  "Bodybuilding",
+];
 
 function item(id: string) {
   const match = octoberCalendar.find(entry => entry.id === id);
@@ -38,31 +46,70 @@ describe("plano multicanal de outubro de 2026", () => {
   it("usa linguagem direta e evita os títulos genéricos rejeitados", () => {
     const publicFields = octoberCalendar.flatMap(entry => [entry.title, entry.idea, entry.cta]);
     expect(publicFields.join(" ")).not.toMatch(/tensão profissional|mais do que uma resposta pronta|provocação transversal/i);
-    expect(item("1001").title).toContain("gestor");
+    expect(item("0928").title).toContain("perda muscular");
+    expect(item("1003").title).toContain("gestor");
     expect(item("1004").title).toContain("Faltam dois dias");
-    expect(item("1010").title).toContain("perda muscular");
-    expect(item("1021").title).toContain("peso caiu");
+    expect(item("1012").title).toContain("peso caiu");
   });
 
   it("mantém Gestão e Certificação Internacional em Personal Training – WTTC como produtos independentes", () => {
-    expect(item("1002").congresses).toEqual(["WTTC"]);
-    expect(item("1013").congresses).toEqual(["WTTC"]);
-    expect(JSON.stringify([item("1002"), item("1013")])).toContain("Certificação Internacional em Personal Training – WTTC");
-    expect(JSON.stringify([item("1002"), item("1013")])).not.toMatch(/versus/i);
-    expect(item("1002").congresses).not.toContain("Gestão de Academias");
+    const management = [item("1003"), item("1014"), item("1027")];
+    const certification = [item("1008"), item("1016"), item("1029")];
+    expect(management.every(entry => entry.congresses.length === 1 && entry.congresses[0] === "Gestão de Academias")).toBe(true);
+    expect(certification.every(entry => entry.congresses.length === 1 && entry.congresses[0] === "WTTC")).toBe(true);
+    expect(JSON.stringify(certification)).toContain("Certificação Internacional em Personal Training – WTTC");
+    expect(JSON.stringify([...management, ...certification])).not.toMatch(/versus/i);
   });
 
-  it("registra seis pontos de busca de novas íntegras sem tratá-los como cortes aprovados", () => {
+  it("registra sete pontos de busca de íntegras sem tratá-los como cortes aprovados", () => {
     const cutItems = octoberCalendar.filter(entry => entry.cutValidations?.length);
-    expect(cutItems.map(entry => entry.id)).toEqual(["1001", "1008", "1010", "1014", "1021", "1024"]);
+    expect(cutItems.map(entry => entry.id)).toEqual(["0928", "1001", "1003", "1010", "1012", "1014", "1020"]);
     const cuts = cutItems.flatMap(entry => entry.cutValidations ?? []);
-    expect(cuts).toHaveLength(6);
+    expect(cuts).toHaveLength(7);
     for (const cut of cuts) {
-      expect(cut.sourceUrl).toMatch(/^https:\/\/youtu\.be\//);
+      expect(cut.sourceUrl).toMatch(/^https:\/\/(youtu\.be|www\.youtube\.com)\//);
       expect(cut.location).toMatch(/\d{2}:\d{2}/);
-      expect(cut.transcriptStatus).toBe("Tema localizado na transcrição automática");
+      expect(["Tema localizado na transcrição automática", "Confirmado na transcrição"]).toContain(cut.transcriptStatus);
       expect(cut.videoStatus).toBe("Conferência no vídeo original pendente");
     }
+  });
+
+  it("organiza dezoito pautas temáticas em três ciclos iguais iniciados por Nutrição Esportiva", () => {
+    const thematic = octoberCalendar.filter(entry => entry.congresses.length === 1 && entry.congresses[0] !== "Todos");
+    expect(thematic).toHaveLength(18);
+    expect(thematic.map(entry => entry.congresses[0])).toEqual([...preferredOrder, ...preferredOrder, ...preferredOrder]);
+    for (const congress of preferredOrder) {
+      const congressEntries = thematic.filter(entry => entry.congresses[0] === congress);
+      expect(congressEntries).toHaveLength(3);
+      expect(congressEntries.every(entry => entry.channel !== "Stories"), congress).toBe(true);
+    }
+    expect(thematic[0].id).toBe("0928");
+    expect(thematic[0].congresses).toEqual(["Nutrição Esportiva"]);
+    expect(thematic[5].congresses).toEqual(["Bodybuilding"]);
+  });
+
+  it("aplica a mesma ordem aos seis cards da abertura e aos e-mails de produto", () => {
+    const opening = JSON.stringify(item("1006"));
+    const positions = [
+      opening.indexOf("Nutrição Esportiva"),
+      opening.indexOf("Nutrição Estética"),
+      opening.indexOf("SONAFE"),
+      opening.indexOf("Gestão de Academias"),
+      opening.indexOf("Certificação Internacional em Personal Training – WTTC"),
+      opening.indexOf("Bodybuilding"),
+    ];
+    expect(positions.every(position => position >= 0)).toBe(true);
+    expect([...positions].sort((a, b) => a - b)).toEqual(positions);
+
+    const productEmails = octoberEmails.filter(campaign => ["08/10", "09/10", "10/10", "13/10", "14/10", "15/10"].includes(campaign.date));
+    expect(productEmails.map(campaign => campaign.id)).toEqual([
+      "email-oct-sports",
+      "email-oct-aesthetic",
+      "email-oct-sonafe",
+      "email-oct-management",
+      "email-oct-wttc",
+      "email-oct-bodybuilding",
+    ]);
   });
 
   it("atribui URL direta e um único CTA a todas as entradas de outubro", () => {
@@ -91,9 +138,10 @@ describe("plano multicanal de outubro de 2026", () => {
     const researched = octoberCalendar.filter(entry => entry.agencyResearch);
     expect(researched.length).toBeGreaterThanOrEqual(12);
     expect(JSON.stringify(researched)).toMatch(/fonte|direitos|autoriza/i);
-    expect(item("1003").agencyResearch?.deliverables.join(" ")).toMatch(/licença|autorização/i);
-    expect(item("1027").agencyResearch?.validation).toMatch(/palestrantes|cliente/i);
-    expect(item("1031").agencyResearch?.fallback).toMatch(/cancelar/i);
+    expect(item("1002").agencyResearch?.deliverables.join(" ")).toMatch(/licença|autorização/i);
+    expect(item("1021").agencyResearch?.validation).toMatch(/palestrantes|cliente/i);
+    expect(item("1027").agencyResearch?.deliverables.join(" ")).toMatch(/coordenação 2027|autorização/i);
+    expect(item("1029").agencyResearch?.validation).toMatch(/institucional|jurídica|coordenador/i);
   });
 
   it("limita WhatsApp a uma janela semanal e exige consentimento ou evento verificável", () => {
