@@ -36,7 +36,7 @@ describe("abertura confirmada com gates operacionais", () => {
   });
 
   it("institui uma janela fixa completa e bloqueada por prontidão operacional", () => {
-    expect(launchWindow.map(item => item.moment)).toEqual(["D-8 · 28/09", "D-6 · 30/09", "D-4 · 02/10", "D-1 · 05/10", "D0 · 06/10", "D+1 a D+25"]);
+    expect(launchWindow.map(item => item.moment)).toEqual(["D-8 · 28/09", "D-6 · 30/09", "D-4 · 02/10", "D-2 · 04/10", "D-1 · 05/10", "D0 · 06/10", "D+1 a D+25"]);
     const gates = launchWindow.map(item => item.gate).join(" ").toLocaleLowerCase("pt-BR");
     expect(gates).toContain("ticketeira");
     expect(gates).toContain("checkout");

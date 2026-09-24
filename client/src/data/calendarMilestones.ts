@@ -45,6 +45,15 @@ export const calendarMilestones: Record<string, CalendarMilestone> = {
       requirement: "Redimensionar a mesma peça orgânica para 1:1, 4:5 e 9:16. Só veicular após validar checkout, links, condições públicas, tracking, UTMs, suporte e regras comerciais. O destino pré-abertura é a landing page de novidades.",
     },
   },
+  "1004": {
+    label: "Segundo reforço da abertura",
+    tone: "sales",
+    description: "Dois dias antes da abertura, a campanha reforça 06/10 no feed com urgência de calendário verdadeira e sem antecipar condições comerciais não publicadas.",
+    paidMediaPack: {
+      label: "Pack de artes para mídia paga",
+      requirement: "Redimensionar a mesma família visual de 30/09 para 1:1, 4:5 e 9:16. O destino permanece na landing page de novidades e o texto não pode usar lote limitado, últimas vagas, preço ou quantidade não comprovados.",
+    },
+  },
   "1006": {
     label: "Abertura das inscrições",
     tone: "sales",

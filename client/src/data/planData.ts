@@ -409,6 +409,13 @@ export type CalendarItem = {
   options?: string[];
   optionMode?: "alternatives" | "inputs";
   productionBrief?: ProductionBrief;
+  agencyResearch?: {
+    owner: string;
+    request: string;
+    deliverables: string[];
+    validation: string;
+    fallback: string;
+  };
   cutValidations?: CutValidation[];
   milestone?: CalendarMilestone;
   storyCards?: Array<{
@@ -501,7 +508,7 @@ export const emailNurture = [
   { id: "email-nurture-d5", moment: "+5 dias", content: "Relacionar as aulas aos três congressos correspondentes.", cta: "Conhecer os congressos", destination: "Página comparativa ou landing page geral", condition: "Não sugerir aulas das outras áreas" },
   { id: "email-nurture-anuncio-abertura", moment: "+8 dias", content: "Apresentar os seis congressos e orientar a escolha pelo desafio profissional, sem data comercial.", cta: "Conhecer os seis caminhos", destination: "Landing page geral", condition: "Não presumir interesse nem citar abertura sem confirmação operacional" },
   { id: "email-nurture-48h", moment: "+12 dias", content: "Convidar o lead a permanecer na lista para receber novidades, futuras divulgações oficiais e o aviso de abertura.", cta: "Quero receber as novidades", destination: "Landing page geral", condition: "Não antecipar programação; manter frequência moderada e suprimir descadastros" },
-  { id: "email-nurture-vendas-abertas", moment: "Após confirmação · D-7", content: "Transferir o lead para a sequência comercial móvel somente quando data, checkout, condições, URLs e suporte estiverem validados.", cta: "Acompanhar a data confirmada", destination: "Landing page geral", condition: "Não ativar automaticamente; depende de autorização operacional" },
+  { id: "email-nurture-vendas-abertas", moment: "30/09 · D-6", content: "Transferir o lead para a sequência comercial somente quando data, checkout, condições, URLs e suporte estiverem validados.", cta: "Acompanhar a abertura em 06/10", destination: "Landing page geral", condition: "Não ativar automaticamente; depende do gate operacional D-6" },
 ];
 
 export const emailAssets = [
@@ -509,8 +516,8 @@ export const emailAssets = [
   { material: "Página de obrigado", minimum: "Três vídeos, títulos oficiais, descrições temáticas e orientação de consumo; sem data comercial não confirmada", deadline: "Já disponível; revisar se houver menção a 23/09" },
   { material: "Landing page geral", minimum: "Proposta de cadastro, formulário e consentimentos", deadline: "Já disponível" },
   { material: "Página dos seis congressos", minimum: "Nome, público, problema e proposta de cada congresso", deadline: "Preferencialmente antes de 18/09" },
-  { material: "Página central de vendas", minimum: "Congressos, preços, condições, primeiro lote, suporte e inscrição", deadline: "Obrigatoriamente testada antes de iniciar a janela móvel D-7" },
-  { material: "Perguntas frequentes", minimum: "Conteúdo, programação disponível, condições, logística, escolha e suporte", deadline: "Aprovadas antes de iniciar a janela móvel D-7" },
+  { material: "Página central de vendas", minimum: "Congressos, preços, condições, primeiro lote, suporte e inscrição", deadline: "Obrigatoriamente testada antes do anúncio em 30/09 e retestada em 06/10" },
+  { material: "Perguntas frequentes", minimum: "Conteúdo, programação disponível, condições, logística, escolha e suporte", deadline: "Aprovadas antes do anúncio em 30/09 e revisadas até a abertura" },
 ];
 
 export const whatsappPlan = [
@@ -605,5 +612,5 @@ export const phaseSummary = [
   { label: "Aquecimento", period: "15–27/09", count: "Conteúdo contínuo + Stories segmentados", purpose: "Ajudar na escolha e ampliar a lista sem prometer data" },
   { label: "Intensificação", period: "28/09–05/10", count: "6 feed/reels + 2 Stories", purpose: "Começar na primeira data livre, anunciar 06/10 e preparar a escolha" },
   { label: "Abertura", period: "06/10", count: "Feed/Reel + Stories", purpose: "Levar cada público ao produto correto" },
-  { label: "Venda contínua", period: "08–31/10", count: "9 feed/reels + 4 Stories", purpose: "Aprofundar, converter e prestar serviço sem falsa urgência" },
+  { label: "Venda contínua", period: "08–31/10", count: "11 feed/reels + 4 Stories", purpose: "Alternar histórias, autoridade, profundidade e serviço para converter sem falsa urgência" },
 ];

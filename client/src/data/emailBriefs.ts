@@ -39,6 +39,8 @@ export type EmailCampaignBrief = {
   versions: EmailBriefVersion[];
   routing: EmailDecisionRule[];
   productionChecks: string[];
+  agencyResearch?: string[];
+  proofGate?: string;
   fallback: string;
   limits: string;
 };

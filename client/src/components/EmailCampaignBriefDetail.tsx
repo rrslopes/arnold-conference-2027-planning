@@ -4,6 +4,7 @@ import {
   ChevronDown,
   GitBranch,
   MousePointerClick,
+  Search,
   ShieldCheck,
 } from "lucide-react";
 import { emailCampaignBriefs } from "@/data/emailBriefs";
@@ -141,6 +142,22 @@ export default function EmailCampaignBriefDetail({
             ))}
           </div>
         </section>
+
+        {brief.agencyResearch?.length || brief.proofGate ? (
+          <section className="email-agency-research">
+            <header>
+              <Search size={19} />
+              <div>
+                <span>PESQUISA E MATERIAL BRUTO</span>
+                <strong>A agência deve comprovar antes de usar</strong>
+              </div>
+            </header>
+            {brief.agencyResearch?.map(item => (
+              <p key={item}><ShieldCheck size={14} />{item}</p>
+            ))}
+            {brief.proofGate ? <div><span>GATE DE PROVA</span><p>{brief.proofGate}</p></div> : null}
+          </section>
+        ) : null}
 
         <div className="email-brief-footer">
           <section>

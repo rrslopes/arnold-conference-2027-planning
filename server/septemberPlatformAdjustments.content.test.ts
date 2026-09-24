@@ -48,10 +48,10 @@ describe("ajustes estratégicos da plataforma em setembro", () => {
     expect(paidMediaAssets.filter(item => item.category === "redimensionamento")).toHaveLength(8);
     expect(paidMediaAssets.filter(item => item.category === "exclusiva")).toHaveLength(0);
     expect(paidMediaAssets.filter(item => !item.id.includes("-oct-")).map(item => item.id).sort()).toEqual(["resize-0908", "resize-0915", "resize-0918"]);
-    expect(Object.keys(calendarMilestones).sort()).toEqual(["0908", "0915", "0918", "0930", "1006"]);
+    expect(Object.keys(calendarMilestones).sort()).toEqual(["0908", "0915", "0918", "0930", "1004", "1006"]);
     expect(paidMediaAssets.filter(item => item.status === "liberada").every(item => item.destination)).toBe(true);
     expect(paidMediaAssets.filter(item => item.id.includes("-oct-")).every(item => item.status === "condicionada")).toBe(true);
-    expect(launchWindow.map(item => item.moment)).toEqual(["D-8 · 28/09", "D-6 · 30/09", "D-4 · 02/10", "D-1 · 05/10", "D0 · 06/10", "D+1 a D+25"]);
+    expect(launchWindow.map(item => item.moment)).toEqual(["D-8 · 28/09", "D-6 · 30/09", "D-4 · 02/10", "D-2 · 04/10", "D-1 · 05/10", "D0 · 06/10", "D+1 a D+25"]);
   });
 
   it("exibe somente os coordenadores confirmados no arquivo recebido", () => {

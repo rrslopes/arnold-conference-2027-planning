@@ -2,8 +2,8 @@ import { describe, expect, it } from "vitest";
 import { calendar } from "../client/src/data/planData";
 
 describe("briefings operacionais do calendário", () => {
-  it("cobre as 28 pautas históricas e as 21 entradas da nova fase com sequência explícita ou aprovação prévia", () => {
-    expect(calendar).toHaveLength(49);
+  it("cobre as 28 pautas históricas e as 23 entradas da nova fase com sequência explícita ou aprovação prévia", () => {
+    expect(calendar).toHaveLength(51);
     for (const item of calendar) {
       const hasExplicitSequence = Boolean(item.productionBrief?.units.length || item.storyCards?.length);
       const isPreviouslyApproved = item.id === "0831";
@@ -45,7 +45,7 @@ describe("briefings operacionais do calendário", () => {
 
   it("vincula somente os materiais com correspondência inequívoca às pautas", () => {
     const linkedItems = calendar.filter(item => item.materialLinks?.length).map(item => item.id);
-    expect(linkedItems).toEqual(["0904", "0906", "0908", "0910", "0911", "0918", "0919", "0921", "0923", "0925"]);
+    expect(linkedItems).toEqual(["0904", "0906", "0908", "0910", "0911", "0918", "0919", "0921", "0923", "0925", "1003", "1027", "1029"]);
 
     const links = calendar.flatMap(item => item.materialLinks ?? []);
     expect(new Set(links.map(link => link.url))).toEqual(new Set([
@@ -58,10 +58,25 @@ describe("briefings operacionais do calendário", () => {
       "https://www.instagram.com/reels/DYfnzGHP81D/",
       "https://www.instagram.com/p/DTnBm0Qlo0Q/",
       "https://docs.google.com/spreadsheets/d/1P6EooZAA6mVkYVMC-hVUfbBvGfxxCx-8/edit?gid=656380718#gid=656380718",
+      "https://drive.google.com/drive/folders/1Ku_LPpWtnt8nji762YzGQnjopbWj2md2",
+      "https://drive.google.com/drive/folders/1a_jJtOn4Pux1oUpMLgXfFkvpLLnRcnZ9?usp=sharing",
+      "https://drive.google.com/drive/folders/12OxnbkavM9TcW0rRhKh6RTVI8pVJ3pUp?usp=drive_link",
+      "https://drive.google.com/drive/folders/1B_q9pMY_4TLs2_1g2qvl6oKi2vtm14DM?usp=drive_link",
     ]));
 
     expect(calendar.find(item => item.id === "0925")?.materialLinks?.map(link => link.label).join(" ")).not.toContain("Luisa");
     expect(calendar.find(item => item.id === "0927")?.materialLinks).toBeUndefined();
+  });
+
+  it("explicita pesquisa, entregas, validação e fallback quando a agência precisa buscar prova", () => {
+    const researchItems = calendar.filter(item => item.agencyResearch);
+    expect(researchItems.map(item => item.id)).toEqual(["1001", "1002", "1003", "1008", "1010", "1013", "1014", "1016", "1020", "1021", "1024", "1027", "1029", "1031"]);
+    for (const item of researchItems) {
+      expect(item.agencyResearch?.owner.length, item.id).toBeGreaterThan(10);
+      expect(item.agencyResearch?.deliverables.length, item.id).toBeGreaterThanOrEqual(4);
+      expect(item.agencyResearch?.validation.length, item.id).toBeGreaterThan(20);
+      expect(item.agencyResearch?.fallback.length, item.id).toBeGreaterThan(20);
+    }
   });
 
   it("transforma 25/09 em um único carrossel de seis cards ancorado em 2026", () => {

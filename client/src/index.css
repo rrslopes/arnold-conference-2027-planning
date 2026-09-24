@@ -500,6 +500,18 @@ img { max-width: 100%; }
 .production-step > small a { display: inline-flex; align-items: center; gap: 4px; color: var(--purple); font-weight: 800; text-decoration: none; }
 .production-sequence .production-note { margin: 0; padding: 10px 12px; background: var(--charcoal); color: rgba(255,255,255,.78); font-size: 8px; line-height: 1.55; }
 .production-sequence .production-note b { display: block; margin-bottom: 3px; color: var(--lime); font-size: 7px; letter-spacing: .12em; }
+.agency-research { display: grid; gap: 12px; margin: 18px 0; padding: 16px; border: 1px solid rgba(77,70,156,.2); border-left: 4px solid var(--lime-dark); background: #f7f6ef; }
+.agency-research > header { display: flex; align-items: center; gap: 9px; }
+.agency-research > header svg { color: var(--purple); }
+.agency-research > header span, .agency-research-grid span { display: block; color: var(--purple); font-size: 7px; font-weight: 900; letter-spacing: .12em; }
+.agency-research > header strong { display: block; margin-top: 3px; font: 600 19px/1 "Teko Arnold"; text-transform: uppercase; }
+.agency-research > p { margin: 0; color: #514c4e; font-size: 9px; line-height: 1.55; }
+.agency-research-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 10px; }
+.agency-research-grid > div { padding: 12px; background: white; }
+.agency-research-grid p { margin: 7px 0 0; color: #5c5659; font-size: 8px; line-height: 1.5; }
+.agency-research-grid > div:first-child p { display: flex; align-items: flex-start; gap: 6px; }
+.agency-research-grid > div:first-child svg { flex: 0 0 auto; color: var(--lime-dark); }
+.agency-research-grid span:not(:first-child) { margin-top: 12px; }
 .cut-validation { display: grid; gap: 11px; margin: 18px 0; padding: 16px; background: #f0f2df; border-top: 3px solid var(--lime-dark); }
 .cut-validation-head { display: grid; grid-template-columns: 24px 1fr; gap: 10px; align-items: start; }
 .cut-validation-head > svg { color: var(--purple); }
@@ -643,6 +655,15 @@ img { max-width: 100%; }
 .email-routing-grid article > strong { display: block; margin-top: 4px; font-size: 9px; line-height: 1.45; }
 .email-routing-grid article > p { margin: 4px 0; color: rgba(255,255,255,.78); }
 .email-routing-grid article > small { display: block; margin-top: 8px; color: rgba(255,255,255,.45); font-size: 7px; line-height: 1.5; letter-spacing: 0; }
+.email-agency-research { margin-top: 12px; padding: 15px 16px; border-left: 4px solid var(--lime-dark); background: white; }
+.email-agency-research > header { display: flex; align-items: center; gap: 9px; margin-bottom: 10px; }
+.email-agency-research > header svg { color: var(--purple); }
+.email-agency-research > header span, .email-agency-research > div span { display: block; color: var(--purple); font-size: 7px; font-weight: 900; letter-spacing: .12em; }
+.email-agency-research > header strong { display: block; margin-top: 3px; font: 600 20px/1 "Teko Arnold"; text-transform: uppercase; }
+.email-agency-research > p { display: flex; align-items: flex-start; gap: 7px; margin: 7px 0 0; color: #5c5659; font-size: 8px; line-height: 1.5; }
+.email-agency-research > p svg { flex: 0 0 auto; color: var(--lime-dark); }
+.email-agency-research > div { margin-top: 12px; padding: 11px 12px; background: #ecebe5; }
+.email-agency-research > div p { margin: 5px 0 0; color: #514c4e; font-size: 8px; line-height: 1.5; }
 .email-brief-footer { display: grid; grid-template-columns: 1.15fr .85fr; gap: 12px; margin-top: 12px; }
 .email-brief-footer section { padding: 14px 16px; background: white; }
 .email-brief-footer p { margin: 7px 0 0; }
@@ -1493,7 +1514,7 @@ img { max-width: 100%; }
   .paid-media-cta { grid-template-columns: 1fr; }
   .channel-principles, .nurture-grid { grid-template-columns: 1fr; }
   .email-tabs { flex-direction: column; }
-  .email-brief-versions, .email-brief-context, .email-brief-steps, .email-routing-grid, .email-brief-footer { grid-template-columns: 1fr; }
+  .email-brief-versions, .email-brief-context, .email-brief-steps, .email-routing-grid, .email-brief-footer, .agency-research-grid { grid-template-columns: 1fr; }
   .email-brief-action { grid-template-columns: 20px 1fr; }
   .email-brief-action a { grid-column: 2; }
   .email-brief-secondary { grid-template-columns: 1fr; }
