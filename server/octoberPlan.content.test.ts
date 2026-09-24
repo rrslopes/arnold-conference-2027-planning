@@ -34,6 +34,7 @@ describe("plano multicanal de outubro de 2026", () => {
   });
 
   it("anuncia 06/10 em 30/09 e só chama para compra a partir da abertura", () => {
+    expect(JSON.stringify(item("0928"))).not.toContain("06/10");
     expect(item("0930").title).toBe("As inscrições do Arnold Conference 2027 abrem em 06/10");
     expect(`${item("0930").cta} ${item("0930").destination}`.toLocaleLowerCase("pt-BR")).not.toMatch(/comprar|compra|checkout/);
     expect(item("1006").title).toBe("Inscrições abertas para o Arnold Conference 2027");
@@ -61,17 +62,22 @@ describe("plano multicanal de outubro de 2026", () => {
     expect(JSON.stringify([...management, ...certification])).not.toMatch(/versus/i);
   });
 
-  it("registra seis pontos de busca de íntegras sem tratá-los como cortes aprovados", () => {
+  it("registra evidências audiovisuais e distingue cortes conferidos de pendências humanas", () => {
     const cutItems = octoberCalendar.filter(entry => entry.cutValidations?.length);
-    expect(cutItems.map(entry => entry.id)).toEqual(["0928", "1001", "1003", "1012", "1014", "1020"]);
+    expect(cutItems.map(entry => entry.id)).toEqual(["0928", "1001", "1003", "1012", "1014", "1018", "1020", "1031"]);
     const cuts = cutItems.flatMap(entry => entry.cutValidations ?? []);
-    expect(cuts).toHaveLength(6);
+    expect(cuts).toHaveLength(8);
     for (const cut of cuts) {
-      expect(cut.sourceUrl).toMatch(/^https:\/\/(youtu\.be|www\.youtube\.com)\//);
+      expect(cut.sourceUrl).toMatch(/^https:\/\/(youtu\.be|www\.youtube\.com|www\.instagram\.com)\//);
       expect(cut.location).toMatch(/\d{2}:\d{2}/);
-      expect(["Tema localizado na transcrição automática", "Confirmado na transcrição"]).toContain(cut.transcriptStatus);
-      expect(cut.videoStatus).toBe("Conferência no vídeo original pendente");
+      expect(["Tema localizado na transcrição automática", "Confirmado na transcrição", "Conferido no audiovisual original"]).toContain(cut.transcriptStatus);
+      expect(["Conferência no vídeo original pendente", "Conferido no audiovisual original", "Conferência humana no player original pendente"]).toContain(cut.videoStatus);
     }
+    expect(cuts.filter(cut => cut.videoStatus === "Conferido no audiovisual original").map(cut => cut.id)).toEqual(["C18", "C15", "C17", "C21", "C23"]);
+    expect(cuts.filter(cut => cut.videoStatus === "Conferência humana no player original pendente").map(cut => cut.id)).toEqual(["C19", "C16", "C22"]);
+    expect(JSON.stringify(item("1001").productionBrief)).not.toContain("01:03:08");
+    expect(JSON.stringify(item("1012").productionBrief)).not.toContain("43:52");
+    expect(JSON.stringify(item("1018").productionBrief)).not.toContain("00:50–00:58");
   });
 
   it("inclui formatos simples pedidos pelo cliente sem inventar fatos ou depoimentos", () => {
@@ -130,6 +136,40 @@ describe("plano multicanal de outubro de 2026", () => {
     }
   });
 
+  it("faz cada CTA avançar para o destino correto da fase e do congresso", () => {
+    expect(item("0928").destination).toBe("Landing page geral de novidades");
+    expect(item("0930").destination).toBe("Landing page geral de novidades");
+    expect(item("1006").destination).toBe("Hub oficial do Arnold Conference");
+
+    const expectedDestination: Record<string, string> = {
+      "Nutrição Esportiva": "Página oficial de Nutrição Esportiva",
+      "Nutrição Estética": "Página oficial de Nutrição Estética",
+      SONAFE: "Página oficial do SONAFE",
+      "Gestão de Academias": "Página oficial de Gestão de Academias",
+      WTTC: "Página oficial da Certificação Internacional em Personal Training – WTTC",
+      Bodybuilding: "Página oficial de Bodybuilding",
+    };
+
+    const postOpening = octoberCalendar.filter(entry => Number(entry.id.slice(0, 4)) > 1006 && entry.congresses.length === 1 && entry.congresses[0] !== "Todos");
+    for (const entry of postOpening) {
+      expect(entry.destination, entry.id).toBe(expectedDestination[entry.congresses[0]]);
+      expect(entry.cta.toLocaleLowerCase("pt-BR"), entry.id).toContain("inscrição");
+    }
+  });
+
+  it("mantém temas diferentes nos três ciclos e torna 09/10 explicitamente executável", () => {
+    const thematic = octoberCalendar.filter(entry => entry.congresses.length === 1 && entry.congresses[0] !== "Todos");
+    for (const congress of preferredOrder) {
+      const entries = thematic.filter(entry => entry.congresses[0] === congress);
+      expect(new Set(entries.map(entry => entry.title)).size, congress).toBe(3);
+      expect(new Set(entries.map(entry => entry.idea)).size, congress).toBe(3);
+    }
+
+    const bodybuildingExample = JSON.stringify(item("1009").productionBrief);
+    expect(bodybuildingExample).toMatch(/segunda-feira|quarta|sexta/i);
+    expect(bodybuildingExample).toMatch(/o que foi alterado|em qual data|qual resposta/i);
+  });
+
   it("mantém onze slots de e-mail, com lembrete segmentado em 04/10 e sem envio redundante em 02 ou 05/10", () => {
     expect(octoberEmails).toHaveLength(11);
     expect(Object.keys(emailCampaignBriefs).filter(id => id.startsWith("email-oct-"))).toHaveLength(11);
@@ -158,7 +198,7 @@ describe("plano multicanal de outubro de 2026", () => {
     expect(JSON.stringify(aesthetic)).toMatch(/queda capilar|ferritina|inflamação|GLP-1/i);
     expect(JSON.stringify(sonafe)).toMatch(/quem é o atleta|modalidade|fase|objetivo|retorno ao esporte/i);
     expect(management.sourceLinks?.[0]).toMatchObject({ url: "https://youtu.be/7nACkId-GGw" });
-    expect(JSON.stringify(management)).toContain("33:14–35:43");
+    expect(JSON.stringify(management)).toContain("36:21–36:49");
     expect(JSON.stringify(wttc)).toMatch(/Cris Parente|quatro verificações|divergência pública/i);
     expect(`${bodybuilding.versions[0].objective} ${bodybuilding.versions[0].subjectDirection}`).not.toMatch(/equipe multidisciplinar/i);
     expect(JSON.stringify(bodybuilding)).toMatch(/sem repetir.*equipe multidisciplinar/i);

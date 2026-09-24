@@ -3,11 +3,11 @@ export type CutValidation = {
   speaker: string;
   sourceTitle: string;
   sourceUrl?: string;
-  transcriptStatus: "Confirmado na transcrição" | "Tema confirmado; recorte reformulado" | "Tema localizado na transcrição automática";
+  transcriptStatus: "Confirmado na transcrição" | "Tema confirmado; recorte reformulado" | "Tema localizado na transcrição automática" | "Conferido no audiovisual original";
   excerpt: string;
   location: string;
   productionNote: string;
-  videoStatus: "Conferência no vídeo original pendente";
+  videoStatus: "Conferência no vídeo original pendente" | "Conferido no audiovisual original" | "Conferência humana no player original pendente";
 };
 
 type CutAuditEntry = {
