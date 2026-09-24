@@ -152,7 +152,7 @@ function ExecutiveSummary() {
         <h2>Outubro leva cada público de um problema reconhecido à inscrição no congresso certo.</h2>
       </div>
       <div className="summary-copy">
-        <p>A nova fase começa em 28/09, primeira data livre do calendário, com Nutrição Esportiva. Os ciclos seguem por Nutrição Estética, SONAFE, Gestão de Academias, Certificação Internacional em Personal Training – WTTC e Bodybuilding, mantendo três pautas para cada congresso. Em 30/09, a campanha anuncia que as inscrições abrem em 06/10. Depois da abertura, conteúdo, e-mail, mídia e WhatsApp ajudam a converter e perseguir a lotação máxima de cada sala.</p>
+        <p>A nova fase começa em 28/09, primeira data livre do calendário, com Nutrição Esportiva. O calendário posiciona os seis congressos com argumentos próprios e dá recorrência maior à Nutrição Esportiva por seu papel central no Arnold Conference. Em 30/09, a campanha anuncia que as inscrições abrem em 06/10. Depois da abertura, conteúdo, e-mail, mídia e WhatsApp ajudam a converter e perseguir a lotação máxima de cada sala.</p>
         <p>A geração de leads continua em paralelo para quem ainda está pesquisando. Ela não substitui venda: a LP de novidades identifica interesse, enquanto compra confirmada e ocupação por congresso passam a ser os indicadores principais da fase.</p>
         <div className="command-status">
           <article><span>ESTADO DO PLANO</span><strong><CircleDot size={15} /> Em revisão executiva</strong><p>Conteúdo consolidado; validação do cliente e do marketing interno em andamento.</p></article>
