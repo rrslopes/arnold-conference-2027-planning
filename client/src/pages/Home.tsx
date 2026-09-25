@@ -249,15 +249,15 @@ function EmailPlan() {
         </div>
         {campaignMonth === "Outubro" ? (
           <section className="email-gate-map">
-            <header><ShieldCheck size={22} /><div><span>GATES DE LIBERAÇÃO · ACESSO DA AGÊNCIA</span><strong>Requisito escrito não significa status verde</strong><p>A agência consulta os critérios nesta plataforma. O GO precisa ser registrado pelo cliente e pela operação, com evidência e horário, na planilha compartilhada. Sem evidência, o envio usa o fallback ou é cancelado.</p></div></header>
+            <header><ShieldCheck size={22} /><div><span>CHECKLISTS DE LIBERAÇÃO DOS ENVIOS · ACESSO DA AGÊNCIA</span><strong>Estar escrito aqui não quer dizer que o envio está liberado</strong><p>Cada checklist lista o que precisa estar pronto antes de um envio. A agência confere aqui; quem libera é o cliente, junto com a operação, registrando na planilha compartilhada o que foi conferido e quando. Se algum item não estiver pronto, o e-mail usa a alternativa segura do briefing ou não sai.</p></div></header>
             <div>
               {emailOperationalGates.map(gate => (
                 <article key={gate.id}>
                   <small>{gate.moment}</small>
                   <h3>{gate.title}</h3>
-                  <p><b>Quem vê e decide:</b> {gate.access}</p>
-                  <p><b>Evidência necessária:</b> {gate.evidence}</p>
-                  <p><b>NO-GO:</b> {gate.noGo}</p>
+                  <p><b>Quem confere e quem libera:</b> {gate.access}</p>
+                  <p><b>O que precisa estar pronto:</b> {gate.evidence}</p>
+                  <p><b>Se faltar algo:</b> {gate.noGo}</p>
                 </article>
               ))}
             </div>

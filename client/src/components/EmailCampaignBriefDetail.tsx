@@ -156,7 +156,7 @@ export default function EmailCampaignBriefDetail({
             {brief.agencyResearch?.map(item => (
               <p key={item}><ShieldCheck size={14} />{item}</p>
             ))}
-            {brief.proofGate ? <div><span>GATE DE PROVA</span><p>{brief.proofGate}</p></div> : null}
+            {brief.proofGate ? <div><span>LIBERAÇÃO DO ENVIO</span><p>{brief.proofGate}</p></div> : null}
           </section>
         ) : null}
 

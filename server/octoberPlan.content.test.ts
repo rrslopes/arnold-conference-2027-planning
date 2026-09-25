@@ -166,7 +166,7 @@ describe("pacote editorial de 28/09 a 31/10 de 2026", () => {
     expect(bodybuilding).not.toMatch(/dose|fármaco|ciclo/i);
   });
 
-  it("segue o pacote de e-mail de outubro com treze envios e uma automação", () => {
+  it("segue o pacote de e-mail de outubro com dezessete envios e uma automação", () => {
     expect(octoberEmails.map(entry => [entry.id, entry.date])).toEqual([
       ["email-oct-announcement", "30/09"],
       ["email-oct-reminder", "04/10"],
@@ -178,7 +178,11 @@ describe("pacote editorial de 28/09 a 31/10 de 2026", () => {
       ["email-oct-wttc", "14/10"],
       ["email-oct-bodybuilding", "15/10"],
       ["email-oct-sports-2", "20/10"],
-      ["email-oct-aesthetic-2", "23/10"],
+      ["email-oct-aesthetic-2", "21/10"],
+      ["email-oct-sonafe-2", "22/10"],
+      ["email-oct-management-2", "23/10"],
+      ["email-oct-wttc-2", "26/10"],
+      ["email-oct-bodybuilding-2", "26/10"],
       ["email-oct-consideration", "27/10"],
       ["email-oct-scarcity", "29/10"],
       ["email-oct-abandon", "Desde 06/10"],
@@ -194,6 +198,25 @@ describe("pacote editorial de 28/09 a 31/10 de 2026", () => {
       }
     }
     expect(JSON.stringify(emailCampaignBriefs["email-oct-abandon"])).toMatch(/1h depois do abandono e 24h depois/);
+  });
+
+  it("aplica a revisão da estratégia de e-mail de outubro", () => {
+    const brief = (id: string) => JSON.stringify(emailCampaignBriefs[id]);
+    const allOctober = octoberEmails.map(entry => brief(entry.id)).join(" ");
+    expect(allOctober).not.toMatch(/Teste A\/B|recebe o aviso primeiro|aviso sai primeiro/);
+    for (const id of ["email-oct-announcement", "email-oct-reminder"]) {
+      expect(brief(id), id).toContain("Quem está na lista recebe as informações do lançamento e tem a oportunidade de concluir a inscrição com a condição especial do lote 1.");
+      expect(brief(id), id).toContain("fique de olho na sua caixa de entrada");
+    }
+    expect(brief("email-oct-reminder")).toContain("em 2026, o Simpósio de Fisioterapia Esportiva da SONAFE esgotou");
+    expect(brief("email-oct-opening")).toContain("Adriana ou Karla");
+    expect(JSON.stringify(emailCampaignBriefs["email-oct-aesthetic-2"].versions[0].steps)).not.toMatch(/ferritina|lipedema|cirurgia plástica/i);
+    const lastContact: Record<string, string> = { sonafe: "22/10", management: "23/10", wttc: "26/10", bodybuilding: "26/10" };
+    for (const [slug, date] of Object.entries(lastContact)) {
+      expect(octoberEmails.find(entry => entry.id === `email-oct-${slug}-2`)?.date, slug).toBe(date);
+    }
+    const preheaders = octoberEmails.map(entry => emailCampaignBriefs[entry.id].versions[0].subjectDirection.split("Pré-cabeçalho:")[1]).filter(Boolean);
+    expect(new Set(preheaders).size).toBe(preheaders.length);
   });
 
   it("segmenta 06/10 por interesse e manda o hub só para a versão Geral", () => {
@@ -219,7 +242,8 @@ describe("pacote editorial de 28/09 a 31/10 de 2026", () => {
     expect(JSON.stringify(emailCampaignBriefs["email-oct-reminder"])).not.toMatch(/Não ampliar|clicaram no e-mail de 30\/09/);
     const gates = Object.fromEntries(emailOperationalGates.map(gate => [gate.id, gate]));
     expect(JSON.stringify(gates.d6)).not.toMatch(/sem escassez/i);
-    expect(gates.d2.evidence).toBe("LP de novidades e UTM testadas e supressões aplicadas.");
+    expect(gates.d2.evidence).toBe("LP de novidades e links com UTM testados, e supressões aplicadas.");
+    expect(JSON.stringify(emailOperationalGates)).not.toMatch(/\bGO\b|NO-GO|D-6|D-2|D0/);
     expect(gates.d0.evidence).toContain("Compra-teste real em desktop e mobile");
   });
 

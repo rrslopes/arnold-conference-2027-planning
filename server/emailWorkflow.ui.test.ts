@@ -36,8 +36,9 @@ describe("plano de e-mail estratégico simplificado", () => {
       "A plataforma define a lógica da régua; a produção e a aprovação ficam na planilha operacional"
     );
     expect(home).toContain("Copy final, link da prévia, ajustes e status");
-    expect(home).toContain("GATES DE LIBERAÇÃO · ACESSO DA AGÊNCIA");
-    expect(home).toContain("Requisito escrito não significa status verde");
+    expect(home).toContain("CHECKLISTS DE LIBERAÇÃO DOS ENVIOS · ACESSO DA AGÊNCIA");
+    expect(home).toContain("Estar escrito aqui não quer dizer que o envio está liberado");
+    expect(home).not.toMatch(/NO-GO|O GO /);
     expect(home).toContain("emailOperationalGates.map");
   });
 
