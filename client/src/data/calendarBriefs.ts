@@ -29,7 +29,7 @@ export const operationalBriefs: Record<string, ProductionBrief> = {
     units: [
       { unit: "Card 1", role: "Abertura", content: "Explicar que o Arnold Conference reúne seis caminhos para desafios profissionais diferentes." },
       { unit: "Card 2", role: "Gestão de Academias", content: "Desafio: fortalecer gestão, retenção e crescimento sem ampliar a sobrecarga do dono.", source: "Proposta de valor de Gestão" },
-      { unit: "Card 3", role: "Certificação Internacional em Personal Training – WTTC", content: "Desafio: ampliar a carreira do personal trainer por meio de certificação internacional com chancela WTTC e possibilidade de atuação profissional em 35 países.", source: "Proposta de valor da Certificação Internacional em Personal Training – WTTC" },
+      { unit: "Card 3", role: "Certificação Internacional em Personal Training – WTTC", content: "Desafio: ampliar a carreira do personal trainer por meio de certificação internacional com chancela WTTC, presente em 5 continentes e 18 países, com mais de 35 mil treinadores no mundo.", source: "Proposta de valor da Certificação Internacional em Personal Training – WTTC" },
       { unit: "Card 4", role: "SONAFE", content: "Desafio: conectar prevenção, avaliação, reabilitação, equipe e retorno seguro ao esporte.", source: "Proposta de valor SONAFE" },
       { unit: "Card 5", role: "Nutrição Estética", content: "Desafio: diferenciar platô, reganho e demandas estéticas antes de repetir condutas genéricas.", source: "Proposta de valor de Nutrição Estética" },
       { unit: "Card 6", role: "Nutrição Esportiva", content: "Desafio: individualizar a estratégia em vez de seguir receita universal ou apelo de produto.", source: "Proposta de valor de Nutrição Esportiva" },
@@ -125,7 +125,7 @@ export const operationalBriefs: Record<string, ProductionBrief> = {
     units: [
       { unit: "Card/Bloco 1", role: "Abertura", content: "Apresentar o Arnold Conference 2027 como seis caminhos para momentos profissionais diferentes." },
       { unit: "Card/Bloco 2", role: "Gestão", content: "Perfil: lidera academia ou negócio e precisa fortalecer operação, cultura e crescimento." },
-      { unit: "Card/Bloco 3", role: "Certificação Internacional em Personal Training – WTTC", content: "Perfil: personal trainer que já desenvolve sua carreira e busca ampliar a atuação profissional internacional, com chancela WTTC e possibilidade de atuação em 35 países." },
+      { unit: "Card/Bloco 3", role: "Certificação Internacional em Personal Training – WTTC", content: "Perfil: personal trainer que já desenvolve sua carreira e busca ampliar a atuação profissional internacional, com chancela WTTC, uma certificação presente em 5 continentes e 18 países, com mais de 35 mil treinadores no mundo." },
       { unit: "Card/Bloco 4", role: "SONAFE", content: "Perfil: fisioterapeuta ou equipe que atua com prevenção, avaliação, reabilitação e retorno ao esporte." },
       { unit: "Card/Bloco 5", role: "Nutrição Estética", content: "Perfil: profissional que lida com emagrecimento, composição e demandas estéticas complexas." },
       { unit: "Card/Bloco 6", role: "Nutrição Esportiva", content: "Perfil: profissional que decide sobre alimentação, saúde e desempenho esportivo." },
@@ -157,7 +157,7 @@ export const operationalBriefs: Record<string, ProductionBrief> = {
       { unit: "Card 2", role: "Nome completo", content: "Identificar a Certificação Internacional em Personal Training – WTTC antes de utilizar a sigla." },
       { unit: "Card 3", role: "Público", content: "Explicar que a certificação é destinada a personal trainers que já desenvolvem sua carreira e buscam ampliar a atuação profissional internacional." },
       { unit: "Card 4", role: "Diferencial", content: "Apresentar a chancela WTTC como elemento central da certificação internacional." },
-      { unit: "Card 5", role: "Alcance", content: "Informar a possibilidade de atuação profissional em 35 países, sem prometer empregabilidade, contratação ou equivalência regulatória automática." },
+      { unit: "Card 5", role: "Alcance", content: "Informar que a certificação está presente em 5 continentes e 18 países, com mais de 35 mil treinadores no mundo, sem prometer empregabilidade, contratação ou equivalência regulatória automática." },
       { unit: "Card 6", role: "Próximo passo", content: "Orientar a salvar e cadastrar-se para acompanhar formação, requisitos e informações oficiais da edição de 2027." },
     ],
     note: "Manter a peça integralmente dedicada à certificação e ao seu público. Validar requisitos e alcance regulatório antes da publicação final; não prometer empregabilidade, contratação ou equivalência automática.",

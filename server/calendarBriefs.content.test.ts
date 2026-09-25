@@ -2,8 +2,8 @@ import { describe, expect, it } from "vitest";
 import { calendar } from "../client/src/data/planData";
 
 describe("briefings operacionais do calendário", () => {
-  it("cobre as 28 pautas históricas e as 29 entradas da nova fase com sequência explícita ou aprovação prévia", () => {
-    expect(calendar).toHaveLength(57);
+  it("cobre as 28 pautas históricas e as 38 entradas da nova fase com sequência explícita ou aprovação prévia", () => {
+    expect(calendar).toHaveLength(66);
     for (const item of calendar) {
       const hasExplicitSequence = Boolean(item.productionBrief?.units.length || item.storyCards?.length);
       const isPreviouslyApproved = item.id === "0831";
@@ -65,7 +65,7 @@ describe("briefings operacionais do calendário", () => {
 
   it("explicita pesquisa, entregas, validação e fallback quando a agência precisa buscar prova", () => {
     const researchItems = calendar.filter(item => item.agencyResearch);
-    expect(researchItems.map(item => item.id)).toEqual(["1002", "1003", "1007", "1008", "1010", "1011", "1013", "1015", "1018", "1021", "1022", "1024", "1026", "1027", "1028", "1029", "1031"]);
+    expect(researchItems.map(item => item.id)).toEqual(["1002", "1003", "1008", "1010", "1017", "1019", "1021", "1024", "1025", "1026", "1027", "1028", "1029", "1031"]);
     for (const item of researchItems) {
       expect(item.agencyResearch?.owner.length, item.id).toBeGreaterThan(10);
       expect(item.agencyResearch?.deliverables.length, item.id).toBeGreaterThanOrEqual(1);

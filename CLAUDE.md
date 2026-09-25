@@ -49,6 +49,18 @@ Vendas abrem em 06/10/2026. Meta: lotação máxima de todas as salas. Todos os 
 - Sem nomes comerciais de medicamentos e sem marcas de competições (FIFA) nas artes.
 - Stories: no máximo 1 ou 2 enquetes por dia, com Story de contexto antes. Menos de 10 respostas = sinal direcional.
 - Acervo 2026 sempre identificado como 2026; não sugerir que o palestrante estará em 2027 sem confirmação.
+- Números da Certificação Internacional em Personal Training – WTTC (validados no roteiro da Leal): "presente em 5 continentes e 18 países, com mais de 35 mil treinadores no mundo". Não usar mais "35 países".
+
+## Vídeos da Leal e collabs
+
+- Leal é a CEO do Arnold South America e do Arnold Conference, e é a porta-voz do evento. Os vídeos dela são gravados e editados pela equipe do cliente (Iris: pautas e roteiros; Dodge: foto e filmagem). A agência do Conference não edita esses vídeos: define data, capa, legenda, CTA e Stories de apoio.
+- Os vídeos entram em collab entre o perfil do Arnold e o do Conference. Todo card com vídeo da Leal mostra a pendência "[LINK DO VÍDEO – A RECEBER DA EQUIPE DO CLIENTE]" até o link chegar.
+- Vídeos de tendência: toda quinta, publicados pelo Arnold. Quando o tema tem relação com o Conference, o Conference entra na collab; a agência aceita a collab e faz os Stories de ponte para um congresso. ID do card: data DDMM + letra (ex.: 1008a), porque o servidor só aceita 4 dígitos e uma letra de a a c.
+- Vídeos de congresso: a data é definida pelo planejamento do Conference.
+- Datas comemorativas: usar a arte ou o vídeo do Arnold em collab ou criar peça própria; a decisão é do Raphael.
+- Posts de palestrante confirmado: sempre em collab com o palestrante, com dia e horário combinados antes (os primeiros 20 minutos determinam o engajamento).
+- Aprovações do cliente: Adriana (Dri), diretora de marketing.
+- Backlog de posts sem data para os próximos meses: `referencias/backlog-novembro.md` (fora do Git).
 
 ## Documentos vivos (ler antes de propor pautas)
 

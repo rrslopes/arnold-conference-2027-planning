@@ -19,9 +19,9 @@ describe("ajustes estratégicos da plataforma em setembro", () => {
     const wttc = congresses.find(item => item.name === "WTTC");
     expect(wttc?.displayName).toBe("Certificação Internacional em Personal Training – WTTC");
     expect(`${wttc?.audience} ${wttc?.promise}`.toLocaleLowerCase("pt-BR")).toContain("atuação profissional internacional");
-    expect(wttc?.promise.toLocaleLowerCase("pt-BR")).toContain("35 países");
+    expect(wttc?.promise.toLocaleLowerCase("pt-BR")).toContain("5 continentes e 18 países, com mais de 35 mil treinadores");
     expect(wttc?.promise.toLocaleLowerCase("pt-BR")).toContain("chancela wttc");
-    expect(operationalBriefs["0917"].units.map(item => item.content).join(" ")).toContain("35 países");
+    expect(operationalBriefs["0917"].units.map(item => item.content).join(" ")).toContain("5 continentes e 18 países, com mais de 35 mil treinadores");
   });
 
   it("mantém prevenção como eixo prioritário da SONAFE", () => {
