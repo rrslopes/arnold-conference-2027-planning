@@ -51,7 +51,7 @@ export const octoberCalendarBase = [
           "unit": "Corte (4 a 40s)",
           "role": "Trecho da palestra",
           "content": "Ivan explica que os estudos usam \"massa magra\", \"massa livre de gordura\", \"tecido mole magro\" e \"massa muscular\" como se fossem a mesma coisa, mas cada termo pode incluir ou não osso, órgãos e tecido mole. Legenda fiel à fala. Minutagem abaixo.",
-          "source": "Ivan Lucas · 17:36 a 18:13. Começa em \"Primeiro, ele definiu claramente o que que é o quê\" e termina em \"...pode incluir órgão ou pode não incluir\". Pílula: 17:50 a 18:04.",
+          "source": "Ivan Lucas · 17:32 a 18:13. Começa em \"Primeiro, ele definiu claramente o que que é o quê\" e termina em \"...pode incluir órgão ou pode não incluir\". Pílula: 17:50 a 18:04.",
           "sourceUrl": "https://youtu.be/v0BaKxCH-2A"
         },
         {
@@ -267,7 +267,7 @@ export const octoberCalendarBase = [
           "unit": "Corte (4 a 27s)",
           "role": "Trecho da palestra",
           "content": "Olívia relata a queixa das alunas (\"o paciente foi fazer uso do medicamento e nem voltou para minha consulta\") e responde que o nutricionista precisa alertar o paciente de que ele terá efeitos colaterais, desmame e vai precisar do acompanhamento depois: \"tudo isso cabe a gente\". Legenda fiel.",
-          "source": "Olívia Fernandes · 52:47 a 53:08. Começa em \"Tem um monte de aluna que fala\" e termina em \"Então, tudo isso cabe a gente, tá, pessoal?\". Parar antes de \"Então, quando eu vejo que não é algo possível...\".",
+          "source": "Olívia Fernandes · 52:46 a 53:05. Começa em \"Tem um monte de aluna que fala\" e termina em \"Então, tudo isso cabe a gente, tá, pessoal?\". Parar antes de \"Então, quando eu vejo que não é algo possível...\".",
           "sourceUrl": "https://youtu.be/A3so_9sBi0M"
         },
         {
@@ -1019,7 +1019,7 @@ export const octoberCalendarBase = [
           "unit": "Corte (4 a 26s)",
           "role": "Trecho da palestra",
           "content": "Alessandra pergunta quem é a peça-chave do tratamento e responde: o endocrinologista prescreve, o dermatologista trata a pele e o nutricionista muda o curso antes, durante e depois. Legenda fiel.",
-          "source": "Alessandra Feltre · 43:52 a 44:14. Começa em \"E aí, quando a gente fala sobre quem é a peça chave desse tratamento\" e termina em \"muda o curso antes, durante e depois\". Pílula: 45:15 a 45:22.",
+          "source": "Alessandra Feltre · 43:52 a 44:14. Começa em \"E aí, quando a gente fala sobre quem é a peça chave desse tratamento\" e termina em \"muda o curso antes, durante e depois\". Pílula: 45:15 a 45:26, até \"para além da balança\".",
           "sourceUrl": "https://youtu.be/iJLL-3OZmrE"
         },
         {
@@ -1553,7 +1553,7 @@ export const octoberCalendarBase = [
           "unit": "Corte",
           "role": "Trecho da palestra",
           "content": "Andreia afirma que o pré-treino já vinha sendo construído nas semanas anteriores à competição. Encerrar antes de ela detalhar o pré-treino imediato.",
-          "source": "Andreia Naves · 15:18.9 a 15:27.6.",
+          "source": "Andreia Naves · 15:18 a 15:28. Começa em \"O que a gente chama, que a gente entende como pré-treino\" e termina antes de \"Então, o pré-treino imediato\".",
           "sourceUrl": "https://youtu.be/tAqcK_GgzD8"
         },
         {

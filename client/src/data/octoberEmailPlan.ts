@@ -199,7 +199,7 @@ const emailSeeds: EmailSeed[] = [
     fallback: "Sem o gancho de Ivan, abrir direto pelo Bloco 3.",
     limits: "Sem medicamentos, números de estudo ou promessa de resultado.",
     sourceLinks: [
-      { label: "Íntegra — Ivan Lucas", url: octoberDestinations.ivan, note: "Acervo 2026 · fala conferida em 17:36–18:13." },
+      { label: "Íntegra — Ivan Lucas", url: octoberDestinations.ivan, note: "Acervo 2026 · fala conferida no YouTube em 17:32–18:13." },
     ],
   },
   {
@@ -268,7 +268,7 @@ const emailSeeds: EmailSeed[] = [
     fallback: "Sem o Bloco 2, abrir pelo gancho e seguir para o Bloco 3.",
     limits: "Sem números de mercado; sem comparar com a Certificação Internacional em Personal Training – WTTC.",
     sourceLinks: [
-      { label: "Íntegra — Américo José da Silva Filho", url: octoberDestinations.americo, note: "Acervo 2026 · fala conferida em 36:20–36:51." },
+      { label: "Íntegra — Américo José da Silva Filho", url: octoberDestinations.americo, note: "Acervo 2026 · fala conferida no YouTube em 36:20–36:51." },
     ],
   },
   {
@@ -337,7 +337,7 @@ const emailSeeds: EmailSeed[] = [
     fallback: "Só os Blocos 2 e 3.",
     limits: "Sem alimento, suplemento, dose ou promessa de performance.",
     sourceLinks: [
-      { label: "Íntegra — Andreia Naves", url: octoberDestinations.andreia, note: "Acervo 2026 · fala conferida em 15:18.9–15:27.6." },
+      { label: "Íntegra — Andreia Naves", url: octoberDestinations.andreia, note: "Acervo 2026 · fala conferida no YouTube em 15:18–15:28." },
     ],
   },
   {

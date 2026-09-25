@@ -75,7 +75,10 @@ describe("pacote editorial de 28/09 a 31/10 de 2026", () => {
     const sources = confirmedIds.flatMap(id => item(id).productionBrief?.units.filter(unit => unit.source) ?? []);
     expect(sources).toHaveLength(5);
     expect(sources.every(unit => unit.sourceUrl?.match(/^https:\/\/(youtu\.be|www\.youtube\.com)\//))).toBe(true);
-    expect(sources.map(unit => unit.source).join(" ")).toMatch(/17:36 a 18:13|52:47 a 53:08|43:52 a 44:14|36:20 a 36:51|15:18\.9 a 15:27\.6/);
+    expect(sources.map(unit => unit.source).join(" ")).toMatch(/17:32 a 18:13|52:46 a 53:05|43:52 a 44:14|36:20 a 36:51|15:18 a 15:28/);
+    for (const stale of ["17:36 a 18:13", "52:47 a 53:08", "45:15 a 45:22", "15:18.9 a 15:27.6"]) {
+      expect(JSON.stringify(octoberCalendar), stale).not.toContain(stale);
+    }
     expect(JSON.stringify(octoberCalendar)).not.toMatch(/timecode anterior|inválid|diverg|conferência humana|player original|auditoria interna/i);
     const reelSource = (id: string) => item(id).productionBrief?.units.filter(unit => unit.source) ?? [];
     expect(reelSource("1019")).toHaveLength(1);
