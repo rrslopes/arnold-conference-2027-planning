@@ -45,7 +45,7 @@ describe("briefings operacionais do calendário", () => {
 
   it("vincula somente os materiais com correspondência inequívoca às pautas", () => {
     const linkedItems = calendar.filter(item => item.materialLinks?.length).map(item => item.id);
-    expect(linkedItems).toEqual(["0904", "0906", "0908", "0910", "0911", "0918", "0919", "0921", "0923", "0925", "0928", "1001", "1006", "1012", "1014", "1016", "1020", "1021", "1024"]);
+    expect(linkedItems).toEqual(["0904", "0906", "0908", "0910", "0911", "0918", "0919", "0921", "0923", "0925", "0928", "1001", "1006", "1012", "1014", "1020", "1021", "1024", "1028"]);
 
     const links = calendar.flatMap(item => item.materialLinks ?? []);
     const urls = new Set(links.map(link => link.url));
@@ -65,7 +65,7 @@ describe("briefings operacionais do calendário", () => {
 
   it("explicita pesquisa, entregas, validação e fallback quando a agência precisa buscar prova", () => {
     const researchItems = calendar.filter(item => item.agencyResearch);
-    expect(researchItems.map(item => item.id)).toEqual(["1002", "1003", "1008", "1010", "1017", "1019", "1021", "1024", "1025", "1026", "1027", "1028", "1029", "1031"]);
+    expect(researchItems.map(item => item.id)).toEqual(["1002", "1003", "1008", "1010", "1016", "1017", "1019", "1021", "1024", "1025", "1026", "1027", "1029", "1031"]);
     for (const item of researchItems) {
       expect(item.agencyResearch?.owner.length, item.id).toBeGreaterThan(10);
       expect(item.agencyResearch?.deliverables.length, item.id).toBeGreaterThanOrEqual(1);

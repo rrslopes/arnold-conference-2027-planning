@@ -1266,55 +1266,87 @@ export const octoberCalendarBase = [
     "id": "1016",
     "date": "16/10",
     "phase": "Venda contínua",
-    "channel": "Reel de 55 a 60 segundos + pílula de 10 a 15 segundos",
-    "title": "O intestino do atleta também entra na preparação",
-    "origin": "íntegra no YouTube e transcrição editorial validada no Drive.",
-    "originUrl": "https://youtu.be/8hnvXCzfd3U",
-    "originLinkLabel": "Abrir vídeo de referência",
-    "materialLinks": [
-      {
-        "label": "Abrir transcrição validada no Drive",
-        "url": "https://drive.google.com/file/d/1aYjaPT2plpdHOVcHemv_yyTXAjWJAL5q/view",
-        "kind": "post"
-      }
-    ],
-    "idea": "Bruno Zylber falou em 2026 sobre microbiota do atleta de alto rendimento. No trecho escolhido, ele diz que a pergunta sobre o intestino do atleta não é se a microbiota é \"saudável\", e sim o que ela pode fazer pela performance e pela recuperação, e fecha com \"A base sempre vai ser a nutrição.\"",
+    "channel": "carrossel de autoridade de 7 telas + 3 Stories",
+    "title": "Por trás da coordenação: a trajetória de Andréia Naves",
+    "origin": "mini-bio completa (planilha de coordenadores); materiais de Andreia.",
+    "originUrl": "https://drive.google.com/drive/folders/1a_jJtOn4Pux1oUpMLgXfFkvpLLnRcnZ9",
+    "originLinkLabel": "Abrir material no Drive",
+    "idea": "mesmo formato do 27/10, aplicado à coordenadora de Nutrição Esportiva. Se a programação 2027 de Nutrição Esportiva chegar até 24/10, este card é substituído por \"Programação 2027 de Nutrição Esportiva: [temas centrais]\", no formato do card 1008.",
     "productionBrief": {
-      "format": "Reel de 55 a 60 segundos + pílula de 10 a 15 segundos",
-      "purpose": "manter Nutrição Esportiva em alta frequência com uma fala real que coloca a nutrição no centro da preparação do atleta.",
+      "format": "carrossel de autoridade de 7 telas + 3 Stories",
+      "purpose": "autoridade da coordenação científica de Nutrição Esportiva.",
       "units": [
         {
-          "unit": "Abertura (0 a 4s, sobre o início do corte)",
-          "role": "Gancho",
-          "content": "Texto na tela: \"O intestino do atleta também entra na preparação.\""
+          "unit": "Tela 1",
+          "role": "Capa",
+          "content": "\"Por trás da coordenação: a trajetória de Andréia Naves\" + foto oficial."
         },
         {
-          "unit": "Corte (0 a 55s)",
-          "role": "Trecho da palestra",
-          "content": "Bruno diz que a primeira pergunta sobre a microbiota de um atleta não é como deixá-la saudável, e sim o que ela pode fazer para o atleta ganhar performance, tempo de esporte e recuperação eficaz. Termina com \"A base sempre vai ser a nutrição.\" Legenda fiel à fala. Minutagem abaixo.",
-          "source": "Bruno Zylber · 04:33 a 05:29. Começa em \"Então a primeira coisa que vocês têm que perguntar da microbiota de um atleta\" e termina em \"...A base sempre vai ser a nutrição.\" Pílula: 04:44 a 04:59.",
-          "sourceUrl": "https://youtu.be/8hnvXCzfd3U"
+          "unit": "Tela 2",
+          "role": "Fato 1",
+          "content": "\"Diplomada pelo The Institute for Functional Medicine (EUA) em 2007.\""
         },
         {
-          "unit": "Fechamento (últimos 4s)",
-          "role": "Crédito e ação",
-          "content": "\"Arnold Conference 2026 · Bruno Zylber. Nutrição Esportiva 2027 · 24 e 25/04. Lote 1 limitado.\""
+          "unit": "Tela 3",
+          "role": "Fato 2",
+          "content": "\"Membro do Instituto Brasileiro de Nutrição Funcional (IBNF).\""
         },
         {
-          "unit": "Legenda",
-          "role": "Estrutura",
-          "content": "Linha 1: a frase da abertura. Linha 2: \"A pergunta não é só se a microbiota é saudável, mas o que ela faz pela performance e pela recuperação.\" Linha 3: \"Arnold Conference 2026 · Bruno Zylber.\" Linha 4: CTA."
+          "unit": "Tela 4",
+          "role": "Fato 3",
+          "content": "\"Autora de livros de Nutrição Clínica e Esportiva Funcional.\" Mostrar capas, com autorização."
         },
         {
-          "unit": "Pílula",
-          "role": "Derivação",
-          "content": "Só o trecho de 04:44 a 04:59, de \"Na verdade a pergunta é: o que que essa microbiota pode fazer por mim\" até \"...mais recuperação eficaz\"."
+          "unit": "Tela 5",
+          "role": "Fato 4",
+          "content": "Um fato adicional da mini-bio ou de fonte pública (pesquisa da agência)."
+        },
+        {
+          "unit": "Tela 6",
+          "role": "Fato 5",
+          "content": "\"Coordena o Congresso de Nutrição Esportiva 2027.\""
+        },
+        {
+          "unit": "Tela 7",
+          "role": "Ação",
+          "content": "\"24 e 25/04. Lote 1 limitado. Link na bio.\""
+        },
+        {
+          "unit": "Publicação",
+          "role": "Collab com o palestrante",
+          "content": "Publicar em collab com Andréia Naves. Combinar dia e horário com ela antes, para que aceite a collab na hora da publicação: os primeiros 20 minutos determinam o engajamento. [AUTORIZAÇÃO E HORÁRIO DA COLLAB – A COMBINAR COM O PALESTRANTE]"
         }
       ],
-      "note": "sem prescrição, doses ou promessa de performance. A fala cita probiótico só para dizer que a base é a nutrição: não destacar na arte. Não sugerir que Bruno estará em 2027. Minutagens do vídeo do YouTube, conferidas na transcrição do próprio YouTube em 25/09 (tolerância de ±2s). Antes de editar, localizar início e fim pelas frases indicadas."
+      "note": "só fatos com fonte. Publicar em collab com Andréia Naves. Combinar dia e horário com ela antes, para que aceite a collab na hora da publicação: os primeiros 20 minutos determinam o engajamento. [AUTORIZAÇÃO E HORÁRIO DA COLLAB – A COMBINAR COM O PALESTRANTE]"
     },
-    "fallback": "carrossel de 5 telas sem vídeo: (1) \"O intestino do atleta também entra na preparação.\"; (2) \"A pergunta não é só se a microbiota é saudável. É o que ela faz pela performance e pela recuperação.\"; (3) \"Modalidade, dieta, viagens e fuso horário, carga de estresse e fase da temporada alteram a microbiota.\" (fala de Bruno Zylber em 13:31 a 13:41 no YouTube); (4) \"A base sempre vai ser a nutrição.\"; (5) \"Arnold Conference 2026 · Bruno Zylber\" + CTA.",
-    "cta": "Congresso de Nutrição Esportiva 2027: lote 1 limitado. Link na bio.",
+    "agencyResearch": {
+      "owner": "Agência de conteúdo e pesquisa",
+      "request": "confirmar os títulos dos livros e levantar o fato 4, com links.",
+      "deliverables": [
+        "confirmar os títulos dos livros e levantar o fato 4, com links."
+      ],
+      "validation": "Validar todas as afirmações e materiais solicitados antes da publicação. confirmar os títulos dos livros e levantar o fato 4, com links.",
+      "fallback": "carrossel de 4 telas (capa, fatos 1 e 3, fato 5, ação)."
+    },
+    "storyCards": [
+      {
+        "card": "Story 1",
+        "format": "Pergunta",
+        "prompt": "\"Qual livro da Andréia Naves você já leu?\" (caixa de perguntas)"
+      },
+      {
+        "card": "Story 2",
+        "format": "Repost",
+        "prompt": "Uma resposta recebida (com autorização) ou a capa de um livro."
+      },
+      {
+        "card": "Story 3",
+        "format": "Link",
+        "prompt": "\"Nutrição Esportiva 2027: lote 1 limitado.\" Figurinha de link."
+      }
+    ],
+    "fallback": "carrossel de 4 telas (capa, fatos 1 e 3, fato 5, ação).",
+    "cta": "Garanta a sua vaga no lote 1.",
     "destination": "página oficial de Nutrição Esportiva",
     "destinationUrl": "https://arnold.savagetgroup.com.br/conference2/nutricao-esportiva/",
     "congresses": [
@@ -1587,7 +1619,7 @@ export const octoberCalendarBase = [
     "date": "21/10",
     "phase": "Venda contínua",
     "channel": "carrossel de autoridade de 7 telas + 3 Stories",
-    "title": "5 coisas sobre Ana Paula Pujol",
+    "title": "Quem é Ana Paula Pujol, que fala de bioenergética mitocondrial em 2027",
     "origin": "programação Estética 2027; materiais de Ana Paula Pujol; íntegra 2026.",
     "originUrl": "https://drive.google.com/drive/folders/1Ku_LPpWtnt8nji762YzGQnjopbWj2md2",
     "originLinkLabel": "Abrir material no Drive",
@@ -1606,7 +1638,7 @@ export const octoberCalendarBase = [
         {
           "unit": "Tela 1",
           "role": "Capa",
-          "content": "\"5 coisas sobre Ana Paula Pujol\" + foto oficial."
+          "content": "\"Quem é Ana Paula Pujol, que fala de bioenergética mitocondrial em 2027\" + foto oficial."
         },
         {
           "unit": "Telas 2 a 6",
@@ -1961,7 +1993,7 @@ export const octoberCalendarBase = [
     "date": "27/10",
     "phase": "Venda contínua",
     "channel": "carrossel de autoridade de 7 telas + 3 Stories",
-    "title": "5 fatos da trajetória de Dudu Netto",
+    "title": "Dudu Netto: 5 marcos de quem coordena o 8º Congresso de Gestão de Academias",
     "origin": "mini-bio (planilha de coordenadores); perfil",
     "originUrl": "https://www.instagram.com/nettodudu/",
     "originLinkLabel": "Abrir material de referência",
@@ -1973,7 +2005,7 @@ export const octoberCalendarBase = [
         {
           "unit": "Tela 1",
           "role": "Capa",
-          "content": "\"5 fatos da trajetória de Dudu Netto\" + foto oficial."
+          "content": "\"Dudu Netto: 5 marcos de quem coordena o 8º Congresso de Gestão de Academias\" + foto oficial."
         },
         {
           "unit": "Tela 2",
@@ -2055,87 +2087,55 @@ export const octoberCalendarBase = [
     "id": "1028",
     "date": "28/10",
     "phase": "Venda contínua",
-    "channel": "carrossel de autoridade de 7 telas + 3 Stories",
-    "title": "5 coisas sobre Andréia Naves",
-    "origin": "mini-bio completa (planilha de coordenadores); materiais de Andreia.",
-    "originUrl": "https://drive.google.com/drive/folders/1a_jJtOn4Pux1oUpMLgXfFkvpLLnRcnZ9",
-    "originLinkLabel": "Abrir material no Drive",
-    "idea": "mesmo formato do 27/10, aplicado à coordenadora de Nutrição Esportiva. Se a programação 2027 de Nutrição Esportiva chegar até 24/10, este card é substituído por \"Programação 2027 de Nutrição Esportiva: [temas centrais]\", no formato do card 1008.",
-    "productionBrief": {
-      "format": "carrossel de autoridade de 7 telas + 3 Stories",
-      "purpose": "autoridade da coordenação científica de Nutrição Esportiva.",
-      "units": [
-        {
-          "unit": "Tela 1",
-          "role": "Capa",
-          "content": "\"5 coisas sobre Andréia Naves\" + foto oficial."
-        },
-        {
-          "unit": "Tela 2",
-          "role": "Fato 1",
-          "content": "\"Diplomada pelo The Institute for Functional Medicine (EUA) em 2007.\""
-        },
-        {
-          "unit": "Tela 3",
-          "role": "Fato 2",
-          "content": "\"Membro do Instituto Brasileiro de Nutrição Funcional (IBNF).\""
-        },
-        {
-          "unit": "Tela 4",
-          "role": "Fato 3",
-          "content": "\"Autora de livros de Nutrição Clínica e Esportiva Funcional.\" Mostrar capas, com autorização."
-        },
-        {
-          "unit": "Tela 5",
-          "role": "Fato 4",
-          "content": "Um fato adicional da mini-bio ou de fonte pública (pesquisa da agência)."
-        },
-        {
-          "unit": "Tela 6",
-          "role": "Fato 5",
-          "content": "\"Coordena o Congresso de Nutrição Esportiva 2027.\""
-        },
-        {
-          "unit": "Tela 7",
-          "role": "Ação",
-          "content": "\"24 e 25/04. Lote 1 limitado. Link na bio.\""
-        },
-        {
-          "unit": "Publicação",
-          "role": "Collab com o palestrante",
-          "content": "Publicar em collab com Andréia Naves. Combinar dia e horário com ela antes, para que aceite a collab na hora da publicação: os primeiros 20 minutos determinam o engajamento. [AUTORIZAÇÃO E HORÁRIO DA COLLAB – A COMBINAR COM O PALESTRANTE]"
-        }
-      ],
-      "note": "só fatos com fonte. Publicar em collab com Andréia Naves. Combinar dia e horário com ela antes, para que aceite a collab na hora da publicação: os primeiros 20 minutos determinam o engajamento. [AUTORIZAÇÃO E HORÁRIO DA COLLAB – A COMBINAR COM O PALESTRANTE]"
-    },
-    "agencyResearch": {
-      "owner": "Agência de conteúdo e pesquisa",
-      "request": "confirmar os títulos dos livros e levantar o fato 4, com links.",
-      "deliverables": [
-        "confirmar os títulos dos livros e levantar o fato 4, com links."
-      ],
-      "validation": "Validar todas as afirmações e materiais solicitados antes da publicação. confirmar os títulos dos livros e levantar o fato 4, com links.",
-      "fallback": "carrossel de 4 telas (capa, fatos 1 e 3, fato 5, ação)."
-    },
-    "storyCards": [
+    "channel": "Reel de 55 a 60 segundos + pílula de 10 a 15 segundos",
+    "title": "O intestino do atleta também entra na preparação",
+    "origin": "íntegra no YouTube e transcrição editorial validada no Drive.",
+    "originUrl": "https://youtu.be/8hnvXCzfd3U",
+    "originLinkLabel": "Abrir vídeo de referência",
+    "materialLinks": [
       {
-        "card": "Story 1",
-        "format": "Pergunta",
-        "prompt": "\"Qual livro da Andréia Naves você já leu?\" (caixa de perguntas)"
-      },
-      {
-        "card": "Story 2",
-        "format": "Repost",
-        "prompt": "Uma resposta recebida (com autorização) ou a capa de um livro."
-      },
-      {
-        "card": "Story 3",
-        "format": "Link",
-        "prompt": "\"Nutrição Esportiva 2027: lote 1 limitado.\" Figurinha de link."
+        "label": "Abrir transcrição validada no Drive",
+        "url": "https://drive.google.com/file/d/1aYjaPT2plpdHOVcHemv_yyTXAjWJAL5q/view",
+        "kind": "post"
       }
     ],
-    "fallback": "carrossel de 4 telas (capa, fatos 1 e 3, fato 5, ação).",
-    "cta": "Garanta a sua vaga no lote 1.",
+    "idea": "Bruno Zylber falou em 2026 sobre microbiota do atleta de alto rendimento. No trecho escolhido, ele diz que a pergunta sobre o intestino do atleta não é se a microbiota é \"saudável\", e sim o que ela pode fazer pela performance e pela recuperação, e fecha com \"A base sempre vai ser a nutrição.\"",
+    "productionBrief": {
+      "format": "Reel de 55 a 60 segundos + pílula de 10 a 15 segundos",
+      "purpose": "manter Nutrição Esportiva em alta frequência com uma fala real que coloca a nutrição no centro da preparação do atleta.",
+      "units": [
+        {
+          "unit": "Abertura (0 a 4s, sobre o início do corte)",
+          "role": "Gancho",
+          "content": "Texto na tela: \"O intestino do atleta também entra na preparação.\""
+        },
+        {
+          "unit": "Corte (0 a 55s)",
+          "role": "Trecho da palestra",
+          "content": "Bruno diz que a primeira pergunta sobre a microbiota de um atleta não é como deixá-la saudável, e sim o que ela pode fazer para o atleta ganhar performance, tempo de esporte e recuperação eficaz. Termina com \"A base sempre vai ser a nutrição.\" Legenda fiel à fala. Minutagem abaixo.",
+          "source": "Bruno Zylber · 04:33 a 05:29. Começa em \"Então a primeira coisa que vocês têm que perguntar da microbiota de um atleta\" e termina em \"...A base sempre vai ser a nutrição.\" Pílula: 04:44 a 04:59.",
+          "sourceUrl": "https://youtu.be/8hnvXCzfd3U"
+        },
+        {
+          "unit": "Fechamento (últimos 4s)",
+          "role": "Crédito e ação",
+          "content": "\"Arnold Conference 2026 · Bruno Zylber. Nutrição Esportiva 2027 · 24 e 25/04. Lote 1 limitado.\""
+        },
+        {
+          "unit": "Legenda",
+          "role": "Estrutura",
+          "content": "Linha 1: a frase da abertura. Linha 2: \"A pergunta não é só se a microbiota é saudável, mas o que ela faz pela performance e pela recuperação.\" Linha 3: \"Arnold Conference 2026 · Bruno Zylber.\" Linha 4: CTA."
+        },
+        {
+          "unit": "Pílula",
+          "role": "Derivação",
+          "content": "Só o trecho de 04:44 a 04:59, de \"Na verdade a pergunta é: o que que essa microbiota pode fazer por mim\" até \"...mais recuperação eficaz\"."
+        }
+      ],
+      "note": "sem prescrição, doses ou promessa de performance. A fala cita probiótico só para dizer que a base é a nutrição: não destacar na arte. Não sugerir que Bruno estará em 2027. Minutagens do vídeo do YouTube, conferidas na transcrição do próprio YouTube em 25/09 (tolerância de ±2s). Antes de editar, localizar início e fim pelas frases indicadas."
+    },
+    "fallback": "carrossel de 5 telas sem vídeo: (1) \"O intestino do atleta também entra na preparação.\"; (2) \"A pergunta não é só se a microbiota é saudável. É o que ela faz pela performance e pela recuperação.\"; (3) \"Modalidade, dieta, viagens e fuso horário, carga de estresse e fase da temporada alteram a microbiota.\" (fala de Bruno Zylber em 13:31 a 13:41 no YouTube); (4) \"A base sempre vai ser a nutrição.\"; (5) \"Arnold Conference 2026 · Bruno Zylber\" + CTA.",
+    "cta": "Congresso de Nutrição Esportiva 2027: lote 1 limitado. Link na bio.",
     "destination": "página oficial de Nutrição Esportiva",
     "destinationUrl": "https://arnold.savagetgroup.com.br/conference2/nutricao-esportiva/",
     "congresses": [
@@ -2147,7 +2147,7 @@ export const octoberCalendarBase = [
     "date": "29/10",
     "phase": "Venda contínua",
     "channel": "carrossel de autoridade de 7 telas + 3 Stories",
-    "title": "5 coisas sobre Cris Parente",
+    "title": "O caminho de Cris Parente até o título de Melhor Personal Trainer do Mundo",
     "origin": "mini-bio (planilha de coordenadores); perfil",
     "originUrl": "https://www.instagram.com/crisparente/",
     "originLinkLabel": "Abrir material de referência",
@@ -2159,7 +2159,7 @@ export const octoberCalendarBase = [
         {
           "unit": "Tela 1",
           "role": "Capa",
-          "content": "\"5 coisas sobre Cris Parente\" + foto oficial."
+          "content": "\"O caminho de Cris Parente até o título de Melhor Personal Trainer do Mundo\" + foto oficial."
         },
         {
           "unit": "Tela 2",

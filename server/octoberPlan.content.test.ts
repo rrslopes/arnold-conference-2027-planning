@@ -95,20 +95,21 @@ describe("pacote editorial de 28/09 a 31/10 de 2026", () => {
 
   it("usa trechos da íntegra, e não pílulas prontas do Drive", () => {
     expect(JSON.stringify(octoberCalendar)).not.toMatch(/pílulas? legendadas?|pílulas? finalizadas?|pasta de pílulas/i);
-    const cut = item("1016").productionBrief?.units.filter(unit => unit.source) ?? [];
+    const cut = item("1028").productionBrief?.units.filter(unit => unit.source) ?? [];
     expect(cut).toHaveLength(1);
     expect(cut[0].sourceUrl).toBe("https://youtu.be/8hnvXCzfd3U");
     expect(cut[0].source).toContain("Bruno Zylber · 04:33 a 05:29.");
-    expect(JSON.stringify(item("1016"))).not.toMatch(/14:36|19:09|28:09/);
-    expect(item("1016").origin).not.toMatch(/\[[^\]]*A INSERIR[^\]]*\]/);
+    expect(JSON.stringify(item("1028"))).not.toMatch(/14:36|19:09|28:09/);
+    expect(item("1028").origin).not.toMatch(/\[[^\]]*A INSERIR[^\]]*\]/);
   });
 
   it("preserva os formatos simples, histórias e provas de autoridade solicitados", () => {
     expect(item("1010").title).toBe("Inscrições abertas: 5 motivos para estar no Congresso de Nutrição Esportiva 2027");
-    expect(item("1021").title).toBe("5 coisas sobre Ana Paula Pujol");
-    expect(item("1027").title).toBe("5 fatos da trajetória de Dudu Netto");
-    expect(item("1028").title).toBe("5 coisas sobre Andréia Naves");
-    expect(item("1029").title).toBe("5 coisas sobre Cris Parente");
+    expect(item("1021").title).toBe("Quem é Ana Paula Pujol, que fala de bioenergética mitocondrial em 2027");
+    expect(item("1027").title).toBe("Dudu Netto: 5 marcos de quem coordena o 8º Congresso de Gestão de Academias");
+    expect(item("1016").title).toBe("Por trás da coordenação: a trajetória de Andréia Naves");
+    expect(item("1029").title).toBe("O caminho de Cris Parente até o título de Melhor Personal Trainer do Mundo");
+    expect(JSON.stringify(octoberCalendar)).not.toMatch(/5 coisas sobre/);
     expect(JSON.stringify(item("1002"))).toMatch(/case real|fontes públicas|sem venda/i);
     expect(item("1003").title).toContain("ficou sem vaga");
   });
@@ -136,7 +137,7 @@ describe("pacote editorial de 28/09 a 31/10 de 2026", () => {
       expect(item(id).channel, id).toContain("Reel publicado pelo Arnold, com o Conference em collab");
       expect(item(id).storyCards, id).toHaveLength(2);
     }
-    for (const [id, speaker] of [["1021", "Ana Paula Pujol"], ["1027", "Dudu Netto"], ["1028", "Andréia Naves"], ["1029", "Cris Parente"]]) {
+    for (const [id, speaker] of [["1021", "Ana Paula Pujol"], ["1027", "Dudu Netto"], ["1016", "Andréia Naves"], ["1029", "Cris Parente"]]) {
       const brief = JSON.stringify(item(id).productionBrief);
       expect(brief, id).toContain(`Publicar em collab com ${speaker}.`);
       expect(brief, id).toContain("[AUTORIZAÇÃO E HORÁRIO DA COLLAB – A COMBINAR COM O PALESTRANTE]");
@@ -225,8 +226,8 @@ describe("pacote editorial de 28/09 a 31/10 de 2026", () => {
   it("explicita pesquisa somente onde o pacote pede apuração", () => {
     const researched = octoberCalendar.filter(entry => entry.agencyResearch);
     expect(researched.map(entry => entry.id)).toEqual([
-      "1002", "1003", "1008", "1010", "1017", "1019", "1021", "1024",
-      "1025", "1026", "1027", "1028", "1029", "1031",
+      "1002", "1003", "1008", "1010", "1016", "1017", "1019", "1021", "1024",
+      "1025", "1026", "1027", "1029", "1031",
     ]);
     for (const entry of researched) {
       expect(entry.agencyResearch?.request.length, entry.id).toBeGreaterThan(20);
