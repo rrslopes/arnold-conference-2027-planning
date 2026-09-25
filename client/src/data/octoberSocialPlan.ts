@@ -1457,9 +1457,9 @@ export const octoberCalendarBase = [
     "phase": "Venda contínua",
     "channel": "carrossel de 6 telas + pílula motion de 8 a 12 segundos",
     "title": "Mais exercícios na sessão não significa uma preparação melhor",
-    "origin": "Reel do Team Pannain",
+    "origin": "Reel do Team Pannain · https://www.instagram.com/reel/DcmNMWJhMN0/ (falas em 00:00, 00:10 e 00:50; conferir no player do Instagram).",
     "originUrl": "https://www.instagram.com/reel/DcmNMWJhMN0/",
-    "originLinkLabel": "Abrir Reel de referência",
+    "originLinkLabel": "Abrir Reel no Instagram para conferir as falas",
     "idea": "Ricardo Pannain relata que trabalha com menos volume por sessão, mais intensidade, volume distribuído na semana e recuperação para o dia seguinte. A peça mostra que essas variáveis precisam ser lidas juntas.",
     "productionBrief": {
       "format": "carrossel de 6 telas + pílula motion de 8 a 12 segundos",
@@ -1507,7 +1507,7 @@ export const octoberCalendarBase = [
     },
     "agencyResearch": {
       "owner": "Agência de conteúdo e pesquisa",
-      "request": "Conferir as três falas no player do Instagram antes da edição. Se não for possível conferir, usar a alternativa segura. Confirmar a autorização de uso com o cliente.",
+      "request": "Conferir as três falas no player do Instagram antes da edição (Reel: https://www.instagram.com/reel/DcmNMWJhMN0/). Se não for possível conferir, usar a alternativa segura. Confirmar a autorização de uso com o cliente.",
       "deliverables": [
         "Conferir as três falas no player do Instagram antes da edição. Se não for possível conferir, usar a alternativa segura.",
         "Confirmar a autorização de uso com o cliente."
@@ -2365,9 +2365,9 @@ export const octoberCalendarBase = [
     "phase": "Venda contínua",
     "channel": "carrossel de 5 telas + pílula opcional",
     "title": "Comprometimento não é obedecer cegamente a um protocolo",
-    "origin": "Reel do Arnold Conference com Ricardo Pannain",
+    "origin": "Reel do Arnold Conference com Ricardo Pannain · https://www.instagram.com/reel/DXXimnVFX4X/ (falas em 00:16 e 00:33; conferir no player do Instagram).",
     "originUrl": "https://www.instagram.com/reel/DXXimnVFX4X/",
-    "originLinkLabel": "Abrir Reel de referência",
+    "originLinkLabel": "Abrir Reel no Instagram para conferir as falas",
     "idea": "Ricardo Pannain fala sobre como a falta de comprometimento o desmotiva e por que o compromisso da atleta com o processo importa mais que o tamanho da competição.",
     "productionBrief": {
       "format": "carrossel de 5 telas + pílula opcional",
@@ -2410,11 +2410,11 @@ export const octoberCalendarBase = [
     },
     "agencyResearch": {
       "owner": "Agência de conteúdo e pesquisa",
-      "request": "conferir as falas no Reel.",
+      "request": "Conferir as falas em 00:16 e 00:33 no player do Instagram antes da edição (Reel: https://www.instagram.com/reel/DXXimnVFX4X/). Se não for possível conferir, usar a alternativa segura.",
       "deliverables": [
-        "conferir as falas no Reel."
+        "Conferir as falas em 00:16 e 00:33 no player do Instagram antes da edição (Reel: https://www.instagram.com/reel/DXXimnVFX4X/)."
       ],
-      "validation": "Validar todas as afirmações e materiais solicitados antes da publicação. conferir as falas no Reel.",
+      "validation": "Validar todas as afirmações e materiais solicitados antes da publicação. Conferir as falas em 00:16 e 00:33 no player do Instagram antes da edição (Reel: https://www.instagram.com/reel/DXXimnVFX4X/).",
       "fallback": "carrossel tipográfico com as telas 1, 3, 4 e 5."
     },
     "fallback": "carrossel tipográfico com as telas 1, 3, 4 e 5.",

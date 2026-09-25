@@ -83,7 +83,12 @@ describe("pacote editorial de 28/09 a 31/10 de 2026", () => {
     const reelSource = (id: string) => item(id).productionBrief?.units.filter(unit => unit.source) ?? [];
     expect(reelSource("1019")).toHaveLength(1);
     expect(reelSource("1019")[0]).toMatchObject({ role: "Relato", source: "Ricardo Pannain · falas em 00:00, 00:10 e 00:50 do Reel", sourceUrl: "https://www.instagram.com/reel/DcmNMWJhMN0/" });
-    expect(item("1019").agencyResearch?.request).toContain("Conferir as três falas no player do Instagram antes da edição. Se não for possível conferir, usar a alternativa segura.");
+    expect(item("1019").agencyResearch?.request).toContain("Conferir as três falas no player do Instagram antes da edição (Reel: https://www.instagram.com/reel/DcmNMWJhMN0/). Se não for possível conferir, usar a alternativa segura.");
+    for (const [id, reel] of [["1019", "https://www.instagram.com/reel/DcmNMWJhMN0/"], ["1031", "https://www.instagram.com/reel/DXXimnVFX4X/"]]) {
+      expect(item(id).originUrl, id).toBe(reel);
+      expect(item(id).origin, id).toContain(reel);
+      expect(item(id).agencyResearch?.request, id).toContain(reel);
+    }
     expect(reelSource("1031")).toHaveLength(1);
     expect(reelSource("1031")[0]).toMatchObject({ role: "Relato", source: "Ricardo Pannain · falas em 00:16 e 00:33 do Reel", sourceUrl: "https://www.instagram.com/reel/DXXimnVFX4X/" });
   });
