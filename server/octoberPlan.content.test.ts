@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { calendar, emailBase, whatsappPlan } from "../client/src/data/planData";
+import { calendar, emailBase, emailOperationalGates, whatsappPlan } from "../client/src/data/planData";
 import { emailCampaignBriefs } from "../client/src/data/emailBriefs";
 import { paidMediaAssets } from "../client/src/data/paidMedia";
 
@@ -122,18 +122,61 @@ describe("pacote editorial de 28/09 a 31/10 de 2026", () => {
     expect(bodybuilding).not.toMatch(/dose|fármaco|ciclo/i);
   });
 
-  it("mantém onze slots de e-mail sem alterações nesta rodada", () => {
-    expect(octoberEmails).toHaveLength(11);
-    expect(Object.keys(emailCampaignBriefs).filter(id => id.startsWith("email-oct-"))).toHaveLength(11);
-    expect(octoberEmails.map(entry => entry.date)).not.toContain("02/10");
+  it("segue o pacote de e-mail de outubro com treze envios e uma automação", () => {
+    expect(octoberEmails.map(entry => [entry.id, entry.date])).toEqual([
+      ["email-oct-announcement", "30/09"],
+      ["email-oct-reminder", "04/10"],
+      ["email-oct-opening", "06/10"],
+      ["email-oct-sports", "08/10"],
+      ["email-oct-aesthetic", "09/10"],
+      ["email-oct-sonafe", "10/10"],
+      ["email-oct-management", "13/10"],
+      ["email-oct-wttc", "14/10"],
+      ["email-oct-bodybuilding", "15/10"],
+      ["email-oct-sports-2", "20/10"],
+      ["email-oct-aesthetic-2", "23/10"],
+      ["email-oct-consideration", "27/10"],
+      ["email-oct-scarcity", "29/10"],
+      ["email-oct-abandon", "Desde 06/10"],
+    ]);
     expect(octoberEmails.map(entry => entry.date)).not.toContain("05/10");
-    expect(octoberEmails.find(entry => entry.id === "email-oct-reminder")?.date).toBe("04/10");
+    expect(emailCampaignBriefs["email-oct-recovery"]).toBeUndefined();
     for (const campaign of octoberEmails) {
       const brief = emailCampaignBriefs[campaign.id];
-      expect(brief.versions).toHaveLength(1);
-      expect(brief.versions[0].steps).toHaveLength(4);
-      expect(brief.versions[0].destinationUrl).toMatch(/^https:\/\//);
+      expect(brief.versions).toHaveLength(campaign.id === "email-oct-opening" ? 7 : 1);
+      for (const version of brief.versions) {
+        expect(version.steps.length, campaign.id).toBeGreaterThanOrEqual(3);
+        expect(version.destinationUrl).toMatch(/^https:\/\//);
+      }
     }
+    expect(JSON.stringify(emailCampaignBriefs["email-oct-abandon"])).toMatch(/1h depois do abandono e 24h depois/);
+  });
+
+  it("segmenta 06/10 por interesse e manda o hub só para a versão Geral", () => {
+    const opening = emailCampaignBriefs["email-oct-opening"];
+    expect(opening.versions.map(version => version.destinationUrl)).toEqual([
+      "https://arnold.savagetgroup.com.br/conference2/nutricao-esportiva/",
+      "https://arnold.savagetgroup.com.br/conference2/nutricao-estetica/",
+      "https://arnold.savagetgroup.com.br/2-simposio-de-fisioterapia-esportiva-sonafe/",
+      "https://arnold.savagetgroup.com.br/gestao-de-academias/",
+      "https://arnold.savagetgroup.com.br/certificacao-internacional-em-personal-training-wttc/",
+      "https://arnold.savagetgroup.com.br/conference2/bodybuilding/",
+      "https://arnold.savagetgroup.com.br/conference/",
+    ]);
+    expect(opening.versions.every(version => version.steps.length === 4)).toBe(true);
+    expect(opening.rationale).not.toContain("único envio");
+  });
+
+  it("aplica as regras novas de escassez, base inteira em 04/10 e gates", () => {
+    const serialized = JSON.stringify(octoberEmails.map(entry => emailCampaignBriefs[entry.id]));
+    expect(serialized).toContain("lote 1 é limitado");
+    expect(serialized).not.toMatch(/R\$|virada em|vira em/i);
+    expect(octoberEmails.find(entry => entry.id === "email-oct-reminder")?.audience).toBe("Base consentida inteira. Aplicar supressões.");
+    expect(JSON.stringify(emailCampaignBriefs["email-oct-reminder"])).not.toMatch(/Não ampliar|clicaram no e-mail de 30\/09/);
+    const gates = Object.fromEntries(emailOperationalGates.map(gate => [gate.id, gate]));
+    expect(JSON.stringify(gates.d6)).not.toMatch(/sem escassez/i);
+    expect(gates.d2.evidence).toBe("LP de novidades e UTM testadas e supressões aplicadas.");
+    expect(gates.d0.evidence).toContain("Compra-teste real em desktop e mobile");
   });
 
   it("explicita pesquisa somente onde o pacote pede apuração", () => {

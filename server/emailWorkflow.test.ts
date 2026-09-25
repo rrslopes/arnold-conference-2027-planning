@@ -9,11 +9,11 @@ import {
 } from "../shared/emailWorkflow";
 
 describe("fluxo específico de aprovação dos e-mails", () => {
-  it("atribui identificadores únicos aos nove e-mails históricos, onze slots de outubro e sete de nutrição", () => {
-    expect(emailBase).toHaveLength(20);
+  it("atribui identificadores únicos aos nove e-mails históricos, catorze slots de outubro e sete de nutrição", () => {
+    expect(emailBase).toHaveLength(23);
     expect(emailNurture).toHaveLength(7);
     const ids = [...emailBase, ...emailNurture].map(item => item.id);
-    expect(new Set(ids).size).toBe(27);
+    expect(new Set(ids).size).toBe(30);
     ids.forEach(id => expect(id).toMatch(/^email-(base|nurture|oct)-[a-z0-9-]+$/));
   });
 
@@ -40,19 +40,23 @@ describe("fluxo específico de aprovação dos e-mails", () => {
     ]);
   });
 
-  it("usa uma única criação por disparo e não separa peças por status de cadastro", () => {
-    Object.values(emailCampaignBriefs).forEach(brief => {
+  it("usa uma única criação por disparo, exceto as versões por interesse de 06/10, e não separa peças por status de cadastro", () => {
+    Object.entries(emailCampaignBriefs).filter(([id]) => id !== "email-oct-opening").forEach(([, brief]) => {
       expect(brief.versions).toHaveLength(1);
       expect(brief.productionChecks.join(" ")).toContain("uma única versão");
       expect(brief.versions[0].label).toContain("Versão única");
     });
+    const opening = emailCampaignBriefs["email-oct-opening"];
+    expect(opening.versions).toHaveLength(7);
+    expect(opening.productionChecks.join(" ")).toContain("7 versões");
+    expect(opening.rationale).not.toContain("único envio");
 
     const serialized = JSON.stringify(emailCampaignBriefs);
     expect(serialized).not.toMatch(/Versão A|Versão B|separar cadastrados e não cadastrados/i);
     expect(serialized).not.toContain("masterclassconference.savagetgroup.com.br/obrigado");
   });
 
-  it("preserva os briefings de 18 a 25/09 e acrescenta os onze slots de outubro", () => {
+  it("preserva os briefings de 18 a 25/09 e acrescenta os catorze slots de outubro", () => {
     expect(Object.keys(emailCampaignBriefs).filter(id => id.startsWith("email-base-"))).toEqual([
       "email-base-comparativo",
       "email-base-48h",
@@ -60,15 +64,19 @@ describe("fluxo específico de aprovação dos e-mails", () => {
       "email-base-vendas-abertas",
       "email-base-recuperar-inscricao",
     ]);
-    expect(Object.keys(emailCampaignBriefs).filter(id => id.startsWith("email-oct-"))).toHaveLength(11);
-    Object.values(emailCampaignBriefs).forEach(brief => {
+    expect(Object.keys(emailCampaignBriefs).filter(id => id.startsWith("email-oct-"))).toHaveLength(14);
+    Object.entries(emailCampaignBriefs).forEach(([id, brief]) => {
+      const october = id.startsWith("email-oct-");
       expect(brief.decision.length).toBeGreaterThan(20);
-      expect(brief.versions).toHaveLength(1);
+      expect(brief.versions).toHaveLength(id === "email-oct-opening" ? 7 : 1);
       expect(brief.routing.length).toBeGreaterThanOrEqual(2);
-      expect(brief.productionChecks.length).toBeGreaterThanOrEqual(4);
-      expect(brief.versions[0].steps).toHaveLength(4);
-      expect(brief.versions[0].destinationUrl).toMatch(/^https:\/\//);
-      expect(brief.versions[0].cta.length).toBeGreaterThan(10);
+      expect(brief.productionChecks.length).toBeGreaterThanOrEqual(october ? 2 : 4);
+      for (const version of brief.versions) {
+        expect(version.steps.length).toBeGreaterThanOrEqual(october ? 3 : 4);
+        expect(version.steps.length).toBeLessThanOrEqual(4);
+        expect(version.destinationUrl).toMatch(/^https:\/\//);
+        expect(version.cta.length).toBeGreaterThan(10);
+      }
     });
   });
 
@@ -93,7 +101,8 @@ describe("fluxo específico de aprovação dos e-mails", () => {
         "https://oferta.savagetgroup.com.br/conference-2027",
     });
     expect(destinations["email-oct-announcement"]).toBe("https://oferta.savagetgroup.com.br/conference-2027");
-    expect(destinations["email-oct-opening"]).toBe("https://arnold.savagetgroup.com.br/conference/");
+    const openingGeneral = emailCampaignBriefs["email-oct-opening"].versions.find(version => version.id === "oct-opening-general");
+    expect(openingGeneral?.destinationUrl).toBe("https://arnold.savagetgroup.com.br/conference/");
     const bodybuilding = emailCampaignBriefs["email-base-vespera"].versions[0];
     expect(bodybuilding.secondaryAction).toEqual({
       label: "Assistir ao registro de 2026 com Ricardo Pannain",

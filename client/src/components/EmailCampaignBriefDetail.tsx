@@ -128,7 +128,7 @@ export default function EmailCampaignBriefDetail({
             <GitBranch size={19} />
             <div>
               <span>REGRA DE DISTRIBUIÇÃO</span>
-              <strong>Quem priorizar sem criar novas versões</strong>
+              <strong>{brief.versions.length > 1 ? "Qual versão cada contato recebe" : "Quem priorizar sem criar novas versões"}</strong>
             </div>
           </header>
           <div className="email-routing-grid">
