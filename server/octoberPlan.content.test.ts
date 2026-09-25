@@ -90,7 +90,8 @@ describe("pacote editorial de 28/09 a 31/10 de 2026", () => {
     const cut = item("1016").productionBrief?.units.filter(unit => unit.source) ?? [];
     expect(cut).toHaveLength(1);
     expect(cut[0].sourceUrl).toBe("https://youtu.be/8hnvXCzfd3U");
-    expect(cut[0].source).toContain("19:09.5 a 20:04.2 no YouTube (transcrição validada 04:33.5 a 05:28.2 + 14:36)");
+    expect(cut[0].source).toContain("Bruno Zylber · 04:33 a 05:29.");
+    expect(JSON.stringify(item("1016"))).not.toMatch(/14:36|19:09|28:09/);
     expect(item("1016").origin).not.toMatch(/\[[^\]]*A INSERIR[^\]]*\]/);
   });
 

@@ -1292,7 +1292,7 @@ export const octoberCalendarBase = [
           "unit": "Corte (0 a 55s)",
           "role": "Trecho da palestra",
           "content": "Bruno diz que a primeira pergunta sobre a microbiota de um atleta não é como deixá-la saudável, e sim o que ela pode fazer para o atleta ganhar performance, tempo de esporte e recuperação eficaz. Termina com \"A base sempre vai ser a nutrição.\" Legenda fiel à fala. Minutagem abaixo.",
-          "source": "Bruno Zylber · 19:09.5 a 20:04.2 no YouTube (transcrição validada 04:33.5 a 05:28.2 + 14:36). Começa em \"Então a primeira coisa que cês têm que perguntar da microbiota de um atleta\" e termina em \"A base sempre vai ser a nutrição.\" Tolerância de ±2s. Pílula: 19:20.5 a 19:34.8.",
+          "source": "Bruno Zylber · 04:33 a 05:29. Começa em \"Então a primeira coisa que vocês têm que perguntar da microbiota de um atleta\" e termina em \"...A base sempre vai ser a nutrição.\" Pílula: 04:44 a 04:59.",
           "sourceUrl": "https://youtu.be/8hnvXCzfd3U"
         },
         {
@@ -1308,12 +1308,12 @@ export const octoberCalendarBase = [
         {
           "unit": "Pílula",
           "role": "Derivação",
-          "content": "Só o trecho de 19:20.5 a 19:34.8, em que ele diz que a pergunta é \"o que que essa microbiota pode fazer por mim pra que o atleta ganhe mais performance\"."
+          "content": "Só o trecho de 04:44 a 04:59, de \"Na verdade a pergunta é: o que que essa microbiota pode fazer por mim\" até \"...mais recuperação eficaz\"."
         }
       ],
-      "note": "sem prescrição, doses ou promessa de performance. A fala cita probiótico só para dizer que a base é a nutrição: não destacar na arte. Não sugerir que Bruno estará em 2027. Minutagem do YouTube = minutagem da transcrição + 14:36 (a transcrição validada começa 14:36 depois do vídeo do YouTube). Antes de editar, conferir início e fim no YouTube pelas frases indicadas."
+      "note": "sem prescrição, doses ou promessa de performance. A fala cita probiótico só para dizer que a base é a nutrição: não destacar na arte. Não sugerir que Bruno estará em 2027. Minutagens do vídeo do YouTube, conferidas na transcrição do próprio YouTube em 25/09 (tolerância de ±2s). Antes de editar, localizar início e fim pelas frases indicadas."
     },
-    "fallback": "carrossel de 5 telas sem vídeo: (1) \"O intestino do atleta também entra na preparação.\"; (2) \"A pergunta não é só se a microbiota é saudável. É o que ela faz pela performance e pela recuperação.\"; (3) \"Modalidade, dieta, viagens e fuso horário, carga de estresse e fase da temporada alteram a microbiota.\" (fala de Bruno Zylber em 28:09.0 a 28:17.3 no YouTube); (4) \"A base sempre vai ser a nutrição.\"; (5) \"Arnold Conference 2026 · Bruno Zylber\" + CTA.",
+    "fallback": "carrossel de 5 telas sem vídeo: (1) \"O intestino do atleta também entra na preparação.\"; (2) \"A pergunta não é só se a microbiota é saudável. É o que ela faz pela performance e pela recuperação.\"; (3) \"Modalidade, dieta, viagens e fuso horário, carga de estresse e fase da temporada alteram a microbiota.\" (fala de Bruno Zylber em 13:31 a 13:41 no YouTube); (4) \"A base sempre vai ser a nutrição.\"; (5) \"Arnold Conference 2026 · Bruno Zylber\" + CTA.",
     "cta": "Congresso de Nutrição Esportiva 2027: lote 1 limitado. Link na bio.",
     "destination": "página oficial de Nutrição Esportiva",
     "destinationUrl": "https://arnold.savagetgroup.com.br/conference2/nutricao-esportiva/",
