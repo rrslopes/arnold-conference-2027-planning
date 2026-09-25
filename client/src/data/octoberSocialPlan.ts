@@ -967,7 +967,7 @@ export const octoberCalendarBase = [
           "content": "(1) Frase da capa. (2) \"O 8º Congresso de Gestão de Academias acontece em 23 e 24/04, com coordenação de Dudu Netto.\" (3) Os temas citados pela Leal em uma linha. (4) \"Inscrições abertas. Lote 1 limitado. Link na bio.\""
         }
       ],
-      "note": "não comparar com a Certificação Internacional em Personal Training – WTTC. O carrossel \"8ª edição\" (antigo 1011) foi para o backlog de novembro."
+      "note": "no áudio, a Leal diz que o congresso \"nasce\"; na legenda, deixar claro que é a 8ª edição. Não comparar com a Certificação Internacional em Personal Training – WTTC. O carrossel \"8ª edição\" (antigo 1011) foi para o backlog de novembro."
     },
     "storyCards": [
       {
@@ -2301,7 +2301,7 @@ export const octoberCalendarBase = [
           "content": "(1) \"Hoje é Dia do Fisiculturista.\" Uma frase de homenagem. (2) \"Em 25/04, o Congresso de Bodybuilding reúne atletas, treinadores e coaches, com coordenação de Ricardo Pannain.\" (3) \"Inscrições abertas. Lote 1 limitado. Link na bio.\""
         }
       ],
-      "note": "Stories de escassez: publicação condicionada à confirmação do cliente de que o lote 1 segue disponível. \"Últimos lugares\" só com confirmação explícita. O card 1031 (Pannain, comprometimento) continua no dia seguinte: são dois dias seguidos de Bodybuilding, com ângulos diferentes (institucional e comportamento)."
+      "note": "no áudio, a Leal diz que o Congresso de Bodybuilding \"nasce\"; na legenda, não apresentar como estreia (o congresso já aconteceu em 2026). Stories de escassez: publicação condicionada à confirmação do cliente de que o lote 1 segue disponível. \"Últimos lugares\" só com confirmação explícita. O card 1031 (Pannain, comprometimento) continua no dia seguinte: são dois dias seguidos de Bodybuilding, com ângulos diferentes (institucional e comportamento)."
     },
     "storyCards": [
       {
