@@ -1993,44 +1993,44 @@ export const octoberCalendarBase = [
     "date": "27/10",
     "phase": "Venda contínua",
     "channel": "carrossel de autoridade de 7 telas + 3 Stories",
-    "title": "Dudu Netto: 5 marcos de quem coordena o 8º Congresso de Gestão de Academias",
+    "title": "O que Dudu Netto aprendeu sobre gestão antes de coordenar o congresso",
     "origin": "mini-bio (planilha de coordenadores); perfil",
     "originUrl": "https://www.instagram.com/nettodudu/",
     "originLinkLabel": "Abrir material de referência",
-    "idea": "formato \"5 fatos\" pedido pelo cliente, com fatos verificáveis e ligação clara com o público de gestores.",
+    "idea": "despertar curiosidade pela experiência do coordenador: o que alguém que dirige a Bodytech aprendeu sobre gestão. Cada aprendizado vem de uma fala pública dele, com fonte, e leva ao congresso que ele coordena.",
     "productionBrief": {
       "format": "carrossel de autoridade de 7 telas + 3 Stories",
-      "purpose": "apresentar a autoridade do coordenador de forma rápida e concreta.",
+      "purpose": "apresentar a autoridade do coordenador pelo que ele aprendeu na prática, e não por uma lista de cargos.",
       "units": [
         {
           "unit": "Tela 1",
           "role": "Capa",
-          "content": "\"Dudu Netto: 5 marcos de quem coordena o 8º Congresso de Gestão de Academias\" + foto oficial."
+          "content": "\"O que Dudu Netto aprendeu sobre gestão antes de coordenar o congresso\" + foto oficial."
         },
         {
           "unit": "Tela 2",
-          "role": "Fato 1",
-          "content": "Cargo atual: diretor técnico e sócio da Bodytech Company."
+          "role": "Quem é",
+          "content": "Diretor técnico e sócio da Bodytech Company; mestre em Ciência da Motricidade Humana e especialista em ciência do exercício."
         },
         {
           "unit": "Tela 3",
-          "role": "Fato 2",
-          "content": "Formação: mestre em Ciência da Motricidade Humana e especialista em ciência do exercício."
+          "role": "Aprendizado 1",
+          "content": "Um aprendizado sobre gestão em uma frase, com a fala dele ou um resumo fiel. Exemplo do tipo de conteúdo: o que ele diz sobre formar equipe, processo, indicador ou experiência do aluno. Com fonte."
         },
         {
           "unit": "Tela 4",
-          "role": "Fato 3",
-          "content": "Uma experiência pública em inovação, programas ou estratégia para o mercado fitness, com fonte."
+          "role": "Aprendizado 2",
+          "content": "Outro aprendizado, de outro tema, no mesmo formato. Com fonte."
         },
         {
           "unit": "Tela 5",
-          "role": "Fato 4",
-          "content": "Uma publicação, projeto ou palestra relevante, com fonte."
+          "role": "Aprendizado 3",
+          "content": "Um terceiro aprendizado, no mesmo formato. Com fonte."
         },
         {
           "unit": "Tela 6",
-          "role": "Fato 5",
-          "content": "\"Coordena o 8º Congresso de Gestão de Academias em 2027.\""
+          "role": "Ponte",
+          "content": "\"Em 2027, ele coordena o 8º Congresso de Gestão de Academias.\""
         },
         {
           "unit": "Tela 7",
@@ -2043,16 +2043,16 @@ export const octoberCalendarBase = [
           "content": "Publicar em collab com Dudu Netto. Combinar dia e horário com ele antes, para que aceite a collab na hora da publicação: os primeiros 20 minutos determinam o engajamento. [AUTORIZAÇÃO E HORÁRIO DA COLLAB – A COMBINAR COM O PALESTRANTE]"
         }
       ],
-      "note": "só fatos com fonte. Sem números de empresas não documentados. Publicar em collab com Dudu Netto. Combinar dia e horário com ele antes, para que aceite a collab na hora da publicação: os primeiros 20 minutos determinam o engajamento. [AUTORIZAÇÃO E HORÁRIO DA COLLAB – A COMBINAR COM O PALESTRANTE]"
+      "note": "só aprendizados com fonte; não atribuir a ele frases que ele não disse. Sem números de empresas não documentados. Publicar em collab com Dudu Netto. Combinar dia e horário com ele antes, para que aceite a collab na hora da publicação: os primeiros 20 minutos determinam o engajamento. [AUTORIZAÇÃO E HORÁRIO DA COLLAB – A COMBINAR COM O PALESTRANTE]"
     },
     "agencyResearch": {
       "owner": "Agência de conteúdo e pesquisa",
-      "request": "levantar os fatos 3 e 4 em fontes públicas, com links.",
+      "request": "levantar três aprendizados de Dudu Netto sobre gestão de academias em falas públicas (entrevistas, podcasts, palestras, posts ou o acervo do Arnold Conference), com link e o trecho ou a minutagem de cada um. Resumo fiel à fala; nada inventado ou inferido.",
       "deliverables": [
-        "levantar os fatos 3 e 4 em fontes públicas, com links."
+        "levantar três aprendizados de Dudu Netto sobre gestão de academias em falas públicas (entrevistas, podcasts, palestras, posts ou o acervo do Arnold Conference), com link e o trecho ou a minutagem de cada um. Resumo fiel à fala; nada inventado ou inferido."
       ],
-      "validation": "Validar todas as afirmações e materiais solicitados antes da publicação. levantar os fatos 3 e 4 em fontes públicas, com links.",
-      "fallback": "carrossel de 4 telas (capa, fatos 1 e 2, fato 5, ação)."
+      "validation": "Validar todas as afirmações e materiais solicitados antes da publicação. levantar três aprendizados de Dudu Netto sobre gestão de academias em falas públicas (entrevistas, podcasts, palestras, posts ou o acervo do Arnold Conference), com link e o trecho ou a minutagem de cada um. Resumo fiel à fala; nada inventado ou inferido.",
+      "fallback": "se não houver três aprendizados com fonte, trocar o título para \"Quem é Dudu Netto, coordenador do 8º Congresso de Gestão de Academias\" e usar um carrossel de 4 telas (capa, cargo e formação, coordenação em 2027, ação)."
     },
     "storyCards": [
       {
@@ -2075,7 +2075,7 @@ export const octoberCalendarBase = [
         "prompt": "\"Gestão de Academias 2027: lote 1 limitado.\" Figurinha de link."
       }
     ],
-    "fallback": "carrossel de 4 telas (capa, fatos 1 e 2, fato 5, ação).",
+    "fallback": "se não houver três aprendizados com fonte, trocar o título para \"Quem é Dudu Netto, coordenador do 8º Congresso de Gestão de Academias\" e usar um carrossel de 4 telas (capa, cargo e formação, coordenação em 2027, ação).",
     "cta": "Garanta a sua vaga no lote 1.",
     "destination": "página oficial de Gestão de Academias",
     "destinationUrl": "https://arnold.savagetgroup.com.br/gestao-de-academias/",

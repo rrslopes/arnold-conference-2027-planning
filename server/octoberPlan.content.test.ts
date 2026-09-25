@@ -106,7 +106,7 @@ describe("pacote editorial de 28/09 a 31/10 de 2026", () => {
   it("preserva os formatos simples, histórias e provas de autoridade solicitados", () => {
     expect(item("1010").title).toBe("Inscrições abertas: 5 motivos para estar no Congresso de Nutrição Esportiva 2027");
     expect(item("1021").title).toBe("Quem é Ana Paula Pujol, que fala de bioenergética mitocondrial em 2027");
-    expect(item("1027").title).toBe("Dudu Netto: 5 marcos de quem coordena o 8º Congresso de Gestão de Academias");
+    expect(item("1027").title).toBe("O que Dudu Netto aprendeu sobre gestão antes de coordenar o congresso");
     expect(item("1016").title).toBe("Por trás da coordenação: a trajetória de Andréia Naves");
     expect(item("1029").title).toBe("O caminho de Cris Parente até o título de Melhor Personal Trainer do Mundo");
     expect(JSON.stringify(octoberCalendar)).not.toMatch(/5 coisas sobre/);
