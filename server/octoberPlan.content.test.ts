@@ -82,6 +82,15 @@ describe("pacote editorial de 28/09 a 31/10 de 2026", () => {
     expect(reelSource("1031")[0]).toMatchObject({ role: "Relato", source: "Ricardo Pannain · falas em 00:16 e 00:33 do Reel", sourceUrl: "https://www.instagram.com/reel/DXXimnVFX4X/" });
   });
 
+  it("usa trechos da íntegra, e não pílulas prontas do Drive", () => {
+    expect(JSON.stringify(octoberCalendar)).not.toMatch(/pílulas? legendadas?|pílulas? finalizadas?|pasta de pílulas/i);
+    const cut = item("1016").productionBrief?.units.filter(unit => unit.source) ?? [];
+    expect(cut).toHaveLength(1);
+    expect(cut[0].sourceUrl).toBe("https://youtu.be/8hnvXCzfd3U");
+    expect(cut[0].source).toContain("19:09.5 a 20:04.2 no YouTube (transcrição validada 04:33.5 a 05:28.2 + 14:36)");
+    expect(item("1016").origin).not.toMatch(/\[[^\]]*A INSERIR[^\]]*\]/);
+  });
+
   it("preserva os formatos simples, histórias e provas de autoridade solicitados", () => {
     expect(item("1010").title).toBe("5 motivos para estar no Congresso de Nutrição Esportiva 2027");
     expect(item("1021").title).toBe("5 coisas sobre Ana Paula Pujol");

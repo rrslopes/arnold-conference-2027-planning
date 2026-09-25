@@ -45,7 +45,7 @@ describe("briefings operacionais do calendário", () => {
 
   it("vincula somente os materiais com correspondência inequívoca às pautas", () => {
     const linkedItems = calendar.filter(item => item.materialLinks?.length).map(item => item.id);
-    expect(linkedItems).toEqual(["0904", "0906", "0908", "0910", "0911", "0918", "0919", "0921", "0923", "0925", "0928", "1001", "1006", "1012", "1014", "1020", "1021", "1024"]);
+    expect(linkedItems).toEqual(["0904", "0906", "0908", "0910", "0911", "0918", "0919", "0921", "0923", "0925", "0928", "1001", "1006", "1012", "1014", "1016", "1020", "1021", "1024"]);
 
     const links = calendar.flatMap(item => item.materialLinks ?? []);
     const urls = new Set(links.map(link => link.url));
@@ -56,6 +56,7 @@ describe("briefings operacionais do calendário", () => {
     expect(urls).toContain("https://drive.google.com/file/d/1wkmbIC1neGjMRzWs_J3sFghmAu9bwYEF/view");
     expect(urls).toContain("https://drive.google.com/file/d/1x7Gehmq6RJ9ahupumY3_wu1xiA_AS1hQ/view");
     expect(urls).toContain("https://drive.google.com/file/d/1Giqs6qkKFzEMxNIOBC4rEPsp_IE3FeP5/view");
+    expect(urls).toContain("https://drive.google.com/file/d/1aYjaPT2plpdHOVcHemv_yyTXAjWJAL5q/view");
     expect(urls).toContain("https://arnold.savagetgroup.com.br/conference2/bodybuilding/");
 
     expect(calendar.find(item => item.id === "0925")?.materialLinks?.map(link => link.label).join(" ")).not.toContain("Luisa");

@@ -62,6 +62,7 @@ Se não houver acesso ao Google Drive nesta sessão, pedir ao Raphael a versão 
 - Pasta no Drive: https://drive.google.com/drive/folders/1r24CMj5HB-FnKciFHLsm9mQCJ4iaXGDL (links do YouTube + transcrições por congresso).
 - Cópia local recomendada em `referencias/transcricoes/` (pasta fora do Git, ver `.gitignore`).
 - Minutagens vêm de transcrição automática: indicar início e fim de frase e tolerância de ±2s.
+- Por enquanto, não usar pílulas prontas do Drive. Todo corte sai da íntegra, com minutagem do YouTube, frase de início e fim e link do vídeo.
 - Bruno Zylber: a transcrição validada usa um áudio que começa 14:36 depois do vídeo do YouTube. Minutagem YouTube = transcrição + 14:36.
 - Minutagens conferidas em 24/09: Ivan Lucas 17:36–18:13; Olívia Fernandes 52:47–53:08; Alessandra Feltre 43:52–44:14 (pílula 45:15–45:22); Américo 36:20–36:51 (pílula 14:17–14:37); Andreia Naves 15:18.9–15:27.6.
 
