@@ -8,7 +8,13 @@ Plataforma de planejamento de marketing do Arnold Conference 2027 (cliente: Sava
 2. Nunca editar ao mesmo tempo que a Manus. Se o último commit for da Manus há poucos minutos, perguntar ao Raphael se ela terminou.
 3. Editar apenas o que foi pedido. Não mexer em `server/_core`, integrações, banco (drizzle) ou layout sem pedido explícito.
 4. Validar sempre: `pnpm check`, `pnpm test`, `pnpm build`. Os testes de conteúdo (`server/*.content.test.ts` e demais testes que não dependem de credenciais) precisam passar. Localmente, falham por falta de credenciais os testes de `planning.integration`, `lovableNews.persistence`, `lovableMasterclass.persistence` e `lovableNewsMetrics`; isso é esperado. Qualquer falha fora desses quatro arquivos bloqueia o push. Se uma regra editorial mudou, atualizar o teste de conteúdo correspondente e explicar no commit.
-5. Commit em português, descrevendo o que foi substituído, criado e removido. Depois do push, avisar o Raphael para fazer o pull manual na Manus (ícone do GitHub) e publicar.
+5. Commit em português, descrevendo o que foi substituído, criado e removido. Depois do push, passar ao Raphael o prompt enxuto abaixo para colar na Manus. Quando ela terminar, conferir a versão publicada lendo o site (https://planejamentoconference.savagetgroup.com.br), sem pedir verificações à Manus. Se a mudança tocar servidor, banco ou integrações, o prompt volta a pedir `pnpm test`.
+
+   > Publique a versão atual da branch main do GitHub (rrslopes/arnold-conference-2027-planning), sem editar nenhum arquivo.
+   > 1. git pull --ff-only na main. Se houver conflito ou alteração local, pare e me avise.
+   > 2. pnpm build. Se falhar, pare e me mostre o erro.
+   > 3. Salve o checkpoint e publique.
+   > Responda só com o hash do commit publicado. Não faça outras verificações.
 
 ## Onde está o conteúdo
 
@@ -43,6 +49,7 @@ Vendas abrem em 06/10/2026. Meta: lotação máxima de todas as salas. Todos os 
 - Briefings diretos, didáticos e com exemplo. O cliente reprova instrução abstrata.
 - Não repetir pautas dentro do mês nem entre meses. Checar o calendário existente antes de propor.
 - Programações de Nutrição Estética e SONAFE 2027 são definitivas: temas centrais e nomes podem ser usados; horários, grade completa e títulos integrais não.
+- Programação de Nutrição Esportiva 2027 recebida em 25/09 (planilha do cliente, em `editorialIntelligence.ts`), ainda com espaços "Em breve". Até o Raphael confirmar que é definitiva, os temas não entram em posts e e-mails.
 - Não há depoimentos de participantes de 2026.
 - Conteúdo de cases de atletas: educativo e sem link de venda (risco jurídico).
 - Autoridade de palestrantes: a agência pesquisa o material bruto; nós indicamos o caminho. Fato sem fonte não entra.

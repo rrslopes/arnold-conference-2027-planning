@@ -13,8 +13,8 @@ import { navigation } from "../client/src/data/planData";
 describe("inteligência editorial por programação", () => {
   it("organiza os seis congressos sem tratar grades de 2026 como programação de 2027", () => {
     expect(conferencePrograms2027).toHaveLength(6);
-    expect(conferencePrograms2027.filter(item => item.status === "recebida")).toHaveLength(2);
-    expect(conferencePrograms2027.filter(item => item.status === "aguardando")).toHaveLength(4);
+    expect(conferencePrograms2027.filter(item => item.status === "recebida")).toHaveLength(3);
+    expect(conferencePrograms2027.filter(item => item.status === "aguardando")).toHaveLength(3);
     expect(conferencePrograms2027.filter(item => item.status === "aguardando").every(item => item.sessions.length === 0)).toBe(true);
     expect(navigation.some(item => item.id === "inteligencia" && item.label === "Programação & conteúdo")).toBe(true);
   });
@@ -92,6 +92,22 @@ describe("inteligência editorial por programação", () => {
     ]);
   });
 
+  it("reproduz a programação de Nutrição Esportiva 2027 recebida em 25/09, ainda sem liberar os temas", () => {
+    const program = conferencePrograms2027.find(item => item.id === "nutricao-esportiva");
+    expect(program?.status).toBe("recebida");
+    expect(program?.statusLabel).toContain("confirmar se é definitiva");
+    expect(program?.date).toBe("24 e 25 de abril de 2027");
+    expect(program?.sourceUrl).toContain("1WosiWfiABkEyGKTz2Lk6uaBi7HCUTNEu");
+    expect(program?.sessions).toHaveLength(13);
+    expect(program?.sessions.filter(item => item.time.startsWith("Sáb 24/04"))).toHaveLength(7);
+    expect(program?.sessions.filter(item => item.time.startsWith("Dom 25/04"))).toHaveLength(6);
+    expect(program?.sessions.every(item => item.materialStatus)).toBe(true);
+    expect(JSON.stringify(program?.sessions)).not.toMatch(/Análagos|Presrição|Planejameto|nutriconista|26\/04/);
+    const assets = program?.sessions.flatMap(item => item.speakerAssets ?? []) ?? [];
+    expect(new Set(assets.filter(item => item.materialUrl).map(item => item.name)).size).toBe(13);
+    expect(confirmedProgramPublicationPolicy.congresses).not.toContain("Nutrição Esportiva");
+  });
+
   it("autoriza temas centrais sem tornar seu uso obrigatório nem antecipar a grade completa", () => {
     expect(confirmedProgramPublicationPolicy.congresses).toEqual([
       "Nutrição Estética",
@@ -104,7 +120,8 @@ describe("inteligência editorial por programação", () => {
   });
 
   it("mantém eixos e solicitações operacionais completos", () => {
-    expect(audienceAttractionAxes).toHaveLength(10);
+    expect(audienceAttractionAxes).toHaveLength(14);
+    expect(audienceAttractionAxes.filter(item => item.congress === "Nutrição Esportiva")).toHaveLength(4);
     expect(audienceAttractionAxes.every(item => item.tension && item.audience && item.sessions && item.congress)).toBe(true);
     expect(audienceAttractionAxes.filter(item => item.congress === "SONAFE")).toHaveLength(4);
     expect(speakerContentRequests).toHaveLength(7);
