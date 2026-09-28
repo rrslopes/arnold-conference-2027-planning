@@ -251,6 +251,23 @@ describe("planning router", () => {
     expect(mocks.saveEmailWorkflow).toHaveBeenCalledWith(entry);
   });
 
+  it("accepts October email ids (email-oct-) and still rejects unknown prefixes", async () => {
+    mocks.saveEmailWorkflow.mockResolvedValue({ updatedAt: 990 });
+    const caller = appRouter.createCaller(createContext());
+    const entry = {
+      emailItemId: "email-oct-opening",
+      previewUrl: "https://app.rdstation.com.br/email/preview/example",
+      status: "aprovar-texto-adri" as const,
+    };
+    await caller.planning.saveEmailWorkflow(entry);
+    expect(mocks.saveEmailWorkflow).toHaveBeenCalledWith(entry);
+    await expect(caller.planning.saveEmailWorkflow({
+      ...entry,
+      emailItemId: "email-october-opening",
+    })).rejects.toThrow();
+    expect(mocks.saveEmailWorkflow).toHaveBeenCalledTimes(1);
+  });
+
   it("rejects invalid email status, item id and non-HTTPS preview links", async () => {
     const caller = appRouter.createCaller(createContext());
     await expect(caller.planning.saveEmailWorkflow({

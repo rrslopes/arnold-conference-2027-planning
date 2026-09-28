@@ -101,6 +101,7 @@ Vendas abrem em 06/10/2026. Meta: lotação máxima de todas as salas. Todos os 
 - Não repetir temas entre e-mails. Temas de congresso só da programação confirmada, usando os mais quentes com criatividade.
 - Promessa da lista (pré-abertura): "quem está na lista recebe as informações do lançamento e tem a oportunidade de concluir a inscrição com a condição especial do lote 1". Quem já está na lista é orientado a ficar de olho na caixa de entrada em 06/10.
 - Os checklists de liberação usam linguagem direta, sem siglas como GO, NO-GO ou D-6: momento, o que precisa estar pronto, quem confere e quem libera, e o que acontece se faltar algo.
+- Todo prefixo novo de ID de e-mail (ex.: email-nov-) precisa ser incluído na validação de emailItemId em server/routers/planning.ts, com teste, senão a plataforma não salva status nem prévia.
 
 ## Documentos vivos (ler antes de propor pautas)
 
@@ -144,7 +145,6 @@ Se não houver acesso ao Google Drive nesta sessão, pedir ao Raphael a versão 
 - Collabs com palestrantes (1016, 1021, 1027, 1029): autorização e horário.
 - Backlog de novembro: conferir no YouTube a minutagem do Marcelo Stefani (08:56–09:18) antes de usar.
 - Técnicas, sem pedido ainda:
-  - o servidor só aceita salvar status e prévia de e-mails com ID `email-base-` ou `email-nurture-` (`server/routers/planning.ts`); os e-mails de outubro (`email-oct-`) não conseguem ser salvos;
   - a tabela de lançamento (`octoberPlan.ts`) ainda usa "D-6" e "GO/NO-GO";
   - `todo.md` e `VALIDACAO_CONTINGENCIA.md` ainda citam "35 países" (registros históricos);
   - os arquivos do Drive linkados nos cards estão com "qualquer pessoa com o link pode editar"; considerar trocar para leitor.

@@ -127,7 +127,7 @@ const calendarWorkflowEntry = z.object({
 });
 
 const emailWorkflowEntry = z.object({
-  emailItemId: z.string().regex(/^email-(base|nurture)-[a-z0-9-]+$/).max(48),
+  emailItemId: z.string().regex(/^email-(base|nurture|oct)-[a-z0-9-]+$/).max(48),
   previewUrl: z.string().trim().max(2048).refine(isValidEmailPreviewUrl, "Informe um link HTTPS válido."),
   status: z.enum(EMAIL_STATUS_IDS),
 });
