@@ -139,7 +139,6 @@ Se não houver acesso ao Google Drive nesta sessão, pedir ao Raphael a versão 
 - Allp Fit (25/10): aprovação da Adriana e da marca.
 - Migração do @arnold_congressos (0930a): condução com Adriana e a agência de operação.
 - Collabs com palestrantes (1016, 1021, 1027, 1029): autorização e horário.
-- Card 1029 (Cris Parente): a ideia estratégica ainda cita o formato "5 coisas"; o título e a capa já seguem a regra nova.
 - Backlog de novembro: conferir no YouTube a minutagem do Marcelo Stefani (08:56–09:18) antes de usar.
 - Técnicas, sem pedido ainda:
   - o servidor só aceita salvar status e prévia de e-mails com ID `email-base-` ou `email-nurture-` (`server/routers/planning.ts`); os e-mails de outubro (`email-oct-`) não conseguem ser salvos;

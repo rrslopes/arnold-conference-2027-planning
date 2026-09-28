@@ -2151,7 +2151,7 @@ export const octoberCalendarBase = [
     "origin": "mini-bio (planilha de coordenadores); perfil",
     "originUrl": "https://www.instagram.com/crisparente/",
     "originLinkLabel": "Abrir material de referência",
-    "idea": "o 15/10 apresentou a certificação; este post apresenta a pessoa. Formato \"5 coisas\" pedido pelo cliente.",
+    "idea": "o 15/10 apresentou a certificação; este post apresenta a pessoa pela trajetória até o título de Melhor Personal Trainer do Mundo, com fatos verificáveis que ligam essa experiência à Certificação que ele coordena.",
     "productionBrief": {
       "format": "carrossel de autoridade de 7 telas + 3 Stories",
       "purpose": "transformar a autoridade do coordenador em motivo de inscrição.",
