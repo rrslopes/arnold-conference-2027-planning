@@ -20,10 +20,13 @@ Plataforma de planejamento de marketing do Arnold Conference 2027 (cliente: Sava
 
 - Ao começar: `git pull` na `main`. Ao terminar: commit e `git push`, mesmo que o trabalho continue no dia seguinte.
 - Nunca editar em dois lugares ao mesmo tempo: os dois PCs e a Manus. Antes de editar, conferir com `git fetch` e `git status` que não há commit novo nem alteração pendente.
-- A pasta `referencias/` fica no OneDrive, em `Projetos-referencias\arnold-conference`. Em cada PC, o repositório tem uma junção de diretório (`mklink /J`) chamada `referencias` apontando para essa pasta. Marcar a pasta do OneDrive como "Sempre manter neste dispositivo".
+- Convenção de pastas: código em `D:\Projetos\<cliente>\<projeto>` (fora do OneDrive) e referências em `OneDrive\Projetos-referencias\<cliente>\<projeto>`. Nomes em minúsculas, com hífen, sem espaço e sem acento.
+- Este projeto: código em `D:\Projetos\savaget\arnold-conference-2027-planning`; referências em `OneDrive\Projetos-referencias\savaget\arnold-conference-2027`.
+- A pasta `referencias/` fica no OneDrive, em `Projetos-referencias\savaget\arnold-conference-2027`. Em cada PC, o repositório tem uma junção de diretório (`mklink /J`) chamada `referencias` apontando para essa pasta. Marcar a pasta do OneDrive como "Sempre manter neste dispositivo".
 - Preparar um PC novo (Windows):
   - Instalar Git, Node.js LTS e pnpm 10.4.1 (`npm install -g pnpm@10.4.1`).
-  - Clonar o repositório e, dentro dele: `git config core.autocrlf false` e `git config core.eol lf`. Sem isso, o Git converte as quebras de linha e testes de conteúdo falham.
+  - Clonar o repositório em `D:\Projetos\savaget\arnold-conference-2027-planning` e, dentro dele: `git config core.autocrlf false` e `git config core.eol lf`. Sem isso, o Git converte as quebras de linha e testes de conteúdo falham.
+  - Criar a junção no Prompt de Comando (cmd), dentro do repositório: `mklink /J referencias "<pasta do OneDrive>\Projetos-referencias\savaget\arnold-conference-2027"`.
   - `git config user.name "Raphael · Extrema Visibilidade"` e `git config user.email "raphael@extremavisibilidade.com.br"`.
   - `pnpm install`.
   - Pré-visualização local só do front (sem banco): `npx vite --port 5173`.
