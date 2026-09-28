@@ -24,7 +24,11 @@ A plataforma não é usada para controle operacional de status. Ela serve para d
 - Mudança só de conteúdo: prompt sem `pnpm test` (só pull, build, checkpoint e publicação), como o prompt acima.
 - Mudança no servidor: manter `pnpm test`, pedindo resposta curta: "Se falhar algum teste fora de planning.integration, lovableNews.persistence, lovableMasterclass.persistence e lovableNewsMetrics, pare e me mostre só os nomes dos testes que falharam."
 - Juntar as mudanças do dia e publicar uma vez só.
-- Antes de usar o agente da Manus, tentar o caminho manual: menu "..." → GitHub, verificar se há opção de sincronizar e publicar pelo botão Publicar. Resultado do teste: ainda não testado.
+- Caminho manual testado: o painel GitHub da Manus (menu "..." → GitHub) mostra "Desatualizado" quando o GitHub está à frente, com o último commit, e oferece o botão "Pedir ao Manus para sincronizar", que aciona o agente. Não existe sincronização sem o agente.
+- Rotina:
+  1. Mudança que aparece na plataforma: painel GitHub → "Pedir ao Manus para sincronizar" → botão "Publicar".
+  2. Mudança só em CLAUDE.md ou arquivos internos: não publicar; vai junto na próxima publicação.
+  3. Na primeira vez que o botão for usado, comparar o consumo de créditos dele com o do prompt curto e registrar aqui o resultado.
 
 ## Trabalho em dois computadores (escritório e casa)
 
