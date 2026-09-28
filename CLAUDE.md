@@ -2,6 +2,8 @@
 
 Plataforma de planejamento de marketing do Arnold Conference 2027 (cliente: Savaget Group), operada pela agência Extrema Visibilidade. O conteúdo estratégico (calendário, briefings, e-mails) vive nos arquivos de dados deste repositório. A hospedagem e a publicação são feitas pela Manus, que sincroniza com a branch `main` deste repositório nos dois sentidos.
 
+A plataforma não é usada para controle operacional de status. Ela serve para direcionamento e briefing; a área de indicadores recebe o link do e-mail disparado para relatório. Não priorizar funcionalidades de status sem pedido.
+
 ## Fluxo de trabalho (obrigatório)
 
 1. Antes de qualquer edição: `git pull` na `main`.
@@ -15,6 +17,14 @@ Plataforma de planejamento de marketing do Arnold Conference 2027 (cliente: Sava
    > 2. pnpm build. Se falhar, pare e me mostre o erro.
    > 3. Salve o checkpoint e publique.
    > Responda só com o hash do commit publicado. Não faça outras verificações.
+
+### Publicação na Manus
+
+- Usar sempre o modo padrão da Manus para publicar, nunca o Max.
+- Mudança só de conteúdo: prompt sem `pnpm test` (só pull, build, checkpoint e publicação), como o prompt acima.
+- Mudança no servidor: manter `pnpm test`, pedindo resposta curta: "Se falhar algum teste fora de planning.integration, lovableNews.persistence, lovableMasterclass.persistence e lovableNewsMetrics, pare e me mostre só os nomes dos testes que falharam."
+- Juntar as mudanças do dia e publicar uma vez só.
+- Antes de usar o agente da Manus, tentar o caminho manual: menu "..." → GitHub, verificar se há opção de sincronizar e publicar pelo botão Publicar. Resultado do teste: ainda não testado.
 
 ## Trabalho em dois computadores (escritório e casa)
 
