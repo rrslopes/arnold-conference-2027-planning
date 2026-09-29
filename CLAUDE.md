@@ -25,10 +25,11 @@ A plataforma não é usada para controle operacional de status. Ela serve para d
 - Mudança no servidor: manter `pnpm test`, pedindo resposta curta: "Se falhar algum teste fora de planning.integration, lovableNews.persistence, lovableMasterclass.persistence e lovableNewsMetrics, pare e me mostre só os nomes dos testes que falharam."
 - Juntar as mudanças do dia e publicar uma vez só.
 - Caminho manual testado: o painel GitHub da Manus (menu "..." → GitHub) mostra "Desatualizado" quando o GitHub está à frente, com o último commit, e oferece o botão "Pedir ao Manus para sincronizar", que aciona o agente. Não existe sincronização sem o agente.
+- A sincronização pelo botão "Pedir ao Manus para sincronizar" não cria checkpoint, então não permite publicar: o botão "Publicar" só habilita depois de um checkpoint.
 - Rotina:
-  1. Mudança que aparece na plataforma: painel GitHub → "Pedir ao Manus para sincronizar" → botão "Publicar".
+  1. Mudança que aparece na plataforma (rotina a testar na próxima publicação): modo padrão e um prompt único: "Faça git pull da main do GitHub, salve o checkpoint e publique. Não rode testes, verificação de tipos nem build: já foi tudo validado antes do push. Responda só com o hash publicado."
   2. Mudança só em CLAUDE.md ou arquivos internos: não publicar; vai junto na próxima publicação.
-  3. Consumo de créditos. Primeiro uso do botão, em 29/09: a Manus rodou em modo Max, levou 18s, gastou 820 créditos e só sincronizou (fast-forward para `acba409`, 4 commits). A publicação é um passo separado, no botão "Publicar". Referência anterior: o prompt curto, em modo Max e com `pnpm test`, apareceu com 2.982 créditos no histórico do dia (o valor pode somar mais de uma tarefa). Próximo passo: descobrir se o botão pode rodar no modo padrão.
+  3. Consumo de créditos. Em 29/09, a publicação de `acba409` custou 820 créditos: 177 do botão "Pedir ao Manus para sincronizar" (modo Max, só sincronizou) e cerca de 640 do chat, porque o botão "Publicar" não habilitava sem checkpoint e a Manus rodou testes e build por conta própria, em modo Max. Referência anterior: o prompt curto, em modo Max e com `pnpm test`, apareceu com 2.982 créditos no histórico do dia (o valor pode somar mais de uma tarefa).
 
 ## Trabalho em dois computadores (escritório e casa)
 
@@ -151,6 +152,7 @@ Se não houver acesso ao Google Drive nesta sessão, pedir ao Raphael a versão 
 - Datas dos vídeos de tendência da Leal: 5 vídeos em edição para 4 quintas livres em outubro; confirmar com Iris ou Dri.
 - Links dos vídeos da Leal, que vêm da equipe do cliente.
 - Horário de abertura das vendas em 06/10.
+- Manus: perguntar se a publicação automática consome créditos a cada sincronização.
 - CRM: campos de interesse, eventos de navegação e evento de checkout abandonado.
 - Pasta de prints do SONAFE de 2026.
 - Contato de atendimento válido para 2027 (hoje, congresso@savagetgroup.com.br).
