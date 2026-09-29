@@ -78,8 +78,8 @@ Vendas abrem em 06/10/2026. Meta: lotação máxima de todas as salas. Todos os 
 - Escassez: usar "lote 1 limitado". Proibido publicar datas de virada de lote e valores.
 - Briefings diretos, didáticos e com exemplo. O cliente reprova instrução abstrata.
 - Não repetir pautas dentro do mês nem entre meses. Checar o calendário existente antes de propor.
-- Programações de Nutrição Estética e SONAFE 2027 são definitivas: temas centrais e nomes podem ser usados; horários, grade completa e títulos integrais não.
-- Programação de Nutrição Esportiva 2027 recebida em 25/09 (planilha do cliente, em `editorialIntelligence.ts`), ainda com espaços "Em breve". Até o Raphael confirmar que é definitiva, os temas não entram em posts e e-mails.
+- O cliente autorizou divulgar temas e nomes de qualquer congresso assim que houver programação, mesmo que ainda não seja definitiva. Não chamar de programação completa ou definitiva. Se a programação mudar, revisar os cards e e-mails que citam o que mudou.
+- Continua proibido publicar horários, grade completa e títulos integrais das palestras.
 - Não há depoimentos de participantes de 2026.
 - Conteúdo de cases de atletas: educativo e sem link de venda (risco jurídico).
 - Autoridade de palestrantes: a agência pesquisa o material bruto; nós indicamos o caminho. Fato sem fonte não entra.
@@ -145,7 +145,7 @@ Se não houver acesso ao Google Drive nesta sessão, pedir ao Raphael a versão 
 
 ## Pendências em aberto (atualizado em 28/09/2026)
 
-- Programação de Nutrição Esportiva: confirmar se é definitiva. Na planilha, conferir a data do domingo (diz 26/04; o certo é 25/04) e o Instagram de Paulo Mendes ("paulomendesmutri").
+- Programação de Nutrição Esportiva: na planilha, conferir a data do domingo (diz 26/04; o certo é 25/04) e o Instagram de Paulo Mendes ("paulomendesmutri").
 - Datas dos vídeos de tendência da Leal: 5 vídeos em edição para 4 quintas livres em outubro; confirmar com Iris ou Dri.
 - Links dos vídeos da Leal, que vêm da equipe do cliente.
 - Horário de abertura das vendas em 06/10.
