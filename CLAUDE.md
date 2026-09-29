@@ -10,13 +10,9 @@ A plataforma não é usada para controle operacional de status. Ela serve para d
 2. Nunca editar ao mesmo tempo que a Manus. Se o último commit for da Manus há poucos minutos, perguntar ao Raphael se ela terminou.
 3. Editar apenas o que foi pedido. Não mexer em `server/_core`, integrações, banco (drizzle) ou layout sem pedido explícito.
 4. Validar sempre: `pnpm check`, `pnpm test`, `pnpm build`. Os testes de conteúdo (`server/*.content.test.ts` e demais testes que não dependem de credenciais) precisam passar. Localmente, falham por falta de credenciais os testes de `planning.integration`, `lovableNews.persistence`, `lovableMasterclass.persistence` e `lovableNewsMetrics`; isso é esperado. Qualquer falha fora desses quatro arquivos bloqueia o push. Se uma regra editorial mudou, atualizar o teste de conteúdo correspondente e explicar no commit.
-5. Commit em português, descrevendo o que foi substituído, criado e removido. Depois do push, passar ao Raphael o prompt enxuto abaixo para colar na Manus. Quando ela terminar, conferir a versão publicada lendo o site (https://planejamentoconference.savagetgroup.com.br), sem pedir verificações à Manus. Se a mudança tocar servidor, banco ou integrações, o prompt volta a pedir `pnpm test`.
+5. Commit em português, descrevendo o que foi substituído, criado e removido. Depois do push, passar ao Raphael o prompt abaixo para colar na Manus, em modo padrão. Quando ela terminar, conferir a versão publicada lendo o site (https://planejamentoconference.savagetgroup.com.br), sem pedir verificações à Manus. Se a mudança tocar servidor, banco ou integrações, o prompt volta a pedir `pnpm test`.
 
-   > Publique a versão atual da branch main do GitHub (rrslopes/arnold-conference-2027-planning), sem editar nenhum arquivo.
-   > 1. git pull --ff-only na main. Se houver conflito ou alteração local, pare e me avise.
-   > 2. pnpm build. Se falhar, pare e me mostre o erro.
-   > 3. Salve o checkpoint e publique.
-   > Responda só com o hash do commit publicado. Não faça outras verificações.
+   > Faça git pull da main do GitHub, rode só pnpm build, salve o checkpoint e publique. Não rode testes nem verificação de tipos: já foi tudo validado antes do push. Responda só com o hash publicado.
 
 ### Publicação na Manus
 
@@ -27,7 +23,7 @@ A plataforma não é usada para controle operacional de status. Ela serve para d
 - Caminho manual testado: o painel GitHub da Manus (menu "..." → GitHub) mostra "Desatualizado" quando o GitHub está à frente, com o último commit, e oferece o botão "Pedir ao Manus para sincronizar", que aciona o agente. Não existe sincronização sem o agente.
 - A sincronização pelo botão "Pedir ao Manus para sincronizar" não cria checkpoint, então não permite publicar: o botão "Publicar" só habilita depois de um checkpoint.
 - Rotina:
-  1. Mudança que aparece na plataforma (rotina a testar na próxima publicação): modo padrão e um prompt único: "Faça git pull da main do GitHub, salve o checkpoint e publique. Não rode testes, verificação de tipos nem build: já foi tudo validado antes do push. Responda só com o hash publicado."
+  1. Mudança que aparece na plataforma (rotina a testar na próxima publicação): modo padrão e o prompt do passo 5 do fluxo de trabalho, sem usar o botão de sincronização. Depois, conferir o site.
   2. Mudança só em CLAUDE.md ou arquivos internos: não publicar; vai junto na próxima publicação.
   3. Consumo de créditos. Em 29/09, a publicação de `acba409` custou 820 créditos: 177 do botão "Pedir ao Manus para sincronizar" (modo Max, só sincronizou) e cerca de 640 do chat, porque o botão "Publicar" não habilitava sem checkpoint e a Manus rodou testes e build por conta própria, em modo Max. Referência anterior: o prompt curto, em modo Max e com `pnpm test`, apareceu com 2.982 créditos no histórico do dia (o valor pode somar mais de uma tarefa).
 
