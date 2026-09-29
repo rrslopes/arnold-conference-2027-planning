@@ -36,8 +36,8 @@ export type ConferenceCoordinator = {
 };
 
 export const confirmedProgramPublicationPolicy = {
-  congresses: ["Nutrição Estética", "SONAFE — Simpósio de Fisioterapia Esportiva"],
-  status: "Programações definitivas · divulgação temática autorizada",
+  congresses: ["Nutrição Estética", "SONAFE — Simpósio de Fisioterapia Esportiva", "Nutrição Esportiva"],
+  status: "Programações recebidas · divulgação de temas e nomes autorizada",
   allowed:
     "Os temas centrais podem ser usados em posts e e-mails quando melhorarem a jornada, o storytelling ou o avanço do público.",
   reserved:
@@ -69,12 +69,12 @@ export const conferencePrograms2027: CongressProgram[] = [
     id: "sonafe",
     congress: "SONAFE — Simpósio de Fisioterapia Esportiva",
     status: "recebida",
-    statusLabel: "Programação 2027 definitiva · temas liberados",
+    statusLabel: "Programação 2027 recebida · temas e nomes liberados",
     date: "24 de abril de 2027",
     room: "Sala a confirmar",
-    source: "Programação_Simposio_Sonafe_2027.xlsx · versão atualizada recebida em 18/09/2026",
-    sourceUrl: "https://docs.google.com/spreadsheets/d/1P6EooZAA6mVkYVMC-hVUfbBvGfxxCx-8/edit?gid=656380718#gid=656380718",
-    note: "Doze sessões definitivas, incluindo nove palestras em dupla e uma mesa-redonda. A nova planilha acrescenta mini-CVs, pastas de foto e/ou redes sociais identificadas para 15 dos 20 palestrantes das sessões. Cinco palestrantes permanecem sem materiais individuais. Os temas centrais podem ser divulgados seletivamente, sem revelar a grade completa. A planilha identifica o encontro como 2º Simpósio, enquanto o arquivo de coordenadores usa 3º Simpósio; confirmar a numeração oficial antes de publicar peças externas.",
+    source: "Programação_Simposio_Sonafe_2027.xlsx · versão atualizada em 28/09/2026 (a anterior era de 18/09/2026)",
+    sourceUrl: "https://docs.google.com/spreadsheets/d/150hh-unHEBioxo2sWwXElElFeZ2JNU75/edit?gid=59526583#gid=59526583",
+    note: "Doze sessões, incluindo nove palestras em dupla e uma mesa-redonda. A versão de 28/09 acrescenta mini-CVs, pastas de foto e redes sociais de Larissa Pechincha, Giovana Steiner, Bruno Baroni e Fabricio Rapelo: 19 dos 20 palestrantes das sessões têm materiais. Katherine Ferro: por orientação da planilha de 28/09, não divulgar por enquanto, nem na palestra com Bruno Baroni nem na mesa-redonda. A planilha divide o dia em três blocos; o bloco 2 usa o nome oficial da Copa do Mundo Feminina, que não entra nas artes (usar \"futebol feminino\"). Temas centrais e nomes podem ser divulgados, sem revelar a grade completa. A planilha identifica o encontro como 2º Simpósio, enquanto o arquivo de coordenadores usa 3º Simpósio; confirmar a numeração oficial antes de publicar peças externas.",
     sessions: [
       {
         time: "9h00",
@@ -124,19 +124,19 @@ export const conferencePrograms2027: CongressProgram[] = [
         time: "14h00",
         speakers: "João Barboza e Larissa Pechincha",
         title: "Avaliação funcional do sistema musculoesquelético da mulher atleta de futebol",
-        materialStatus: "Materiais de João recebidos; Larissa ainda sem materiais individuais.",
+        materialStatus: "Mini-CVs, pastas de foto e redes sociais dos dois palestrantes recebidos.",
         speakerAssets: [
           { name: "João Barboza", materialUrl: "https://drive.google.com/drive/folders/130fd-rnZW-0awcvQXMgIj_w2EsBfS8Sy?usp=drive_link", social: [{ label: "@profjoaobarboza", url: "https://www.instagram.com/profjoaobarboza/" }] },
-          { name: "Larissa Pechincha", note: "Mini-CV, foto e rede social pendentes" },
+          { name: "Larissa Pechincha", materialUrl: "https://drive.google.com/drive/folders/1AbiMNPjMzXh29S0GnbKSeQsrJrzhpXDO?usp=drive_link", social: [{ label: "@larissapechincha_", url: "https://www.instagram.com/larissapechincha_/" }] },
         ],
       },
       {
         time: "14h30",
         speakers: "Giovana Steiner e Rafael Ferrer",
         title: "Lesões nas crianças atletas de futebol",
-        materialStatus: "Materiais de Rafael recebidos; Giovana ainda sem materiais individuais.",
+        materialStatus: "Mini-CVs, pastas de foto e redes sociais dos dois palestrantes recebidos.",
         speakerAssets: [
-          { name: "Giovana Steiner", note: "Mini-CV, foto e rede social pendentes" },
+          { name: "Giovana Steiner", materialUrl: "https://drive.google.com/drive/folders/1RirXqaRRbPFj1AKwgkMyzfPoPOhi-XL2?usp=drive_link", social: [{ label: "@giosteiner", url: "https://www.instagram.com/giosteiner/" }] },
           { name: "Rafael Ferrer", materialUrl: "https://drive.google.com/drive/folders/1kPP46qq5HUlvkHtdT6100Xm-Sbzld_EE?usp=drive_link", social: [{ label: "@orafaelferrer", url: "https://www.instagram.com/orafaelferrer/" }] },
         ],
       },
@@ -144,19 +144,19 @@ export const conferencePrograms2027: CongressProgram[] = [
         time: "15h00",
         speakers: "Bruno Baroni e Katherine Ferro",
         title: "Lesões de isquiotibiais no futebol feminino: considerações na avaliação e reabilitação da mulher atleta",
-        materialStatus: "Materiais individuais dos dois palestrantes pendentes.",
+        materialStatus: "Mini-CV, pasta de foto e Instagram de Bruno Baroni recebidos. Katherine Ferro: não divulgar por enquanto, por orientação da planilha de 28/09.",
         speakerAssets: [
-          { name: "Bruno Baroni", note: "Mini-CV, foto e rede social pendentes" },
-          { name: "Katherine Ferro", note: "Mini-CV, foto e rede social pendentes" },
+          { name: "Bruno Baroni", materialUrl: "https://drive.google.com/drive/folders/1uen6WG7nrYgH3zCu8X_3MW3lCDdQ-wxn?usp=drive_link", social: [{ label: "@bmbaroni", url: "https://www.instagram.com/bmbaroni/" }] },
+          { name: "Katherine Ferro", note: "Não divulgar por enquanto (planilha de 28/09). Mini-CV, foto e rede social pendentes" },
         ],
       },
       {
         time: "15h30",
         speakers: "Fabricio Rapelo e Jessica Fernandes",
         title: "Fatores intrínsecos e extrínsecos aplicados ao futebol de campo: o que a ciência sempre disse?",
-        materialStatus: "Materiais de Jessica recebidos; Fabricio ainda sem materiais individuais.",
+        materialStatus: "Mini-CVs, pastas de foto e redes sociais dos dois palestrantes recebidos.",
         speakerAssets: [
-          { name: "Fabricio Rapelo", note: "Mini-CV, foto e rede social pendentes" },
+          { name: "Fabricio Rapelo", materialUrl: "https://drive.google.com/drive/folders/1Lfq5rTBkkbo_vfhB-Ge0En-9KfdVC12P?usp=drive_link", social: [{ label: "@fabriciorapello", url: "https://www.instagram.com/fabriciorapello/" }], note: "Grafia do sobrenome a confirmar com o cliente: a planilha usa \"Rapelo\" no nome e \"Rapello\" no mini-CV e no Instagram" },
           { name: "Jessica Fernandes", materialUrl: "https://drive.google.com/drive/folders/11iNmAxgwKwHOWfXfZMGjFz9iP9XXkIgn?usp=drive_link", social: [{ label: "@jefernandesfisio", url: "https://www.instagram.com/jefernandesfisio/" }] },
         ],
       },
@@ -180,19 +180,19 @@ export const conferencePrograms2027: CongressProgram[] = [
           { name: "Bárbara Pocceschi", materialUrl: "https://drive.google.com/drive/folders/1t67Crb4x_t5fEVeP-1pFMyV8tbn7D6Kl?usp=drive_link", social: [{ label: "@barbara.pocceschi", url: "https://www.instagram.com/barbara.pocceschi/" }] },
         ],
       },
-      { time: "17h00–18h30", speakers: "Mariana Vido Corassini, Bárbara Pocceschi, Jessica Fernandes, Giovana Steiner, Maria Eugênia Ortiz (Gegê), Priscila Alvarenga, Katherine Ferro e João Barboza · Moderação: Bruno Baroni", title: "Mesa-redonda — Profissão Fisioterapeuta: da lesão ao Return to Play" },
+      { time: "17h00–18h30", speakers: "Mariana Vido Corassini, Bárbara Pocceschi, Jessica Fernandes, Giovana Steiner, Maria Eugênia Ortiz (Gegê), Priscila Alvarenga, Katherine Ferro e João Barboza · Moderação: Bruno Baroni", title: "Mesa-redonda — Profissão Fisioterapeuta: da lesão ao Return to Play", materialStatus: "Katherine Ferro está na lista da planilha, mas não deve ser divulgada por enquanto." },
     ],
   },
   {
     id: "nutricao-estetica",
     congress: "Nutrição Estética",
     status: "recebida",
-    statusLabel: "Programação 2027 definitiva · temas liberados",
+    statusLabel: "Programação 2027 recebida · temas e nomes liberados",
     date: "23 de abril de 2027",
     room: "Sala a confirmar",
     source: "Programação_Conference_NutriçãoEstética_2027.xlsx · versão atualizada recebida em 18/09/2026",
     assetSourceUrl: "https://drive.google.com/drive/folders/1cbpsKRniKhToysrglTtyyCpQwPeHffcs?usp=drive_link",
-    note: "As dez sessões são definitivas e seus temas centrais podem ser divulgados seletivamente, sem revelar a grade completa. A versão de 18/09 acrescenta ementas em todas as sessões e links identificados de materiais para 15 dos 17 palestrantes. Pedro Perim e Dr. Leandro Lucerna permanecem sem materiais individuais. Dez fotos inequivocamente identificadas no acervo já são exibidas; os demais links podem ser abertos para produção, mas não foram transformados em imagem sem verificação do arquivo.",
+    note: "Dez sessões; temas centrais e nomes podem ser divulgados seletivamente, sem revelar a grade completa. A versão de 18/09 acrescenta ementas em todas as sessões; a planilha conferida em 29/09 traz os mesmos temas, nomes e títulos e acrescenta pasta de foto e Instagram de Pedro Perim: 16 dos 17 palestrantes têm materiais. Dr. Leandro Lucerna permanece sem materiais individuais. Dez fotos inequivocamente identificadas no acervo já são exibidas; os demais links podem ser abertos para produção, mas não foram transformados em imagem sem verificação do arquivo.",
     sessions: [
       {
         time: "9h00",
@@ -205,10 +205,10 @@ export const conferencePrograms2027: CongressProgram[] = [
         time: "9h40",
         speakers: "Gabriel Ximenes e Pedro Perim",
         title: "GLP-1 e Cirurgia Plástica: quem deve operar, quando operar e como preservar a massa muscular",
-        materialStatus: "Ementa e materiais de Gabriel recebidos; Pedro ainda sem materiais individuais.",
+        materialStatus: "Ementa e materiais de Gabriel e Pedro recebidos.",
         speakerAssets: [
           { name: "Gabriel Ximenes", photo: "/manus-storage/gabriel-ximenes_6f58f713.webp", materialUrl: "https://drive.google.com/drive/folders/1E83ilqnxodL62bXf_WrviWue6YLnKW8N", social: [{ label: "@gabrieelximenes", url: "https://www.instagram.com/gabrieelximenes/" }] },
-          { name: "Pedro Perim", note: "Mini-CV, foto e rede social pendentes" },
+          { name: "Pedro Perim", materialUrl: "https://drive.google.com/drive/folders/1un3UBiobqIE5Lo1lNBh00yt3Uy8jt5ps?usp=drive_link", social: [{ label: "@pedroperim", url: "https://www.instagram.com/pedroperim/" }], note: "Pasta de foto e Instagram recebidos na planilha conferida em 29/09; imagem ainda não exibida sem conferência do arquivo" },
         ],
       },
       {
@@ -290,12 +290,12 @@ export const conferencePrograms2027: CongressProgram[] = [
     id: "nutricao-esportiva",
     congress: "Nutrição Esportiva",
     status: "recebida",
-    statusLabel: "Programação 2027 recebida · confirmar se é definitiva",
+    statusLabel: "Programação 2027 recebida · temas e nomes liberados · ainda com espaços \"Em breve\"",
     date: "24 e 25 de abril de 2027",
     room: "Sala a confirmar",
     source: "Programação Nutrição Esportiva 2027 · planilha recebida do cliente em 25/09/2026",
     sourceUrl: "https://docs.google.com/spreadsheets/d/1WosiWfiABkEyGKTz2Lk6uaBi7HCUTNEu/edit",
-    note: "Treze espaços na grade de dois dias, com cinco mesas-redondas. Ainda em definição: um horário no sábado (11h30), um horário no domingo (15h15) e dois palestrantes da mesa de proteínas. A planilha data o domingo como 26/04, mas o cabeçalho e o calendário indicam 25/04; usado 25/04. Títulos com erros de digitação foram corrigidos (Análogos, Prescrição, Planejamento, atuação do nutricionista). Materiais individuais identificados para 13 dos 23 palestrantes nomeados. Até o cliente confirmar que a grade é definitiva, não usar os temas em posts e e-mails; depois disso, vale a mesma regra de Nutrição Estética e SONAFE (temas centrais sim; grade completa, horários e títulos integrais não).",
+    note: "Treze espaços na grade de dois dias, com cinco mesas-redondas. Ainda em definição: um horário no sábado (11h30), um horário no domingo (15h15) e dois palestrantes da mesa de proteínas. A planilha data o domingo como 26/04, mas o cabeçalho e o calendário indicam 25/04; usado 25/04. Títulos com erros de digitação foram corrigidos (Análogos, Prescrição, Planejamento, atuação do nutricionista). Materiais individuais identificados para 13 dos 23 palestrantes nomeados. Planilha conferida em 29/09: mesmos temas e nomes; o domingo continua datado como 26/04 e o Instagram de Paulo Mendes continua \"paulomendesmutri\". Temas centrais e nomes podem ser usados em posts e e-mails; grade completa, horários e títulos integrais não.",
     sessions: [
       {
         time: "Sáb 24/04 · 9h00–10h00",

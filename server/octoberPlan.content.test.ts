@@ -107,7 +107,13 @@ describe("pacote editorial de 28/09 a 31/10 de 2026", () => {
     expect(item("1010").title).toBe("Inscrições abertas: 5 motivos para estar no Congresso de Nutrição Esportiva 2027");
     expect(item("1021").title).toBe("Quem é Ana Paula Pujol, que fala de bioenergética mitocondrial em 2027");
     expect(item("1027").title).toBe("O que Dudu Netto aprendeu sobre gestão antes de coordenar o congresso");
-    expect(item("1016").title).toBe("Por trás da coordenação: a trajetória de Andréia Naves");
+    expect(item("1016").title).toBe("Programação 2027 de Nutrição Esportiva: temas centrais");
+    expect(JSON.stringify(item("1016"))).not.toMatch(/programação (completa|definitiva)/i);
+    expect(JSON.stringify(item("1016"))).not.toContain("Katherine");
+    expect(item("1010").productionBrief?.units.find(unit => unit.unit === "Tela 6")?.content).toContain("Em 2027");
+    expect(item("1020").productionBrief?.units.find(unit => unit.unit === "Fechamento")?.content).toContain("Danielli Mello");
+    expect(item("1028").productionBrief?.units.find(unit => unit.role === "Crédito e ação")?.content).toContain("Murilo Pereira");
+    expect(JSON.stringify(item("1008"))).not.toMatch(/definitiva/i);
     expect(item("1029").title).toBe("O caminho de Cris Parente até o título de Melhor Personal Trainer do Mundo");
     expect(JSON.stringify(octoberCalendar)).not.toMatch(/5 coisas sobre/);
     expect(JSON.stringify(item("1002"))).toMatch(/case real|fontes públicas|sem venda/i);

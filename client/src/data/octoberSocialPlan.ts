@@ -682,7 +682,7 @@ export const octoberCalendarBase = [
     "channel": "carrossel de 7 telas + 2 Stories",
     "title": "Inscrições abertas: Congresso de Nutrição Estética 2027",
     "origin": "planilha \"Programação_Conference_Nutrição Estética_2027\"; mini-bio e foto de Luisa Wolpe; fotos dos palestrantes quando disponíveis.",
-    "idea": "a programação de Estética é definitiva e tem temas de alta demanda. Este post mostra 3 deles como amostra, sem entregar a grade completa, e reforça que a sala tem lugares limitados.",
+    "idea": "a programação de Estética já tem temas de alta demanda. Este post mostra 3 deles como amostra, sem entregar a grade completa, e reforça que a sala tem lugares limitados.",
     "productionBrief": {
       "format": "carrossel de 7 telas + 2 Stories",
       "purpose": "apresentar o congresso sozinho, usando os temas centrais já confirmados da programação 2027.",
@@ -891,7 +891,7 @@ export const octoberCalendarBase = [
         {
           "unit": "Tela 6",
           "role": "Motivo 4",
-          "content": "\"Temas que chegam ao consultório na segunda-feira. Em 2026: microbiota do atleta, carboidrato no treino e composição corporal no emagrecimento.\""
+          "content": "\"Temas que chegam ao consultório na segunda-feira. Em 2027: GLP-1 e performance esportiva, glicemia por sensores, hidratação no mundo real, saúde intestinal do atleta e a atuação do nutricionista no futebol.\""
         },
         {
           "unit": "Tela 7",
@@ -1266,50 +1266,50 @@ export const octoberCalendarBase = [
     "id": "1016",
     "date": "16/10",
     "phase": "Venda contínua",
-    "channel": "carrossel de autoridade de 7 telas + 3 Stories",
-    "title": "Por trás da coordenação: a trajetória de Andréia Naves",
-    "origin": "mini-bio completa (planilha de coordenadores); materiais de Andreia.",
-    "originUrl": "https://drive.google.com/drive/folders/1a_jJtOn4Pux1oUpMLgXfFkvpLLnRcnZ9",
-    "originLinkLabel": "Abrir material no Drive",
-    "idea": "mesmo formato do 27/10, aplicado à coordenadora de Nutrição Esportiva. Se a programação 2027 de Nutrição Esportiva chegar até 24/10, este card é substituído por \"Programação 2027 de Nutrição Esportiva: [temas centrais]\", no formato do card 1008.",
+    "channel": "carrossel de 7 telas + 3 Stories",
+    "title": "Programação 2027 de Nutrição Esportiva: temas centrais",
+    "origin": "planilha \"Programação Nutrição Esportiva 2027\" (versão de 29/09); mini-bios e pastas de fotos dos palestrantes citados; mini-bio e foto de Andréia Naves.",
+    "originUrl": "https://docs.google.com/spreadsheets/d/1WosiWfiABkEyGKTz2Lk6uaBi7HCUTNEu/edit",
+    "originLinkLabel": "Abrir programação no Drive",
+    "idea": "a programação 2027 de Nutrição Esportiva chegou, ainda com alguns espaços a definir. Como previsto neste card, o post de autoridade de Andréia Naves dá lugar à programação, no formato do card 1008: três temas centrais como amostra, sem entregar a grade, com Andréia como coordenadora e palestrante. Reforça que o lote 1 é limitado.",
     "productionBrief": {
-      "format": "carrossel de autoridade de 7 telas + 3 Stories",
-      "purpose": "autoridade da coordenação científica de Nutrição Esportiva.",
+      "format": "carrossel de 7 telas + 3 Stories",
+      "purpose": "apresentar o congresso pelos temas centrais já anunciados da programação 2027.",
       "units": [
         {
           "unit": "Tela 1",
           "role": "Capa",
-          "content": "\"Por trás da coordenação: a trajetória de Andréia Naves\" + foto oficial."
+          "content": "\"Programação 2027 de Nutrição Esportiva: temas centrais\" + selo do congresso."
         },
         {
           "unit": "Tela 2",
-          "role": "Fato 1",
-          "content": "\"Diplomada pelo The Institute for Functional Medicine (EUA) em 2007.\""
+          "role": "Quando e para quem",
+          "content": "\"24 e 25 de abril de 2027: dois dias para quem atende atletas e praticantes.\""
         },
         {
           "unit": "Tela 3",
-          "role": "Fato 2",
-          "content": "\"Membro do Instituto Brasileiro de Nutrição Funcional (IBNF).\""
+          "role": "Tema 1",
+          "content": "\"O crescimento da corrida e o impacto no trabalho do nutricionista.\" Com Andréia Naves e moderação de Marcelo Quinn."
         },
         {
           "unit": "Tela 4",
-          "role": "Fato 3",
-          "content": "\"Autora de livros de Nutrição Clínica e Esportiva Funcional.\" Mostrar capas, com autorização."
+          "role": "Tema 2",
+          "content": "\"GLP-1 e performance esportiva.\" Com Dr. Ivan Lucas Picone, endocrinologista."
         },
         {
           "unit": "Tela 5",
-          "role": "Fato 4",
-          "content": "Um fato adicional da mini-bio ou de fonte pública (pesquisa da agência)."
+          "role": "Tema 3",
+          "content": "\"A atuação do nutricionista no futebol, da base ao profissional.\" Com Guilherme Rosa, Amanda Brant e Camila Mazetto."
         },
         {
           "unit": "Tela 6",
-          "role": "Fato 5",
-          "content": "\"Coordena o Congresso de Nutrição Esportiva 2027.\""
+          "role": "Coordenação",
+          "content": "Foto de Andréia Naves + \"Coordenação científica de Andréia Naves, diplomada pelo The Institute for Functional Medicine (EUA).\""
         },
         {
           "unit": "Tela 7",
           "role": "Ação",
-          "content": "\"24 e 25/04. Lote 1 limitado. Link na bio.\""
+          "content": "\"Lote 1 limitado. Link na bio.\""
         },
         {
           "unit": "Publicação",
@@ -1317,27 +1317,31 @@ export const octoberCalendarBase = [
           "content": "Publicar em collab com Andréia Naves. Combinar dia e horário com ela antes, para que aceite a collab na hora da publicação: os primeiros 20 minutos determinam o engajamento. [AUTORIZAÇÃO E HORÁRIO DA COLLAB – A COMBINAR COM O PALESTRANTE]"
         }
       ],
-      "note": "só fatos com fonte. Publicar em collab com Andréia Naves. Combinar dia e horário com ela antes, para que aceite a collab na hora da publicação: os primeiros 20 minutos determinam o engajamento. [AUTORIZAÇÃO E HORÁRIO DA COLLAB – A COMBINAR COM O PALESTRANTE]"
+      "note": "não publicar horários, grade completa nem títulos integrais: os textos das telas 3 a 5 são versões editoriais curtas. Não chamar a programação de completa ou definitiva. Citar só palestrantes com material recebido; Rosana Fortes, Marcos Paulo Reis, Ricardo Sodré e Fernanda Serpa entram quando o material chegar. Sem nomes comerciais de medicamentos. Clubes aparecem só no texto, como vínculo do palestrante, sem logo. Publicar em collab com Andréia Naves. Combinar dia e horário com ela antes, para que aceite a collab na hora da publicação: os primeiros 20 minutos determinam o engajamento. [AUTORIZAÇÃO E HORÁRIO DA COLLAB – A COMBINAR COM O PALESTRANTE]"
     },
     "agencyResearch": {
       "owner": "Agência de conteúdo e pesquisa",
-      "request": "confirmar os títulos dos livros e levantar o fato 4, com links.",
+      "request": "confirmar a grafia dos nomes e buscar as fotos oficiais nas pastas dos palestrantes das telas 3 a 6 (Andréia Naves, Marcelo Quinn, Dr. Ivan Lucas Picone, Guilherme Rosa, Amanda Brant e Camila Mazetto), com os links da planilha.",
       "deliverables": [
-        "confirmar os títulos dos livros e levantar o fato 4, com links."
+        "confirmar a grafia dos nomes e buscar as fotos oficiais nas pastas dos palestrantes das telas 3 a 6 (Andréia Naves, Marcelo Quinn, Dr. Ivan Lucas Picone, Guilherme Rosa, Amanda Brant e Camila Mazetto), com os links da planilha."
       ],
-      "validation": "Validar todas as afirmações e materiais solicitados antes da publicação. confirmar os títulos dos livros e levantar o fato 4, com links.",
-      "fallback": "carrossel de 4 telas (capa, fatos 1 e 3, fato 5, ação)."
+      "validation": "Validar todas as afirmações e materiais solicitados antes da publicação. confirmar a grafia dos nomes e buscar as fotos oficiais nas pastas dos palestrantes das telas 3 a 6 (Andréia Naves, Marcelo Quinn, Dr. Ivan Lucas Picone, Guilherme Rosa, Amanda Brant e Camila Mazetto), com os links da planilha.",
+      "fallback": "carrossel de 4 telas (capa, \"3 temas de 2027\" em uma tela, coordenação, ação)."
     },
     "storyCards": [
       {
         "card": "Story 1",
-        "format": "Pergunta",
-        "prompt": "\"Qual livro da Andréia Naves você já leu?\" (caixa de perguntas)"
+        "format": "Contexto",
+        "prompt": "Repost do carrossel com o texto \"Saíram os primeiros temas de Nutrição Esportiva 2027.\""
       },
       {
         "card": "Story 2",
-        "format": "Repost",
-        "prompt": "Uma resposta recebida (com autorização) ou a capa de um livro."
+        "format": "Enquete",
+        "prompt": "\"Qual destes temas você mais quer ver em 2027?\"",
+        "answers": [
+          "GLP-1 e performance",
+          "Nutrição no futebol"
+        ]
       },
       {
         "card": "Story 3",
@@ -1345,7 +1349,7 @@ export const octoberCalendarBase = [
         "prompt": "\"Nutrição Esportiva 2027: lote 1 limitado.\" Figurinha de link."
       }
     ],
-    "fallback": "carrossel de 4 telas (capa, fatos 1 e 3, fato 5, ação).",
+    "fallback": "carrossel de 4 telas (capa, \"3 temas de 2027\" em uma tela, coordenação, ação).",
     "cta": "Garanta a sua vaga no lote 1.",
     "destination": "página oficial de Nutrição Esportiva",
     "destinationUrl": "https://arnold.savagetgroup.com.br/conference2/nutricao-esportiva/",
@@ -1596,7 +1600,7 @@ export const octoberCalendarBase = [
         {
           "unit": "Fechamento",
           "role": "Ação",
-          "content": "\"Arnold Conference 2026 · Andreia Naves. Congresso de Nutrição Esportiva 2027 · 24 e 25/04. Lote 1 limitado.\""
+          "content": "\"Arnold Conference 2026 · Andreia Naves. Em 2027, ela volta à sala para falar de avaliação da hidratação, ao lado de Danielli Mello. Congresso de Nutrição Esportiva 2027 · 24 e 25/04. Lote 1 limitado.\""
         },
         {
           "unit": "Pílula",
@@ -2117,9 +2121,9 @@ export const octoberCalendarBase = [
           "sourceUrl": "https://youtu.be/8hnvXCzfd3U"
         },
         {
-          "unit": "Fechamento (últimos 4s)",
+          "unit": "Fechamento (últimos 6s)",
           "role": "Crédito e ação",
-          "content": "\"Arnold Conference 2026 · Bruno Zylber. Nutrição Esportiva 2027 · 24 e 25/04. Lote 1 limitado.\""
+          "content": "\"Arnold Conference 2026 · Bruno Zylber. Em 2027, Murilo Pereira traz o novo consenso de avaliação intestinal do atleta. Nutrição Esportiva 2027 · 24 e 25/04. Lote 1 limitado.\""
         },
         {
           "unit": "Legenda",
@@ -2134,7 +2138,7 @@ export const octoberCalendarBase = [
       ],
       "note": "sem prescrição, doses ou promessa de performance. A fala cita probiótico só para dizer que a base é a nutrição: não destacar na arte. Não sugerir que Bruno estará em 2027. Minutagens do vídeo do YouTube, conferidas na transcrição do próprio YouTube em 25/09 (tolerância de ±2s). Antes de editar, localizar início e fim pelas frases indicadas."
     },
-    "fallback": "carrossel de 5 telas sem vídeo: (1) \"O intestino do atleta também entra na preparação.\"; (2) \"A pergunta não é só se a microbiota é saudável. É o que ela faz pela performance e pela recuperação.\"; (3) \"Modalidade, dieta, viagens e fuso horário, carga de estresse e fase da temporada alteram a microbiota.\" (fala de Bruno Zylber em 13:31 a 13:41 no YouTube); (4) \"A base sempre vai ser a nutrição.\"; (5) \"Arnold Conference 2026 · Bruno Zylber\" + CTA.",
+    "fallback": "carrossel de 5 telas sem vídeo: (1) \"O intestino do atleta também entra na preparação.\"; (2) \"A pergunta não é só se a microbiota é saudável. É o que ela faz pela performance e pela recuperação.\"; (3) \"Modalidade, dieta, viagens e fuso horário, carga de estresse e fase da temporada alteram a microbiota.\" (fala de Bruno Zylber em 13:31 a 13:41 no YouTube); (4) \"A base sempre vai ser a nutrição.\"; (5) \"Arnold Conference 2026 · Bruno Zylber. Em 2027, Murilo Pereira traz o novo consenso de avaliação intestinal do atleta.\" + CTA.",
     "cta": "Congresso de Nutrição Esportiva 2027: lote 1 limitado. Link na bio.",
     "destination": "página oficial de Nutrição Esportiva",
     "destinationUrl": "https://arnold.savagetgroup.com.br/conference2/nutricao-esportiva/",

@@ -143,9 +143,11 @@ Se não houver acesso ao Google Drive nesta sessão, pedir ao Raphael a versão 
 - Hub: https://arnold.savagetgroup.com.br/conference/
 - Páginas dos congressos: ver `octoberDestinations` em `octoberSocialPlan.ts`.
 
-## Pendências em aberto (atualizado em 28/09/2026)
+## Pendências em aberto (atualizado em 29/09/2026)
 
 - Programação de Nutrição Esportiva: na planilha, conferir a data do domingo (diz 26/04; o certo é 25/04) e o Instagram de Paulo Mendes ("paulomendesmutri").
+- SONAFE: grafia de Fabricio "Rapelo" ou "Rapello" (a planilha usa as duas; o Instagram é @fabriciorapello). Usar "Rapelo" até o cliente confirmar.
+- SONAFE: Katherine Ferro não pode ser divulgada até o cliente liberar (orientação da planilha de 28/09).
 - Datas dos vídeos de tendência da Leal: 5 vídeos em edição para 4 quintas livres em outubro; confirmar com Iris ou Dri.
 - Links dos vídeos da Leal, que vêm da equipe do cliente.
 - Horário de abertura das vendas em 06/10.

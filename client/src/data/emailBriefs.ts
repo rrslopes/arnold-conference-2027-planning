@@ -338,7 +338,7 @@ export const emailCampaignBriefs: Record<string, EmailCampaignBrief> = {
     decision:
       "Manter a pauta publicada: mostrar como diferentes populações e modalidades ampliam as perguntas da Fisioterapia Esportiva.",
     rationale:
-      "O e-mail usa temas centrais autorizados da programação definitiva da SONAFE para demonstrar especificidade profissional. A mensagem entrega a reflexão no próprio corpo e mantém a Landing Page de Novidades como continuidade. Não há necessidade de criar versões diferentes por cadastro.",
+      "O e-mail usa temas centrais autorizados da programação da SONAFE para demonstrar especificidade profissional. A mensagem entrega a reflexão no próprio corpo e mantém a Landing Page de Novidades como continuidade. Não há necessidade de criar versões diferentes por cadastro.",
     versions: [
       {
         id: "diversidade-sonafe",

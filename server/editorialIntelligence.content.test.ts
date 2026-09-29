@@ -28,10 +28,11 @@ describe("inteligência editorial por programação", () => {
     expect(program?.source).toContain("Programação_Conference_NutriçãoEstética_2027.xlsx");
     expect(program?.source).toContain("18/09/2026");
     expect(program?.assetSourceUrl).toContain("1cbpsKRniKhToysrglTtyyCpQwPeHffcs");
-    expect(program?.note).toContain("dez sessões");
-    expect(program?.statusLabel).toContain("definitiva");
-    expect(program?.note).toContain("temas centrais podem ser divulgados seletivamente");
-    expect(program?.note).toContain("15 dos 17 palestrantes");
+    expect(program?.note).toContain("Dez sessões");
+    expect(program?.statusLabel).toContain("temas e nomes liberados");
+    expect(program?.statusLabel).not.toMatch(/definitiva|completa/i);
+    expect(program?.note).toContain("temas centrais e nomes podem ser divulgados seletivamente");
+    expect(program?.note).toContain("16 dos 17 palestrantes");
     expect(program?.sessions.every(item => item.materialStatus)).toBe(true);
     expect(program?.sessions.find(item => item.time === "16h00")?.speakers).toBe("Andréia Naves");
   });
@@ -59,9 +60,10 @@ describe("inteligência editorial por programação", () => {
     expect(assets.find(item => item.name === "Diogo Viana")?.photo).toBeUndefined();
     expect(assets.find(item => item.name === "Diogo Viana")?.materialUrl).toContain("1FSxtY4fM");
     expect(assets.find(item => item.name === "Diogo Viana")?.note).toContain("imagem ainda não exibida");
-    expect(assets.find(item => item.name === "Pedro Perim")?.note).toContain("pendentes");
+    expect(assets.find(item => item.name === "Pedro Perim")?.materialUrl).toContain("1un3UBiobqIE5Lo1lNBh00yt3Uy8jt5ps");
+    expect(assets.find(item => item.name === "Pedro Perim")?.photo).toBeUndefined();
     expect(assets.find(item => item.name === "Dr. Leandro Lucerna")?.note).toContain("pendentes");
-    expect(new Set(assets.filter(item => item.materialUrl).map(item => item.name)).size).toBe(15);
+    expect(new Set(assets.filter(item => item.materialUrl).map(item => item.name)).size).toBe(16);
     expect(program?.sessions.find(item => item.time === "17h20")?.speakerAssets).toHaveLength(3);
   });
 
@@ -75,27 +77,26 @@ describe("inteligência editorial por programação", () => {
     expect(program?.sessions.find(item => item.time === "16h00")?.speakers).toBe("Maria Eugênia Ortiz (Gegê) e Klever Shinji");
     expect(program?.sessions.find(item => item.time === "16h30")?.speakers).toBe("André Fujita e Bárbara Pocceschi");
     expect(program?.sessions.at(-1)?.speakers).toContain("Moderação: Bruno Baroni");
-    expect(program?.sourceUrl).toContain("1P6EooZAA6mVkYVMC-hVUfbBvGfxxCx-8");
-    expect(program?.source).toContain("18/09/2026");
+    expect(program?.sourceUrl).toContain("150hh-unHEBioxo2sWwXElElFeZ2JNU75");
+    expect(program?.source).toContain("28/09/2026");
     expect(program?.note).toContain("numeração oficial");
-    expect(program?.note).toContain("15 dos 20 palestrantes");
-    expect(program?.statusLabel).toContain("definitiva");
+    expect(program?.note).toContain("19 dos 20 palestrantes");
+    expect(program?.note).toContain("Katherine Ferro: por orientação da planilha de 28/09, não divulgar por enquanto");
+    expect(program?.statusLabel).toContain("temas e nomes liberados");
+    expect(program?.statusLabel).not.toMatch(/definitiva|completa/i);
     expect(program?.note).toContain("sem revelar a grade completa");
     const assets = program?.sessions.flatMap(item => item.speakerAssets ?? []) ?? [];
-    expect(new Set(assets.filter(item => item.materialUrl).map(item => item.name)).size).toBe(15);
-    expect(assets.filter(item => item.note?.includes("pendentes")).map(item => item.name)).toEqual([
-      "Larissa Pechincha",
-      "Giovana Steiner",
-      "Bruno Baroni",
-      "Katherine Ferro",
-      "Fabricio Rapelo",
-    ]);
+    expect(new Set(assets.filter(item => item.materialUrl).map(item => item.name)).size).toBe(19);
+    expect(assets.filter(item => item.note?.includes("pendentes")).map(item => item.name)).toEqual(["Katherine Ferro"]);
+    expect(assets.find(item => item.name === "Katherine Ferro")?.note).toContain("Não divulgar por enquanto");
+    expect(assets.find(item => item.name === "Fabricio Rapelo")?.note).toContain("Grafia do sobrenome a confirmar");
   });
 
-  it("reproduz a programação de Nutrição Esportiva 2027 recebida em 25/09, ainda sem liberar os temas", () => {
+  it("reproduz a programação de Nutrição Esportiva 2027 recebida em 25/09, com temas e nomes liberados", () => {
     const program = conferencePrograms2027.find(item => item.id === "nutricao-esportiva");
     expect(program?.status).toBe("recebida");
-    expect(program?.statusLabel).toContain("confirmar se é definitiva");
+    expect(program?.statusLabel).toContain("temas e nomes liberados");
+    expect(program?.statusLabel).not.toMatch(/definitiva|completa/i);
     expect(program?.date).toBe("24 e 25 de abril de 2027");
     expect(program?.sourceUrl).toContain("1WosiWfiABkEyGKTz2Lk6uaBi7HCUTNEu");
     expect(program?.sessions).toHaveLength(13);
@@ -105,14 +106,16 @@ describe("inteligência editorial por programação", () => {
     expect(JSON.stringify(program?.sessions)).not.toMatch(/Análagos|Presrição|Planejameto|nutriconista|26\/04/);
     const assets = program?.sessions.flatMap(item => item.speakerAssets ?? []) ?? [];
     expect(new Set(assets.filter(item => item.materialUrl).map(item => item.name)).size).toBe(13);
-    expect(confirmedProgramPublicationPolicy.congresses).not.toContain("Nutrição Esportiva");
+    expect(confirmedProgramPublicationPolicy.congresses).toContain("Nutrição Esportiva");
   });
 
   it("autoriza temas centrais sem tornar seu uso obrigatório nem antecipar a grade completa", () => {
     expect(confirmedProgramPublicationPolicy.congresses).toEqual([
       "Nutrição Estética",
       "SONAFE — Simpósio de Fisioterapia Esportiva",
+      "Nutrição Esportiva",
     ]);
+    expect(confirmedProgramPublicationPolicy.status).not.toMatch(/definitiva|completa/i);
     expect(confirmedProgramPublicationPolicy.allowed).toContain("quando melhorarem a jornada");
     expect(confirmedProgramPublicationPolicy.reserved).toContain("grade completa");
     expect(confirmedProgramPublicationPolicy.reserved).toContain("palestrantes");
