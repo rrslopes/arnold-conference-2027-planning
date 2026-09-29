@@ -28,7 +28,7 @@ A plataforma não é usada para controle operacional de status. Ela serve para d
 - Rotina:
   1. Mudança que aparece na plataforma: painel GitHub → "Pedir ao Manus para sincronizar" → botão "Publicar".
   2. Mudança só em CLAUDE.md ou arquivos internos: não publicar; vai junto na próxima publicação.
-  3. Na primeira vez que o botão for usado, comparar o consumo de créditos dele com o do prompt curto e registrar aqui o resultado.
+  3. Consumo de créditos. Primeiro uso do botão, em 29/09: a Manus rodou em modo Max, levou 18s, gastou 820 créditos e só sincronizou (fast-forward para `acba409`, 4 commits). A publicação é um passo separado, no botão "Publicar". Referência anterior: o prompt curto, em modo Max e com `pnpm test`, apareceu com 2.982 créditos no histórico do dia (o valor pode somar mais de uma tarefa). Próximo passo: descobrir se o botão pode rodar no modo padrão.
 
 ## Trabalho em dois computadores (escritório e casa)
 
