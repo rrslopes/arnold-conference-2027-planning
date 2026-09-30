@@ -77,6 +77,7 @@ Vendas abrem em 06/10/2026. Meta: lotação máxima de todas as salas. Todos os 
 - Não repetir pautas dentro do mês nem entre meses. Checar o calendário existente antes de propor.
 - O cliente autorizou divulgar temas e nomes de qualquer congresso assim que houver programação, mesmo que ainda não seja definitiva. Não chamar de programação completa ou definitiva. Se a programação mudar, revisar os cards e e-mails que citam o que mudou.
 - Continua proibido publicar horários, grade completa e títulos integrais das palestras.
+- Divergência entre planilhas do cliente (nome, formação, credencial): vale a planilha de programação mais recente. Ex.: Luisa Wolpe é "pós-graduada em Nutrição Clínica e mestre em Ciências da Saúde pela UFPR" (programação de Estética da noite de 29/09), e não "mestre em Medicina Interna" (planilha de coordenadores).
 - Não há depoimentos de participantes de 2026.
 - Conteúdo de cases de atletas: educativo e sem link de venda (risco jurídico).
 - Autoridade de palestrantes: a agência pesquisa o material bruto; nós indicamos o caminho. Fato sem fonte não entra.
@@ -88,6 +89,13 @@ Vendas abrem em 06/10/2026. Meta: lotação máxima de todas as salas. Todos os 
 - Título que promete algo que a pessoa disse (ex.: "O que Dudu Netto aprendeu sobre gestão…") exige fala pública com fonte; sem fonte, usar a alternativa segura do card.
 - Quando o áudio da Leal disser que um congresso "nasce" e ele já existir (SONAFE, Gestão de Academias, Bodybuilding), a legenda não apresenta como estreia e deixa clara a edição.
 - Números de mercado sem fonte não entram em peças produzidas pela agência do Conference. Vídeos da Leal publicados em collab seguem a aprovação do cliente.
+
+## Benefício da inscrição: feira do Arnold Sports Festival (desde 29/09/2026)
+
+- Quem garantir a inscrição em qualquer um dos congressos ganha acesso aos 3 dias da feira do Arnold Sports Festival.
+- Uso só nas peças de venda, uma vez em cada: carrossel de abertura (1006, tela 8), uma peça por congresso (1008, 1010 motivo 5, 1011, 1015, 1017, 1030) e os e-mails de abertura (06/10, todas as versões), dúvidas (27/10), escassez (29/10) e checkout abandonado (disparo de 24h).
+- Nunca antes de 06/10, em conteúdo educativo, vídeos de tendência, segundos e-mails temáticos, Stories de link ou de escassez. Sem valor do ingresso da feira.
+- Toda peça com o benefício leva "[REDAÇÃO OFICIAL DO BENEFÍCIO – CONFIRMAR COM ADRIANA OU KARLA]" e a instrução de tirar a linha se a redação não estiver confirmada ou se o benefício não estiver nas páginas dos congressos. O teste `octoberPlan.content.test.ts` trava essas regras.
 
 ## Vídeos da Leal e collabs
 
@@ -142,6 +150,8 @@ Se não houver acesso ao Google Drive nesta sessão, pedir ao Raphael a versão 
 
 ## Pendências em aberto (atualizado em 29/09/2026)
 
+- Benefício da feira do Arnold Sports Festival: importante confirmar com Adriana ou Karla a redação oficial para garantir perfeito alinhamento comercial da promessa e da oferta. Lembrar de adicionar no site, nas páginas dos congressos.
+- Nutrição Estética: pedir ao cliente que corrija "Lucerna" para "Lucena" na coluna de nomes da planilha (mini-CV e Instagram @drleandrolucena confirmam "Lucena", já usado na plataforma).
 - Programação de Nutrição Esportiva: na planilha, conferir a data do domingo (diz 26/04; o certo é 25/04) e o Instagram de Paulo Mendes ("paulomendesmutri").
 - SONAFE: grafia de Fabricio "Rapelo" ou "Rapello" (a planilha usa as duas; o Instagram é @fabriciorapello). Usar "Rapelo" até o cliente confirmar.
 - SONAFE: Katherine Ferro não pode ser divulgada até o cliente liberar (orientação da planilha de 28/09).

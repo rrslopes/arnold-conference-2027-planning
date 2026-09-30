@@ -190,9 +190,10 @@ export const conferencePrograms2027: CongressProgram[] = [
     statusLabel: "Programação 2027 recebida · temas e nomes liberados",
     date: "23 de abril de 2027",
     room: "Sala a confirmar",
-    source: "Programação_Conference_NutriçãoEstética_2027.xlsx · versão atualizada recebida em 18/09/2026",
+    source: "Programação_Conference_NutriçãoEstética_2027.xlsx · versão atualizada na noite de 29/09/2026",
+    sourceUrl: "https://docs.google.com/spreadsheets/d/1iHG54Dtw9X94F97Szq3xhf7CJjP7R8S9/edit?gid=1941859429#gid=1941859429",
     assetSourceUrl: "https://drive.google.com/drive/folders/1cbpsKRniKhToysrglTtyyCpQwPeHffcs?usp=drive_link",
-    note: "Dez sessões; temas centrais e nomes podem ser divulgados seletivamente, sem revelar a grade completa. A versão de 18/09 acrescenta ementas em todas as sessões; a planilha conferida em 29/09 traz os mesmos temas, nomes e títulos e acrescenta pasta de foto e Instagram de Pedro Perim: 16 dos 17 palestrantes têm materiais. Dr. Leandro Lucerna permanece sem materiais individuais. Dez fotos inequivocamente identificadas no acervo já são exibidas; os demais links podem ser abertos para produção, mas não foram transformados em imagem sem verificação do arquivo.",
+    note: "Dez sessões; temas centrais e nomes podem ser divulgados seletivamente, sem revelar a grade completa. A versão de 18/09 acrescenta ementas em todas as sessões; a de 29/09 acrescenta pasta de foto e Instagram de Pedro Perim; a da noite de 29/09 traz os mesmos temas, nomes e títulos e acrescenta mini-CV, pasta de foto e Instagram do Dr. Leandro Lucena (a coluna de nomes da planilha ainda grafa \"Lucerna\"; o mini-CV e o Instagram confirmam \"Lucena\"). Os 17 palestrantes têm materiais. Formação de Luisa Wolpe conforme esta planilha: pós-graduada em Nutrição Clínica e mestre em Ciências da Saúde pela UFPR. Dez fotos inequivocamente identificadas no acervo já são exibidas; os demais links podem ser abertos para produção, mas não foram transformados em imagem sem verificação do arquivo.",
     sessions: [
       {
         time: "9h00",
@@ -213,11 +214,11 @@ export const conferencePrograms2027: CongressProgram[] = [
       },
       {
         time: "10h20",
-        speakers: "Dr. Leandro Lucerna e Luísa Wolpe",
+        speakers: "Dr. Leandro Lucena e Luísa Wolpe",
         title: "Queda capilar além da ferritina: mitocôndria, inflamação e metabolômica — Ozempic Hair Loss: mito ou realidade?",
-        materialStatus: "Ementa e materiais de Luísa recebidos; Leandro ainda sem materiais individuais.",
+        materialStatus: "Ementa e materiais de Luísa e do Dr. Leandro Lucena recebidos (mini-CV, pasta de foto e Instagram dele chegaram na planilha da noite de 29/09).",
         speakerAssets: [
-          { name: "Dr. Leandro Lucerna", note: "Mini-CV, foto e rede social pendentes" },
+          { name: "Dr. Leandro Lucena", materialUrl: "https://drive.google.com/drive/folders/18wfC5L2Wn-L8YzPXuvBLxzI2YdgLBbQK?usp=drive_link", social: [{ label: "@drleandrolucena", url: "https://www.instagram.com/drleandrolucena/" }], note: "Médico da área capilar, pós-graduado em Transplante Capilar e Tricologia e professor de pós-graduação em transplante capilar (mini-CV da planilha da noite de 29/09); imagem ainda não exibida sem conferência do arquivo" },
           { name: "Luísa Wolpe", photo: "/manus-storage/luisa-wolpe_bbd86adc.webp", materialUrl: "https://drive.google.com/drive/folders/1-23eUUSb712ezjRSW85aP79A_sYRmR5z?usp=drive_link", social: [{ label: "@luwolpenutricionista", url: "https://www.instagram.com/luwolpenutricionista/" }] },
         ],
       },
@@ -540,7 +541,7 @@ export const conferenceCoordinators: ConferenceCoordinator[] = [
   {
     congressId: "nutricao-estetica",
     name: "Luisa Wolpe",
-    bio: "Nutricionista, técnica em Estética Facial e Corporal, especialista em Nutrição Clínica e mestre em Medicina Interna. Professora, coordenadora de pós-graduação, palestrante e mentora na área de Nutrição e Estética.",
+    bio: "Nutricionista, técnica em Estética Facial e Corporal, pós-graduada em Nutrição Clínica e mestre em Ciências da Saúde pela UFPR. Professora, coordenadora de pós-graduação, palestrante e mentora na área de Nutrição e Estética.",
     photo: "/manus-storage/luisa-wolpe_bbd86adc.webp",
     social: [{ label: "@luwolpenutricionista", url: "https://www.instagram.com/luwolpenutricionista/" }],
   },

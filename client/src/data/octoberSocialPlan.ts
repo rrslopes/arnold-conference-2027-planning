@@ -566,10 +566,10 @@ export const octoberCalendarBase = [
         {
           "unit": "Tela 8",
           "role": "Ação",
-          "content": "\"Garanta o seu lugar no lote 1. Link na bio.\""
+          "content": "\"Sua inscrição também dá acesso aos 3 dias da feira do Arnold Sports Festival. Garanta o seu lugar no lote 1. Link na bio.\""
         }
       ],
-      "note": "nenhuma tela compara congressos. Sem valores e sem datas de virada. Conferir as datas nas páginas oficiais antes de publicar."
+      "note": "nenhuma tela compara congressos. Sem valores e sem datas de virada. Conferir as datas nas páginas oficiais antes de publicar. Benefício da feira: [REDAÇÃO OFICIAL DO BENEFÍCIO – CONFIRMAR COM ADRIANA OU KARLA]. Só publicar a linha do benefício com a redação confirmada e com o benefício já publicado nas páginas dos congressos; sem isso, a linha sai e o texto volta a ser \"Garanta o seu lugar no lote 1. Link na bio.\" (tela 8). Os 6 Stories não citam o benefício."
     },
     "storyCards": [
       {
@@ -710,7 +710,7 @@ export const octoberCalendarBase = [
         {
           "unit": "Tela 5",
           "role": "Tema confirmado 2",
-          "content": "\"Queda capilar além da ferritina.\" Palestrantes: Dr. Leandro Lucerna e Luisa Wolpe."
+          "content": "\"Queda capilar além da ferritina.\" Palestrantes: Dr. Leandro Lucena e Luisa Wolpe."
         },
         {
           "unit": "Tela 6",
@@ -720,10 +720,10 @@ export const octoberCalendarBase = [
         {
           "unit": "Tela 7",
           "role": "Coordenação e ação",
-          "content": "Foto de Luisa Wolpe, coordenadora (nutricionista, especialista em Nutrição Clínica e mestre em Medicina Interna pela UFPR) + \"Lote 1 limitado. Link na bio.\""
+          "content": "Foto de Luisa Wolpe, coordenadora (nutricionista, pós-graduada em Nutrição Clínica e mestre em Ciências da Saúde pela UFPR) + \"Inscrição com acesso aos 3 dias da feira do Arnold Sports Festival. Lote 1 limitado. Link na bio.\""
         }
       ],
-      "note": "não publicar horários nem a grade completa. Os títulos nas telas 4 a 6 são versões editoriais curtas, não os títulos integrais. Não usar nomes comerciais de medicamentos."
+      "note": "não publicar horários nem a grade completa. Os títulos nas telas 4 a 6 são versões editoriais curtas, não os títulos integrais. Não usar nomes comerciais de medicamentos. Benefício da feira: [REDAÇÃO OFICIAL DO BENEFÍCIO – CONFIRMAR COM ADRIANA OU KARLA]. Só publicar a linha do benefício com a redação confirmada e com o benefício já publicado nas páginas dos congressos; sem isso, a linha sai e o texto volta a ser \"Lote 1 limitado. Link na bio.\" (tela 7)."
     },
     "agencyResearch": {
       "owner": "Agência de conteúdo e pesquisa",
@@ -896,7 +896,7 @@ export const octoberCalendarBase = [
         {
           "unit": "Tela 7",
           "role": "Motivo 5",
-          "content": "\"Você vive o ecossistema Arnold: congresso, feira e competições no mesmo evento.\""
+          "content": "\"Você vive o ecossistema Arnold: além do congresso, sua inscrição dá acesso aos 3 dias da feira do Arnold Sports Festival.\""
         },
         {
           "unit": "Tela 8",
@@ -904,15 +904,15 @@ export const octoberCalendarBase = [
           "content": "\"Lote 1 limitado. Garanta a sua vaga pelo link da bio.\""
         }
       ],
-      "note": "não afirmar que os palestrantes de 2026 estarão em 2027. Sem promessa de resultado."
+      "note": "não afirmar que os palestrantes de 2026 estarão em 2027. Sem promessa de resultado. Benefício da feira: [REDAÇÃO OFICIAL DO BENEFÍCIO – CONFIRMAR COM ADRIANA OU KARLA]. Só publicar a linha do benefício com a redação confirmada e com o benefício já publicado nas páginas dos congressos; sem isso, a linha sai e o texto volta a ser \"Você vive o ecossistema Arnold: congresso, feira e competições no mesmo evento.\" (tela 7)."
     },
     "agencyResearch": {
       "owner": "Agência de conteúdo e pesquisa",
-      "request": "confirmar na página oficial o que o inscrito acessa no evento (motivo 5).",
+      "request": "conferir se a página oficial de Nutrição Esportiva já traz o acesso aos 3 dias da feira do Arnold Sports Festival com a redação oficial (motivo 5).",
       "deliverables": [
-        "confirmar na página oficial o que o inscrito acessa no evento (motivo 5)."
+        "conferir se a página oficial de Nutrição Esportiva já traz o acesso aos 3 dias da feira do Arnold Sports Festival com a redação oficial (motivo 5)."
       ],
-      "validation": "Validar todas as afirmações e materiais solicitados antes da publicação. confirmar na página oficial o que o inscrito acessa no evento (motivo 5).",
+      "validation": "Validar todas as afirmações e materiais solicitados antes da publicação. conferir se a página oficial de Nutrição Esportiva já traz o acesso aos 3 dias da feira do Arnold Sports Festival com a redação oficial (motivo 5).",
       "fallback": "carrossel de 5 telas (capa, motivos 1, 2 e 4, ação)."
     },
     "storyCards": [
@@ -964,10 +964,10 @@ export const octoberCalendarBase = [
         {
           "unit": "Legenda",
           "role": "Estrutura",
-          "content": "(1) Frase da capa. (2) \"O 8º Congresso de Gestão de Academias acontece em 23 e 24/04, com coordenação de Dudu Netto.\" (3) Os temas citados pela Leal em uma linha. (4) \"Inscrições abertas. Lote 1 limitado. Link na bio.\""
+          "content": "(1) Frase da capa. (2) \"O 8º Congresso de Gestão de Academias acontece em 23 e 24/04, com coordenação de Dudu Netto.\" (3) Os temas citados pela Leal em uma linha. (4) \"Inscrições abertas, com acesso aos 3 dias da feira do Arnold Sports Festival. Lote 1 limitado. Link na bio.\""
         }
       ],
-      "note": "no áudio, a Leal diz que o congresso \"nasce\"; na legenda, deixar claro que é a 8ª edição. Não comparar com a Certificação Internacional em Personal Training – WTTC. O carrossel \"8ª edição\" (antigo 1011) foi para o backlog de novembro."
+      "note": "no áudio, a Leal diz que o congresso \"nasce\"; na legenda, deixar claro que é a 8ª edição. Não comparar com a Certificação Internacional em Personal Training – WTTC. O carrossel \"8ª edição\" (antigo 1011) foi para o backlog de novembro. Benefício da feira: [REDAÇÃO OFICIAL DO BENEFÍCIO – CONFIRMAR COM ADRIANA OU KARLA]. Só publicar a linha do benefício com a redação confirmada e com o benefício já publicado nas páginas dos congressos; sem isso, a linha sai e o texto volta a ser \"Inscrições abertas. Lote 1 limitado. Link na bio.\" (item 4 da legenda)."
     },
     "storyCards": [
       {
@@ -1204,7 +1204,7 @@ export const octoberCalendarBase = [
         {
           "unit": "Tela 6",
           "role": "Ação",
-          "content": "\"Lote 1 limitado. Garanta a sua vaga pelo link da bio.\""
+          "content": "\"Sua inscrição também dá acesso aos 3 dias da feira do Arnold Sports Festival. Lote 1 limitado. Garanta a sua vaga pelo link da bio.\""
         },
         {
           "unit": "Reel",
@@ -1212,7 +1212,7 @@ export const octoberCalendarBase = [
           "content": "Repostar o Reel \"Cris Parente – divulgação do Congresso\", já finalizado pela agência, com legenda nova terminando no CTA."
         }
       ],
-      "note": "sempre o nome completo na primeira menção. Sem promessa de emprego, renda, visto ou equivalência automática. Não comparar com Gestão de Academias."
+      "note": "sempre o nome completo na primeira menção. Sem promessa de emprego, renda, visto ou equivalência automática. Não comparar com Gestão de Academias. Benefício da feira: [REDAÇÃO OFICIAL DO BENEFÍCIO – CONFIRMAR COM ADRIANA OU KARLA]. Só publicar a linha do benefício com a redação confirmada e com o benefício já publicado nas páginas dos congressos; sem isso, a linha sai e o texto volta a ser \"Lote 1 limitado. Garanta a sua vaga pelo link da bio.\" (tela 6)."
     },
     "fallback": "estático com nome completo, a presença em 5 continentes e 18 países, foto de Cris Parente e CTA.",
     "cta": "Garanta a sua vaga no lote 1.",
@@ -1404,10 +1404,10 @@ export const octoberCalendarBase = [
         {
           "unit": "Tela 7",
           "role": "Coordenação e ação",
-          "content": "Leonardo Luiz Barretti Secchi e Rafael Fernandes Temoteo, coordenadores + \"Lote 1 limitado. Link na bio.\""
+          "content": "Leonardo Luiz Barretti Secchi e Rafael Fernandes Temoteo, coordenadores + \"Inscrição com acesso aos 3 dias da feira do Arnold Sports Festival. Lote 1 limitado. Link na bio.\""
         }
       ],
-      "note": "não usar marcas, logos ou expressões oficiais da FIFA na arte; falar em \"futebol feminino\" e \"Mundial feminino no Brasil\" de forma descritiva, com validação jurídica. Não publicar horários, grade completa ou títulos integrais."
+      "note": "não usar marcas, logos ou expressões oficiais da FIFA na arte; falar em \"futebol feminino\" e \"Mundial feminino no Brasil\" de forma descritiva, com validação jurídica. Não publicar horários, grade completa ou títulos integrais. Benefício da feira: [REDAÇÃO OFICIAL DO BENEFÍCIO – CONFIRMAR COM ADRIANA OU KARLA]. Só publicar a linha do benefício com a redação confirmada e com o benefício já publicado nas páginas dos congressos; sem isso, a linha sai e o texto volta a ser \"Lote 1 limitado. Link na bio.\" (tela 7)."
     },
     "agencyResearch": {
       "owner": "Agência de conteúdo e pesquisa",
@@ -1929,8 +1929,8 @@ export const octoberCalendarBase = [
     "phase": "Venda contínua",
     "channel": "carrossel educativo de 7 telas com fechamento de autoridade",
     "title": "Queda de cabelo com ferritina normal? A investigação não para aí.",
-    "origin": "programação Estética 2027; mini-bio de Luisa Wolpe (planilha de coordenadores).",
-    "idea": "queda capilar costuma ser investigada só pela ferritina. Em 2027, Dr. Leandro Lucerna e Luisa Wolpe falam de queda capilar além da ferritina, incluindo a queda associada às canetas de GLP-1.",
+    "origin": "programação Estética 2027 (planilha atualizada na noite de 29/09, com mini-CV, pasta de foto e Instagram do Dr. Leandro Lucena); formação de Luisa Wolpe conforme a mesma planilha.",
+    "idea": "queda capilar costuma ser investigada só pela ferritina. Em 2027, Dr. Leandro Lucena e Luisa Wolpe falam de queda capilar além da ferritina, incluindo a queda associada às canetas de GLP-1.",
     "productionBrief": {
       "format": "carrossel educativo de 7 telas com fechamento de autoridade",
       "purpose": "usar um tema confirmado de 2027 com gancho forte para educar e vender (formato pedido pelo cliente: carrossel educativo que chama para a venda no final).",
@@ -1958,7 +1958,7 @@ export const octoberCalendarBase = [
         {
           "unit": "Tela 5",
           "role": "Quem vai responder",
-          "content": "Fotos e credenciais de Dr. Leandro Lucerna e Luisa Wolpe."
+          "content": "Fotos e credenciais de Dr. Leandro Lucena (médico, pós-graduado em Transplante Capilar e Tricologia e professor de pós-graduação em transplante capilar) e Luisa Wolpe (nutricionista, pós-graduada em Nutrição Clínica e mestre em Ciências da Saúde pela UFPR)."
         },
         {
           "unit": "Tela 6",
@@ -1975,13 +1975,13 @@ export const octoberCalendarBase = [
     },
     "agencyResearch": {
       "owner": "Agência de conteúdo e pesquisa",
-      "request": "levantar credenciais públicas do Dr. Leandro Lucerna e, se houver, um conteúdo público dele ou da Luisa sobre queda capilar, com links. O conteúdo das telas 2 a 4 deve ser validado por nutricionista.",
+      "request": "buscar a foto oficial do Dr. Leandro Lucena na pasta indicada na planilha (https://drive.google.com/drive/folders/18wfC5L2Wn-L8YzPXuvBLxzI2YdgLBbQK) e, se houver, um conteúdo público dele ou da Luisa sobre queda capilar, com links. As credenciais da tela 5 vêm da planilha de programação. O conteúdo das telas 2 a 4 deve ser validado por nutricionista.",
       "deliverables": [
-        "levantar credenciais públicas do Dr.",
-        "Leandro Lucerna e, se houver, um conteúdo público dele ou da Luisa sobre queda capilar, com links.",
+        "buscar a foto oficial do Dr. Leandro Lucena na pasta indicada na planilha (https://drive.google.com/drive/folders/18wfC5L2Wn-L8YzPXuvBLxzI2YdgLBbQK).",
+        "Se houver, um conteúdo público dele ou da Luisa sobre queda capilar, com links.",
         "O conteúdo das telas 2 a 4 deve ser validado por nutricionista."
       ],
-      "validation": "Validar todas as afirmações e materiais solicitados antes da publicação. levantar credenciais públicas do Dr. Leandro Lucerna e, se houver, um conteúdo público dele ou da Luisa sobre queda capilar, com links. O conteúdo das telas 2 a 4 deve ser validado por nutricionista.",
+      "validation": "Validar todas as afirmações e materiais solicitados antes da publicação. buscar a foto oficial do Dr. Leandro Lucena na pasta indicada na planilha (https://drive.google.com/drive/folders/18wfC5L2Wn-L8YzPXuvBLxzI2YdgLBbQK) e, se houver, um conteúdo público dele ou da Luisa sobre queda capilar, com links. As credenciais da tela 5 vêm da planilha de programação. O conteúdo das telas 2 a 4 deve ser validado por nutricionista.",
       "fallback": "carrossel de 4 telas (gancho, \"tem mais além da ferritina\", quem vai responder, ação)."
     },
     "fallback": "carrossel de 4 telas (gancho, \"tem mais além da ferritina\", quem vai responder, ação).",
@@ -2302,10 +2302,10 @@ export const octoberCalendarBase = [
         {
           "unit": "Legenda",
           "role": "Estrutura",
-          "content": "(1) \"Hoje é Dia do Fisiculturista.\" Uma frase de homenagem. (2) \"Em 25/04, o Congresso de Bodybuilding reúne atletas, treinadores e coaches, com coordenação de Ricardo Pannain.\" (3) \"Inscrições abertas. Lote 1 limitado. Link na bio.\""
+          "content": "(1) \"Hoje é Dia do Fisiculturista.\" Uma frase de homenagem. (2) \"Em 25/04, o Congresso de Bodybuilding reúne atletas, treinadores e coaches, com coordenação de Ricardo Pannain.\" (3) \"Inscrições abertas. Quem se inscreve também tem acesso aos 3 dias da feira do Arnold Sports Festival. Lote 1 limitado. Link na bio.\""
         }
       ],
-      "note": "no áudio, a Leal diz que o Congresso de Bodybuilding \"nasce\"; na legenda, não apresentar como estreia (o congresso já aconteceu em 2026). Stories de escassez: publicação condicionada à confirmação do cliente de que o lote 1 segue disponível. \"Últimos lugares\" só com confirmação explícita. O card 1031 (Pannain, comprometimento) continua no dia seguinte: são dois dias seguidos de Bodybuilding, com ângulos diferentes (institucional e comportamento)."
+      "note": "no áudio, a Leal diz que o Congresso de Bodybuilding \"nasce\"; na legenda, não apresentar como estreia (o congresso já aconteceu em 2026). Stories de escassez: publicação condicionada à confirmação do cliente de que o lote 1 segue disponível. \"Últimos lugares\" só com confirmação explícita. O card 1031 (Pannain, comprometimento) continua no dia seguinte: são dois dias seguidos de Bodybuilding, com ângulos diferentes (institucional e comportamento). Benefício da feira: [REDAÇÃO OFICIAL DO BENEFÍCIO – CONFIRMAR COM ADRIANA OU KARLA]. Só publicar a linha do benefício com a redação confirmada e com o benefício já publicado nas páginas dos congressos; sem isso, a linha sai e o texto volta a ser \"Inscrições abertas. Lote 1 limitado. Link na bio.\" (item 3 da legenda). Os Stories de escassez não citam o benefício."
     },
     "storyCards": [
       {

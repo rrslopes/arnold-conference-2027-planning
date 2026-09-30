@@ -26,13 +26,15 @@ describe("inteligência editorial por programação", () => {
     expect(program?.sessions[0]).toMatchObject({ time: "9h00", speakers: "Marília Lacerda" });
     expect(program?.sessions.at(-1)?.title).toContain("Performance Feminina");
     expect(program?.source).toContain("Programação_Conference_NutriçãoEstética_2027.xlsx");
-    expect(program?.source).toContain("18/09/2026");
+    expect(program?.source).toContain("noite de 29/09/2026");
+    expect(program?.sourceUrl).toContain("1iHG54Dtw9X94F97Szq3xhf7CJjP7R8S9");
     expect(program?.assetSourceUrl).toContain("1cbpsKRniKhToysrglTtyyCpQwPeHffcs");
     expect(program?.note).toContain("Dez sessões");
     expect(program?.statusLabel).toContain("temas e nomes liberados");
     expect(program?.statusLabel).not.toMatch(/definitiva|completa/i);
     expect(program?.note).toContain("temas centrais e nomes podem ser divulgados seletivamente");
-    expect(program?.note).toContain("16 dos 17 palestrantes");
+    expect(program?.note).toContain("Os 17 palestrantes têm materiais");
+    expect(program?.note).toContain("mestre em Ciências da Saúde pela UFPR");
     expect(program?.sessions.every(item => item.materialStatus)).toBe(true);
     expect(program?.sessions.find(item => item.time === "16h00")?.speakers).toBe("Andréia Naves");
   });
@@ -62,8 +64,11 @@ describe("inteligência editorial por programação", () => {
     expect(assets.find(item => item.name === "Diogo Viana")?.note).toContain("imagem ainda não exibida");
     expect(assets.find(item => item.name === "Pedro Perim")?.materialUrl).toContain("1un3UBiobqIE5Lo1lNBh00yt3Uy8jt5ps");
     expect(assets.find(item => item.name === "Pedro Perim")?.photo).toBeUndefined();
-    expect(assets.find(item => item.name === "Dr. Leandro Lucerna")?.note).toContain("pendentes");
-    expect(new Set(assets.filter(item => item.materialUrl).map(item => item.name)).size).toBe(16);
+    expect(assets.find(item => item.name === "Dr. Leandro Lucerna")).toBeUndefined();
+    expect(assets.find(item => item.name === "Dr. Leandro Lucena")?.materialUrl).toContain("18wfC5L2Wn-L8YzPXuvBLxzI2YdgLBbQK");
+    expect(assets.find(item => item.name === "Dr. Leandro Lucena")?.social?.[0]?.label).toBe("@drleandrolucena");
+    expect(assets.find(item => item.name === "Dr. Leandro Lucena")?.photo).toBeUndefined();
+    expect(new Set(assets.filter(item => item.materialUrl).map(item => item.name)).size).toBe(17);
     expect(program?.sessions.find(item => item.time === "17h20")?.speakerAssets).toHaveLength(3);
   });
 

@@ -7,6 +7,8 @@ const suppressions = "Supressões: compradores do congresso deste e-mail, descad
 
 const interestPriority = "Interesse definido pela ordem de prioridade: (1) participou ou comprou o congresso em edições anteriores; (2) marcou o congresso como interesse no cadastro da LP de novidades; (3) assistiu à masterclass ligada ao congresso (Nutrição Estética, Nutrição Esportiva ou Gestão). [CAMPOS DE INTERESSE NO CRM – A CONFIRMAR]: critério que não existir no CRM é ignorado, sem inferência.";
 
+const fairBenefitPending = "[REDAÇÃO OFICIAL DO BENEFÍCIO – CONFIRMAR COM ADRIANA OU KARLA]";
+
 const listPromise = "Quem está na lista recebe as informações do lançamento e tem a oportunidade de concluir a inscrição com a condição especial do lote 1.";
 
 type SourceLink = {
@@ -75,7 +77,7 @@ const openingSteps = (audienceLine: string, proof: string): EmailSeed["steps"] =
   { step: "Bloco 1", role: "Notícia", direction: "Abrir com a notícia, sem introdução.", example: "\"As inscrições estão abertas.\"" },
   { step: "Bloco 2", role: "Para quem e quando", direction: "Público em uma linha, data e coordenação.", example: audienceLine },
   { step: "Bloco 3", role: "Prova", direction: "Um argumento concreto do congresso, apresentado como o motivo para garantir o lugar agora.", example: proof },
-  { step: "Bloco 4", role: "Escassez e ação", direction: "Ligar a prova à escassez e levar à página do congresso.", example: "\"Quer estar nessa sala em 2027? O lote 1 é limitado. Garanta o seu lugar.\" Botão: \"Garanta o seu lugar\"." },
+  { step: "Bloco 4", role: "Escassez e ação", direction: "Ligar a prova à escassez e levar à página do congresso.", example: `"Quer estar nessa sala em 2027? A inscrição também dá acesso aos 3 dias da feira do Arnold Sports Festival. O lote 1 é limitado. Garanta o seu lugar." ${fairBenefitPending} Sem a redação confirmada ou sem o benefício nas páginas, tirar a frase da feira. Botão: "Garanta o seu lugar".` },
 ];
 
 const openingVersion = (id: string, congress: string, subject: string, audienceLine: string, proof: string, destinationLabel: string, destinationUrl: string): EmailBriefVersion => ({
@@ -108,7 +110,7 @@ const openingVersions: EmailBriefVersion[] = [
       { step: "Bloco 1", role: "Notícia", direction: "Abrir com a notícia, sem introdução.", example: "\"As inscrições estão abertas.\"" },
       { step: "Bloco 2", role: "Para quem e quando", direction: "Os seis congressos, cada um com uma linha de público e seu próprio botão, na ordem oficial e sem comparação. Abrir a lista com uma frase de ligação.", example: "\"Escolha a sala da sua área:\" + \"Nutrição Esportiva · 24 e 25/04 · para nutricionistas que atendem atletas e praticantes\" + botão, e assim por diante até Bodybuilding." },
       { step: "Bloco 3", role: "Prova", direction: "Um fato real de demanda, em uma linha.", example: "\"Em 2026, o Simpósio de Fisioterapia Esportiva da SONAFE esgotou.\"" },
-      { step: "Bloco 4", role: "Escassez e ação", direction: "Ligar a prova à escassez. Botão principal para o hub; os botões do Bloco 2 levam às páginas individuais.", example: "\"Neste ano, o lote 1 também é limitado. Garanta o seu lugar.\" Botão: \"Garanta o seu lugar\"." },
+      { step: "Bloco 4", role: "Escassez e ação", direction: "Ligar a prova à escassez. Botão principal para o hub; os botões do Bloco 2 levam às páginas individuais.", example: `"Neste ano, o lote 1 também é limitado, e qualquer inscrição dá acesso aos 3 dias da feira do Arnold Sports Festival. Garanta o seu lugar." ${fairBenefitPending} Sem a redação confirmada ou sem o benefício nas páginas, tirar a frase da feira. Botão: "Garanta o seu lugar".` },
     ],
     cta: "Garanta o seu lugar",
     destinationLabel: "Hub oficial do Arnold Conference",
@@ -174,7 +176,7 @@ const emailSeeds: EmailSeed[] = [
     rule: `Horário de envio: logo após a abertura · [HORÁRIO DE ABERTURA – A CONFIRMAR]. Um e-mail por contato. Compra confirmada remove o contato dos próximos e-mails comerciais daquele congresso. ${suppressions}`,
     subjectDirection: "Assunto por versão (ver cada versão). Pré-cabeçalho de todas: \"As inscrições abriram agora. O lote 1 é limitado.\"",
     steps: openingSteps("Público em uma linha, data e coordenação (ver cada versão).", "Um argumento concreto por congresso (ver cada versão)."),
-    checks: ["Checklist da abertura aprovado", "Compra-teste real em desktop e mobile", "UTM por versão", "Nome completo da certificação", "Datas conferidas nas páginas oficiais"],
+    checks: ["Checklist da abertura aprovado", "Benefício da feira com a redação oficial confirmada por Adriana ou Karla e publicado nas páginas dos congressos", "Compra-teste real em desktop e mobile", "UTM por versão", "Nome completo da certificação", "Datas conferidas nas páginas oficiais"],
     fallback: "Se a segmentação não estiver pronta, enviar só a versão Geral para toda a base. Se o checklist da abertura não for aprovado, cancelar.",
     limits: "Sem valores e sem datas de virada; nenhuma versão compara congressos.",
     agencyResearch: [
@@ -217,11 +219,11 @@ const emailSeeds: EmailSeed[] = [
     destination: "Página oficial de Nutrição Estética",
     destinationUrl: octoberDestinations.aestheticNutrition,
     rule: `Um envio. ${suppressions}`,
-    subjectDirection: "Assunto: \"GLP-1, queda capilar e lipedema: Nutrição Estética 2027\". Pré-cabeçalho: \"A programação de 2027 está confirmada.\"",
+    subjectDirection: "Assunto: \"GLP-1, queda capilar e lipedema: Nutrição Estética 2027\". Pré-cabeçalho: \"Três temas de Nutrição Estética 2027.\"",
     steps: [
       { step: "Bloco 1", role: "Abertura", direction: "Anunciar a programação confirmada.", example: "\"A programação de Nutrição Estética 2027 está confirmada. Três temas para você conhecer:\"" },
-      { step: "Bloco 2", role: "Três temas", direction: "Três temas em versão editorial curta, com os palestrantes e uma foto por tema.", example: "\"GLP-1 e cirurgia plástica: quem deve operar, quando e como preservar massa muscular\" (Gabriel Ximenes e Pedro Perim) · \"Queda capilar além da ferritina\" (Dr. Leandro Lucerna e Luisa Wolpe) · \"Lipedema: da bioenergética ao tratamento\" (Raquel Wolpe e Luisa Wolpe)." },
-      { step: "Bloco 3", role: "Coordenação e data", direction: "Abrir com a frase de ponte e seguir com data e coordenação.", example: "\"São temas que já chegam ao consultório, discutidos por quem pesquisa e atende. Em 23/04, com coordenação de Luisa Wolpe, especialista em Nutrição Clínica e mestre em Medicina Interna pela UFPR.\"" },
+      { step: "Bloco 2", role: "Três temas", direction: "Três temas em versão editorial curta, com os palestrantes e uma foto por tema.", example: "\"GLP-1 e cirurgia plástica: quem deve operar, quando e como preservar massa muscular\" (Gabriel Ximenes e Pedro Perim) · \"Queda capilar além da ferritina\" (Dr. Leandro Lucena e Luisa Wolpe) · \"Lipedema: da bioenergética ao tratamento\" (Raquel Wolpe e Luisa Wolpe)." },
+      { step: "Bloco 3", role: "Coordenação e data", direction: "Abrir com a frase de ponte e seguir com data e coordenação.", example: "\"São temas que já chegam ao consultório, discutidos por quem pesquisa e atende. Em 23/04, com coordenação de Luisa Wolpe, pós-graduada em Nutrição Clínica e mestre em Ciências da Saúde pela UFPR.\"" },
       { step: "Bloco 4", role: "Escassez e ação", direction: "Escassez e botão para a página.", example: "\"A sala tem lugares limitados e o lote 1 também.\" Botão: \"Garantir minha vaga\"." },
     ],
     checks: ["Grafia dos nomes", "Títulos em versão editorial curta"],
@@ -470,10 +472,10 @@ const emailSeeds: EmailSeed[] = [
     subjectDirection: "Assunto: \"Ficou alguma dúvida sobre a sua inscrição?\". Pré-cabeçalho: \"Respostas rápidas sobre data, inscrição e certificado.\"",
     steps: [
       { step: "Bloco 1", role: "Abertura", direction: "Abrir pelo congresso que a pessoa está considerando.", example: "\"Vimos que você está considerando o [nome do congresso]. Estas são as dúvidas mais comuns:\"" },
-      { step: "Bloco 2", role: "Perguntas e respostas", direction: "4 a 5 perguntas com resposta curta, tiradas do FAQ oficial.", example: "Data e local; o que está incluído na inscrição; formas de pagamento; certificado; contato de atendimento." },
+      { step: "Bloco 2", role: "Perguntas e respostas", direction: "4 a 5 perguntas com resposta curta, tiradas do FAQ oficial.", example: `Data e local; o que está incluído na inscrição ("Acesso ao congresso escolhido e aos 3 dias da feira do Arnold Sports Festival." ${fairBenefitPending}); formas de pagamento; certificado; contato de atendimento.` },
       { step: "Bloco 3", role: "Ação", direction: "Ligar as respostas à decisão e levar à página do congresso de interesse, com o link do atendimento.", example: "\"Se ainda faltar alguma resposta, fale com a gente. E, se já está decidido, o lote 1 continua limitado.\" Botão: \"Garantir minha vaga\" + link do atendimento." },
     ],
-    checks: ["Contato de atendimento válido para 2027 (atual: congresso@savagetgroup.com.br)"],
+    checks: ["Contato de atendimento válido para 2027 (atual: congresso@savagetgroup.com.br)", "Benefício da feira com a redação oficial confirmada e igual ao FAQ e às páginas"],
     fallback: "Se não houver eventos de navegação, enviar para quem clicou em qualquer e-mail de outubro e não comprou.",
     limits: "Sem valores e sem datas de virada no corpo do e-mail.",
     agencyResearch: ["Respostas só a partir do FAQ oficial e das páginas; resposta sem fonte sai do e-mail."],
@@ -495,10 +497,10 @@ const emailSeeds: EmailSeed[] = [
     subjectDirection: "Assunto: \"O lote 1 não espera\" · versão por congresso: \"[Congresso]: o lote 1 é limitado\". Pré-cabeçalho: \"Garanta o menor valor da edição.\"",
     steps: [
       { step: "Bloco 1", role: "Escassez", direction: "Escassez com o nome do congresso.", example: "\"O lote 1 do [congresso] é limitado e é o menor valor desta edição.\"" },
-      { step: "Bloco 2", role: "Lembrete de valor", direction: "Ligar a escassez ao argumento principal daquele congresso (o mesmo do Bloco 3 de 06/10).", example: "Nutrição Esportiva: \"E são dois dias inteiros só de Nutrição Esportiva.\"" },
+      { step: "Bloco 2", role: "Lembrete de valor", direction: "Ligar a escassez ao argumento principal daquele congresso (o mesmo do Bloco 3 de 06/10) e lembrar o acesso à feira em meia frase.", example: `Nutrição Esportiva: "E são dois dias inteiros só de Nutrição Esportiva, com acesso aos 3 dias da feira do Arnold Sports Festival." ${fairBenefitPending}` },
       { step: "Bloco 3", role: "Ação", direction: "Botão para a página do congresso.", example: "Botão: \"Garantir minha vaga\"." },
     ],
-    checks: ["Confirmação do cliente registrada", "Supressão de compradores atualizada no dia"],
+    checks: ["Confirmação do cliente registrada", "Supressão de compradores atualizada no dia", "Benefício da feira com a redação oficial confirmada; sem ela, tirar a meia frase da feira"],
     fallback: "Se não houver confirmação, cancelar o envio.",
     limits: "Sem valores e sem datas de virada.",
   },
@@ -516,9 +518,9 @@ const emailSeeds: EmailSeed[] = [
     steps: [
       { step: "Bloco 1", role: "Retomada", direction: "Lembrar a inscrição iniciada.", example: "\"Você começou sua inscrição no [congresso] e não concluiu.\"" },
       { step: "Bloco 2", role: "Ajuda", direction: "Oferecer ajuda se algo deu errado.", example: "\"Se algo deu errado no pagamento, fale com a gente: [contato de atendimento].\"" },
-      { step: "Bloco 3", role: "Escassez e ação (só no disparo de 24h)", direction: "Escassez e botão para retomar a inscrição.", example: "\"O lote 1 é limitado.\" Botão: \"Concluir minha inscrição\"." },
+      { step: "Bloco 3", role: "Escassez e ação (só no disparo de 24h)", direction: "Escassez e botão para retomar a inscrição.", example: `"Lembrando: sua inscrição também dá acesso aos 3 dias da feira do Arnold Sports Festival. O lote 1 é limitado." ${fairBenefitPending} Botão: "Concluir minha inscrição".` },
     ],
-    checks: ["Evento de abandono disponível", "Link de retomada testado", "Parada automática com compra"],
+    checks: ["Evento de abandono disponível", "Benefício da feira com a redação oficial confirmada; sem ela, tirar a frase da feira do disparo de 24h", "Link de retomada testado", "Parada automática com compra"],
     fallback: "Se a ticketeira não expõe o evento de abandono, a automação não é criada; o público entra no e-mail de 27/10.",
     limits: "Sem valores; não enviar mais de dois e-mails de recuperação por pessoa.",
   },

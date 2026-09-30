@@ -225,6 +225,32 @@ describe("pacote editorial de 28/09 a 31/10 de 2026", () => {
     expect(new Set(preheaders).size).toBe(preheaders.length);
   });
 
+  it("usa o benefício da feira só a partir de 06/10, nas peças de venda e com a redação pendente", () => {
+    const fair = /Arnold Sports Festival/;
+    const pending = "[REDAÇÃO OFICIAL DO BENEFÍCIO – CONFIRMAR COM ADRIANA OU KARLA]";
+    const toNumber = (date: string) => {
+      const [day, month] = date.replace("Desde ", "").slice(0, 5).split("/").map(Number);
+      return month * 100 + day;
+    };
+    const cardsWithFair = octoberCalendar.filter(entry => fair.test(JSON.stringify(entry)));
+    expect(cardsWithFair.map(entry => entry.id)).toEqual(["1006", "1008", "1010", "1011", "1015", "1017", "1030"]);
+    for (const entry of cardsWithFair) {
+      expect(toNumber(entry.date), entry.id).toBeGreaterThanOrEqual(1006);
+      expect(JSON.stringify(entry), entry.id).toContain(pending);
+    }
+    const emailsWithFair = octoberEmails.filter(entry => fair.test(JSON.stringify(emailCampaignBriefs[entry.id])));
+    expect(emailsWithFair.map(entry => entry.id)).toEqual(["email-oct-opening", "email-oct-consideration", "email-oct-scarcity", "email-oct-abandon"]);
+    for (const entry of emailsWithFair) {
+      expect(toNumber(entry.date), entry.id).toBeGreaterThanOrEqual(1006);
+      for (const version of emailCampaignBriefs[entry.id].versions) {
+        if (fair.test(JSON.stringify(version.steps))) expect(JSON.stringify(version.steps), version.id).toContain(pending);
+      }
+    }
+    expect(emailCampaignBriefs["email-oct-opening"].versions.every(version => fair.test(JSON.stringify(version.steps)))).toBe(true);
+    for (const id of ["1004", "1005"]) expect(JSON.stringify(item(id)), id).not.toMatch(/feira/i);
+    expect(JSON.stringify(item("1006").storyCards)).not.toMatch(fair);
+  });
+
   it("segmenta 06/10 por interesse e manda o hub só para a versão Geral", () => {
     const opening = emailCampaignBriefs["email-oct-opening"];
     expect(opening.versions.map(version => version.destinationUrl)).toEqual([
