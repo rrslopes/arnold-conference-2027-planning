@@ -10,22 +10,23 @@ A plataforma não é usada para controle operacional de status. Ela serve para d
 2. Nunca editar ao mesmo tempo que a Manus. Se o último commit for da Manus há poucos minutos, perguntar ao Raphael se ela terminou.
 3. Editar apenas o que foi pedido. Não mexer em `server/_core`, integrações, banco (drizzle) ou layout sem pedido explícito.
 4. Validar sempre: `pnpm check`, `pnpm test`, `pnpm build`. Os testes de conteúdo (`server/*.content.test.ts` e demais testes que não dependem de credenciais) precisam passar. Localmente, falham por falta de credenciais os testes de `planning.integration`, `lovableNews.persistence`, `lovableMasterclass.persistence` e `lovableNewsMetrics`; isso é esperado. Qualquer falha fora desses quatro arquivos bloqueia o push. Se uma regra editorial mudou, atualizar o teste de conteúdo correspondente e explicar no commit.
-5. Commit em português, descrevendo o que foi substituído, criado e removido. Depois do push, passar ao Raphael o prompt abaixo para colar na Manus, em modo padrão. Quando ela terminar, conferir a versão publicada lendo o site (https://planejamentoconference.savagetgroup.com.br), sem pedir verificações à Manus. Se a mudança tocar servidor, banco ou integrações, o prompt volta a pedir `pnpm test`.
+5. Commit em português, descrevendo o que foi substituído, criado e removido. Depois do push, passar ao Raphael o prompt abaixo para colar na Manus, em modo Lite (rotina oficial, ver "Publicação na Manus"). Quando ela terminar, conferir a versão publicada lendo o site (https://planejamentoconference.savagetgroup.com.br), sem pedir verificações à Manus. Se a mudança tocar servidor, banco ou integrações, usar o modo padrão e o prompt com `pnpm test`.
 
    > Faça git pull da main do GitHub, rode só pnpm build, salve o checkpoint e publique. Não rode testes nem verificação de tipos: já foi tudo validado antes do push. Responda só com o hash publicado.
 
 ### Publicação na Manus
 
-- Usar sempre o modo padrão da Manus para publicar, nunca o Max.
-- Mudança só de conteúdo: prompt sem `pnpm test` (só pull, build, checkpoint e publicação), como o prompt acima.
-- Mudança no servidor: manter `pnpm test`, pedindo resposta curta: "Se falhar algum teste fora de planning.integration, lovableNews.persistence, lovableMasterclass.persistence e lovableNewsMetrics, pare e me mostre só os nomes dos testes que falharam."
+- Rotina oficial (desde 30/09/2026): modo Lite + o prompt único do passo 5 (pull, só build, checkpoint e publicação, sem testes nem verificação de tipos). Depois, conferir o site.
+- O botão "Pedir ao Manus para sincronizar" (painel GitHub, menu "..." → GitHub) deixa de ser usado: ele aciona o agente, mas não cria checkpoint, e o botão "Publicar" só habilita depois de um checkpoint.
+- Nunca usar o modo Max.
+- Mudança no servidor, no banco ou em integrações: modo padrão e prompt com `pnpm test`, pedindo resposta curta: "Se falhar algum teste fora de planning.integration, lovableNews.persistence, lovableMasterclass.persistence e lovableNewsMetrics, pare e me mostre só os nomes dos testes que falharam."
+- Mudança só em CLAUDE.md ou arquivos internos: não publicar; vai junto na próxima publicação.
 - Juntar as mudanças do dia e publicar uma vez só.
-- Caminho manual testado: o painel GitHub da Manus (menu "..." → GitHub) mostra "Desatualizado" quando o GitHub está à frente, com o último commit, e oferece o botão "Pedir ao Manus para sincronizar", que aciona o agente. Não existe sincronização sem o agente.
-- A sincronização pelo botão "Pedir ao Manus para sincronizar" não cria checkpoint, então não permite publicar: o botão "Publicar" só habilita depois de um checkpoint.
-- Rotina:
-  1. Mudança que aparece na plataforma (rotina a testar na próxima publicação): modo padrão e o prompt do passo 5 do fluxo de trabalho, sem usar o botão de sincronização. Depois, conferir o site.
-  2. Mudança só em CLAUDE.md ou arquivos internos: não publicar; vai junto na próxima publicação.
-  3. Consumo de créditos. Em 29/09, a publicação de `acba409` custou 820 créditos: 177 do botão "Pedir ao Manus para sincronizar" (modo Max, só sincronizou) e cerca de 640 do chat, porque o botão "Publicar" não habilitava sem checkpoint e a Manus rodou testes e build por conta própria, em modo Max. Referência anterior: o prompt curto, em modo Max e com `pnpm test`, apareceu com 2.982 créditos no histórico do dia (o valor pode somar mais de uma tarefa).
+- Alerta de "prompt injection" durante a publicação: falso positivo conhecido, que vem do texto de instruções da ferramenta interna de checkpoint da Manus (aconteceu na publicação de `ab37b3b`). Se acontecer de novo, pedir à Manus que diga a origem do alerta e seguir se não for arquivo do repositório.
+- Histórico de consumo de créditos:
+  1. Primeira publicação: cerca de 3.000 créditos (2.982 no histórico do dia; prompt curto em modo Max, com `pnpm test`; o valor pode somar mais de uma tarefa).
+  2. `acba409` (29/09): 820 créditos, sendo 177 do botão de sincronização (modo Max) e cerca de 640 do chat, porque sem checkpoint o "Publicar" não habilitava e a Manus rodou testes e build por conta própria.
+  3. `ab37b3b` (29/09, noite): 29 créditos, em modo Lite com o prompt único.
 
 ## Trabalho em dois computadores (escritório e casa)
 
@@ -158,7 +159,6 @@ Se não houver acesso ao Google Drive nesta sessão, pedir ao Raphael a versão 
 - Datas dos vídeos de tendência da Leal: 5 vídeos em edição para 4 quintas livres em outubro; confirmar com Iris ou Dri.
 - Links dos vídeos da Leal, que vêm da equipe do cliente.
 - Horário de abertura das vendas em 06/10.
-- Manus: perguntar se a publicação automática consome créditos a cada sincronização.
 - CRM: campos de interesse, eventos de navegação e evento de checkout abandonado.
 - Pasta de prints do SONAFE de 2026.
 - Contato de atendimento válido para 2027 (hoje, congresso@savagetgroup.com.br).
