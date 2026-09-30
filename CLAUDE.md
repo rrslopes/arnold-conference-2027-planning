@@ -16,7 +16,7 @@ A plataforma não é usada para controle operacional de status. Ela serve para d
 
 ### Publicação na Manus
 
-- Rotina oficial (desde 30/09/2026): modo Lite + o prompt único do passo 5 (pull, só build, checkpoint e publicação, sem testes nem verificação de tipos). Depois, conferir o site.
+- Rotina oficial (desde 29/09/2026): modo Lite + o prompt único do passo 5 (pull, só build, checkpoint e publicação, sem testes nem verificação de tipos). Depois, conferir o site.
 - O botão "Pedir ao Manus para sincronizar" (painel GitHub, menu "..." → GitHub) deixa de ser usado: ele aciona o agente, mas não cria checkpoint, e o botão "Publicar" só habilita depois de um checkpoint.
 - Nunca usar o modo Max.
 - Mudança no servidor, no banco ou em integrações: modo padrão e prompt com `pnpm test`, pedindo resposta curta: "Se falhar algum teste fora de planning.integration, lovableNews.persistence, lovableMasterclass.persistence e lovableNewsMetrics, pare e me mostre só os nomes dos testes que falharam."
@@ -72,7 +72,8 @@ Vendas abrem em 06/10/2026. Meta: lotação máxima de todas as salas. Todos os 
 
 - Nunca comparar congressos nem colocar um "versus" o outro. Cada público é único.
 - Sempre "Certificação Internacional em Personal Training – WTTC" na primeira menção. Nunca só "WTTC".
-- SONAFE é a 3ª edição.
+- SONAFE é a 3ª edição (confirmado pelo cliente em 29/09; a planilha de programação ainda diz "2º").
+- Fabricio Rapello (SONAFE) se escreve com dois L, confirmado pelo Instagram @fabriciorapello, pelo currículo acadêmico e por publicações científicas.
 - Escassez: usar "lote 1 limitado". Proibido publicar datas de virada de lote e valores.
 - Briefings diretos, didáticos e com exemplo. O cliente reprova instrução abstrata.
 - Não repetir pautas dentro do mês nem entre meses. Checar o calendário existente antes de propor.
@@ -93,10 +94,15 @@ Vendas abrem em 06/10/2026. Meta: lotação máxima de todas as salas. Todos os 
 
 ## Benefício da inscrição: feira do Arnold Sports Festival (desde 29/09/2026)
 
-- Quem garantir a inscrição em qualquer um dos congressos ganha acesso aos 3 dias da feira do Arnold Sports Festival.
+- Quem garantir a inscrição em qualquer um dos congressos ganha acesso aos 3 dias da feira do Arnold Sports Festival. Confirmado em 29/09: vale para os seis congressos e para todos os lotes. Só a redação oficial continua pendente.
+- A inclusão do benefício nas páginas dos congressos é com a Patrícia, que atualiza o site (não com a Karla).
 - Uso só nas peças de venda, uma vez em cada: carrossel de abertura (1006, tela 8), uma peça por congresso (1008, 1010 motivo 5, 1011, 1015, 1017, 1030) e os e-mails de abertura (06/10, todas as versões), dúvidas (27/10), escassez (29/10) e checkout abandonado (disparo de 24h).
 - Nunca antes de 06/10, em conteúdo educativo, vídeos de tendência, segundos e-mails temáticos, Stories de link ou de escassez. Sem valor do ingresso da feira.
 - Toda peça com o benefício leva "[REDAÇÃO OFICIAL DO BENEFÍCIO – CONFIRMAR COM ADRIANA OU KARLA]" e a instrução de tirar a linha se a redação não estiver confirmada ou se o benefício não estiver nas páginas dos congressos. O teste `octoberPlan.content.test.ts` trava essas regras.
+
+## Referências para peças futuras
+
+- SONAFE, bloco de futebol feminino (peças de autoridade): Fabricio Rapello é especialista em Fisioterapia Esportiva pela SONAFE, doutor em Fisioterapia pela UFSCar, foi fisioterapeuta do Santos FC (categorias de base e futebol feminino) e é coautor, com Bruno Baroni, de um estudo sobre atletas do futebol feminino. Antes de usar, a agência levanta os links das fontes (currículo acadêmico e publicação).
 
 ## Vídeos da Leal e collabs
 
@@ -151,10 +157,10 @@ Se não houver acesso ao Google Drive nesta sessão, pedir ao Raphael a versão 
 
 ## Pendências em aberto (atualizado em 29/09/2026)
 
-- Benefício da feira do Arnold Sports Festival: importante confirmar com Adriana ou Karla a redação oficial para garantir perfeito alinhamento comercial da promessa e da oferta. Lembrar de adicionar no site, nas páginas dos congressos.
+- Benefício da feira do Arnold Sports Festival (já confirmado para os seis congressos e todos os lotes): importante confirmar com Adriana ou Karla a redação oficial para garantir perfeito alinhamento comercial da promessa e da oferta.
+- Benefício da feira nas páginas dos congressos: alinhar com a Patrícia, que atualiza o site.
 - Nutrição Estética: pedir ao cliente que corrija "Lucerna" para "Lucena" na coluna de nomes da planilha (mini-CV e Instagram @drleandrolucena confirmam "Lucena", já usado na plataforma).
 - Programação de Nutrição Esportiva: na planilha, conferir a data do domingo (diz 26/04; o certo é 25/04) e o Instagram de Paulo Mendes ("paulomendesmutri").
-- SONAFE: grafia de Fabricio "Rapelo" ou "Rapello" (a planilha usa as duas; o Instagram é @fabriciorapello). Usar "Rapelo" até o cliente confirmar.
 - SONAFE: Katherine Ferro não pode ser divulgada até o cliente liberar (orientação da planilha de 28/09).
 - Datas dos vídeos de tendência da Leal: 5 vídeos em edição para 4 quintas livres em outubro; confirmar com Iris ou Dri.
 - Links dos vídeos da Leal, que vêm da equipe do cliente.

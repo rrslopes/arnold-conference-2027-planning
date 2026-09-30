@@ -74,7 +74,7 @@ export const conferencePrograms2027: CongressProgram[] = [
     room: "Sala a confirmar",
     source: "Programação_Simposio_Sonafe_2027.xlsx · versão atualizada em 28/09/2026 (a anterior era de 18/09/2026)",
     sourceUrl: "https://docs.google.com/spreadsheets/d/150hh-unHEBioxo2sWwXElElFeZ2JNU75/edit?gid=59526583#gid=59526583",
-    note: "Doze sessões, incluindo nove palestras em dupla e uma mesa-redonda. A versão de 28/09 acrescenta mini-CVs, pastas de foto e redes sociais de Larissa Pechincha, Giovana Steiner, Bruno Baroni e Fabricio Rapelo: 19 dos 20 palestrantes das sessões têm materiais. Katherine Ferro: por orientação da planilha de 28/09, não divulgar por enquanto, nem na palestra com Bruno Baroni nem na mesa-redonda. A planilha divide o dia em três blocos; o bloco 2 usa o nome oficial da Copa do Mundo Feminina, que não entra nas artes (usar \"futebol feminino\"). Temas centrais e nomes podem ser divulgados, sem revelar a grade completa. A planilha identifica o encontro como 2º Simpósio, enquanto o arquivo de coordenadores usa 3º Simpósio; confirmar a numeração oficial antes de publicar peças externas.",
+    note: "Doze sessões, incluindo nove palestras em dupla e uma mesa-redonda. A versão de 28/09 acrescenta mini-CVs, pastas de foto e redes sociais de Larissa Pechincha, Giovana Steiner, Bruno Baroni e Fabricio Rapello: 19 dos 20 palestrantes das sessões têm materiais. Katherine Ferro: por orientação da planilha de 28/09, não divulgar por enquanto, nem na palestra com Bruno Baroni nem na mesa-redonda. A planilha divide o dia em três blocos; o bloco 2 usa o nome oficial da Copa do Mundo Feminina, que não entra nas artes (usar \"futebol feminino\"). Temas centrais e nomes podem ser divulgados, sem revelar a grade completa. O cliente confirmou a numeração oficial: 3º Simpósio (a planilha ainda diz 2º Simpósio).",
     sessions: [
       {
         time: "9h00",
@@ -152,11 +152,11 @@ export const conferencePrograms2027: CongressProgram[] = [
       },
       {
         time: "15h30",
-        speakers: "Fabricio Rapelo e Jessica Fernandes",
+        speakers: "Fabricio Rapello e Jessica Fernandes",
         title: "Fatores intrínsecos e extrínsecos aplicados ao futebol de campo: o que a ciência sempre disse?",
         materialStatus: "Mini-CVs, pastas de foto e redes sociais dos dois palestrantes recebidos.",
         speakerAssets: [
-          { name: "Fabricio Rapelo", materialUrl: "https://drive.google.com/drive/folders/1Lfq5rTBkkbo_vfhB-Ge0En-9KfdVC12P?usp=drive_link", social: [{ label: "@fabriciorapello", url: "https://www.instagram.com/fabriciorapello/" }], note: "Grafia do sobrenome a confirmar com o cliente: a planilha usa \"Rapelo\" no nome e \"Rapello\" no mini-CV e no Instagram" },
+          { name: "Fabricio Rapello", materialUrl: "https://drive.google.com/drive/folders/1Lfq5rTBkkbo_vfhB-Ge0En-9KfdVC12P?usp=drive_link", social: [{ label: "@fabriciorapello", url: "https://www.instagram.com/fabriciorapello/" }], note: "Grafia \"Rapello\" confirmada pelo Instagram, pelo currículo acadêmico e por publicações científicas (a planilha também traz \"Rapelo\")" },
           { name: "Jessica Fernandes", materialUrl: "https://drive.google.com/drive/folders/11iNmAxgwKwHOWfXfZMGjFz9iP9XXkIgn?usp=drive_link", social: [{ label: "@jefernandesfisio", url: "https://www.instagram.com/jefernandesfisio/" }] },
         ],
       },

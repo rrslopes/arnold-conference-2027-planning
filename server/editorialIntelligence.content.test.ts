@@ -84,7 +84,7 @@ describe("inteligência editorial por programação", () => {
     expect(program?.sessions.at(-1)?.speakers).toContain("Moderação: Bruno Baroni");
     expect(program?.sourceUrl).toContain("150hh-unHEBioxo2sWwXElElFeZ2JNU75");
     expect(program?.source).toContain("28/09/2026");
-    expect(program?.note).toContain("numeração oficial");
+    expect(program?.note).toContain("O cliente confirmou a numeração oficial: 3º Simpósio");
     expect(program?.note).toContain("19 dos 20 palestrantes");
     expect(program?.note).toContain("Katherine Ferro: por orientação da planilha de 28/09, não divulgar por enquanto");
     expect(program?.statusLabel).toContain("temas e nomes liberados");
@@ -94,7 +94,8 @@ describe("inteligência editorial por programação", () => {
     expect(new Set(assets.filter(item => item.materialUrl).map(item => item.name)).size).toBe(19);
     expect(assets.filter(item => item.note?.includes("pendentes")).map(item => item.name)).toEqual(["Katherine Ferro"]);
     expect(assets.find(item => item.name === "Katherine Ferro")?.note).toContain("Não divulgar por enquanto");
-    expect(assets.find(item => item.name === "Fabricio Rapelo")?.note).toContain("Grafia do sobrenome a confirmar");
+    expect(assets.find(item => item.name === "Fabricio Rapelo")).toBeUndefined();
+    expect(assets.find(item => item.name === "Fabricio Rapello")?.note).toContain("Grafia \"Rapello\" confirmada");
   });
 
   it("reproduz a programação de Nutrição Esportiva 2027 recebida em 25/09, com temas e nomes liberados", () => {
