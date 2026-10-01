@@ -5,16 +5,13 @@ import path from "node:path";
 const syncPanel = fs.readFileSync(path.resolve(process.cwd(), "client/src/components/NewsLandingSyncPanel.tsx"), "utf8");
 const dashboard = fs.readFileSync(path.resolve(process.cwd(), "client/src/components/LeadProfileDashboard.tsx"), "utf8");
 
-describe("série oficial da LP de novidades na interface", () => {
-  it("fixa o início em 04/09 e explica a importação de dias mais consolidado", () => {
-    expect(syncPanel).toContain('const OFFICIAL_SERIES_START = "2026-09-04"');
-    expect(syncPanel).toContain("reutiliza os dias oficiais já salvos");
-    expect(syncPanel).toContain("dias ausentes ou mais recentes");
-    expect(syncPanel).toContain("fetchedDailyCount");
-    expect(syncPanel).toContain("reusedDailyCount");
-    expect(syncPanel).toContain("datas são civis de Brasília");
+describe("blocos oficiais da LP de novidades na interface", () => {
+  it("consulta somente o mês em Brasília e mantém meses fechados protegidos", () => {
+    expect(syncPanel).toContain("brasiliaCivilDate");
+    expect(syncPanel).toContain('`${today.slice(0, 7)}-01`');
+    expect(syncPanel).toContain("fecha o mês anterior completo");
+    expect(syncPanel).toContain("não há base histórica do GA4 aplicada");
     expect(syncPanel).toContain("Sincronização interrompida");
-    expect(syncPanel).toContain("campo, o valor e a regra rejeitados");
     expect(syncPanel).toContain('role="alert"');
     expect(syncPanel).toContain("{lastError}");
   });

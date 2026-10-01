@@ -62,10 +62,10 @@ const lesson = z.object({
   slug: z.string().trim().min(1).max(80).regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
   palestrante: z.string().min(1).max(180),
   area: z.string().min(1).max(180),
-  inicios: count,
-  conclusoes: count,
-  espectadores: count,
-  percentual_medio_assistido: z.number().int().min(0).max(100),
+  inicios: count.nullable(),
+  conclusoes: count.nullable(),
+  espectadores: count.nullable(),
+  percentual_medio_assistido: z.number().int().min(0).max(100).nullable(),
 });
 
 export const lovableMasterclassMetricsSchema = z.object({
@@ -85,7 +85,7 @@ export const lovableMasterclassMetricsSchema = z.object({
     total_acumulado_pessoas_unicas: count,
     conversao_sessao_lead: z.number().min(0).max(1).nullable(),
   }),
-  consumo_das_aulas: z.array(lesson).max(100),
+  consumo_das_aulas: z.array(lesson),
   avanco_no_funil: z.object({
     cliques_para_lp_de_novidades: count,
     cliques_para_os_congressos: count,
@@ -95,12 +95,12 @@ export const lovableMasterclassMetricsSchema = z.object({
     canal: z.string().trim().min(1).max(80),
     sessoes: count,
     leads: count,
-  })).max(100),
+  })),
 }).superRefine((payload, ctx) => {
   const slugs = new Set(payload.consumo_das_aulas.map(item => item.slug));
   if (slugs.size !== payload.consumo_das_aulas.length) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["consumo_das_aulas"], message: "Cada aula precisa ter um slug único." });
   payload.consumo_das_aulas.forEach((item, index) => {
-    if (item.conclusoes > item.inicios) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["consumo_das_aulas", index, "conclusoes"], message: "Conclusões não podem ultrapassar inícios." });
+    if (item.conclusoes !== null && item.inicios !== null && item.conclusoes > item.inicios) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["consumo_das_aulas", index, "conclusoes"], message: "Conclusões não podem ultrapassar inícios." });
   });
   if (payload.trafego_e_captacao.novos_leads_no_periodo > payload.trafego_e_captacao.total_acumulado_de_leads) {
     ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["trafego_e_captacao", "novos_leads_no_periodo"], message: "Novos leads não podem ultrapassar o total acumulado." });

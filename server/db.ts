@@ -5,6 +5,7 @@ import {
   emailPerformance,
   emailWorkflow,
   InsertUser,
+  landingMonthlyBlocks,
   leadProfileSnapshots,
   masterclassLandingSnapshots,
   metricProgress,
@@ -165,7 +166,7 @@ export type WhatsAppMonthlyResultInput = WhatsAppMonthlyResult;
 
 export async function getSharedPlanningState() {
   const db = await requireDb();
-  const [objectives, metrics, activity, occupancy, monthlySales, socialResults, whatsappResults, editorialWorkflow, emailApprovals, emailPerformanceResults, leadProfileResults, masterclassLandingResults] = await Promise.all([
+  const [objectives, metrics, activity, occupancy, monthlySales, socialResults, whatsappResults, editorialWorkflow, emailApprovals, emailPerformanceResults, leadProfileResults, masterclassLandingResults, landingBlocks] = await Promise.all([
     db.select().from(objectiveProgress),
     db.select().from(metricProgress),
     db.select().from(planningActivity).orderBy(desc(planningActivity.createdAt)).limit(20),
@@ -178,16 +179,75 @@ export async function getSharedPlanningState() {
     db.select().from(emailPerformance).orderBy(desc(emailPerformance.sentAt)),
     db.select().from(leadProfileSnapshots).where(eq(leadProfileSnapshots.sourceKey, NEWS_LP_SOURCE.key)).orderBy(desc(leadProfileSnapshots.periodEndAt)),
     db.select().from(masterclassLandingSnapshots).orderBy(desc(masterclassLandingSnapshots.periodEndAt)),
+    db.select().from(landingMonthlyBlocks).orderBy(desc(landingMonthlyBlocks.monthKey)),
   ]);
   const normalizedSocialResults = socialResults.map(({ storiesAverageViewsTenths, ...row }) => ({
     ...row,
     storiesAverageViews: storiesAverageViewsTenths === null ? null : storiesAverageViewsTenths / 10,
   }));
-  return { objectives, metrics, activity, occupancy, monthlySales, socialResults: normalizedSocialResults, whatsappResults, editorialWorkflow, emailApprovals, emailPerformanceResults, leadProfileResults, masterclassLandingResults };
+  return { objectives, metrics, activity, occupancy, monthlySales, socialResults: normalizedSocialResults, whatsappResults, editorialWorkflow, emailApprovals, emailPerformanceResults, leadProfileResults, masterclassLandingResults, landingBlocks };
+}
+
+export type LandingSource = "conference-news-lp" | "masterclass-lp";
+
+export async function getLandingMonthlyBlocks(sourceKey: LandingSource) {
+  const db = await requireDb();
+  return db.select().from(landingMonthlyBlocks).where(eq(landingMonthlyBlocks.sourceKey, sourceKey)).orderBy(landingMonthlyBlocks.monthKey);
+}
+
+/** A chave estável é origem + mês; a data final da mesma fotografia avança sem criar uma nova linha. */
+export async function saveLandingMonthlyBlock(
+  sourceKey: LandingSource,
+  monthKey: string,
+  entry: SyncedLeadProfileSnapshotInput | SyncedMasterclassLandingSnapshotInput,
+  status: "open" | "closed",
+  allowClosed = false,
+) {
+  const db = await requireDb();
+  const now = Date.now();
+  return db.transaction(async tx => {
+    const whereBlock = and(eq(landingMonthlyBlocks.sourceKey, sourceKey), eq(landingMonthlyBlocks.monthKey, monthKey));
+    const [block] = await tx.select().from(landingMonthlyBlocks).where(whereBlock).for("update");
+    if (block?.status === "closed" && !allowClosed) throw new Error(`O mês ${monthKey} está fechado. Sincronização normal não modifica esse bloco.`);
+    // O tipo da tabela é discriminado pela origem e a validação do payload ocorre antes desta transação.
+    const values = { ...entry, updatedAt: now };
+    let snapshotId = block?.snapshotId;
+    if (snapshotId) {
+      if (sourceKey === "masterclass-lp") await tx.update(masterclassLandingSnapshots).set(values as SyncedMasterclassLandingSnapshotInput & { updatedAt: number }).where(eq(masterclassLandingSnapshots.id, snapshotId));
+      else await tx.update(leadProfileSnapshots).set(values as SyncedLeadProfileSnapshotInput & { updatedAt: number }).where(eq(leadProfileSnapshots.id, snapshotId));
+    } else {
+      if (sourceKey === "masterclass-lp") await tx.insert(masterclassLandingSnapshots).values(values as SyncedMasterclassLandingSnapshotInput & { updatedAt: number }).onDuplicateKeyUpdate({ set: values as SyncedMasterclassLandingSnapshotInput & { updatedAt: number } });
+      else await tx.insert(leadProfileSnapshots).values(values as SyncedLeadProfileSnapshotInput & { updatedAt: number }).onDuplicateKeyUpdate({ set: values as SyncedLeadProfileSnapshotInput & { updatedAt: number } });
+      const [stored] = sourceKey === "masterclass-lp"
+        ? await tx.select({ id: masterclassLandingSnapshots.id }).from(masterclassLandingSnapshots).where(and(eq(masterclassLandingSnapshots.sourceKey, sourceKey), eq(masterclassLandingSnapshots.periodStartAt, entry.periodStartAt), eq(masterclassLandingSnapshots.periodEndAt, entry.periodEndAt))).limit(1)
+        : await tx.select({ id: leadProfileSnapshots.id }).from(leadProfileSnapshots).where(and(eq(leadProfileSnapshots.sourceKey, sourceKey), eq(leadProfileSnapshots.periodStartAt, entry.periodStartAt), eq(leadProfileSnapshots.periodEndAt, entry.periodEndAt))).limit(1);
+      if (!stored) throw new Error("A fotografia mensal não pôde ser confirmada no banco.");
+      snapshotId = stored.id;
+    }
+    if (block) await tx.update(landingMonthlyBlocks).set({ status, updatedAt: now }).where(whereBlock);
+    else await tx.insert(landingMonthlyBlocks).values({ sourceKey, monthKey, snapshotId, status, updatedAt: now });
+    return { id: snapshotId, action: block ? "updated" as const : "created" as const, monthKey, status, updatedAt: now };
+  });
+}
+
+async function assertNotMonthlySnapshot(sourceKey: LandingSource, id: number) {
+  const db = await requireDb();
+  const [block] = await db.select({ monthKey: landingMonthlyBlocks.monthKey }).from(landingMonthlyBlocks).where(and(eq(landingMonthlyBlocks.sourceKey, sourceKey), eq(landingMonthlyBlocks.snapshotId, id))).limit(1);
+  if (block) throw new Error(`O bloco oficial ${block.monthKey} é protegido; use a sincronização mensal para atualizá-lo.`);
+}
+
+async function assertNotMonthlyPeriod(sourceKey: LandingSource, start: number, end: number) {
+  const db = await requireDb();
+  const [match] = sourceKey === "masterclass-lp"
+    ? await db.select({ id: masterclassLandingSnapshots.id }).from(masterclassLandingSnapshots).where(and(eq(masterclassLandingSnapshots.sourceKey, sourceKey), eq(masterclassLandingSnapshots.periodStartAt, start), eq(masterclassLandingSnapshots.periodEndAt, end))).limit(1)
+    : await db.select({ id: leadProfileSnapshots.id }).from(leadProfileSnapshots).where(and(eq(leadProfileSnapshots.sourceKey, sourceKey), eq(leadProfileSnapshots.periodStartAt, start), eq(leadProfileSnapshots.periodEndAt, end))).limit(1);
+  if (match) await assertNotMonthlySnapshot(sourceKey, match.id);
 }
 
 export async function saveLeadProfileSnapshot(entry: LeadProfileSnapshotInput) {
   const db = await requireDb();
+  if (entry.id) await assertNotMonthlySnapshot(NEWS_LP_SOURCE.key, entry.id);
+  else await assertNotMonthlyPeriod(NEWS_LP_SOURCE.key, entry.periodStartAt, entry.periodEndAt);
   const now = Date.now();
   const values = {
     sourceKey: NEWS_LP_SOURCE.key,
@@ -296,12 +356,15 @@ export async function upsertSyncedLeadProfileSeries(entries: SyncedLeadProfileSn
 
 export async function deleteLeadProfileSnapshot(id: number) {
   const db = await requireDb();
+  await assertNotMonthlySnapshot(NEWS_LP_SOURCE.key, id);
   await db.delete(leadProfileSnapshots).where(eq(leadProfileSnapshots.id, id));
   return { deletedId: id };
 }
 
 export async function saveMasterclassLandingSnapshot(entry: MasterclassLandingSnapshotInput) {
   const db = await requireDb();
+  if (entry.id) await assertNotMonthlySnapshot("masterclass-lp", entry.id);
+  else await assertNotMonthlyPeriod("masterclass-lp", entry.periodStartAt, entry.periodEndAt);
   const now = Date.now();
   const values = {
     sourceKey: "masterclass-lp",
@@ -350,6 +413,7 @@ export async function upsertSyncedMasterclassLandingSnapshot(entry: SyncedMaster
 
 export async function deleteMasterclassLandingSnapshot(id: number) {
   const db = await requireDb();
+  await assertNotMonthlySnapshot("masterclass-lp", id);
   await db.delete(masterclassLandingSnapshots).where(eq(masterclassLandingSnapshots.id, id));
   return { deletedId: id };
 }

@@ -248,6 +248,18 @@ export const masterclassLandingSnapshots = mysqlTable("masterclass_landing_snaps
   sourcePeriodUnique: uniqueIndex("masterclass_landing_source_period_unique").on(table.sourceKey, table.periodStartAt, table.periodEndAt),
 }));
 
+// Controla o único bloco oficial de cada origem/mês; fotografias parciais antigas permanecem no histórico.
+export const landingMonthlyBlocks = mysqlTable("landing_monthly_blocks", {
+  id: int("id").autoincrement().primaryKey(),
+  sourceKey: varchar("sourceKey", { length: 64 }).notNull(),
+  monthKey: varchar("monthKey", { length: 7 }).notNull(),
+  snapshotId: int("snapshotId").notNull(),
+  status: mysqlEnum("status", ["open", "closed"]).notNull(),
+  updatedAt: bigint("updatedAt", { mode: "number" }).notNull(),
+}, table => ({
+  sourceMonthUnique: uniqueIndex("landing_monthly_source_month_unique").on(table.sourceKey, table.monthKey),
+}));
+
 export const monthlyWhatsAppResults = mysqlTable("monthly_whatsapp_results", {
   id: int("id").autoincrement().primaryKey(),
   monthKey: varchar("monthKey", { length: 7 }).notNull().unique(),

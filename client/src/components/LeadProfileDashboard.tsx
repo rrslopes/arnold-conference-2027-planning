@@ -22,6 +22,7 @@ import {
 } from "@shared/leadProfile";
 import { formatTimestampInBrasilia } from "@shared/brasiliaTime";
 import NewsLandingSyncPanel from "./NewsLandingSyncPanel";
+import LandingMonthlyBlocks, { landingMonthLabel } from "./LandingMonthlyBlocks";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -104,6 +105,7 @@ export default function LeadProfileDashboard() {
   const planning = trpc.planning.getState.useQuery(undefined, { refetchOnWindowFocus: true, retry: 1 });
   const reviewView = typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("lead-profile-review") : null;
   const [view, setView] = useState<View>(reviewView === "form" || reviewView === "history" ? reviewView : "profile");
+  const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
   const [form, setForm] = useState<FormState>(() => createBlankForm());
   const [deleteCandidate, setDeleteCandidate] = useState<LeadProfileSnapshot | null>(null);
 
@@ -111,7 +113,9 @@ export default function LeadProfileDashboard() {
     ...row,
     sourceKey: NEWS_LP_SOURCE.key,
   })), [planning.data?.leadProfileResults]);
-  const latest = useMemo(() => getLatestLeadProfileSnapshot(snapshots), [snapshots]);
+  const blocks = (planning.data?.landingBlocks ?? []).filter(block => block.sourceKey === NEWS_LP_SOURCE.key);
+  const activeMonth = selectedMonth ?? (blocks[0]?.monthKey ?? null);
+  const latest = useMemo(() => activeMonth ? snapshots.find(snapshot => snapshot.id === blocks.find(block => block.monthKey === activeMonth)?.snapshotId) ?? null : getLatestLeadProfileSnapshot(snapshots), [snapshots, activeMonth, planning.data?.landingBlocks]);
   const historySnapshots = useMemo(() => [...snapshots].sort((a, b) => b.periodEndAt - a.periodEndAt || (getLeadProfileSnapshotKind(b) === "rollup" ? 1 : 0) - (getLeadProfileSnapshotKind(a) === "rollup" ? 1 : 0) || b.updatedAt - a.updatedAt), [snapshots]);
   const interests = useMemo(() => latest ? sortInterestProfile(latest) : [], [latest]);
   const conversionRate = latest ? calculateLpConversionRate(latest.newLeads, latest.sessions) : null;
@@ -193,11 +197,12 @@ export default function LeadProfileDashboard() {
   return (
     <div className="lead-profile-console" aria-busy={planning.isLoading || saveMutation.isPending || deleteMutation.isPending}>
       <header className="lead-profile-head">
-        <div><Users size={28} /><span>FONTE EXCLUSIVA · QUALIFICAÇÃO DE AUDIÊNCIA</span><h3>Leads e perfil — LP de novidades</h3><p>Série diária de conversões e consolidado oficial com pessoas únicas, histórico de participação e áreas de interesse desta página. Não inclua dados das masterclasses.</p><a href={NEWS_LP_SOURCE.url} target="_blank" rel="noreferrer">Abrir LP de origem <ExternalLink size={13} /></a>{planning.isError ? <small className="sync-error"><CloudOff size={13} /> Falha de sincronização.</small> : latest ? <small><Cloud size={13} /> {latest.providerUpdatedAt ? `Origem atualizada em ${formatTimestampInBrasilia(latest.providerUpdatedAt)} · Brasília` : `Atualizado em ${new Date(latest.updatedAt).toLocaleString("pt-BR")}`}</small> : <small><Cloud size={13} /> Pronto para a primeira fotografia.</small>}</div>
+        <div><Users size={28} /><span>FONTE EXCLUSIVA · QUALIFICAÇÃO DE AUDIÊNCIA</span><h3>Leads e perfil — LP de novidades</h3><p>Consolidado oficial por mês com pessoas únicas, histórico de participação e áreas de interesse desta página. Não inclua dados das masterclasses.</p><a href={NEWS_LP_SOURCE.url} target="_blank" rel="noreferrer">Abrir LP de origem <ExternalLink size={13} /></a>{planning.isError ? <small className="sync-error"><CloudOff size={13} /> Falha de sincronização.</small> : latest ? <small><Cloud size={13} /> {latest.providerUpdatedAt ? `Origem atualizada em ${formatTimestampInBrasilia(latest.providerUpdatedAt)} · Brasília` : `Atualizado em ${new Date(latest.updatedAt).toLocaleString("pt-BR")}`}</small> : <small><Cloud size={13} /> Pronto para a primeira fotografia.</small>}</div>
         <button type="button" className="secondary-button" onClick={() => planning.refetch()} disabled={planning.isFetching}><RefreshCw size={16} className={planning.isFetching ? "spin" : ""} /> Atualizar</button>
       </header>
 
       {!planning.isLoading ? <NewsLandingSyncPanel /> : null}
+      <LandingMonthlyBlocks blocks={blocks} selectedMonth={activeMonth} onSelect={month => { setSelectedMonth(month); setView("profile"); }} endById={new Map(snapshots.map(snapshot => [snapshot.id, snapshot.periodEndAt]))} />
 
       <div className="lead-profile-tabs" role="tablist">
         <button type="button" role="tab" aria-selected={view === "profile"} className={view === "profile" ? "active" : ""} onClick={() => setView("profile")}>Perfil atual</button>
@@ -206,17 +211,18 @@ export default function LeadProfileDashboard() {
       </div>
 
       {view === "profile" ? latest ? <div className="lead-profile-current">
-        <div className="lead-profile-current-kind"><CheckCircle2 size={15} /> CONSOLIDADO OFICIAL · SÉRIE DIÁRIA DISPONÍVEL NO HISTÓRICO</div>
+        <div className="lead-profile-current-kind"><CheckCircle2 size={15} /> {activeMonth ? `CONSOLIDADO OFICIAL · ${landingMonthLabel(activeMonth)}` : "FOTOGRAFIA MAIS RECENTE"}</div>
         <div className="lead-profile-summary lead-profile-summary-six">
-          <article><strong>{latest.totalLeads.toLocaleString("pt-BR")}</strong><span>CONVERSÕES BRUTAS ACUMULADAS</span></article>
-          <article><strong>+{latest.newLeads.toLocaleString("pt-BR")}</strong><span>CONVERSÕES BRUTAS NO PERÍODO</span></article>
-          <article><strong>{countValue(latest.totalUniquePeople)}</strong><span>PESSOAS ÚNICAS ACUMULADAS</span></article>
-          <article><strong>{countValue(latest.uniquePeopleInPeriod)}</strong><span>PESSOAS ÚNICAS NO PERÍODO</span></article>
+          <article><strong>{latest.newLeads.toLocaleString("pt-BR")}</strong><span>CONVERSÕES BRUTAS NESTE MÊS</span></article>
+          <article><strong>{countValue(latest.uniquePeopleInPeriod)}</strong><span>PESSOAS ÚNICAS NESTE MÊS</span></article>
+          <article><strong>{latest.totalLeads.toLocaleString("pt-BR")}</strong><span>ACUMULADO GLOBAL DO ENDPOINT</span></article>
+          <article><strong>{countValue(latest.totalUniquePeople)}</strong><span>PESSOAS ÚNICAS · GLOBAL</span></article>
           <article><strong>{formatDate(latest.periodStartAt)}</strong><span>INÍCIO DO PERÍODO</span></article>
           <article><strong>{formatDate(latest.periodEndAt)}</strong><span>DATA DE REFERÊNCIA</span></article>
         </div>
+        {activeMonth ? <div className="lead-profile-notice"><CircleAlert size={20} /><p><strong>Leitura mensal:</strong> os dois primeiros números são exclusivos de {landingMonthLabel(activeMonth)}. O acumulado global é o valor devolvido pelo Lovable no momento da consulta — mesmo ao selecionar um mês fechado, ele não representa necessariamente o total existente no último dia daquele mês. Não some pessoas únicas de meses distintos.</p></div> : null}
         <div className="lead-performance-summary lead-performance-summary-five">
-          <article className={isUnavailable("sessoes_na_lp") ? "is-not-measured" : ""}><strong>{isUnavailable("sessoes_na_lp") ? "Não medido" : countValue(latest.sessions)}</strong><span>SESSÕES NESTA LP</span><small>{isUnavailable("sessoes_na_lp") ? "Sem medição neste recorte" : "GA4 histórico + GTM próprio"}</small></article>
+          <article className={isUnavailable("sessoes_na_lp") ? "is-not-measured" : ""}><strong>{isUnavailable("sessoes_na_lp") ? "Não medido" : countValue(latest.sessions)}</strong><span>SESSÕES NESTA LP</span><small>{isUnavailable("sessoes_na_lp") ? "Sem medição neste recorte" : historicalAnalyticsBase?.aplicada_no_periodo ? "GA4 histórico + medição própria" : "Somente medição própria da LP"}</small></article>
           <article className={isUnavailable("taxa_de_conversao_bruta") ? "is-not-measured" : ""}><strong>{isUnavailable("taxa_de_conversao_bruta") ? "Não medido" : formatPercent(conversionRate)}</strong><span>TAXA DE CONVERSÃO</span><small>{isUnavailable("taxa_de_conversao_bruta") ? "Sem sessões, não há denominador" : "Conversões brutas ÷ sessões"}</small></article>
           <article><strong>{countValue(latest.dmConversions)}</strong><span>CONVERSÕES VIA WHATSAPP + INSTAGRAM DM</span><small>Valor agregado enviado pelo Lovable</small></article>
           <article className={isUnavailable("inicios_de_formulario") ? "is-not-measured" : ""}><strong>{isUnavailable("inicios_de_formulario") ? "Não medido" : countValue(latest.formStarts)}</strong><span>INÍCIOS DE FORMULÁRIO</span><small>{isUnavailable("inicios_de_formulario") ? "Sem medição neste recorte" : "Rastreado a partir de 18/09"}</small></article>

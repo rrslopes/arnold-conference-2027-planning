@@ -113,6 +113,11 @@ describe("contrato agregado da LP de novidades", () => {
     expect(mapLovableNewsMetricsToSnapshot(payload).totalLeads).toBe(16);
   });
 
+  it("aceita base histórica do GA4 nula em meses medidos inteiramente pelo sistema próprio", () => {
+    const payload = lovableNewsMetricsSchema.parse({ ...fixture, base_historica_ga4: null, campo_novo: null });
+    expect(mapLovableNewsMetricsToSnapshot(payload).ga4HistoricalBaseJson).toBeNull();
+  });
+
   it("aceita recadastros quando a base do perfil corresponde às respostas brutas do período", () => {
     const withRegistrations = {
       ...fixture,

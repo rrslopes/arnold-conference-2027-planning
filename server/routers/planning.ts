@@ -5,7 +5,6 @@ import {
   deleteEmailPerformance,
   deleteLeadProfileSnapshot,
   deleteMasterclassLandingSnapshot,
-  getOfficialLeadProfileDailySnapshots,
   getSharedPlanningState,
   saveCalendarWorkflow,
   saveEmailPerformance,
@@ -17,13 +16,12 @@ import {
   saveOccupancyProgress,
   saveSocialMonthlyResults,
   saveWhatsAppMonthlyResults,
-  upsertSyncedMasterclassLandingSnapshot,
-  upsertSyncedLeadProfileSeries,
 } from "../db";
 import { publicProcedure, router } from "../_core/trpc";
 import { ENV } from "../_core/env";
-import { fetchLovableMasterclassMetrics, mapLovableMetricsToSnapshot } from "../integrations/lovableMasterclassMetrics";
-import { fetchLovableNewsOfficialSeries } from "../integrations/lovableNewsMetrics";
+import { syncCurrentLandingMonth } from "../landingMonthlySync";
+import { NEWS_LP_SOURCE } from "../../shared/leadProfile";
+import { MASTERCLASS_LP_SOURCE } from "../../shared/masterclassLanding";
 import { EDITORIAL_STATUS_IDS, isValidArtworkUrl } from "../../shared/editorialWorkflow";
 import { EMAIL_STATUS_IDS, isValidEmailPreviewUrl } from "../../shared/emailWorkflow";
 import { isValidSentEmailUrl } from "../../shared/emailPerformance";
@@ -294,34 +292,21 @@ export const planningRouter = router({
     .input(z.object({ id: z.number().int().positive() }))
     .mutation(({ input }) => deleteLeadProfileSnapshot(input.id)),
   syncLeadProfileSnapshot: publicProcedure
-    .input(masterclassSyncPeriod)
-    .mutation(async ({ input }) => {
+    .mutation(async () => {
       const now = Date.now();
       if (now - lastNewsSyncAt < 5_000) throw new Error("Aguarde alguns segundos antes de sincronizar novamente.");
       lastNewsSyncAt = now;
-      if (input.from !== "2026-09-04") throw new Error("A série oficial da LP de novidades começa em 04/09/2026.");
-      const existingDaily = await getOfficialLeadProfileDailySnapshots(civilDateToUtcNoon(input.from), civilDateToUtcNoon(input.to));
-      const series = await fetchLovableNewsOfficialSeries(input.from, input.to, { existingDaily, refreshRecentDays: 3 });
-      const result = await upsertSyncedLeadProfileSeries([...series.daily, series.rollup]);
-      return {
-        ...result,
-        dailyCount: series.totalDailyCount,
-        fetchedDailyCount: series.fetchedDailyCount,
-        reusedDailyCount: series.reusedDailyCount,
-        rollupPeriod: { from: input.from, to: input.to },
-      };
+      return syncCurrentLandingMonth(NEWS_LP_SOURCE.key);
     }),
   saveMasterclassLandingSnapshot: publicProcedure
     .input(masterclassLandingEntry)
     .mutation(({ input }) => saveMasterclassLandingSnapshot(input)),
   syncMasterclassLandingSnapshot: publicProcedure
-    .input(masterclassSyncPeriod)
-    .mutation(async ({ input }) => {
+    .mutation(async () => {
       const now = Date.now();
       if (now - lastMasterclassSyncAt < 5_000) throw new Error("Aguarde alguns segundos antes de sincronizar novamente.");
       lastMasterclassSyncAt = now;
-      const payload = await fetchLovableMasterclassMetrics(input.from, input.to);
-      return upsertSyncedMasterclassLandingSnapshot(mapLovableMetricsToSnapshot(payload));
+      return syncCurrentLandingMonth(MASTERCLASS_LP_SOURCE.key);
     }),
   deleteMasterclassLandingSnapshot: publicProcedure
     .input(z.object({ id: z.number().int().positive() }))

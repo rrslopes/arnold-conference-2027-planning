@@ -82,6 +82,14 @@ describe("contrato Lovable das masterclasses", () => {
     expect(JSON.parse(snapshot.originsJson)).toEqual([]);
   });
 
+  it("aceita métricas ainda não apuradas como null em aulas novas", () => {
+    const parsed = lovableMasterclassMetricsSchema.parse({
+      ...payload,
+      consumo_das_aulas: [...payload.consumo_das_aulas, { slug: "aula-extra", palestrante: "Convidado", area: "Nova área", inicios: null, conclusoes: null, espectadores: null, percentual_medio_assistido: null }],
+    });
+    expect(mapLovableMetricsToSnapshot(parsed).anaLessonStarts).toBe(38);
+  });
+
   it("aceita espectadores acima dos inícios porque são eventos independentes no contrato oficial", () => {
     const currentEndpointCase = {
       ...payload,
