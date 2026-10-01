@@ -389,12 +389,14 @@ export const keywords = [
   { word: "LOTE", use: "Abertura das vendas", destination: "Página central de vendas — URL pendente", note: "Ativar somente após validar a ticketeira e a URL" },
   { word: "CONGRESSO", use: "Conteúdo comparativo", destination: "Landing page geral de novidades", url: externalDestinations.news, note: "Direciona para cadastro; sem recomendação personalizada" },
   { word: "ESTETICA", use: "Conteúdos de Nutrição Estética", destination: "Landing page geral de novidades", url: externalDestinations.news, note: "Direciona para cadastro e novidades da edição" },
+  { word: "PROGRAMAÇÃO", use: "Programação 2027 dos congressos (a partir de 10/10)", destination: "Direct com os links das páginas dos congressos — configuração pendente", note: "Frase das legendas: \"Comente PROGRAMAÇÃO e receba a programação do seu congresso no direct.\" Só o SONAFE (20/10) usa \"programação completa\". Quem configura a automação: a definir com o cliente." },
 ];
 
 export type CalendarItem = {
   id: string;
   date: string;
   phase: string;
+  funnel?: "Topo" | "Meio" | "Fundo" | "Meio/Fundo";
   channel: string;
   title: string;
   origin: string;

@@ -98,6 +98,7 @@ Vendas abrem em 06/10/2026. Meta: lotação máxima de todas as salas. Todos os 
 Fonte: `referencias/briefings/pacote-mestre-outubro-2026-10-01.md` (feedback de Karla, Adriana e Patrícia e decisões do Raphael).
 
 - Capacidade das agências (a partir de 10/10): no máximo 2 artes novas (carrossel ou estático) por semana no feed do Conference, nunca em dias seguidos; nenhuma arte nova no fim de semana (exceção já decidida: a chamada de programação de 10/10); sempre que possível, vídeo no lugar de arte, porque quem edita vídeo não é quem desenha; vídeos que entram no cronograma são editados a tempo pela equipe do cliente; em espaços de respiro, indicar a preferência de material com alternativas (ex.: "pílula X ou Y").
+- Automação "Comente PROGRAMAÇÃO": em todas as peças, "Comente PROGRAMAÇÃO e receba a programação do seu congresso no direct". Só o card do SONAFE (20/10) usa "programação completa". A palavra PROGRAMAÇÃO está no painel "Palavras-chave e destinos" da plataforma (`keywords` em `planData.ts`), com a configuração pendente.
 - Funil equilibrado: artes novas vão para as peças que mais pesam na decisão (programação e autoridade com nomes de 2027), que são meio de funil. A venda direta fica nos Stories e nas legendas. Cada card leva a marcação de funil: topo, meio ou fundo.
 - Ritmo da Leal: segunda, Leal sobre o Arnold (os vídeos de pilar do Conference estão nessa fila); quinta, Leal tendência. No máximo 2 vídeos da Leal por semana no feed do Conference, com constância, sem aparecer e sumir. Não colar a Leal no feed do Arnold.
 - Equilíbrio entre congressos: pilar de nutrição à frente, mas cada congresso aparece no feed pelo menos a cada 7 a 10 dias. Nunca duas programações em dias seguidos.
@@ -106,7 +107,7 @@ Fonte: `referencias/briefings/pacote-mestre-outubro-2026-10-01.md` (feedback de 
 - Gestão de Academias: o coordenador aparece na planilha como Eduardo Netto; é o Dudu Netto. Ele também palestra no Top of the Rock.
 - Bodybuilding: não há programação 2027. A comunicação é por autoridade (Ricardo Pannain, cortes do Podcast Quinn e vídeo da Leal).
 - Fora do escopo do Conference (só contexto): Instagram pessoal da Leal; patrocinadores do Arnold (um por dia no feed do Arnold); vídeos em IA para a cota Diamond (a imagem do Arnold Schwarzenegger exige autorização formal); CIMED.
-- O calendário de 28/09 a 09/10 espelha o cronograma do cliente (aba Conference, lido em 01/10). Cada card desse período começa com "Registro do cronograma do cliente". A grade de 10 a 31/10 só entra depois da validação do cliente e das agências.
+- O calendário de 28/09 a 09/10 espelha o cronograma do cliente (aba Conference, lido em 01/10). Cada card desse período começa com "Registro do cronograma do cliente". A grade de 10 a 31/10 foi montada em 01/10 (etapa 3, `referencias/briefings/etapa3-grade-10-31-outubro.md`) e é validada pelo cliente e pelas agências na plataforma publicada. Cada card de 10 a 31/10 tem a marcação de funil (campo `funnel`: Topo, Meio, Fundo ou Meio/Fundo); os cards de 28/09 a 09/10 ainda não têm. Os carrosséis de programação (14, 16, 20, 27 e 29/10) trazem as opções A e B até o cliente escolher.
 
 ## Páginas dos congressos
 
@@ -116,7 +117,7 @@ Fonte: `referencias/briefings/pacote-mestre-outubro-2026-10-01.md` (feedback de 
 
 - Quem garantir a inscrição em qualquer um dos congressos ganha acesso aos 3 dias da feira do Arnold Sports Festival. Confirmado em 29/09: vale para os seis congressos e para todos os lotes. Só a redação oficial continua pendente.
 - A inclusão do benefício nas páginas dos congressos é com a Patrícia, que atualiza o site (não com a Karla).
-- Uso só nas peças de venda, uma vez em cada: carrossel de abertura (1006, tela 8), uma peça por congresso (1008, 1010 motivo 5, 1011, 1015, 1017, 1030) e os e-mails de abertura (06/10, todas as versões), dúvidas (27/10), escassez (29/10) e checkout abandonado (disparo de 24h).
+- Uso só nas peças de venda, uma vez em cada: carrossel de abertura (1006, tela 8), uma peça por congresso (1008 Nutrição Estética, 1014 tela 8 Nutrição Esportiva, 1016 Certificação, 1019 Gestão, 1020 SONAFE, 1030 Bodybuilding) e os e-mails de abertura (06/10, todas as versões), "O que está incluído na sua inscrição" (30/10) e checkout abandonado (disparo de 24h).
 - Nunca antes de 06/10, em conteúdo educativo, vídeos de tendência, segundos e-mails temáticos, Stories de link ou de escassez. Sem valor do ingresso da feira.
 - Toda peça com o benefício leva "[REDAÇÃO OFICIAL DO BENEFÍCIO – CONFIRMAR COM ADRIANA OU KARLA]" e a instrução de tirar a linha se a redação não estiver confirmada ou se o benefício não estiver nas páginas dos congressos. O teste `octoberPlan.content.test.ts` trava essas regras.
 
@@ -141,12 +142,14 @@ Fonte: `referencias/briefings/pacote-mestre-outubro-2026-10-01.md` (feedback de 
 ## E-mail marketing
 
 - Um contato recebe no máximo um e-mail de marketing do Arnold por dia. Nos envios segmentados, vale o interesse mais forte, nesta ordem: participou ou comprou antes > marcou interesse na LP de novidades > assistiu à masterclass do congresso. Sem interesse identificado: versão Geral, com o hub.
-- Nutrição vem na frente também nos segundos contatos. Nenhum congresso fica mais de cerca de 12 dias sem e-mail durante as vendas.
+- No máximo cerca de 2 e-mails de campanha por semana, cada um casado com o post do mesmo dia, priorizando programação, novidade e urgência. A cada 7 a 10 dias, um e-mail geral para toda a base, para que quem não tem interesse identificado (ou tem interesse em congressos sem e-mail próprio no período) não fique sem contato. Motivo (01/10): cada e-mail é um HTML próprio e a produção pesa para a agência.
+- De 11 a 31/10 (desde 01/10): 13/10 programação no ar (geral) · 14/10 programação de Nutrição Esportiva · 16/10 Certificação + Top of the Rock · 23/10 Faltam 6 meses (geral) · 27/10 programação de Gestão · 29/10 programação de Nutrição Estética · 30/10 "O que está incluído na sua inscrição" (geral, exceto compradores), mais a automação de checkout abandonado. Nenhum dia tem dois e-mails de campanha. Os segundos contatos de cada congresso, Bodybuilding, dúvidas e escassez de 29/10 foram para o backlog de novembro.
 - Sem teste A/B por enquanto: um assunto por e-mail. Pré-cabeçalhos diferentes entre si.
 - Todo briefing tem frase de ponte entre o gancho e o congresso, com exemplo de texto em cada bloco.
 - Não repetir temas entre e-mails. Temas de congresso só da programação confirmada, usando os mais quentes com criatividade.
 - Promessa da lista (pré-abertura): "quem está na lista recebe as informações do lançamento e tem a oportunidade de concluir a inscrição com a condição especial do lote 1". Quem já está na lista é orientado a ficar de olho na caixa de entrada em 06/10.
 - Os checklists de liberação usam linguagem direta, sem siglas como GO, NO-GO ou D-6: momento, o que precisa estar pronto, quem confere e quem libera, e o que acontece se faltar algo.
+- E-mails com par, na plataforma: em `octoberEmailPlan.ts`, cada e-mail tem `relatedPost` ("dd/mm · título do post" ou "E-mail sem post relacionado") e, quando há par, `title` igual ao título do post. O teste `octoberPlan.content.test.ts` confere que título e data batem com o calendário.
 - Todo prefixo novo de ID de e-mail (ex.: email-nov-) precisa ser incluído na validação de emailItemId em server/routers/planning.ts, com teste, senão a plataforma não salva status nem prévia.
 
 ## Documentos vivos (ler antes de propor pautas)
@@ -200,11 +203,11 @@ Se não houver acesso ao Google Drive nesta sessão, pedir ao Raphael a versão 
 - CRM: campos de interesse, eventos de navegação e evento de checkout abandonado.
 - Pasta de prints do SONAFE de 2026.
 - Contato de atendimento válido para 2027 (hoje, congresso@savagetgroup.com.br).
-- Status do lote 1 antes do e-mail e dos Stories de 29 e 30/10.
+- Status do lote 1 antes do e-mail e dos Stories de 30/10.
 - Com Adriana ou Karla: número de participantes de Gestão de Academias em 2026 e um tema ou nome confirmado de Bodybuilding 2027 (provas do e-mail de 06/10).
-- Allp Fit (25/10): aprovação da Adriana e da marca.
+- Allp Fit (card 1031a, sem data): contrato ainda não assinado; quando liberado, substitui uma pílula de fim de semana. Aprovação da Adriana e da marca.
 - Migração do @arnold_congressos (card 1001a, no cronograma para 01/10): a desativação do perfil antigo segue com Adriana e a agência de operação.
-- Collabs com palestrantes (1016, 1021, 1027, 1029): autorização e horário.
+- Collabs com palestrantes: autorização e horário na opção A dos carrosséis de programação (1014, 1016, 1020, 1027 e 1029) e no vídeo dos coordenadores do SONAFE (1013).
 - Backlog de novembro: conferir no YouTube a minutagem do Marcelo Stefani (08:56–09:18) antes de usar.
 - Técnicas, sem pedido ainda:
   - a tabela de lançamento (`octoberPlan.ts`) ainda usa "D-6" e "GO/NO-GO";

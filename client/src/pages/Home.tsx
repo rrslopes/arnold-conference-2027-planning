@@ -264,7 +264,7 @@ function EmailPlan() {
           </section>
         ) : null}
         <div className="email-timeline">
-          {visibleEmailBase.map((item) => <article id={item.id} key={item.id}><span className="email-date">{item.date}</span><div><small>PÚBLICO</small><p>{item.audience}</p><small>OBJETIVO</small><h3>{item.objective}</h3><p className="material-note"><FileText size={15} /> {item.materials}</p><div className="email-cta"><MousePointerClick size={16} /><strong>{item.cta}</strong><span>{item.destination}</span></div><small className="rule-note">{item.rule}</small><EmailCampaignBriefDetail emailId={item.id} /></div></article>)}
+          {visibleEmailBase.map((item) => <article id={item.id} key={item.id}><span className="email-date">{item.date}</span><div>{"title" in item && item.title ? <><small>TÍTULO</small><h3>{item.title}</h3></> : null}{"relatedPost" in item && item.relatedPost ? <><small>POST RELACIONADO</small><p>{item.relatedPost}</p></> : null}<small>PÚBLICO</small><p>{item.audience}</p><small>OBJETIVO</small><h3>{item.objective}</h3><p className="material-note"><FileText size={15} /> {item.materials}</p><div className="email-cta"><MousePointerClick size={16} /><strong>{item.cta}</strong><span>{item.destination}</span></div><small className="rule-note">{item.rule}</small><EmailCampaignBriefDetail emailId={item.id} /></div></article>)}
         </div>
       </> : null}
       {tab === "nurture" ? <div className="nurture-grid">{emailNurture.map((item, index) => <article id={item.id} key={item.id}><span>{String(index + 1).padStart(2, "0")}</span><small>{item.moment}</small><h3>{item.content}</h3><div><strong>{item.cta}</strong><p>{item.destination}</p></div><em>{item.condition}</em></article>)}</div> : null}

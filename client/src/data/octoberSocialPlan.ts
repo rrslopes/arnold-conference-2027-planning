@@ -773,147 +773,68 @@ export const octoberCalendarBase = [
     ]
   },
   {
+    "phase": "Venda contínua",
     "id": "1010",
     "date": "10/10",
-    "phase": "Venda contínua",
-    "channel": "carrossel de 8 telas + 2 Stories",
-    "title": "Inscrições abertas: 5 motivos para estar no Congresso de Nutrição Esportiva 2027",
-    "origin": "planilha de coordenadores; lista de íntegras de 2026; página oficial.",
-    "idea": "o antigo 07/10 (inscrições abertas) e o antigo 10/10 (5 motivos) repetiam os mesmos argumentos. Viram um carrossel só, que começa anunciando a abertura e segue com motivos verificáveis.",
+    "funnel": "Meio",
+    "channel": "estático + destaque \"Programação\" no perfil + automação \"Comente PROGRAMAÇÃO\"",
+    "title": "A programação dos congressos do Arnold Conference 2027 está no ar.",
+    "origin": "pacote-mestre de 01/10 (partes 4 e 5) e etapa 3 da grade; páginas oficiais dos congressos.",
+    "originUrl": "https://arnold.savagetgroup.com.br/conference/",
+    "originLinkLabel": "Abrir hub dos congressos",
+    "idea": "peça única que avisa que as programações 2027 estão nas páginas dos congressos e ativa a automação. Não detalha congressos: os carrosséis de programação vêm em 14, 16, 20, 27 e 29/10. Exceção consciente à regra de não haver arte nova no fim de semana. [SÓ PUBLICAR SE AS PÁGINAS ESTIVEREM COM A PROGRAMAÇÃO – RECONFERIR EM 07/10] [AUTOMAÇÃO 'COMENTE PROGRAMAÇÃO' – DEFINIR QUEM CONFIGURA]",
     "productionBrief": {
-      "format": "carrossel de 8 telas + 2 Stories",
-      "purpose": "a peça comercial completa de Nutrição Esportiva, com os argumentos concretos num só lugar.",
+      "format": "estático + destaque \"Programação\" no perfil + automação \"Comente PROGRAMAÇÃO\"",
+      "purpose": "levar o público às programações 2027 nas páginas dos congressos e ativar a automação.",
       "units": [
         {
-          "unit": "Tela 1",
-          "role": "Capa",
-          "content": "\"Inscrições abertas: 5 motivos para estar no Congresso de Nutrição Esportiva 2027.\""
-        },
-        {
-          "unit": "Tela 2",
-          "role": "Para quem",
-          "content": "\"Para nutricionistas, médicos e profissionais que atuam com atletas, praticantes e desempenho esportivo.\""
-        },
-        {
-          "unit": "Tela 3",
-          "role": "Motivo 1",
-          "content": "\"Dois dias inteiros só de Nutrição Esportiva: 24 e 25 de abril.\""
-        },
-        {
-          "unit": "Tela 4",
-          "role": "Motivo 2",
-          "content": "\"Coordenação científica de Andréia Naves, diplomada pelo The Institute for Functional Medicine (EUA) e autora de livros de Nutrição Clínica e Esportiva Funcional.\" Com foto."
-        },
-        {
-          "unit": "Tela 5",
-          "role": "Motivo 3",
-          "content": "\"O nível da sala: em 2026, o palco recebeu Daniel Coimbra, Andreia Naves, Bruno Zylber, Ivan Lucas, Humberto Nicastro e Guilherme Dilda.\" Identificar como edição 2026."
-        },
-        {
-          "unit": "Tela 6",
-          "role": "Motivo 4",
-          "content": "\"Temas que chegam ao consultório na segunda-feira. Em 2027: GLP-1 e performance esportiva, glicemia por sensores, hidratação no mundo real, saúde intestinal do atleta e a atuação do nutricionista no futebol.\""
-        },
-        {
-          "unit": "Tela 7",
-          "role": "Motivo 5",
-          "content": "\"Você vive o ecossistema Arnold: além do congresso, sua inscrição dá acesso aos 3 dias da feira do Arnold Sports Festival.\""
-        },
-        {
-          "unit": "Tela 8",
-          "role": "Ação",
-          "content": "\"Lote 1 limitado. Garanta a sua vaga pelo link da bio.\""
-        }
-      ],
-      "note": "não afirmar que os palestrantes de 2026 estarão em 2027. Sem promessa de resultado. Benefício da feira: [REDAÇÃO OFICIAL DO BENEFÍCIO – CONFIRMAR COM ADRIANA OU KARLA]. Só publicar a linha do benefício com a redação confirmada e com o benefício já publicado nas páginas dos congressos; sem isso, a linha sai e o texto volta a ser \"Você vive o ecossistema Arnold: congresso, feira e competições no mesmo evento.\" (tela 7)."
-    },
-    "agencyResearch": {
-      "owner": "Agência de conteúdo e pesquisa",
-      "request": "conferir se a página oficial de Nutrição Esportiva já traz o acesso aos 3 dias da feira do Arnold Sports Festival com a redação oficial (motivo 5).",
-      "deliverables": [
-        "conferir se a página oficial de Nutrição Esportiva já traz o acesso aos 3 dias da feira do Arnold Sports Festival com a redação oficial (motivo 5)."
-      ],
-      "validation": "Validar todas as afirmações e materiais solicitados antes da publicação. conferir se a página oficial de Nutrição Esportiva já traz o acesso aos 3 dias da feira do Arnold Sports Festival com a redação oficial (motivo 5).",
-      "fallback": "carrossel de 5 telas (capa, motivos 1, 2 e 4, ação)."
-    },
-    "storyCards": [
-      {
-        "card": "Story 1",
-        "format": "Enquete",
-        "prompt": "\"Qual destes temas mais aparece no seu consultório?\"",
-        "answers": [
-          "Composição corporal",
-          "Suplementação"
-        ]
-      },
-      {
-        "card": "Story 2",
-        "format": "Link",
-        "prompt": "\"Nutrição Esportiva 2027: lote 1 limitado.\" Figurinha de link."
-      }
-    ],
-    "fallback": "carrossel de 5 telas (capa, motivos 1, 2 e 4, ação).",
-    "cta": "Garanta a sua vaga no lote 1.",
-    "destination": "página oficial de Nutrição Esportiva",
-    "destinationUrl": "https://arnold.savagetgroup.com.br/conference2/nutricao-esportiva/",
-    "congresses": [
-      "Nutrição Esportiva"
-    ]
-  },
-  {
-    "id": "1011",
-    "date": "11/10",
-    "phase": "Venda contínua",
-    "channel": "Reel em collab Arnold + Conference (vídeo da Leal) + 2 Stories",
-    "title": "Uma academia não cresce só com bons equipamentos. Ela cresce com gestão.",
-    "origin": "vídeo \"Congresso – Gestão de academias\" · [LINK DO VÍDEO – A RECEBER DA EQUIPE DO CLIENTE]",
-    "idea": "a Leal explica para quem é o congresso (donos, gestores, coordenadores, estúdios, clubes, condomínios e hotelaria) e que temas ele trata: liderança, vendas, marketing, tecnologia, retenção de talentos, experiência do cliente e novos modelos.",
-    "productionBrief": {
-      "format": "Reel em collab Arnold + Conference (vídeo da Leal) + 2 Stories",
-      "purpose": "apresentar o Congresso de Gestão de Academias pela voz da CEO.",
-      "units": [
-        {
-          "unit": "Vídeo",
-          "role": "Conteúdo",
-          "content": "Vídeo da Leal, editado pela equipe do cliente."
-        },
-        {
-          "unit": "Capa",
-          "role": "Texto",
-          "content": "\"UMA ACADEMIA NÃO CRESCE SÓ COM BONS EQUIPAMENTOS. Ela cresce com gestão.\""
+          "unit": "Arte",
+          "role": "Chamada",
+          "content": "\"A programação dos congressos do Arnold Conference 2027 está no ar.\" + \"Comente PROGRAMAÇÃO\"."
         },
         {
           "unit": "Legenda",
-          "role": "Estrutura",
-          "content": "(1) Frase da capa. (2) \"O 8º Congresso de Gestão de Academias acontece em 23 e 24/04, com coordenação de Dudu Netto.\" (3) Os temas citados pela Leal em uma linha. (4) \"Inscrições abertas, com acesso aos 3 dias da feira do Arnold Sports Festival. Lote 1 limitado. Link na bio.\""
+          "role": "Texto",
+          "content": "(1) \"A programação dos congressos do Arnold Conference 2027 está no ar.\" (2) \"Seis congressos, de 23 a 25 de abril de 2027.\" (3) \"Comente PROGRAMAÇÃO e receba a programação do seu congresso no direct.\" (4) \"Lote 1 limitado.\""
+        },
+        {
+          "unit": "Destaque",
+          "role": "Perfil",
+          "content": "Criar o destaque \"Programação\" no perfil, com um Story por congresso e o link da página de cada um. Acrescentar ao destaque os carrosséis de programação de 14, 16, 20, 27 e 29/10."
+        },
+        {
+          "unit": "Automação",
+          "role": "Direct",
+          "content": "Quem comentar PROGRAMAÇÃO recebe no direct os links das páginas dos seis congressos. [AUTOMAÇÃO 'COMENTE PROGRAMAÇÃO' – DEFINIR QUEM CONFIGURA]"
         }
       ],
-      "note": "no áudio, a Leal diz que o congresso \"nasce\"; na legenda, deixar claro que é a 8ª edição. Não comparar com a Certificação Internacional em Personal Training – WTTC. O carrossel \"8ª edição\" (antigo 1011) foi para o backlog de novembro. Benefício da feira: [REDAÇÃO OFICIAL DO BENEFÍCIO – CONFIRMAR COM ADRIANA OU KARLA]. Só publicar a linha do benefício com a redação confirmada e com o benefício já publicado nas páginas dos congressos; sem isso, a linha sai e o texto volta a ser \"Inscrições abertas. Lote 1 limitado. Link na bio.\" (item 4 da legenda)."
+      "note": "[SÓ PUBLICAR SE AS PÁGINAS ESTIVEREM COM A PROGRAMAÇÃO – RECONFERIR EM 07/10] Sem detalhar congressos, sem horários e sem preço."
     },
     "storyCards": [
       {
         "card": "Story 1",
-        "format": "Repost do Reel",
-        "prompt": "\"Gestão de Academias, pela Leal.\""
+        "format": "Contexto",
+        "prompt": "Repost da arte: \"A programação 2027 está no ar.\""
       },
       {
         "card": "Story 2",
         "format": "Link",
-        "prompt": "\"8º Congresso de Gestão de Academias: lote 1 limitado.\" Figurinha de link."
+        "prompt": "\"Escolha o seu congresso.\" Figurinha de link para o hub."
       }
     ],
-    "fallback": "sem o vídeo, estático com a frase da capa, data, coordenação e CTA.",
-    "cta": "Garanta a sua vaga no lote 1.",
-    "destination": "página oficial de Gestão de Academias",
-    "destinationUrl": "https://arnold.savagetgroup.com.br/gestao-de-academias/",
+    "fallback": "se as páginas não estiverem com a programação em 07/10, não publicar; a chamada passa para a primeira data depois da publicação das páginas.",
+    "cta": "Comente PROGRAMAÇÃO e garanta a sua vaga no lote 1.",
+    "destination": "hub oficial do Arnold Conference",
+    "destinationUrl": "https://arnold.savagetgroup.com.br/conference/",
     "congresses": [
-      "Gestão de Academias"
-    ]
+      "Todos"
+    ],
+    "keyword": "PROGRAMAÇÃO"
   },
   {
-    "id": "1012",
-    "date": "12/10",
     "phase": "Venda contínua",
+    "id": "1011",
+    "date": "11/10",
     "channel": "Reel de 25 a 35 segundos + pílula de 8 segundos",
     "title": "O endocrinologista prescreve. O dermatologista trata a pele. E o nutricionista?",
     "origin": "íntegra no YouTube e transcrição automática no Drive.",
@@ -940,7 +861,7 @@ export const octoberCalendarBase = [
           "unit": "Corte (4 a 26s)",
           "role": "Trecho da palestra",
           "content": "Alessandra pergunta quem é a peça-chave do tratamento e responde: o endocrinologista prescreve, o dermatologista trata a pele e o nutricionista muda o curso antes, durante e depois. Legenda fiel.",
-          "source": "Alessandra Feltre · 43:52 a 44:14. Começa em \"E aí, quando a gente fala sobre quem é a peça chave desse tratamento\" e termina em \"muda o curso antes, durante e depois\". Pílula: 45:15 a 45:26, até \"para além da balança\".",
+          "source": "Alessandra Feltre · 43:52 a 44:14. Começa em \"E aí, quando a gente fala sobre quem é a peça chave desse tratamento\" e termina em \"muda o curso antes, durante e depois\". Pílula: 45:15 a 45:26, de \"E a mensagem que eu deixo aqui hoje para vocês\" até \"para além da balança\" (conferida na transcrição do YouTube em 01/10).",
           "sourceUrl": "https://youtu.be/iJLL-3OZmrE"
         },
         {
@@ -967,37 +888,70 @@ export const octoberCalendarBase = [
     "destinationUrl": "https://arnold.savagetgroup.com.br/conference2/nutricao-estetica/",
     "congresses": [
       "Nutrição Estética"
+    ],
+    "funnel": "Topo"
+  },
+  {
+    "phase": "Venda contínua",
+    "id": "1012",
+    "date": "12/10",
+    "funnel": "Topo",
+    "channel": "Reel publicado pelo Arnold, com o Conference em collab",
+    "title": "Arnold Brasil vs EUA",
+    "origin": "vídeo da Leal \"Arnold Brasil vs EUA\", já programado no Arnold · [LINK DO VÍDEO – A RECEBER DA EQUIPE DO CLIENTE]",
+    "idea": "registro de collab já programada no Arnold. Card curto, só para constar na grade: a agência do Conference aceita a collab no horário da publicação.",
+    "productionBrief": {
+      "format": "Reel publicado pelo Arnold, com o Conference em collab",
+      "purpose": "manter a Leal no feed do Conference com um vídeo do Arnold.",
+      "units": [
+        {
+          "unit": "Reel",
+          "role": "Publicação do Arnold",
+          "content": "Vídeo da Leal publicado pelo Arnold, com o Conference em collab. A agência do Conference aceita a collab no horário da publicação; não produz o vídeo nem a legenda. A capa usa o \"HOOK PARA CAPA\" do roteiro, sem reescrever."
+        }
+      ],
+      "note": "a agência do Conference não edita o vídeo nem escreve a legenda do Arnold."
+    },
+    "fallback": "sem a collab do Arnold, o Conference não publica nada neste dia.",
+    "cta": "Siga o @arnold_conference.",
+    "destination": "perfil @arnold_conference",
+    "destinationUrl": "https://www.instagram.com/arnold_conference/",
+    "congresses": [
+      "Todos"
     ]
   },
   {
+    "phase": "Venda contínua",
     "id": "1013",
     "date": "13/10",
-    "phase": "Venda contínua",
-    "channel": "Reel em collab Arnold + Conference (vídeo da Leal) + 3 Stories",
-    "title": "Fisioterapia esportiva não começa depois da lesão. Ela começa antes da performance.",
-    "origin": "vídeo da Leal sobre o SONAFE · [LINK DO VÍDEO – A RECEBER DA EQUIPE DO CLIENTE]",
-    "idea": "o Arnold já tem um vídeo próprio para o Dia do Fisioterapeuta; o Conference usa o vídeo da Leal sobre a fisioterapia e o SONAFE, que é mais ligado ao congresso. A legenda abre com a homenagem.",
+    "funnel": "Meio",
+    "channel": "vídeo pronto (\"2 Reels_Leonardo e Rafael\", 41s) + 2 Stories de homenagem",
+    "title": "Dia do Fisioterapeuta: os coordenadores do 3º Simpósio de Fisioterapia Esportiva da SONAFE",
+    "origin": "vídeo \"2 Reels_Leonardo e Rafael\" (41s), com os coordenadores do SONAFE.",
+    "originUrl": "https://drive.google.com/file/d/1QEMDWzSGWCjl4dlaj_UBG0WD5eHaTXtH/view",
+    "originLinkLabel": "Abrir vídeo no Drive",
+    "idea": "no Dia do Fisioterapeuta, o Conference publica o vídeo dos coordenadores do 3º Simpósio. A legenda abre com a homenagem e apresenta o simpósio (24/04) com os coordenadores. O vídeo da Leal sobre o SONAFE (antigo card 1013) foi para o backlog de novembro.",
     "productionBrief": {
-      "format": "Reel em collab Arnold + Conference (vídeo da Leal) + 3 Stories",
-      "purpose": "homenagear os fisioterapeutas na data e apresentar o 3º Simpósio pela voz da CEO.",
+      "format": "vídeo pronto (\"2 Reels_Leonardo e Rafael\", 41s) + 2 Stories de homenagem",
+      "purpose": "homenagear os fisioterapeutas na data e apresentar o 3º Simpósio pelos coordenadores.",
       "units": [
         {
           "unit": "Vídeo",
           "role": "Conteúdo",
-          "content": "Vídeo da Leal sobre fisioterapia e SONAFE (no documento, o roteiro está com o título \"WTTC\" por engano)."
-        },
-        {
-          "unit": "Capa",
-          "role": "Texto",
-          "content": "\"FISIOTERAPIA ESPORTIVA NÃO COMEÇA DEPOIS DA LESÃO. Ela começa antes da performance.\""
+          "content": "Publicar o vídeo \"2 Reels_Leonardo e Rafael\" como está. A agência assiste e confere o que os coordenadores dizem antes de escrever a legenda."
         },
         {
           "unit": "Legenda",
           "role": "Estrutura",
           "content": "(1) \"Hoje é Dia do Fisioterapeuta.\" Uma frase de homenagem a quem cuida da prevenção, da recuperação e da performance. (2) \"Em 24/04, o 3º Simpósio de Fisioterapia Esportiva da SONAFE reúne quem vive essa área, com coordenação de Leonardo Luiz Barretti Secchi e Rafael Fernandes Temoteo.\" (3) \"Inscrições abertas. Lote 1 limitado. Link na bio.\""
+        },
+        {
+          "unit": "Publicação",
+          "role": "Collab com os coordenadores",
+          "content": "Publicar em collab com Leonardo Luiz Barretti Secchi e Rafael Fernandes Temoteo, com dia e horário combinados antes. [AUTORIZAÇÃO E HORÁRIO DA COLLAB – A COMBINAR COM O PALESTRANTE]"
         }
       ],
-      "note": "no áudio, a Leal diz que o simpósio \"nasce\"; na legenda, deixar claro que é a 3ª edição."
+      "note": "não citar falas do vídeo sem conferir. É a 3ª edição: não apresentar como estreia."
     },
     "storyCards": [
       {
@@ -1007,11 +961,6 @@ export const octoberCalendarBase = [
       },
       {
         "card": "Story 2",
-        "format": "Repost do Reel",
-        "prompt": "\"A fisioterapia esportiva pela Leal.\""
-      },
-      {
-        "card": "Story 3",
         "format": "Link",
         "prompt": "\"3º Simpósio SONAFE: lote 1 limitado.\" Figurinha de link."
       }
@@ -1025,9 +974,272 @@ export const octoberCalendarBase = [
     ]
   },
   {
+    "phase": "Venda contínua",
     "id": "1014",
     "date": "14/10",
+    "funnel": "Meio",
+    "channel": "carrossel de programação (opção A ou B) + 3 Stories",
+    "title": "Programação 2027: Congresso de Nutrição Esportiva",
+    "origin": "planilha \"Programação Nutrição Esportiva 2027\" (versão de 01/10); mini-bios e pastas de fotos dos palestrantes; argumentos do antigo carrossel \"5 motivos\" (card 1010).",
+    "originUrl": "https://docs.google.com/spreadsheets/d/1WosiWfiABkEyGKTz2Lk6uaBi7HCUTNEu/edit",
+    "originLinkLabel": "Abrir programação no Drive",
+    "idea": "carrossel de programação da sala com a maior meta de vendas. A abertura reúne os argumentos do antigo \"5 motivos\" (dois dias inteiros, coordenação, nível da sala e temas aplicáveis) e a sequência mostra os temas e nomes da planilha de 01/10. Não chamar de \"completa\": faltam 5 nomes. [OPÇÃO A OU B – CLIENTE E AGÊNCIA DEFINEM NA VALIDAÇÃO] [PÁGINA DO CONGRESSO COM A PROGRAMAÇÃO 2027 – PREVISTA PARA 06/10, RECONFERIR EM 07/10]",
+    "productionBrief": {
+      "format": "carrossel de programação (opção A ou B) + 3 Stories",
+      "purpose": "apresentar a programação 2027 de Nutrição Esportiva e levar à inscrição no lote 1.",
+      "units": [
+        {
+          "unit": "Tela 1",
+          "role": "Capa (opção A)",
+          "content": "\"Programação 2027: Congresso de Nutrição Esportiva\" + selo do congresso. Sem a palavra \"completa\"."
+        },
+        {
+          "unit": "Tela 2",
+          "role": "Por que estar lá",
+          "content": "\"Dois dias inteiros só de Nutrição Esportiva, 24 e 25 de abril, com coordenação científica de Andréia Naves.\" + \"Temas que chegam ao consultório na segunda-feira.\""
+        },
+        {
+          "unit": "Tela 3",
+          "role": "O nível da sala",
+          "content": "\"Em 2026, o palco recebeu Daniel Coimbra, Andreia Naves, Bruno Zylber, Ivan Lucas, Humberto Nicastro e Guilherme Dilda.\" Identificar como edição 2026."
+        },
+        {
+          "unit": "Tela 4",
+          "role": "Sábado, 24/04 (1)",
+          "content": "Corrida e o trabalho do nutricionista: Rosana Fortes (Strava) e Andréia Naves, com moderação de Marcelo Quinn. · Doping e nutrição: Fernando Solera, Valden Capistrano e Petros Araújo. · GLP-1 e performance esportiva: Dr. Ivan Lucas Picone, Ricardo Sodré e Fernanda Serpa Carvalho."
+        },
+        {
+          "unit": "Tela 5",
+          "role": "Sábado, 24/04 (2)",
+          "content": "Wearables na prática do nutricionista esportivo: Diego Viana Gomes. · Tecnologia e biomarcadores no treino e no planejamento nutricional: Roberta Carbonari, Rodrigo Lobo e Helvio Affonso (COB). · Saúde intestinal do atleta: Murilo Pereira."
+        },
+        {
+          "unit": "Tela 6",
+          "role": "Domingo, 25/04 (1)",
+          "content": "Glicemia por sensores e prescrição de carboidratos: Adriano Cavalcanti. · Avaliação da hidratação no mundo real: Danielli Mello e Andréia Naves. · Provas de longa distância, nutrição e suplementação: Paulo Mendes."
+        },
+        {
+          "unit": "Tela 7",
+          "role": "Domingo, 25/04 (2)",
+          "content": "Proteínas para a prescrição e para a indústria: Kleidson Lobato. · A atuação do nutricionista no futebol: Guilherme Rosa, Amanda Brant, Camila Mazetto e Marcela Mosconi."
+        },
+        {
+          "unit": "Tela 8",
+          "role": "Ação",
+          "content": "\"Inscrição com acesso aos 3 dias da feira do Arnold Sports Festival. Lote 1 limitado. Link na bio.\" + \"Comente PROGRAMAÇÃO e receba a programação do seu congresso no direct.\""
+        },
+        {
+          "unit": "Opção B",
+          "role": "Alternativa leve",
+          "content": "Carrossel curto de 4 telas: (1) capa \"Programação 2027: Congresso de Nutrição Esportiva\"; (2) três nomes de peso: Helvio Affonso (fisiologista do COB), Dr. Ivan Lucas Picone (GLP-1 e performance) e Andréia Naves (coordenação científica); (3) \"E mais: corrida, doping, futebol, hidratação e saúde intestinal.\"; (4) \"Comente PROGRAMAÇÃO\" (a automação envia o link da página do congresso) + lote 1 limitado."
+        },
+        {
+          "unit": "Publicação",
+          "role": "Collab com os palestrantes (opção A)",
+          "content": "Sugestão: publicar em collab com os palestrantes citados, com dia e horário combinados antes (os primeiros 20 minutos determinam o engajamento). [AUTORIZAÇÃO E HORÁRIO DA COLLAB – A COMBINAR COM O PALESTRANTE]"
+        }
+      ],
+      "note": "opção A: sem horários, sem itens \"Em breve\" (abertura, um horário de sábado, um de domingo, dois nomes da mesa de proteínas e um da mesa de corrida) e sem títulos integrais; os textos das telas 4 a 7 são versões editoriais curtas. Não chamar de \"completa\". Marcos Paulo Reis saiu da programação. Sem nomes comerciais de medicamentos. Clubes e marcas aparecem só como vínculo do palestrante, sem logo. [OPÇÃO A OU B – CLIENTE E AGÊNCIA DEFINEM NA VALIDAÇÃO] [PÁGINA DO CONGRESSO COM A PROGRAMAÇÃO 2027 – PREVISTA PARA 06/10, RECONFERIR EM 07/10] Benefício da feira: [REDAÇÃO OFICIAL DO BENEFÍCIO – CONFIRMAR COM ADRIANA OU KARLA]. Só publicar a linha do benefício com a redação confirmada e com o benefício já publicado nas páginas dos congressos; sem isso, a linha sai e o texto volta a ser \"Lote 1 limitado. Link na bio.\" (tela 8)."
+    },
+    "agencyResearch": {
+      "owner": "Agência de conteúdo e pesquisa",
+      "request": "confirmar a grafia dos nomes e buscar as fotos oficiais nas pastas indicadas na planilha de 01/10 para todos os palestrantes citados; conferir em 07/10 se a página do congresso já mostra a programação 2027.",
+      "deliverables": [
+        "confirmar a grafia dos nomes e buscar as fotos oficiais nas pastas indicadas na planilha de 01/10 para todos os palestrantes citados; conferir em 07/10 se a página do congresso já mostra a programação 2027."
+      ],
+      "validation": "Validar todas as afirmações e materiais solicitados antes da publicação. confirmar a grafia dos nomes e buscar as fotos oficiais nas pastas indicadas na planilha de 01/10 para todos os palestrantes citados; conferir em 07/10 se a página do congresso já mostra a programação 2027.",
+      "fallback": "opção B (carrossel curto de 4 telas com três nomes e \"Comente PROGRAMAÇÃO\")."
+    },
+    "storyCards": [
+      {
+        "card": "Story 1",
+        "format": "Contexto",
+        "prompt": "Repost do carrossel: \"Saiu a programação 2027 de Nutrição Esportiva.\""
+      },
+      {
+        "card": "Story 2",
+        "format": "Enquete",
+        "prompt": "\"Qual destes temas você mais quer ver?\"",
+        "answers": [
+          "GLP-1 e performance",
+          "Nutrição no futebol"
+        ]
+      },
+      {
+        "card": "Story 3",
+        "format": "Link",
+        "prompt": "\"Nutrição Esportiva 2027: lote 1 limitado.\" Figurinha de link."
+      }
+    ],
+    "fallback": "opção B (carrossel curto de 4 telas com três nomes e \"Comente PROGRAMAÇÃO\").",
+    "cta": "Garanta a sua vaga no lote 1.",
+    "destination": "página oficial de Nutrição Esportiva",
+    "destinationUrl": "https://arnold.savagetgroup.com.br/conference2/nutricao-esportiva/",
+    "congresses": [
+      "Nutrição Esportiva"
+    ],
+    "keyword": "PROGRAMAÇÃO"
+  },
+  {
     "phase": "Venda contínua",
+    "id": "1015",
+    "date": "15/10",
+    "channel": "Reel publicado pelo Arnold, com o Conference em collab + 2 Stories do Conference",
+    "title": "GLP-1 vai mudar o negócio das academias.",
+    "origin": "Tendência da Leal · vídeo \"GLP-1 e o futuro do fitness\" (capa \"GLP-1 vai mudar o negócio das academias\") · [LINK DO VÍDEO – A RECEBER DA EQUIPE DO CLIENTE]",
+    "idea": "a Leal fala de como as canetas de GLP-1 mudam o papel da academia (preservar músculo, força e saúde). A ponte é Gestão de Academias.",
+    "productionBrief": {
+      "format": "Reel publicado pelo Arnold, com o Conference em collab + 2 Stories do Conference",
+      "purpose": "Tendência da Leal (publicação do Arnold): aceitar a collab no horário da publicação e fazer os Stories de ponte para um congresso.",
+      "units": [
+        {
+          "unit": "Reel",
+          "role": "Publicação do Arnold",
+          "content": "Vídeo da Leal publicado pelo Arnold, com o Conference em collab. A agência do Conference aceita a collab no horário da publicação; não produz o vídeo nem a legenda."
+        }
+      ],
+      "note": "capa e legenda do roteiro da Leal, sem reescrever. A agência do Conference não edita o vídeo nem escreve a legenda do Arnold."
+    },
+    "storyCards": [
+      {
+        "card": "Story 1",
+        "format": "Repost",
+        "prompt": "\"A academia que só vende emagrecimento pode perder espaço.\""
+      },
+      {
+        "card": "Story 2",
+        "format": "Ponte e link",
+        "prompt": "\"8º Congresso de Gestão de Academias · 23 e 24/04. Lote 1 limitado.\" Figurinha de link."
+      }
+    ],
+    "fallback": "sem a collab do Arnold, publicar só o Story de ponte com o link do congresso.",
+    "cta": "Garanta a sua vaga no lote 1.",
+    "destination": "página oficial de Gestão de Academias",
+    "destinationUrl": "https://arnold.savagetgroup.com.br/gestao-de-academias/",
+    "congresses": [
+      "Gestão de Academias"
+    ],
+    "funnel": "Topo"
+  },
+  {
+    "phase": "Venda contínua",
+    "id": "1016",
+    "date": "16/10",
+    "funnel": "Meio/Fundo",
+    "channel": "carrossel de programação (opção A ou B) + repost do Reel do Cris Parente + 2 Stories",
+    "title": "Certificação Internacional em Personal Training – WTTC + Top of the Rock: dois dias numa inscrição",
+    "origin": "planilha \"Programação_Certificação e Top of the Rock_2027\" (01/10); logos de chancela do WTTC e do Top of the Rock; mini-bio e foto de Cris Parente; Reel do Cris de 02/09 (já publicado).",
+    "originUrl": "https://drive.google.com/file/d/1IMh8kEpZlw3WK4rqdps-BOpyvpUWXkqe/view",
+    "originLinkLabel": "Abrir programação no Drive",
+    "materialLinks": [
+      {
+        "label": "Abrir pasta de logos de chancela",
+        "url": "https://drive.google.com/drive/folders/1Rsuw_eSkvvn6JV2nkOiJUbMO4EgxU7Ru",
+        "kind": "post"
+      },
+      {
+        "label": "Abrir perfil de Cris Parente",
+        "url": "https://www.instagram.com/crisparente/",
+        "kind": "post"
+      }
+    ],
+    "idea": "\"dois dias numa inscrição\": sexta 23/04, a Certificação Internacional em Personal Training – WTTC, com o módulo WTTC de Coaching e Psicologia aplicados ao Personal Training e o Prof. Cristiano Parente; sábado 24/04, o Top of the Rock, ambos à noite. Gancho opcional: a palestra de Luiz Carnevalli sobre a trilha do cliente conversa com o Reel do Cris de 02/09. [OPÇÃO A OU B – CLIENTE E AGÊNCIA DEFINEM NA VALIDAÇÃO] [PÁGINA DO CONGRESSO COM A PROGRAMAÇÃO 2027 – PREVISTA PARA 06/10, RECONFERIR EM 07/10]",
+    "productionBrief": {
+      "format": "carrossel de programação (opção A ou B) + repost do Reel do Cris Parente + 2 Stories",
+      "purpose": "apresentar os dois dias da inscrição, com a chancela internacional e a autoridade do coordenador.",
+      "units": [
+        {
+          "unit": "Tela 1",
+          "role": "Capa (opção A)",
+          "content": "\"Certificação Internacional em Personal Training – WTTC + Top of the Rock: dois dias numa inscrição.\" + logos de chancela do WTTC e do Top of the Rock."
+        },
+        {
+          "unit": "Tela 2",
+          "role": "Os dois dias",
+          "content": "\"Sexta, 23/04, à noite: Certificação Internacional em Personal Training – WTTC. Sábado, 24/04, à noite: Top of the Rock.\""
+        },
+        {
+          "unit": "Tela 3",
+          "role": "Sexta, 23/04",
+          "content": "\"Imersão comportamental: o módulo WTTC de Coaching e Psicologia aplicados ao Personal Training, com o Prof. Cristiano Parente.\""
+        },
+        {
+          "unit": "Tela 4",
+          "role": "Diferencial",
+          "content": "\"Chancela WTTC: uma certificação presente em 5 continentes e 18 países, com mais de 35 mil treinadores no mundo.\""
+        },
+        {
+          "unit": "Tela 5",
+          "role": "Sábado, 24/04",
+          "content": "\"Top of the Rock: o principal congresso especializado em Personal Training da América Latina.\" (texto oficial da planilha)"
+        },
+        {
+          "unit": "Tela 6",
+          "role": "Palestrantes do Top of the Rock",
+          "content": "Eduardo Netto (o personal trainer do futuro), Julio Serrão (biomecânica), Mário Charro (variação de estímulos na musculação), Mário Pozzi (potência muscular), Luiz Carnevalli (a trilha do cliente) e Cristiano Parente (automação e tecnologia)."
+        },
+        {
+          "unit": "Tela 7",
+          "role": "Coordenação",
+          "content": "Foto de Cris Parente: \"Eleito Melhor Personal Trainer do Mundo pelo American Council on Exercise. CEO da World Top Trainers Certification.\""
+        },
+        {
+          "unit": "Tela 8",
+          "role": "Ação",
+          "content": "\"À noite, os dois dias de congresso; de dia, a feira: a inscrição dá acesso aos 3 dias da feira do Arnold Sports Festival. Lote 1 limitado. Link na bio.\""
+        },
+        {
+          "unit": "Opção B",
+          "role": "Alternativa leve",
+          "content": "Carrossel curto de 4 telas: (1) capa com os dois dias; (2) três nomes de peso: Cris Parente, Eduardo Netto e Julio Serrão; (3) chancela WTTC (5 continentes, 18 países e mais de 35 mil treinadores); (4) \"Comente PROGRAMAÇÃO\" (a automação envia o link da página) + lote 1 limitado."
+        },
+        {
+          "unit": "Reel",
+          "role": "Complemento",
+          "content": "Repostar nos Stories o Reel do Cris Parente de 02/09 (já publicado), ligando com a palestra de Luiz Carnevalli sobre a trilha do cliente."
+        },
+        {
+          "unit": "Publicação",
+          "role": "Collab com os palestrantes (opção A)",
+          "content": "Sugestão: publicar em collab com Cris Parente e os palestrantes do Top of the Rock, com dia e horário combinados antes (os primeiros 20 minutos determinam o engajamento). [AUTORIZAÇÃO E HORÁRIO DA COLLAB – A COMBINAR COM O PALESTRANTE]"
+        }
+      ],
+      "note": "nome completo da Certificação na primeira menção. Pode-se dizer \"à noite\", sem horário. Sem promessa de emprego, renda, visto ou equivalência automática. Números conforme o roteiro da Leal (5 continentes, 18 países e mais de 35 mil treinadores) até o time validar; o Reel do Cris fala em \"mais de 21 países\". Não comparar com Gestão de Academias. [OPÇÃO A OU B – CLIENTE E AGÊNCIA DEFINEM NA VALIDAÇÃO] [PÁGINA DO CONGRESSO COM A PROGRAMAÇÃO 2027 – PREVISTA PARA 06/10, RECONFERIR EM 07/10] Benefício da feira: [REDAÇÃO OFICIAL DO BENEFÍCIO – CONFIRMAR COM ADRIANA OU KARLA]. Só publicar a linha do benefício com a redação confirmada e com o benefício já publicado nas páginas dos congressos; sem isso, a linha sai e o texto volta a ser \"Lote 1 limitado. Link na bio.\" (tela 8)."
+    },
+    "agencyResearch": {
+      "owner": "Agência de conteúdo e pesquisa",
+      "request": "baixar os logos de chancela do WTTC e do Top of the Rock na pasta indicada; pedir ao cliente as fotos dos palestrantes do Top of the Rock (a planilha não traz materiais); conferir em 07/10 se a página da Certificação já mostra a programação 2027.",
+      "deliverables": [
+        "baixar os logos de chancela do WTTC e do Top of the Rock na pasta indicada; pedir ao cliente as fotos dos palestrantes do Top of the Rock (a planilha não traz materiais); conferir em 07/10 se a página da Certificação já mostra a programação 2027."
+      ],
+      "validation": "Validar todas as afirmações e materiais solicitados antes da publicação. baixar os logos de chancela do WTTC e do Top of the Rock na pasta indicada; pedir ao cliente as fotos dos palestrantes do Top of the Rock (a planilha não traz materiais); conferir em 07/10 se a página da Certificação já mostra a programação 2027.",
+      "fallback": "opção B (carrossel curto de 4 telas)."
+    },
+    "storyCards": [
+      {
+        "card": "Story 1",
+        "format": "Repost",
+        "prompt": "Repost do carrossel: \"Dois dias numa inscrição.\""
+      },
+      {
+        "card": "Story 2",
+        "format": "Link",
+        "prompt": "\"Certificação Internacional em Personal Training – WTTC + Top of the Rock: lote 1 limitado.\" Figurinha de link."
+      }
+    ],
+    "fallback": "opção B (carrossel curto de 4 telas).",
+    "cta": "Garanta a sua vaga no lote 1.",
+    "destination": "página oficial da Certificação",
+    "destinationUrl": "https://arnold.savagetgroup.com.br/certificacao-internacional-em-personal-training-wttc/",
+    "congresses": [
+      "WTTC"
+    ],
+    "keyword": "PROGRAMAÇÃO"
+  },
+  {
+    "phase": "Venda contínua",
+    "id": "1017",
+    "date": "17/10",
     "channel": "Reel de 30 a 40 segundos + pílula de 15 a 20 segundos",
     "title": "Se você ficar doente amanhã, sua academia funciona sem você?",
     "origin": "íntegra no YouTube e transcrição automática no Drive.",
@@ -1081,221 +1293,144 @@ export const octoberCalendarBase = [
     "destinationUrl": "https://arnold.savagetgroup.com.br/gestao-de-academias/",
     "congresses": [
       "Gestão de Academias"
-    ]
+    ],
+    "funnel": "Topo"
   },
   {
-    "id": "1015",
-    "date": "15/10",
     "phase": "Venda contínua",
-    "channel": "carrossel de 6 telas + repost do Reel já produzido com Cris Parente",
-    "title": "Inscrições abertas: Certificação Internacional em Personal Training – WTTC",
-    "origin": "mini-bio e foto de Cris Parente; perfil Reel \"Cris Parente – divulgação\" (job finalizado no cronograma).",
-    "originUrl": "https://www.instagram.com/crisparente/",
-    "originLinkLabel": "Abrir material de referência",
-    "idea": "o ângulo é aspiracional: uma credencial internacional com chancela WTTC, coordenada pelo personal trainer eleito o melhor do mundo.",
+    "id": "1018",
+    "date": "18/10",
+    "funnel": "Topo",
+    "channel": "vídeo pronto · corte do Podcast Quinn (+ Stories do Dia do Médico, opcional)",
+    "title": "É preciso ter conduta para ter resultados",
+    "origin": "acervo Podcast Quinn · Bodybuilding · Cortes: \"26_Pannain C5 - É preciso ter conduta para ter resultados.mp4\"",
+    "originUrl": "https://drive.google.com/drive/folders/1mid3RlzBj4VXMqcVsD_A6K8kW0WpsIRp",
+    "originLinkLabel": "Abrir pasta de cortes no Drive",
+    "idea": "corte pronto de Ricardo Pannain, coordenador do Congresso de Bodybuilding, no Podcast Quinn. A legenda conecta com o congresso (25/04), sem protocolo, fármaco ou promessa de resultado. Os Stories do Dia do Médico (do antigo card 1018) entram só se houver folga: [OPCIONAL – SÓ SE HOUVER FOLGA DA AGÊNCIA]",
     "productionBrief": {
-      "format": "carrossel de 6 telas + repost do Reel já produzido com Cris Parente",
-      "purpose": "apresentar a certificação sozinha, com o diferencial internacional e a autoridade do coordenador.",
+      "format": "vídeo pronto · corte do Podcast Quinn (+ Stories do Dia do Médico, opcional)",
+      "purpose": "manter Bodybuilding no feed com autoridade do coordenador, sem arte nova.",
       "units": [
         {
-          "unit": "Tela 1",
-          "role": "Capa",
-          "content": "\"Inscrições abertas: Certificação Internacional em Personal Training – WTTC · 24/04/2027.\""
+          "unit": "Vídeo",
+          "role": "Conteúdo",
+          "content": "Publicar o corte \"26_Pannain C5 - É preciso ter conduta para ter resultados.mp4\" como está."
         },
         {
-          "unit": "Tela 2",
-          "role": "Para quem",
-          "content": "\"Para personal trainers que já têm carreira e querem ampliar a atuação para fora do Brasil.\""
+          "unit": "Capa",
+          "role": "Imagem",
+          "content": "Foto de Ricardo Pannain na capa."
         },
         {
-          "unit": "Tela 3",
-          "role": "Diferencial",
-          "content": "\"Chancela WTTC: uma certificação presente em 5 continentes e 18 países, com mais de 35 mil treinadores no mundo.\""
-        },
-        {
-          "unit": "Tela 4",
-          "role": "Coordenação",
-          "content": "Foto de Cris Parente: \"Eleito Melhor Personal Trainer do Mundo pelo American Council on Exercise.\""
-        },
-        {
-          "unit": "Tela 5",
-          "role": "Credenciais",
-          "content": "\"CEO da World Top Trainers Certification e professor da pós-graduação em Personal Training da USP.\""
-        },
-        {
-          "unit": "Tela 6",
-          "role": "Ação",
-          "content": "\"Sua inscrição também dá acesso aos 3 dias da feira do Arnold Sports Festival. Lote 1 limitado. Garanta a sua vaga pelo link da bio.\""
-        },
-        {
-          "unit": "Reel",
-          "role": "Complemento",
-          "content": "Repostar o Reel \"Cris Parente – divulgação do Congresso\", já finalizado pela agência, com legenda nova terminando no CTA."
+          "unit": "Legenda",
+          "role": "Estrutura",
+          "content": "(1) A frase do título do corte. (2) \"Ricardo Pannain coordena o Congresso de Bodybuilding · 25/04/2027.\" (3) \"Inscrições abertas. Lote 1 limitado. Link na bio.\""
         }
       ],
-      "note": "sempre o nome completo na primeira menção. Sem promessa de emprego, renda, visto ou equivalência automática. Não comparar com Gestão de Academias. Benefício da feira: [REDAÇÃO OFICIAL DO BENEFÍCIO – CONFIRMAR COM ADRIANA OU KARLA]. Só publicar a linha do benefício com a redação confirmada e com o benefício já publicado nas páginas dos congressos; sem isso, a linha sai e o texto volta a ser \"Lote 1 limitado. Garanta a sua vaga pelo link da bio.\" (tela 6)."
-    },
-    "fallback": "estático com nome completo, a presença em 5 continentes e 18 países, foto de Cris Parente e CTA.",
-    "cta": "Garanta a sua vaga no lote 1.",
-    "destination": "página oficial da Certificação",
-    "destinationUrl": "https://arnold.savagetgroup.com.br/certificacao-internacional-em-personal-training-wttc/",
-    "congresses": [
-      "WTTC"
-    ]
-  },
-  {
-    "id": "1015a",
-    "date": "15/10",
-    "phase": "Venda contínua",
-    "channel": "Reel publicado pelo Arnold, com o Conference em collab + 2 Stories do Conference",
-    "title": "GLP-1 vai mudar o negócio das academias.",
-    "origin": "Tendência da Leal · vídeo \"GLP-1 vai mudar o negócio das academias\" · [LINK DO VÍDEO – A RECEBER DA EQUIPE DO CLIENTE]",
-    "idea": "a Leal fala de como as canetas de GLP-1 mudam o papel da academia (preservar músculo, força e saúde). A ponte é Gestão de Academias.",
-    "productionBrief": {
-      "format": "Reel publicado pelo Arnold, com o Conference em collab + 2 Stories do Conference",
-      "purpose": "Tendência da Leal (publicação do Arnold): aceitar a collab no horário da publicação e fazer os Stories de ponte para um congresso.",
-      "units": [
-        {
-          "unit": "Reel",
-          "role": "Publicação do Arnold",
-          "content": "Vídeo da Leal publicado pelo Arnold, com o Conference em collab. A agência do Conference aceita a collab no horário da publicação; não produz o vídeo nem a legenda."
-        }
-      ],
-      "note": "no mesmo dia sai o card 1015 (Certificação Internacional em Personal Training – WTTC). Publicar com pelo menos 4 horas de intervalo."
+      "note": "a agência confere no player a fala exata antes de escrever a legenda; o nome do arquivo não basta. Identificar como Podcast Quinn. Sem protocolo, fármaco, dose ou promessa de resultado. Sem preço."
     },
     "storyCards": [
       {
         "card": "Story 1",
-        "format": "Repost",
-        "prompt": "\"O novo consumidor já chegou na sua academia?\""
+        "format": "Homenagem (opcional)",
+        "prompt": "[OPCIONAL – SÓ SE HOUVER FOLGA DA AGÊNCIA] \"18 de outubro · Dia do Médico.\" + \"Aos médicos que cuidam de quem treina, compete e se recupera.\""
       },
       {
         "card": "Story 2",
-        "format": "Ponte e link",
-        "prompt": "\"8º Congresso de Gestão de Academias · 23 e 24/04. Lote 1 limitado.\" Figurinha de link."
+        "format": "Ponte (opcional)",
+        "prompt": "[OPCIONAL – SÓ SE HOUVER FOLGA DA AGÊNCIA] \"No Arnold Conference, médicos e nutricionistas se encontram no Congresso de Nutrição Esportiva · 24 e 25/04.\" Figurinha de link para a página de Nutrição Esportiva."
+      },
+      {
+        "card": "Story 3",
+        "format": "Link",
+        "prompt": "\"Congresso de Bodybuilding: lote 1 limitado.\" Figurinha de link."
       }
     ],
-    "fallback": "sem a collab do Arnold, publicar só o Story de ponte com o link do congresso.",
+    "fallback": "se o corte não estiver liberado, usar outro corte pronto do Podcast Quinn de Bodybuilding (C4 \"Eu não tolero isso em um atleta\").",
+    "cta": "Garanta a sua vaga no lote 1.",
+    "destination": "página oficial de Bodybuilding",
+    "destinationUrl": "https://arnold.savagetgroup.com.br/conference2/bodybuilding/",
+    "congresses": [
+      "Bodybuilding"
+    ]
+  },
+  {
+    "phase": "Venda contínua",
+    "id": "1019",
+    "date": "19/10",
+    "channel": "Reel em collab Arnold + Conference (vídeo da Leal) + 2 Stories",
+    "title": "Uma academia não cresce só com bons equipamentos. Ela cresce com gestão.",
+    "origin": "vídeo \"Congresso – Gestão de academias\" · [LINK DO VÍDEO – A RECEBER DA EQUIPE DO CLIENTE]",
+    "idea": "a Leal explica para quem é o congresso (donos, gestores, coordenadores, estúdios, clubes, condomínios e hotelaria) e que temas ele trata: liderança, vendas, marketing, tecnologia, retenção de talentos, experiência do cliente e novos modelos.",
+    "productionBrief": {
+      "format": "Reel em collab Arnold + Conference (vídeo da Leal) + 2 Stories",
+      "purpose": "apresentar o Congresso de Gestão de Academias pela voz da CEO.",
+      "units": [
+        {
+          "unit": "Vídeo",
+          "role": "Conteúdo",
+          "content": "Vídeo da Leal, editado pela equipe do cliente."
+        },
+        {
+          "unit": "Capa",
+          "role": "Texto",
+          "content": "\"UMA ACADEMIA NÃO CRESCE SÓ COM BONS EQUIPAMENTOS. Ela cresce com gestão.\""
+        },
+        {
+          "unit": "Legenda",
+          "role": "Estrutura",
+          "content": "(1) Frase da capa. (2) \"O 8º Congresso de Gestão de Academias acontece em 23 e 24/04, com coordenação de Eduardo Netto (Dudu Netto).\" (3) A legenda do roteiro da Leal, sem reescrever. (4) \"Inscrições abertas, com acesso aos 3 dias da feira do Arnold Sports Festival. Lote 1 limitado. Link na bio.\""
+        }
+      ],
+      "note": "no áudio, a Leal diz que o congresso \"nasce\"; na legenda, deixar claro que é a 8ª edição. Não comparar com a Certificação Internacional em Personal Training – WTTC. O carrossel \"8ª edição\" (antigo 1011) foi para o backlog de novembro. Benefício da feira: [REDAÇÃO OFICIAL DO BENEFÍCIO – CONFIRMAR COM ADRIANA OU KARLA]. Só publicar a linha do benefício com a redação confirmada e com o benefício já publicado nas páginas dos congressos; sem isso, a linha sai e o texto volta a ser \"Inscrições abertas. Lote 1 limitado. Link na bio.\" (item 4 da legenda)."
+    },
+    "storyCards": [
+      {
+        "card": "Story 1",
+        "format": "Repost do Reel",
+        "prompt": "\"Gestão de Academias, pela Leal.\""
+      },
+      {
+        "card": "Story 2",
+        "format": "Link",
+        "prompt": "\"8º Congresso de Gestão de Academias: lote 1 limitado.\" Figurinha de link."
+      }
+    ],
+    "fallback": "sem o vídeo, estático com a frase da capa, data, coordenação e CTA.",
     "cta": "Garanta a sua vaga no lote 1.",
     "destination": "página oficial de Gestão de Academias",
     "destinationUrl": "https://arnold.savagetgroup.com.br/gestao-de-academias/",
     "congresses": [
       "Gestão de Academias"
-    ]
+    ],
+    "funnel": "Meio"
   },
   {
-    "id": "1016",
-    "date": "16/10",
     "phase": "Venda contínua",
-    "channel": "carrossel de 7 telas + 3 Stories",
-    "title": "Programação 2027 de Nutrição Esportiva: temas centrais",
-    "origin": "planilha \"Programação Nutrição Esportiva 2027\" (versão de 29/09); mini-bios e pastas de fotos dos palestrantes citados; mini-bio e foto de Andréia Naves.",
-    "originUrl": "https://docs.google.com/spreadsheets/d/1WosiWfiABkEyGKTz2Lk6uaBi7HCUTNEu/edit",
+    "id": "1020",
+    "date": "20/10",
+    "funnel": "Meio",
+    "channel": "carrossel de programação (opção A ou B) + 3 Stories com o VIDEO_02",
+    "title": "Programação completa: 3º Simpósio de Fisioterapia Esportiva da SONAFE",
+    "origin": "planilha \"Programação_Simposio_Sonafe_2027\" (01/10, declarada completa pelo cliente); mini-bios e pastas de fotos dos palestrantes; VIDEO_02 da pasta \"SONAFE · Pílulas Público\".",
+    "originUrl": "https://docs.google.com/spreadsheets/d/150hh-unHEBioxo2sWwXElElFeZ2JNU75/edit?gid=59526583#gid=59526583",
     "originLinkLabel": "Abrir programação no Drive",
-    "idea": "a programação 2027 de Nutrição Esportiva chegou, ainda com alguns espaços a definir. Como previsto neste card, o post de autoridade de Andréia Naves dá lugar à programação, no formato do card 1008: três temas centrais como amostra, sem entregar a grade, com Andréia como coordenadora e palestrante. Reforça que o lote 1 é limitado.",
-    "productionBrief": {
-      "format": "carrossel de 7 telas + 3 Stories",
-      "purpose": "apresentar o congresso pelos temas centrais já anunciados da programação 2027.",
-      "units": [
-        {
-          "unit": "Tela 1",
-          "role": "Capa",
-          "content": "\"Programação 2027 de Nutrição Esportiva: temas centrais\" + selo do congresso."
-        },
-        {
-          "unit": "Tela 2",
-          "role": "Quando e para quem",
-          "content": "\"24 e 25 de abril de 2027: dois dias para quem atende atletas e praticantes.\""
-        },
-        {
-          "unit": "Tela 3",
-          "role": "Tema 1",
-          "content": "\"O crescimento da corrida e o impacto no trabalho do nutricionista.\" Com Andréia Naves e moderação de Marcelo Quinn."
-        },
-        {
-          "unit": "Tela 4",
-          "role": "Tema 2",
-          "content": "\"GLP-1 e performance esportiva.\" Com Dr. Ivan Lucas Picone, endocrinologista."
-        },
-        {
-          "unit": "Tela 5",
-          "role": "Tema 3",
-          "content": "\"A atuação do nutricionista no futebol, da base ao profissional.\" Com Guilherme Rosa, Amanda Brant e Camila Mazetto."
-        },
-        {
-          "unit": "Tela 6",
-          "role": "Coordenação",
-          "content": "Foto de Andréia Naves + \"Coordenação científica de Andréia Naves, diplomada pelo The Institute for Functional Medicine (EUA).\""
-        },
-        {
-          "unit": "Tela 7",
-          "role": "Ação",
-          "content": "\"Lote 1 limitado. Link na bio.\""
-        },
-        {
-          "unit": "Publicação",
-          "role": "Collab com o palestrante",
-          "content": "Publicar em collab com Andréia Naves. Combinar dia e horário com ela antes, para que aceite a collab na hora da publicação: os primeiros 20 minutos determinam o engajamento. [AUTORIZAÇÃO E HORÁRIO DA COLLAB – A COMBINAR COM O PALESTRANTE]"
-        }
-      ],
-      "note": "não publicar horários, grade completa nem títulos integrais: os textos das telas 3 a 5 são versões editoriais curtas. Não chamar a programação de completa ou definitiva. Citar só palestrantes com material recebido. Na planilha de 01/10, Rosana Fortes, Ricardo Sodré e Fernanda Serpa Carvalho já têm material; Marcos Paulo Reis saiu da programação e não deve ser citado. Sem nomes comerciais de medicamentos. Clubes aparecem só no texto, como vínculo do palestrante, sem logo. Publicar em collab com Andréia Naves. Combinar dia e horário com ela antes, para que aceite a collab na hora da publicação: os primeiros 20 minutos determinam o engajamento. [AUTORIZAÇÃO E HORÁRIO DA COLLAB – A COMBINAR COM O PALESTRANTE]"
-    },
-    "agencyResearch": {
-      "owner": "Agência de conteúdo e pesquisa",
-      "request": "confirmar a grafia dos nomes e buscar as fotos oficiais nas pastas dos palestrantes das telas 3 a 6 (Andréia Naves, Marcelo Quinn, Dr. Ivan Lucas Picone, Guilherme Rosa, Amanda Brant e Camila Mazetto), com os links da planilha.",
-      "deliverables": [
-        "confirmar a grafia dos nomes e buscar as fotos oficiais nas pastas dos palestrantes das telas 3 a 6 (Andréia Naves, Marcelo Quinn, Dr. Ivan Lucas Picone, Guilherme Rosa, Amanda Brant e Camila Mazetto), com os links da planilha."
-      ],
-      "validation": "Validar todas as afirmações e materiais solicitados antes da publicação. confirmar a grafia dos nomes e buscar as fotos oficiais nas pastas dos palestrantes das telas 3 a 6 (Andréia Naves, Marcelo Quinn, Dr. Ivan Lucas Picone, Guilherme Rosa, Amanda Brant e Camila Mazetto), com os links da planilha.",
-      "fallback": "carrossel de 4 telas (capa, \"3 temas de 2027\" em uma tela, coordenação, ação)."
-    },
-    "storyCards": [
+    "materialLinks": [
       {
-        "card": "Story 1",
-        "format": "Contexto",
-        "prompt": "Repost do carrossel com o texto \"Saíram os primeiros temas de Nutrição Esportiva 2027.\""
-      },
-      {
-        "card": "Story 2",
-        "format": "Enquete",
-        "prompt": "\"Qual destes temas você mais quer ver em 2027?\"",
-        "answers": [
-          "GLP-1 e performance",
-          "Nutrição no futebol"
-        ]
-      },
-      {
-        "card": "Story 3",
-        "format": "Link",
-        "prompt": "\"Nutrição Esportiva 2027: lote 1 limitado.\" Figurinha de link."
+        "label": "Abrir VIDEO_02 (SONAFE · Pílulas Público)",
+        "url": "https://drive.google.com/file/d/1llS7c5EcaJxnPDV8lTpx4JeXbQ4fynir/view",
+        "kind": "video"
       }
     ],
-    "fallback": "carrossel de 4 telas (capa, \"3 temas de 2027\" em uma tela, coordenação, ação).",
-    "cta": "Garanta a sua vaga no lote 1.",
-    "destination": "página oficial de Nutrição Esportiva",
-    "destinationUrl": "https://arnold.savagetgroup.com.br/conference2/nutricao-esportiva/",
-    "congresses": [
-      "Nutrição Esportiva"
-    ]
-  },
-  {
-    "id": "1017",
-    "date": "17/10",
-    "phase": "Venda contínua",
-    "channel": "carrossel de 7 telas + 2 Stories",
-    "title": "Inscrições abertas: 3º Simpósio de Fisioterapia Esportiva da SONAFE",
-    "origin": "planilha de programação SONAFE 2027; mini-bios dos coordenadores.",
-    "originUrl": "https://docs.google.com/spreadsheets/d/1P6EooZAA6mVkYVMC-hVUfbBvGfxxCx-8/edit?gid=656380718#gid=656380718",
-    "originLinkLabel": "Abrir planilha de referência",
-    "idea": "\"esgotou em 2026\" + uma programação 2027 com foco forte no futebol feminino, no ano em que o Brasil recebe o Mundial feminino. Os temas são a prova de atualidade.",
+    "idea": "programação completa do 3º Simpósio (exceção autorizada: o cliente declarou a programação 100% pronta). \"Esgotou em 2026\" + o bloco de futebol feminino em destaque, no ano em que o Brasil recebe o Mundial feminino. [OPÇÃO A OU B – CLIENTE E AGÊNCIA DEFINEM NA VALIDAÇÃO] [PÁGINA DO CONGRESSO COM A PROGRAMAÇÃO 2027 – PREVISTA PARA 06/10, RECONFERIR EM 07/10] [MINI-BIO DA KATHERINE FERRO – AGUARDANDO APROVAÇÃO]",
     "productionBrief": {
-      "format": "carrossel de 7 telas + 2 Stories",
-      "purpose": "apresentar o simpósio sozinho, com a prova de demanda de 2026 e os temas centrais confirmados de 2027.",
+      "format": "carrossel de programação (opção A ou B) + 3 Stories com o VIDEO_02",
+      "purpose": "apresentar a programação completa do simpósio, com a prova de demanda de 2026.",
       "units": [
         {
           "unit": "Tela 1",
-          "role": "Capa",
-          "content": "\"Inscrições abertas: 3º Simpósio de Fisioterapia Esportiva da SONAFE · 24/04/2027.\""
+          "role": "Capa (opção A)",
+          "content": "\"Programação completa: 3º Simpósio de Fisioterapia Esportiva da SONAFE · 24/04/2027.\""
         },
         {
           "unit": "Tela 2",
@@ -1304,42 +1439,57 @@ export const octoberCalendarBase = [
         },
         {
           "unit": "Tela 3",
-          "role": "Tema 1",
-          "content": "\"Um bloco inteiro dedicado ao futebol feminino: avaliação da mulher atleta, lesões de isquiotibiais e lesões em crianças atletas.\""
+          "role": "Avaliação & Performance (1)",
+          "content": "Crioterapia no esporte: Anderson José Santana. · Fotobiomodulação no esporte: Adriane Vanin. · Ativação muscular e especificidade: Leonardo Luiz Barretti Secchi e Priscila Alvarenga. · Controle de carga nos membros superiores: Paulo Ricardo Celestino Leite e Mariana Vido Corassini. · Esporte paralímpico, 10 anos depois do Rio 2016: Marco Antônio Ferreira Alves e Cristina Alcantara."
         },
         {
           "unit": "Tela 4",
-          "role": "Tema 2",
-          "content": "\"Concussão no esporte: onde estamos?\""
+          "role": "Futebol feminino (destaque)",
+          "content": "Avaliação funcional da mulher atleta de futebol: João Barboza e Larissa Pechincha. · Lesões em crianças atletas de futebol: Giovana Steiner e Rafael Ferrer. · Lesões de isquiotibiais no futebol feminino: Bruno Baroni e Katherine Ferro. · Fatores intrínsecos e extrínsecos no futebol de campo: Fabricio Rapello e Jessica Fernandes."
         },
         {
           "unit": "Tela 5",
-          "role": "Tema 3",
-          "content": "\"Esporte paralímpico: 10 anos depois do Rio 2016.\""
+          "role": "Avaliação & Performance (2)",
+          "content": "Mobilização miofascial aplicada ao quadril: Maria Eugênia Ortiz (Gegê) e Klever Shinji. · Concussão no esporte: André Fujita e Bárbara Pocceschi."
         },
         {
           "unit": "Tela 6",
-          "role": "Tema 4",
-          "content": "\"Mesa-redonda: da lesão ao retorno ao esporte.\""
+          "role": "Mesa-redonda",
+          "content": "\"Da lesão ao retorno ao esporte\", com Mariana Vido Corassini, Bárbara Pocceschi, Jessica Fernandes, Giovana Steiner, Maria Eugênia Ortiz (Gegê), Priscila Alvarenga, Katherine Ferro e João Barboza; moderação de Bruno Baroni."
         },
         {
           "unit": "Tela 7",
           "role": "Coordenação e ação",
-          "content": "Leonardo Luiz Barretti Secchi e Rafael Fernandes Temoteo, coordenadores + \"Inscrição com acesso aos 3 dias da feira do Arnold Sports Festival. Lote 1 limitado. Link na bio.\""
+          "content": "Leonardo Luiz Barretti Secchi e Rafael Fernandes Temoteo, coordenadores + \"Inscrição com acesso aos 3 dias da feira do Arnold Sports Festival. Lote 1 limitado. Link na bio.\" + \"Comente PROGRAMAÇÃO e receba a programação completa do seu congresso no direct.\" (só o SONAFE usa \"completa\")"
+        },
+        {
+          "unit": "Opção B",
+          "role": "Alternativa leve",
+          "content": "Carrossel curto de 4 telas: (1) capa; (2) \"Em 2026, esgotou. Em 2027, o lote 1 é limitado.\"; (3) bloco de futebol feminino com três nomes: Bruno Baroni, Fabricio Rapello e Jessica Fernandes; (4) \"Comente PROGRAMAÇÃO\" (a automação envia o link da página) + lote 1 limitado."
+        },
+        {
+          "unit": "Publicação",
+          "role": "Collab com os palestrantes (opção A)",
+          "content": "Sugestão: publicar em collab com os palestrantes citados, com dia e horário combinados antes (os primeiros 20 minutos determinam o engajamento). [AUTORIZAÇÃO E HORÁRIO DA COLLAB – A COMBINAR COM O PALESTRANTE]"
         }
       ],
-      "note": "não usar marcas, logos ou expressões oficiais da FIFA na arte; falar em \"futebol feminino\" e \"Mundial feminino no Brasil\" de forma descritiva, com validação jurídica. Não publicar horários, grade completa ou títulos integrais. Benefício da feira: [REDAÇÃO OFICIAL DO BENEFÍCIO – CONFIRMAR COM ADRIANA OU KARLA]. Só publicar a linha do benefício com a redação confirmada e com o benefício já publicado nas páginas dos congressos; sem isso, a linha sai e o texto volta a ser \"Lote 1 limitado. Link na bio.\" (tela 7)."
+      "note": "não usar marcas, logos ou expressões oficiais da FIFA na arte (o bloco 2 da planilha usa o nome oficial da Copa do Mundo Feminina); falar em \"futebol feminino\" e \"Mundial feminino no Brasil\" de forma descritiva, com validação jurídica. Katherine Ferro: só nome e tema até a mini-bio ser aprovada [MINI-BIO DA KATHERINE FERRO – AGUARDANDO APROVAÇÃO]. Grafia: Fabricio Rapello. Sem horários e sem títulos integrais. [OPÇÃO A OU B – CLIENTE E AGÊNCIA DEFINEM NA VALIDAÇÃO] [PÁGINA DO CONGRESSO COM A PROGRAMAÇÃO 2027 – PREVISTA PARA 06/10, RECONFERIR EM 07/10] Benefício da feira: [REDAÇÃO OFICIAL DO BENEFÍCIO – CONFIRMAR COM ADRIANA OU KARLA]. Só publicar a linha do benefício com a redação confirmada e com o benefício já publicado nas páginas dos congressos; sem isso, a linha sai e o texto volta a ser \"Lote 1 limitado. Link na bio.\" (tela 7)."
     },
     "agencyResearch": {
       "owner": "Agência de conteúdo e pesquisa",
-      "request": "fotos oficiais dos coordenadores (Leonardo: pasta indicada na planilha de coordenadores; Rafael: solicitar ao cliente).",
+      "request": "fotos oficiais dos coordenadores (Leonardo: pasta indicada na planilha de coordenadores; Rafael: solicitar ao cliente) e dos palestrantes citados (pastas indicadas na planilha de 01/10); conferir em 07/10 se a página do SONAFE já mostra a programação 2027.",
       "deliverables": [
-        "fotos oficiais dos coordenadores (Leonardo: pasta indicada na planilha de coordenadores; Rafael: solicitar ao cliente)."
+        "fotos oficiais dos coordenadores (Leonardo: pasta indicada na planilha de coordenadores; Rafael: solicitar ao cliente) e dos palestrantes citados (pastas indicadas na planilha de 01/10); conferir em 07/10 se a página do SONAFE já mostra a programação 2027."
       ],
-      "validation": "Validar todas as afirmações e materiais solicitados antes da publicação. fotos oficiais dos coordenadores (Leonardo: pasta indicada na planilha de coordenadores; Rafael: solicitar ao cliente).",
-      "fallback": "carrossel de 4 telas (capa, esgotou em 2026, os 4 temas em uma tela, coordenação e ação)."
+      "validation": "Validar todas as afirmações e materiais solicitados antes da publicação. fotos oficiais dos coordenadores (Leonardo: pasta indicada na planilha de coordenadores; Rafael: solicitar ao cliente) e dos palestrantes citados (pastas indicadas na planilha de 01/10); conferir em 07/10 se a página do SONAFE já mostra a programação 2027.",
+      "fallback": "opção B (carrossel curto de 4 telas)."
     },
     "storyCards": [
+      {
+        "card": "Story 1",
+        "format": "Vídeo",
+        "prompt": "VIDEO_02 da pasta \"SONAFE · Pílulas Público\" (11s): fisioterapeuta falando de planejamento e avaliação com atenção ao histórico do atleta. Texto de ponte: \"Avaliação é um dos blocos do 3º Simpósio.\" (blocos de Avaliação & Performance). Identificar como público de 2026."
+      },
       {
         "card": "Story 1",
         "format": "Enquete",
@@ -1350,668 +1500,24 @@ export const octoberCalendarBase = [
         ]
       },
       {
-        "card": "Story 2",
+        "card": "Story 3",
         "format": "Link",
-        "prompt": "\"3º Simpósio SONAFE: inscrições abertas. Lote 1 limitado.\" Figurinha de link."
+        "prompt": "\"3º Simpósio SONAFE: programação completa. Lote 1 limitado.\" Figurinha de link."
       }
     ],
-    "fallback": "carrossel de 4 telas (capa, esgotou em 2026, os 4 temas em uma tela, coordenação e ação).",
+    "fallback": "opção B (carrossel curto de 4 telas).",
     "cta": "Garanta a sua vaga no lote 1.",
     "destination": "página oficial do SONAFE",
     "destinationUrl": "https://arnold.savagetgroup.com.br/2-simposio-de-fisioterapia-esportiva-sonafe/",
     "congresses": [
       "SONAFE"
-    ]
-  },
-  {
-    "id": "1018",
-    "date": "18/10",
-    "phase": "Venda contínua",
-    "channel": "estático ou carrossel de 3 telas, publicado pelo Conference com o Arnold em collab + 1 Story",
-    "title": "Aos médicos que cuidam de quem treina, compete e se recupera",
-    "origin": "identidade visual do Conference; imagens próprias do Arnold (sem banco de imagem genérico de médico).",
-    "idea": "o Arnold não vai postar o Dia do Médico, mas aceita a collab. O Conference cria a peça. A ponte é Nutrição Esportiva, que recebe nutricionistas e médicos (como a Leal diz no vídeo do pilar).",
-    "productionBrief": {
-      "format": "estático ou carrossel de 3 telas, publicado pelo Conference com o Arnold em collab + 1 Story",
-      "purpose": "marcar a data com uma homenagem e lembrar que o Conference também é para médicos.",
-      "units": [
-        {
-          "unit": "Tela 1",
-          "role": "Homenagem",
-          "content": "\"18 de outubro · Dia do Médico.\" + \"Aos médicos que cuidam de quem treina, compete e se recupera.\""
-        },
-        {
-          "unit": "Tela 2",
-          "role": "Reconhecimento",
-          "content": "\"Na medicina do esporte, cada decisão protege uma carreira, um treino e uma vida ativa.\""
-        },
-        {
-          "unit": "Tela 3",
-          "role": "Ponte leve",
-          "content": "\"No Arnold Conference, médicos e nutricionistas se encontram no Congresso de Nutrição Esportiva · 24 e 25/04.\""
-        }
-      ],
-      "note": "tom de homenagem. Sem afirmações clínicas. Venda só na tela 3 e nos Stories."
-    },
-    "storyCards": [
-      {
-        "card": "Story 1",
-        "format": "Link",
-        "prompt": "Repost da tela 1 + \"Nutrição Esportiva 2027: lote 1 limitado.\" Figurinha de link."
-      }
     ],
-    "fallback": "estático único com a tela 1.",
-    "cta": "Conheça o Congresso de Nutrição Esportiva.",
-    "destination": "página oficial de Nutrição Esportiva",
-    "destinationUrl": "https://arnold.savagetgroup.com.br/conference2/nutricao-esportiva/",
-    "congresses": [
-      "Nutrição Esportiva"
-    ]
+    "keyword": "PROGRAMAÇÃO"
   },
   {
-    "id": "1019",
-    "date": "19/10",
     "phase": "Venda contínua",
-    "channel": "carrossel de 6 telas + pílula motion de 8 a 12 segundos",
-    "title": "Mais exercícios na sessão não significa uma preparação melhor",
-    "origin": "Reel do Team Pannain · https://www.instagram.com/reel/DcmNMWJhMN0/ (falas em 00:00, 00:10 e 00:50; conferir no player do Instagram).",
-    "originUrl": "https://www.instagram.com/reel/DcmNMWJhMN0/",
-    "originLinkLabel": "Abrir Reel no Instagram para conferir as falas",
-    "idea": "Ricardo Pannain relata que trabalha com menos volume por sessão, mais intensidade, volume distribuído na semana e recuperação para o dia seguinte. A peça mostra que essas variáveis precisam ser lidas juntas.",
-    "productionBrief": {
-      "format": "carrossel de 6 telas + pílula motion de 8 a 12 segundos",
-      "purpose": "aprofundar a organização do treino sem transformar o relato de um treinador de elite em protocolo.",
-      "units": [
-        {
-          "unit": "Tela 1",
-          "role": "Pergunta",
-          "content": "\"Mais exercícios em uma sessão significam uma preparação melhor?\""
-        },
-        {
-          "unit": "Tela 2",
-          "role": "Relato",
-          "content": "Resumo do que Ricardo Pannain relata no Reel: menos volume por dia, mais intensidade, volume distribuído na semana e recuperação para o treino seguinte. Crédito: \"Relato de Ricardo Pannain.\"",
-          "source": "Ricardo Pannain · falas em 00:00, 00:10 e 00:50 do Reel",
-          "sourceUrl": "https://www.instagram.com/reel/DcmNMWJhMN0/"
-        },
-        {
-          "unit": "Tela 3",
-          "role": "Volume",
-          "content": "\"Quanto trabalho foi concentrado nesta sessão?\" (sem números)."
-        },
-        {
-          "unit": "Tela 4",
-          "role": "Intensidade e frequência",
-          "content": "\"Esforço e distribuição na semana precisam ser lidos juntos.\""
-        },
-        {
-          "unit": "Tela 5",
-          "role": "Recuperação",
-          "content": "\"A resposta do atleta sustenta essa organização?\""
-        },
-        {
-          "unit": "Tela 6",
-          "role": "Ação",
-          "content": "\"Bodybuilding 2027 · 25/04. Lote 1 limitado.\""
-        },
-        {
-          "unit": "Pílula",
-          "role": "Derivação",
-          "content": "Pergunta da tela 1 + as quatro palavras: volume, intensidade, frequência, recuperação."
-        }
-      ],
-      "note": "revisão de profissional de Educação Física. Sem números de séries, cargas ou divisão de treino. Não anunciar Ricardo Pannain como palestrante 2027 além do papel de coordenador."
-    },
-    "agencyResearch": {
-      "owner": "Agência de conteúdo e pesquisa",
-      "request": "Conferir as três falas no player do Instagram antes da edição (Reel: https://www.instagram.com/reel/DcmNMWJhMN0/). Se não for possível conferir, usar a alternativa segura. Confirmar a autorização de uso com o cliente.",
-      "deliverables": [
-        "Conferir as três falas no player do Instagram antes da edição. Se não for possível conferir, usar a alternativa segura.",
-        "Confirmar a autorização de uso com o cliente."
-      ],
-      "validation": "Validar todas as afirmações e materiais solicitados antes da publicação. Conferir as três falas no player do Instagram antes da edição. Se não for possível conferir, usar a alternativa segura. Confirmar a autorização de uso com o cliente.",
-      "fallback": "carrossel tipográfico com as telas 1, 3, 4, 5 e 6, sem citar o Reel."
-    },
-    "fallback": "carrossel tipográfico com as telas 1, 3, 4, 5 e 6, sem citar o Reel.",
-    "cta": "Garanta a sua vaga no lote 1.",
-    "destination": "página oficial de Bodybuilding",
-    "destinationUrl": "https://arnold.savagetgroup.com.br/conference2/bodybuilding/",
-    "congresses": [
-      "Bodybuilding"
-    ]
-  },
-  {
-    "id": "1020",
-    "date": "20/10",
-    "phase": "Venda contínua",
-    "channel": "Reel de 25 a 35 segundos + pílula de 8 a 12 segundos",
-    "title": "Pré-treino começa quando?",
-    "origin": "íntegra no YouTube e transcrição editorial validada no Drive.",
-    "originUrl": "https://youtu.be/tAqcK_GgzD8",
-    "originLinkLabel": "Abrir vídeo de referência",
-    "materialLinks": [
-      {
-        "label": "Abrir material no Drive",
-        "url": "https://drive.google.com/file/d/1Giqs6qkKFzEMxNIOBC4rEPsp_IE3FeP5/view",
-        "kind": "post"
-      }
-    ],
-    "idea": "Andreia Naves afirma que o pré-treino de uma competição começa semanas antes, não nos minutos anteriores à prova.",
-    "productionBrief": {
-      "format": "Reel de 25 a 35 segundos + pílula de 8 a 12 segundos",
-      "purpose": "demonstrar profundidade com uma pergunta simples e uma fala real.",
-      "units": [
-        {
-          "unit": "Abertura (0 a 4s)",
-          "role": "Gancho",
-          "content": "Texto na tela: \"Pré-treino começa na refeição de antes da prova? Ou muito antes?\""
-        },
-        {
-          "unit": "Corte",
-          "role": "Trecho da palestra",
-          "content": "Andreia afirma que o pré-treino já vinha sendo construído nas semanas anteriores à competição. Encerrar antes de ela detalhar o pré-treino imediato.",
-          "source": "Andreia Naves · 15:18 a 15:28. Começa em \"O que a gente chama, que a gente entende como pré-treino\" e termina antes de \"Então, o pré-treino imediato\".",
-          "sourceUrl": "https://youtu.be/tAqcK_GgzD8"
-        },
-        {
-          "unit": "Tela de aplicação",
-          "role": "Leitura profissional",
-          "content": "\"A decisão do dia da prova depende do que foi planejado e testado antes.\""
-        },
-        {
-          "unit": "Fechamento",
-          "role": "Ação",
-          "content": "\"Arnold Conference 2026 · Andreia Naves. Em 2027, ela volta à sala para falar de avaliação da hidratação, ao lado de Danielli Mello. Congresso de Nutrição Esportiva 2027 · 24 e 25/04. Lote 1 limitado.\""
-        },
-        {
-          "unit": "Pílula",
-          "role": "Derivação",
-          "content": "Pergunta de abertura + a frase do corte."
-        }
-      ],
-      "note": "sem alimento, suplemento, dose, quantidade de carboidrato ou promessa de performance."
-    },
-    "fallback": "carrossel sem citação: a pergunta, \"preparação anterior\" versus \"decisão do dia\", e o CTA.",
-    "cta": "Garanta a sua vaga no lote 1.",
-    "destination": "página oficial de Nutrição Esportiva",
-    "destinationUrl": "https://arnold.savagetgroup.com.br/conference2/nutricao-esportiva/",
-    "congresses": [
-      "Nutrição Esportiva"
-    ]
-  },
-  {
     "id": "1021",
     "date": "21/10",
-    "phase": "Venda contínua",
-    "channel": "carrossel de autoridade de 7 telas + 3 Stories",
-    "title": "Quem é Ana Paula Pujol, que fala de bioenergética mitocondrial em 2027",
-    "origin": "programação Estética 2027; materiais de Ana Paula Pujol; íntegra 2026.",
-    "originUrl": "https://drive.google.com/drive/folders/1Ku_LPpWtnt8nji762YzGQnjopbWj2md2",
-    "originLinkLabel": "Abrir material no Drive",
-    "materialLinks": [
-      {
-        "label": "Abrir vídeo de referência",
-        "url": "https://youtu.be/asItej-OIk8",
-        "kind": "video"
-      }
-    ],
-    "idea": "Ana Paula Pujol está na programação 2027 falando de bioenergética mitocondrial na saúde da mulher. O carrossel apresenta 5 fatos verificáveis sobre ela e fecha com \"você não pode perder o que ela vai trazer\".",
-    "productionBrief": {
-      "format": "carrossel de autoridade de 7 telas + 3 Stories",
-      "purpose": "usar a autoridade de uma palestrante confirmada em 2027 para vender o congresso (formato pedido pelo cliente).",
-      "units": [
-        {
-          "unit": "Tela 1",
-          "role": "Capa",
-          "content": "\"Quem é Ana Paula Pujol, que fala de bioenergética mitocondrial em 2027\" + foto oficial."
-        },
-        {
-          "unit": "Telas 2 a 6",
-          "role": "Um fato por tela",
-          "content": "Exemplos de tipos de fato: formação e títulos; livros ou publicações; atuação clínica ou docente; eventos e palcos internacionais; um dado de alcance ou de reconhecimento. Cada fato em uma frase, com fonte."
-        },
-        {
-          "unit": "Tela 7",
-          "role": "Ponte e ação",
-          "content": "\"Em 2027, ela fala de bioenergética mitocondrial na saúde da mulher no Congresso de Nutrição Estética. Lote 1 limitado.\""
-        },
-        {
-          "unit": "Publicação",
-          "role": "Collab com o palestrante",
-          "content": "Publicar em collab com Ana Paula Pujol. Combinar dia e horário com ela antes, para que aceite a collab na hora da publicação: os primeiros 20 minutos determinam o engajamento. [AUTORIZAÇÃO E HORÁRIO DA COLLAB – A COMBINAR COM O PALESTRANTE]"
-        }
-      ],
-      "note": "sem adjetivos sem prova (\"a maior\", \"a melhor\"). Não publicar horário nem título integral da palestra. Publicar em collab com Ana Paula Pujol. Combinar dia e horário com ela antes, para que aceite a collab na hora da publicação: os primeiros 20 minutos determinam o engajamento. [AUTORIZAÇÃO E HORÁRIO DA COLLAB – A COMBINAR COM O PALESTRANTE]"
-    },
-    "agencyResearch": {
-      "owner": "Agência de conteúdo e pesquisa",
-      "request": "levantar os 5 fatos em fontes oficiais (site, currículo Lattes, livros, perfil profissional) e entregar a lista de links. A agência pesquisa; nada entra sem fonte.",
-      "deliverables": [
-        "levantar os 5 fatos em fontes oficiais (site, currículo Lattes, livros, perfil profissional) e entregar a lista de links.",
-        "A agência pesquisa; nada entra sem fonte."
-      ],
-      "validation": "Validar todas as afirmações e materiais solicitados antes da publicação. levantar os 5 fatos em fontes oficiais (site, currículo Lattes, livros, perfil profissional) e entregar a lista de links. A agência pesquisa; nada entra sem fonte.",
-      "fallback": "carrossel de 4 telas com 3 fatos e a ponte."
-    },
-    "storyCards": [
-      {
-        "card": "Story 1",
-        "format": "Pergunta",
-        "prompt": "\"Você já assistiu a uma aula da Ana Paula Pujol?\""
-      },
-      {
-        "card": "Story 2",
-        "format": "Enquete",
-        "prompt": "Responda à pergunta do Story anterior.",
-        "answers": [
-          "Já assisti",
-          "Ainda não"
-        ]
-      },
-      {
-        "card": "Story 3",
-        "format": "Link",
-        "prompt": "\"Nutrição Estética 2027: lote 1 limitado.\" Figurinha de link."
-      }
-    ],
-    "fallback": "carrossel de 4 telas com 3 fatos e a ponte.",
-    "cta": "Garanta a sua vaga no lote 1.",
-    "destination": "página oficial de Nutrição Estética",
-    "destinationUrl": "https://arnold.savagetgroup.com.br/conference2/nutricao-estetica/",
-    "congresses": [
-      "Nutrição Estética"
-    ]
-  },
-  {
-    "id": "1022a",
-    "date": "22/10",
-    "phase": "Venda contínua",
-    "channel": "Reel publicado pelo Arnold, com o Conference em collab + 2 Stories do Conference",
-    "title": "O novo objetivo do fitness é chegar bem aos 80.",
-    "origin": "Tendência da Leal · vídeo \"Longevidade\" · [LINK DO VÍDEO – A RECEBER DA EQUIPE DO CLIENTE]",
-    "idea": "a Leal fala da longevidade como novo objetivo do treino de força. A ponte é o personal trainer, com a Certificação Internacional em Personal Training – WTTC.",
-    "productionBrief": {
-      "format": "Reel publicado pelo Arnold, com o Conference em collab + 2 Stories do Conference",
-      "purpose": "Tendência da Leal (publicação do Arnold): aceitar a collab no horário da publicação e fazer os Stories de ponte para um congresso.",
-      "units": [
-        {
-          "unit": "Reel",
-          "role": "Publicação do Arnold",
-          "content": "Vídeo da Leal publicado pelo Arnold, com o Conference em collab. A agência do Conference aceita a collab no horário da publicação; não produz o vídeo nem a legenda."
-        }
-      ],
-      "note": "a agência do Conference não edita o vídeo nem escreve a legenda do Arnold."
-    },
-    "storyCards": [
-      {
-        "card": "Story 1",
-        "format": "Repost",
-        "prompt": "\"Seu aluno treina pelo corpo de hoje ou pela vida que quer ter amanhã?\""
-      },
-      {
-        "card": "Story 2",
-        "format": "Ponte e link",
-        "prompt": "\"Certificação Internacional em Personal Training – WTTC · 24/04. Lote 1 limitado.\" Figurinha de link."
-      }
-    ],
-    "fallback": "sem a collab do Arnold, publicar só o Story de ponte com o link do congresso.",
-    "cta": "Garanta a sua vaga no lote 1.",
-    "destination": "página oficial da Certificação",
-    "destinationUrl": "https://arnold.savagetgroup.com.br/certificacao-internacional-em-personal-training-wttc/",
-    "congresses": [
-      "WTTC"
-    ]
-  },
-  {
-    "id": "1023",
-    "date": "23/10",
-    "phase": "Venda contínua",
-    "channel": "Reel em collab Arnold + Conference (vídeo da Leal) + 2 Stories",
-    "title": "Personal trainer também precisa treinar a própria carreira.",
-    "origin": "vídeo \"Congressos WTTC\" · [LINK DO VÍDEO – A RECEBER DA EQUIPE DO CLIENTE]",
-    "idea": "a Leal fala do personal que precisa pensar em carreira, posicionamento, método e reconhecimento, e da presença internacional da WTTC.",
-    "productionBrief": {
-      "format": "Reel em collab Arnold + Conference (vídeo da Leal) + 2 Stories",
-      "purpose": "apresentar a Certificação Internacional em Personal Training – WTTC pela voz da CEO, com o argumento de carreira.",
-      "units": [
-        {
-          "unit": "Vídeo",
-          "role": "Conteúdo",
-          "content": "Vídeo da Leal, editado pela equipe do cliente."
-        },
-        {
-          "unit": "Capa",
-          "role": "Texto",
-          "content": "\"PERSONAL TRAINER TAMBÉM PRECISA TREINAR A PRÓPRIA CARREIRA.\""
-        },
-        {
-          "unit": "Legenda",
-          "role": "Estrutura",
-          "content": "(1) Frase da capa. (2) \"A Certificação Internacional em Personal Training – WTTC está presente em 5 continentes e 18 países, com mais de 35 mil treinadores no mundo.\" (3) \"24/04 · coordenação de Cris Parente, eleito Melhor Personal Trainer do Mundo pelo American Council on Exercise.\" (4) \"Inscrições abertas. Lote 1 limitado. Link na bio.\""
-        }
-      ],
-      "note": "nome completo na primeira menção. Sem promessa de emprego, renda, visto ou equivalência automática."
-    },
-    "storyCards": [
-      {
-        "card": "Story 1",
-        "format": "Repost do Reel",
-        "prompt": "\"A carreira do personal, pela Leal.\""
-      },
-      {
-        "card": "Story 2",
-        "format": "Link",
-        "prompt": "\"Certificação Internacional em Personal Training – WTTC: lote 1 limitado.\" Figurinha de link."
-      }
-    ],
-    "fallback": "sem o vídeo, estático com a frase da capa, os números validados e o CTA.",
-    "cta": "Garanta a sua vaga no lote 1.",
-    "destination": "página oficial da Certificação",
-    "destinationUrl": "https://arnold.savagetgroup.com.br/certificacao-internacional-em-personal-training-wttc/",
-    "congresses": [
-      "WTTC"
-    ]
-  },
-  {
-    "id": "1024",
-    "date": "24/10",
-    "phase": "Venda contínua",
-    "channel": "carrossel de autoridade de 6 telas + pílula",
-    "title": "A planilha pode ser a mesma. A decisão de carga não é.",
-    "origin": "materiais de Paulo Leite e de Mariana Vido; programação SONAFE 2027.",
-    "originUrl": "https://drive.google.com/drive/folders/12OxnbkavM9TcW0rRhKh6RTVI8pVJ3pUp",
-    "originLinkLabel": "Abrir material no Drive",
-    "materialLinks": [
-      {
-        "label": "Abrir material no Drive",
-        "url": "https://drive.google.com/drive/folders/1B_q9pMY_4TLs2_1g2qvl6oKi2vtm14DM",
-        "kind": "post"
-      }
-    ],
-    "idea": "controle de carga depende do gesto, da população, do histórico e da demanda, não de um número copiado. Paulo Ricardo Celestino Leite e Mariana Vido Corassini tratam do tema em 2027.",
-    "productionBrief": {
-      "format": "carrossel de autoridade de 6 telas + pílula",
-      "purpose": "combinar um tema técnico confirmado em 2027 com a autoridade dos dois palestrantes.",
-      "units": [
-        {
-          "unit": "Tela 1",
-          "role": "Gancho",
-          "content": "\"A planilha pode ser a mesma. A decisão de carga não é.\""
-        },
-        {
-          "unit": "Tela 2",
-          "role": "Problema",
-          "content": "\"Copiar um número não responde à demanda do gesto, da modalidade ou do atleta.\""
-        },
-        {
-          "unit": "Tela 3",
-          "role": "Autoridade",
-          "content": "Fotos e duas credenciais de cada palestrante, tiradas das mini-bios oficiais."
-        },
-        {
-          "unit": "Tela 4",
-          "role": "Quatro perguntas",
-          "content": "Gesto, população, histórico, demanda (uma linha cada, sem critério clínico)."
-        },
-        {
-          "unit": "Tela 5",
-          "role": "Prova",
-          "content": "Uma publicação ou experiência de cada palestrante presente nos materiais oficiais."
-        },
-        {
-          "unit": "Tela 6",
-          "role": "Ação",
-          "content": "\"3º Simpósio SONAFE · 24/04. Lote 1 limitado.\""
-        },
-        {
-          "unit": "Pílula",
-          "role": "Derivação",
-          "content": "\"A planilha não é a decisão.\" + gesto, população, demanda."
-        }
-      ],
-      "note": "sem progressão, critério clínico, dose ou protocolo. Sem horário ou título integral da sessão."
-    },
-    "agencyResearch": {
-      "owner": "Agência de conteúdo e pesquisa",
-      "request": "selecionar nos materiais oficiais uma credencial e uma prova de atuação de cada palestrante, com links.",
-      "deliverables": [
-        "selecionar nos materiais oficiais uma credencial e uma prova de atuação de cada palestrante, com links."
-      ],
-      "validation": "Validar todas as afirmações e materiais solicitados antes da publicação. selecionar nos materiais oficiais uma credencial e uma prova de atuação de cada palestrante, com links.",
-      "fallback": "carrossel tipográfico com gesto, população, histórico e demanda, sem nomes."
-    },
-    "fallback": "carrossel tipográfico com gesto, população, histórico e demanda, sem nomes.",
-    "cta": "Garanta a sua vaga no lote 1.",
-    "destination": "página oficial do SONAFE",
-    "destinationUrl": "https://arnold.savagetgroup.com.br/2-simposio-de-fisioterapia-esportiva-sonafe/",
-    "congresses": [
-      "SONAFE"
-    ]
-  },
-  {
-    "id": "1025",
-    "date": "25/10",
-    "phase": "Venda contínua",
-    "channel": "estático ou carrossel de 3 telas, em collab com a Allp Fit + 1 Story",
-    "title": "Patrocinador confirmado: Allp Fit no 8º Congresso de Gestão de Academias",
-    "origin": "pasta de logos dos patrocinadores.",
-    "originUrl": "https://drive.google.com/drive/folders/18UYgpGswH6Gb812KghIg5T5V6jpX_3yJ",
-    "originLinkLabel": "Abrir pasta de logos",
-    "idea": "[PUBLICAÇÃO CONDICIONADA – CONFIRMAR COM ADRIANA SE A ALLP FIT PODE SER DIVULGADA] Primeiro patrocinador confirmado do Conference, ligado a Gestão de Academias.",
-    "productionBrief": {
-      "format": "estático ou carrossel de 3 telas, em collab com a Allp Fit + 1 Story",
-      "purpose": "mostrar que marcas relevantes do setor apoiam o congresso (prova de relevância).",
-      "units": [
-        {
-          "unit": "Tela 1",
-          "role": "Anúncio",
-          "content": "Logo da Allp Fit + \"Patrocinador confirmado · 8º Congresso de Gestão de Academias.\""
-        },
-        {
-          "unit": "Tela 2",
-          "role": "Quem é",
-          "content": "Uma ou duas linhas sobre a Allp Fit, com texto aprovado pela marca."
-        },
-        {
-          "unit": "Tela 3",
-          "role": "Ação",
-          "content": "\"23 e 24/04. A Allp Fit espera você lá. Lote 1 limitado.\""
-        }
-      ],
-      "note": "[PUBLICAÇÃO CONDICIONADA – CONFIRMAR COM ADRIANA SE A ALLP FIT PODE SER DIVULGADA] Só publicar com aprovação da Adriana e da marca. Nenhuma informação sobre a marca sem aprovação."
-    },
-    "agencyResearch": {
-      "owner": "Agência de conteúdo e pesquisa",
-      "request": "pedir à marca (via Adriana) o texto institucional aprovado e o @ para a collab.",
-      "deliverables": [
-        "pedir à marca (via Adriana) o texto institucional aprovado e o @ para a collab."
-      ],
-      "validation": "Validar todas as afirmações e materiais solicitados antes da publicação. pedir à marca (via Adriana) o texto institucional aprovado e o @ para a collab.",
-      "fallback": "se não houver aprovação, não publicar; o dia fica sem post."
-    },
-    "storyCards": [
-      {
-        "card": "Story 1",
-        "format": "Link",
-        "prompt": "\"A Allp Fit confirmou presença no Congresso de Gestão de Academias.\" Figurinha de link."
-      }
-    ],
-    "fallback": "se não houver aprovação, não publicar; o dia fica sem post.",
-    "cta": "Garanta a sua vaga no lote 1.",
-    "destination": "página oficial de Gestão de Academias",
-    "destinationUrl": "https://arnold.savagetgroup.com.br/gestao-de-academias/",
-    "congresses": [
-      "Gestão de Academias"
-    ]
-  },
-  {
-    "id": "1026",
-    "date": "26/10",
-    "phase": "Venda contínua",
-    "channel": "carrossel educativo de 7 telas com fechamento de autoridade",
-    "title": "Queda de cabelo com ferritina normal? A investigação não para aí.",
-    "origin": "programação Estética 2027 (planilha atualizada na noite de 29/09, com mini-CV, pasta de foto e Instagram do Dr. Leandro Lucena); formação de Luisa Wolpe conforme a mesma planilha.",
-    "idea": "queda capilar costuma ser investigada só pela ferritina. Em 2027, Dr. Leandro Lucena e Luisa Wolpe falam de queda capilar além da ferritina, incluindo a queda associada às canetas de GLP-1.",
-    "productionBrief": {
-      "format": "carrossel educativo de 7 telas com fechamento de autoridade",
-      "purpose": "usar um tema confirmado de 2027 com gancho forte para educar e vender (formato pedido pelo cliente: carrossel educativo que chama para a venda no final).",
-      "units": [
-        {
-          "unit": "Tela 1",
-          "role": "Gancho",
-          "content": "\"Queda de cabelo com ferritina normal? A investigação não para aí.\""
-        },
-        {
-          "unit": "Tela 2",
-          "role": "Cena comum",
-          "content": "\"A paciente reclama de queda de cabelo. O exame mostra ferritina normal. E agora?\""
-        },
-        {
-          "unit": "Tela 3",
-          "role": "O que mais pode estar envolvido",
-          "content": "Três palavras-chave, uma linha cada: inflamação, energia celular (mitocôndria), metabolismo. Sem conduta."
-        },
-        {
-          "unit": "Tela 4",
-          "role": "Tema do momento",
-          "content": "\"E a queda de cabelo em quem usa canetas de GLP-1: é mito ou realidade?\""
-        },
-        {
-          "unit": "Tela 5",
-          "role": "Quem vai responder",
-          "content": "Fotos e credenciais de Dr. Leandro Lucena (médico, pós-graduado em Transplante Capilar e Tricologia e professor de pós-graduação em transplante capilar) e Luisa Wolpe (nutricionista, pós-graduada em Nutrição Clínica e mestre em Ciências da Saúde pela UFPR)."
-        },
-        {
-          "unit": "Tela 6",
-          "role": "Ponte",
-          "content": "\"Esse é um dos temas do Congresso de Nutrição Estética 2027 · 23/04.\""
-        },
-        {
-          "unit": "Tela 7",
-          "role": "Ação",
-          "content": "\"Lote 1 limitado. Garanta a sua vaga pelo link da bio.\""
-        }
-      ],
-      "note": "não usar nomes comerciais de medicamentos (escrever \"canetas de GLP-1\"). Sem diagnóstico, suplemento ou conduta. Sem horário ou título integral."
-    },
-    "agencyResearch": {
-      "owner": "Agência de conteúdo e pesquisa",
-      "request": "buscar a foto oficial do Dr. Leandro Lucena na pasta indicada na planilha (https://drive.google.com/drive/folders/18wfC5L2Wn-L8YzPXuvBLxzI2YdgLBbQK) e, se houver, um conteúdo público dele ou da Luisa sobre queda capilar, com links. As credenciais da tela 5 vêm da planilha de programação. O conteúdo das telas 2 a 4 deve ser validado por nutricionista.",
-      "deliverables": [
-        "buscar a foto oficial do Dr. Leandro Lucena na pasta indicada na planilha (https://drive.google.com/drive/folders/18wfC5L2Wn-L8YzPXuvBLxzI2YdgLBbQK).",
-        "Se houver, um conteúdo público dele ou da Luisa sobre queda capilar, com links.",
-        "O conteúdo das telas 2 a 4 deve ser validado por nutricionista."
-      ],
-      "validation": "Validar todas as afirmações e materiais solicitados antes da publicação. buscar a foto oficial do Dr. Leandro Lucena na pasta indicada na planilha (https://drive.google.com/drive/folders/18wfC5L2Wn-L8YzPXuvBLxzI2YdgLBbQK) e, se houver, um conteúdo público dele ou da Luisa sobre queda capilar, com links. As credenciais da tela 5 vêm da planilha de programação. O conteúdo das telas 2 a 4 deve ser validado por nutricionista.",
-      "fallback": "carrossel de 4 telas (gancho, \"tem mais além da ferritina\", quem vai responder, ação)."
-    },
-    "fallback": "carrossel de 4 telas (gancho, \"tem mais além da ferritina\", quem vai responder, ação).",
-    "cta": "Garanta a sua vaga no lote 1.",
-    "destination": "página oficial de Nutrição Estética",
-    "destinationUrl": "https://arnold.savagetgroup.com.br/conference2/nutricao-estetica/",
-    "congresses": [
-      "Nutrição Estética"
-    ]
-  },
-  {
-    "id": "1027",
-    "date": "27/10",
-    "phase": "Venda contínua",
-    "channel": "carrossel de autoridade de 7 telas + 3 Stories",
-    "title": "O que Dudu Netto aprendeu sobre gestão antes de coordenar o congresso",
-    "origin": "mini-bio (planilha de coordenadores); perfil",
-    "originUrl": "https://www.instagram.com/nettodudu/",
-    "originLinkLabel": "Abrir material de referência",
-    "idea": "despertar curiosidade pela experiência do coordenador: o que alguém que dirige a Bodytech aprendeu sobre gestão. Cada aprendizado vem de uma fala pública dele, com fonte, e leva ao congresso que ele coordena.",
-    "productionBrief": {
-      "format": "carrossel de autoridade de 7 telas + 3 Stories",
-      "purpose": "apresentar a autoridade do coordenador pelo que ele aprendeu na prática, e não por uma lista de cargos.",
-      "units": [
-        {
-          "unit": "Tela 1",
-          "role": "Capa",
-          "content": "\"O que Dudu Netto aprendeu sobre gestão antes de coordenar o congresso\" + foto oficial."
-        },
-        {
-          "unit": "Tela 2",
-          "role": "Quem é",
-          "content": "Diretor técnico e sócio da Bodytech Company; mestre em Ciência da Motricidade Humana e especialista em ciência do exercício."
-        },
-        {
-          "unit": "Tela 3",
-          "role": "Aprendizado 1",
-          "content": "Um aprendizado sobre gestão em uma frase, com a fala dele ou um resumo fiel. Exemplo do tipo de conteúdo: o que ele diz sobre formar equipe, processo, indicador ou experiência do aluno. Com fonte."
-        },
-        {
-          "unit": "Tela 4",
-          "role": "Aprendizado 2",
-          "content": "Outro aprendizado, de outro tema, no mesmo formato. Com fonte."
-        },
-        {
-          "unit": "Tela 5",
-          "role": "Aprendizado 3",
-          "content": "Um terceiro aprendizado, no mesmo formato. Com fonte."
-        },
-        {
-          "unit": "Tela 6",
-          "role": "Ponte",
-          "content": "\"Em 2027, ele coordena o 8º Congresso de Gestão de Academias.\""
-        },
-        {
-          "unit": "Tela 7",
-          "role": "Ação",
-          "content": "\"23 e 24/04. Lote 1 limitado. Link na bio.\""
-        },
-        {
-          "unit": "Publicação",
-          "role": "Collab com o palestrante",
-          "content": "Publicar em collab com Dudu Netto. Combinar dia e horário com ele antes, para que aceite a collab na hora da publicação: os primeiros 20 minutos determinam o engajamento. [AUTORIZAÇÃO E HORÁRIO DA COLLAB – A COMBINAR COM O PALESTRANTE]"
-        }
-      ],
-      "note": "só aprendizados com fonte; não atribuir a ele frases que ele não disse. Sem números de empresas não documentados. Publicar em collab com Dudu Netto. Combinar dia e horário com ele antes, para que aceite a collab na hora da publicação: os primeiros 20 minutos determinam o engajamento. [AUTORIZAÇÃO E HORÁRIO DA COLLAB – A COMBINAR COM O PALESTRANTE]"
-    },
-    "agencyResearch": {
-      "owner": "Agência de conteúdo e pesquisa",
-      "request": "levantar três aprendizados de Dudu Netto sobre gestão de academias em falas públicas (entrevistas, podcasts, palestras, posts ou o acervo do Arnold Conference), com link e o trecho ou a minutagem de cada um. Resumo fiel à fala; nada inventado ou inferido.",
-      "deliverables": [
-        "levantar três aprendizados de Dudu Netto sobre gestão de academias em falas públicas (entrevistas, podcasts, palestras, posts ou o acervo do Arnold Conference), com link e o trecho ou a minutagem de cada um. Resumo fiel à fala; nada inventado ou inferido."
-      ],
-      "validation": "Validar todas as afirmações e materiais solicitados antes da publicação. levantar três aprendizados de Dudu Netto sobre gestão de academias em falas públicas (entrevistas, podcasts, palestras, posts ou o acervo do Arnold Conference), com link e o trecho ou a minutagem de cada um. Resumo fiel à fala; nada inventado ou inferido.",
-      "fallback": "se não houver três aprendizados com fonte, trocar o título para \"Quem é Dudu Netto, coordenador do 8º Congresso de Gestão de Academias\" e usar um carrossel de 4 telas (capa, cargo e formação, coordenação em 2027, ação)."
-    },
-    "storyCards": [
-      {
-        "card": "Story 1",
-        "format": "Pergunta",
-        "prompt": "\"Você já aprendeu com o Dudu Netto em uma aula ou conteúdo?\""
-      },
-      {
-        "card": "Story 2",
-        "format": "Enquete",
-        "prompt": "Responda à pergunta do Story anterior.",
-        "answers": [
-          "Sim",
-          "Ainda não"
-        ]
-      },
-      {
-        "card": "Story 3",
-        "format": "Link",
-        "prompt": "\"Gestão de Academias 2027: lote 1 limitado.\" Figurinha de link."
-      }
-    ],
-    "fallback": "se não houver três aprendizados com fonte, trocar o título para \"Quem é Dudu Netto, coordenador do 8º Congresso de Gestão de Academias\" e usar um carrossel de 4 telas (capa, cargo e formação, coordenação em 2027, ação).",
-    "cta": "Garanta a sua vaga no lote 1.",
-    "destination": "página oficial de Gestão de Academias",
-    "destinationUrl": "https://arnold.savagetgroup.com.br/gestao-de-academias/",
-    "congresses": [
-      "Gestão de Academias"
-    ]
-  },
-  {
-    "id": "1028",
-    "date": "28/10",
-    "phase": "Venda contínua",
     "channel": "Reel de 55 a 60 segundos + pílula de 10 a 15 segundos",
     "title": "O intestino do atleta também entra na preparação",
     "origin": "íntegra no YouTube e transcrição editorial validada no Drive.",
@@ -2065,107 +1571,17 @@ export const octoberCalendarBase = [
     "destinationUrl": "https://arnold.savagetgroup.com.br/conference2/nutricao-esportiva/",
     "congresses": [
       "Nutrição Esportiva"
-    ]
-  },
-  {
-    "id": "1029",
-    "date": "29/10",
-    "phase": "Venda contínua",
-    "channel": "carrossel de autoridade de 7 telas + 3 Stories",
-    "title": "O caminho de Cris Parente até o título de Melhor Personal Trainer do Mundo",
-    "origin": "mini-bio (planilha de coordenadores); perfil",
-    "originUrl": "https://www.instagram.com/crisparente/",
-    "originLinkLabel": "Abrir material de referência",
-    "idea": "o 15/10 apresentou a certificação; este post apresenta a pessoa pela trajetória até o título de Melhor Personal Trainer do Mundo, com fatos verificáveis que ligam essa experiência à Certificação que ele coordena.",
-    "productionBrief": {
-      "format": "carrossel de autoridade de 7 telas + 3 Stories",
-      "purpose": "transformar a autoridade do coordenador em motivo de inscrição.",
-      "units": [
-        {
-          "unit": "Tela 1",
-          "role": "Capa",
-          "content": "\"O caminho de Cris Parente até o título de Melhor Personal Trainer do Mundo\" + foto oficial."
-        },
-        {
-          "unit": "Tela 2",
-          "role": "Fato 1",
-          "content": "\"Foi eleito Melhor Personal Trainer do Mundo pelo American Council on Exercise.\""
-        },
-        {
-          "unit": "Tela 3",
-          "role": "Fato 2",
-          "content": "\"É CEO da World Top Trainers Certification.\""
-        },
-        {
-          "unit": "Tela 4",
-          "role": "Fato 3",
-          "content": "\"É professor da pós-graduação em Personal Training da USP.\""
-        },
-        {
-          "unit": "Tela 5",
-          "role": "Fato 4",
-          "content": "Um fato adicional de fonte pública (pesquisa da agência): livro, clientes ou projeto internacional."
-        },
-        {
-          "unit": "Tela 6",
-          "role": "Fato 5",
-          "content": "\"Coordena a Certificação Internacional em Personal Training – WTTC no Arnold Conference 2027.\""
-        },
-        {
-          "unit": "Tela 7",
-          "role": "Ação",
-          "content": "\"24/04. Lote 1 limitado. Link na bio.\""
-        },
-        {
-          "unit": "Publicação",
-          "role": "Collab com o palestrante",
-          "content": "Publicar em collab com Cris Parente. Combinar dia e horário com ele antes, para que aceite a collab na hora da publicação: os primeiros 20 minutos determinam o engajamento. [AUTORIZAÇÃO E HORÁRIO DA COLLAB – A COMBINAR COM O PALESTRANTE]"
-        }
-      ],
-      "note": "nome completo da certificação na primeira menção. Sem promessa de emprego, renda ou visto. Publicar em collab com Cris Parente. Combinar dia e horário com ele antes, para que aceite a collab na hora da publicação: os primeiros 20 minutos determinam o engajamento. [AUTORIZAÇÃO E HORÁRIO DA COLLAB – A COMBINAR COM O PALESTRANTE]"
-    },
-    "agencyResearch": {
-      "owner": "Agência de conteúdo e pesquisa",
-      "request": "levantar o fato 4 com link; confirmar o ano do prêmio da ACE.",
-      "deliverables": [
-        "levantar o fato 4 com link; confirmar o ano do prêmio da ACE."
-      ],
-      "validation": "Validar todas as afirmações e materiais solicitados antes da publicação. levantar o fato 4 com link; confirmar o ano do prêmio da ACE.",
-      "fallback": "carrossel de 4 telas (capa, fatos 1 e 2, fato 5, ação)."
-    },
-    "storyCards": [
-      {
-        "card": "Story 1",
-        "format": "Pergunta",
-        "prompt": "\"Se você pudesse perguntar uma coisa ao Cris Parente, o que seria?\" (caixa de perguntas)"
-      },
-      {
-        "card": "Story 2",
-        "format": "Repost",
-        "prompt": "Uma pergunta recebida, com resposta do Cris se ele aceitar gravar."
-      },
-      {
-        "card": "Story 3",
-        "format": "Link",
-        "prompt": "\"Certificação Internacional em Personal Training – WTTC: lote 1 limitado.\" Figurinha de link."
-      }
     ],
-    "fallback": "carrossel de 4 telas (capa, fatos 1 e 2, fato 5, ação).",
-    "cta": "Garanta a sua vaga no lote 1.",
-    "destination": "página oficial da Certificação",
-    "destinationUrl": "https://arnold.savagetgroup.com.br/certificacao-internacional-em-personal-training-wttc/",
-    "congresses": [
-      "WTTC"
-    ]
+    "funnel": "Topo"
   },
   {
-    "id": "1029a",
-    "date": "29/10",
     "phase": "Venda contínua",
+    "id": "1022",
+    "date": "22/10",
     "channel": "Reel publicado pelo Arnold, com o Conference em collab + 2 Stories do Conference",
-    "title": "Por que as academias estão investindo em recovery?",
-    "origin": "Tendência da Leal · vídeo \"Recovery\" · [LINK DO VÍDEO – A RECEBER DA EQUIPE DO CLIENTE]",
-    "idea": "a Leal fala de prevenção, recuperação e performance dentro da academia. A ponte é o 3º Simpósio de Fisioterapia Esportiva da SONAFE.",
+    "title": "O novo objetivo do fitness é chegar bem aos 80.",
+    "origin": "Tendência da Leal · vídeo \"Longevidade\" · [LINK DO VÍDEO – A RECEBER DA EQUIPE DO CLIENTE]",
+    "idea": "a Leal fala da longevidade como novo objetivo do treino de força. Os Stories do Conference fazem a ponte para a palestra de Eduardo Netto sobre o personal trainer do futuro, no Top of the Rock (segundo dia da Certificação Internacional em Personal Training – WTTC).",
     "productionBrief": {
       "format": "Reel publicado pelo Arnold, com o Conference em collab + 2 Stories do Conference",
       "purpose": "Tendência da Leal (publicação do Arnold): aceitar a collab no horário da publicação e fazer os Stories de ponte para um congresso.",
@@ -2176,32 +1592,494 @@ export const octoberCalendarBase = [
           "content": "Vídeo da Leal publicado pelo Arnold, com o Conference em collab. A agência do Conference aceita a collab no horário da publicação; não produz o vídeo nem a legenda."
         }
       ],
-      "note": "no mesmo dia sai o card 1029 (Cris Parente). Publicar com pelo menos 4 horas de intervalo."
+      "note": "a agência do Conference não edita o vídeo nem escreve a legenda do Arnold."
     },
     "storyCards": [
       {
         "card": "Story 1",
         "format": "Repost",
-        "prompt": "\"Recuperação também é parte do treino.\""
+        "prompt": "\"Seu aluno treina pelo corpo de hoje ou pela vida que quer ter amanhã?\""
       },
       {
         "card": "Story 2",
         "format": "Ponte e link",
-        "prompt": "\"3º Simpósio de Fisioterapia Esportiva da SONAFE · 24/04. Lote 1 limitado.\" Figurinha de link."
+        "prompt": "\"No Top of the Rock, sábado 24/04 à noite, Eduardo Netto fala do personal trainer do futuro. Certificação Internacional em Personal Training – WTTC + Top of the Rock: lote 1 limitado.\" Figurinha de link."
       }
     ],
     "fallback": "sem a collab do Arnold, publicar só o Story de ponte com o link do congresso.",
+    "cta": "Garanta a sua vaga no lote 1.",
+    "destination": "página oficial da Certificação",
+    "destinationUrl": "https://arnold.savagetgroup.com.br/certificacao-internacional-em-personal-training-wttc/",
+    "congresses": [
+      "WTTC"
+    ],
+    "funnel": "Topo"
+  },
+  {
+    "phase": "Venda contínua",
+    "id": "1023",
+    "date": "23/10",
+    "funnel": "Fundo",
+    "channel": "estático + Story (publicar antes das 7h)",
+    "title": "Faltam 6 meses para o Arnold Conference 2027",
+    "origin": "pacote-mestre de 01/10 e etapa 3 da grade; data e local conforme as páginas oficiais.",
+    "originUrl": "https://arnold.savagetgroup.com.br/conference/",
+    "originLinkLabel": "Abrir hub dos congressos",
+    "idea": "contagem regressiva para 23/04/2027, com os seis congressos e o lote 1 limitado. Regra do cliente: posts de contagem regressiva vão ao ar antes das 7h. [COLLAB COM O ARNOLD – CLIENTE DEFINE; O ARNOLD TERÁ O PRÓPRIO 'FALTAM 6 MESES'] E-mail do mesmo tema no mesmo dia.",
+    "productionBrief": {
+      "format": "estático + Story (publicar antes das 7h)",
+      "purpose": "criar urgência com a contagem regressiva e levar à inscrição no lote 1.",
+      "units": [
+        {
+          "unit": "Arte",
+          "role": "Contagem",
+          "content": "\"Faltam 6 meses.\" + \"Arnold Conference 2027 · 23 a 25 de abril · Expo Center Norte, São Paulo.\""
+        },
+        {
+          "unit": "Legenda",
+          "role": "Texto",
+          "content": "(1) \"Faltam 6 meses para o Arnold Conference 2027.\" (2) \"Seis congressos, de 23 a 25 de abril de 2027.\" (3) \"O lote 1 é limitado. Quem entra primeiro garante o menor valor.\" (4) \"Link na bio.\""
+        },
+        {
+          "unit": "Horário",
+          "role": "Publicação",
+          "content": "Publicar antes das 7h (regra do cliente para contagem regressiva)."
+        }
+      ],
+      "note": "[COLLAB COM O ARNOLD – CLIENTE DEFINE; O ARNOLD TERÁ O PRÓPRIO 'FALTAM 6 MESES'] Sem valores e sem datas de virada de lote."
+    },
+    "storyCards": [
+      {
+        "card": "Story 1",
+        "format": "Link",
+        "prompt": "Repost da arte + \"Escolha o seu congresso. Lote 1 limitado.\" Figurinha de link para o hub."
+      }
+    ],
+    "fallback": "Story único com a contagem e o link, se a arte não ficar pronta.",
+    "cta": "Garanta a sua vaga no lote 1.",
+    "destination": "hub oficial do Arnold Conference",
+    "destinationUrl": "https://arnold.savagetgroup.com.br/conference/",
+    "congresses": [
+      "Todos"
+    ]
+  },
+  {
+    "phase": "Venda contínua",
+    "id": "1024",
+    "date": "24/10",
+    "funnel": "Meio",
+    "channel": "vídeo pronto · corte do Podcast Quinn",
+    "title": "A importância da ética no trabalho",
+    "origin": "acervo Podcast Quinn · Nutrição Estética · Cortes: \"26_Luisa Wolpe  C2 - A importância da ética no trabalho.mp4\" (alternativa: \"26_Luisa Wolpe  C5 - Saiba aproveitar as oportunidades.mp4\")",
+    "originUrl": "https://drive.google.com/drive/folders/164mqI2yON6fqQqdktkgqp7fsieM7odfI",
+    "originLinkLabel": "Abrir pasta de cortes no Drive",
+    "idea": "corte pronto de Luisa Wolpe no Podcast Quinn. A legenda apresenta Luisa como coordenadora de Nutrição Estética 2027. Não usar o C3 (bioestimulador).",
+    "productionBrief": {
+      "format": "vídeo pronto · corte do Podcast Quinn",
+      "purpose": "dar voz à coordenadora de Nutrição Estética, sem arte nova.",
+      "units": [
+        {
+          "unit": "Vídeo",
+          "role": "Conteúdo",
+          "content": "Publicar o corte \"26_Luisa Wolpe  C2 - A importância da ética no trabalho.mp4\" como está (alternativa: C5 \"Saiba aproveitar as oportunidades\")."
+        },
+        {
+          "unit": "Capa",
+          "role": "Imagem",
+          "content": "Foto de Luisa Wolpe na capa."
+        },
+        {
+          "unit": "Legenda",
+          "role": "Estrutura",
+          "content": "(1) A frase do título do corte. (2) \"Luisa Wolpe coordena o Congresso de Nutrição Estética 2027 · 23/04.\" (3) \"Inscrições abertas. Lote 1 limitado. Link na bio.\" (4) \"Comente PROGRAMAÇÃO e receba a programação do seu congresso no direct.\""
+        }
+      ],
+      "note": "a agência confere no player a fala exata antes de escrever a legenda. Identificar como Podcast Quinn. Não usar o C3 (bioestimulador). Sem nomes comerciais de medicamentos."
+    },
+    "storyCards": [
+      {
+        "card": "Story 1",
+        "format": "Link",
+        "prompt": "\"Nutrição Estética 2027, com coordenação de Luisa Wolpe: lote 1 limitado.\" Figurinha de link."
+      }
+    ],
+    "fallback": "C5 \"Saiba aproveitar as oportunidades\", da mesma pasta.",
+    "cta": "Garanta a sua vaga no lote 1.",
+    "destination": "página oficial de Nutrição Estética",
+    "destinationUrl": "https://arnold.savagetgroup.com.br/conference2/nutricao-estetica/",
+    "congresses": [
+      "Nutrição Estética"
+    ],
+    "keyword": "PROGRAMAÇÃO"
+  },
+  {
+    "phase": "Venda contínua",
+    "id": "1025",
+    "date": "25/10",
+    "funnel": "Topo",
+    "channel": "vídeo pronto · pílula de público (21s)",
+    "title": "Pílula de público · SONAFE: o fisioterapeuta de consultório",
+    "origin": "acervo SONAFE · Pílulas Público (depoimentos) · Editados: VIDEO_01 (21s)",
+    "originUrl": "https://drive.google.com/file/d/1d0QcD67JF4iS3si56g361aiNlbx4w5e1/view",
+    "originLinkLabel": "Abrir vídeo no Drive",
+    "idea": "fisioterapeuta explicando que, no consultório, é preciso estar preparado para o atleta amador, o profissional e quem está se tornando atleta. É fala de participante, não depoimento sobre o evento. A legenda conecta com o 3º Simpósio e a programação.",
+    "productionBrief": {
+      "format": "vídeo pronto · pílula de público (21s)",
+      "purpose": "manter o SONAFE no feed com uma fala real da área, sem arte nova.",
+      "units": [
+        {
+          "unit": "Vídeo",
+          "role": "Conteúdo",
+          "content": "Publicar o VIDEO_01 como está."
+        },
+        {
+          "unit": "Capa",
+          "role": "Texto",
+          "content": "Frase do próprio vídeo, conferida pela agência no player."
+        },
+        {
+          "unit": "Legenda",
+          "role": "Estrutura",
+          "content": "(1) A ideia da fala: no consultório, o fisioterapeuta precisa estar preparado para o atleta amador, o profissional e quem está se tornando atleta. (2) \"No 3º Simpósio de Fisioterapia Esportiva da SONAFE, em 24/04, a programação passa por avaliação, carga, futebol feminino e crianças atletas.\" (3) \"Comente PROGRAMAÇÃO e receba a programação do seu congresso no direct.\" (4) \"Lote 1 limitado.\""
+        }
+      ],
+      "note": "fala de participante de 2026, identificada como público de 2026. Não é depoimento sobre o evento (não há depoimentos de participantes de 2026). Não atribuir nome sem confirmação."
+    },
+    "storyCards": [
+      {
+        "card": "Story 1",
+        "format": "Link",
+        "prompt": "\"3º Simpósio SONAFE: lote 1 limitado.\" Figurinha de link."
+      }
+    ],
+    "fallback": "VIDEO_02 da mesma pasta, se o VIDEO_01 não puder ser usado.",
     "cta": "Garanta a sua vaga no lote 1.",
     "destination": "página oficial do SONAFE",
     "destinationUrl": "https://arnold.savagetgroup.com.br/2-simposio-de-fisioterapia-esportiva-sonafe/",
     "congresses": [
       "SONAFE"
-    ]
+    ],
+    "keyword": "PROGRAMAÇÃO"
   },
   {
+    "phase": "Venda contínua",
+    "id": "1026",
+    "date": "26/10",
+    "channel": "Reel em collab Arnold + Conference (vídeo da Leal) + 2 Stories",
+    "title": "Personal trainer também precisa treinar a própria carreira.",
+    "origin": "vídeo \"Congressos WTTC\" · [LINK DO VÍDEO – A RECEBER DA EQUIPE DO CLIENTE]",
+    "idea": "a Leal fala do personal que precisa pensar em carreira, posicionamento, método e reconhecimento, e da presença internacional da WTTC.",
+    "productionBrief": {
+      "format": "Reel em collab Arnold + Conference (vídeo da Leal) + 2 Stories",
+      "purpose": "apresentar a Certificação Internacional em Personal Training – WTTC pela voz da CEO, com o argumento de carreira.",
+      "units": [
+        {
+          "unit": "Vídeo",
+          "role": "Conteúdo",
+          "content": "Vídeo da Leal, editado pela equipe do cliente."
+        },
+        {
+          "unit": "Capa",
+          "role": "Texto",
+          "content": "\"PERSONAL TRAINER TAMBÉM PRECISA TREINAR A PRÓPRIA CARREIRA.\""
+        },
+        {
+          "unit": "Legenda",
+          "role": "Estrutura",
+          "content": "(1) Frase da capa. (2) \"A Certificação Internacional em Personal Training – WTTC está presente em 5 continentes e 18 países, com mais de 35 mil treinadores no mundo.\" (3) \"23 e 24/04, à noite, com o Top of the Rock no sábado, na mesma inscrição · coordenação de Cris Parente, eleito Melhor Personal Trainer do Mundo pelo American Council on Exercise.\" (4) \"Inscrições abertas. Lote 1 limitado. Link na bio.\""
+        }
+      ],
+      "note": "nome completo na primeira menção. Sem promessa de emprego, renda, visto ou equivalência automática."
+    },
+    "storyCards": [
+      {
+        "card": "Story 1",
+        "format": "Repost do Reel",
+        "prompt": "\"A carreira do personal, pela Leal.\""
+      },
+      {
+        "card": "Story 2",
+        "format": "Link",
+        "prompt": "\"Certificação Internacional em Personal Training – WTTC: lote 1 limitado.\" Figurinha de link."
+      }
+    ],
+    "fallback": "sem o vídeo, estático com a frase da capa, os números validados e o CTA.",
+    "cta": "Garanta a sua vaga no lote 1.",
+    "destination": "página oficial da Certificação",
+    "destinationUrl": "https://arnold.savagetgroup.com.br/certificacao-internacional-em-personal-training-wttc/",
+    "congresses": [
+      "WTTC"
+    ],
+    "funnel": "Meio"
+  },
+  {
+    "phase": "Venda contínua",
+    "id": "1027",
+    "date": "27/10",
+    "funnel": "Meio",
+    "channel": "carrossel de programação (opção A ou B) + 3 Stories",
+    "title": "Programação 2027: 8º Congresso de Gestão de Academias",
+    "origin": "planilha \"Programação_Gestão de Academias_2027\" (30/09).",
+    "originUrl": "https://drive.google.com/file/d/1x63U-cGEXt-OnEOrkfktR-6zQrPn-Xga/view",
+    "originLinkLabel": "Abrir programação no Drive",
+    "idea": "carrossel de programação do 8º Congresso de Gestão de Academias, com coordenação de Eduardo (Dudu) Netto. Destaques: a mesa sobre wellness além da academia com Edgard Corona (CEO da Smart Fit) e Felipe Bragança (CEO da Integralmédica); Fofão, sobre liderança e resultados em equipe; e a mesa de mulheres liderando o mercado fitness. Só temas e nomes da planilha; nada dos itens \"Em breve\". [OPÇÃO A OU B – CLIENTE E AGÊNCIA DEFINEM NA VALIDAÇÃO] [PÁGINA DO CONGRESSO COM A PROGRAMAÇÃO 2027 – PREVISTA PARA 06/10, RECONFERIR EM 07/10]",
+    "productionBrief": {
+      "format": "carrossel de programação (opção A ou B) + 3 Stories",
+      "purpose": "apresentar a programação 2027 de Gestão de Academias pelos nomes de peso.",
+      "units": [
+        {
+          "unit": "Tela 1",
+          "role": "Capa (opção A)",
+          "content": "\"Programação 2027: 8º Congresso de Gestão de Academias · 23 e 24/04.\""
+        },
+        {
+          "unit": "Tela 2",
+          "role": "Coordenação",
+          "content": "Foto + \"Coordenação científica de Eduardo Netto (Dudu Netto).\""
+        },
+        {
+          "unit": "Tela 3",
+          "role": "Destaque 1",
+          "content": "Wellness além da academia: Edgard Corona (CEO da Smart Fit) e Felipe Bragança (CEO da Integralmédica)."
+        },
+        {
+          "unit": "Tela 4",
+          "role": "Destaque 2",
+          "content": "Liderança e resultados em equipe: Fofão."
+        },
+        {
+          "unit": "Tela 5",
+          "role": "Destaque 3",
+          "content": "Mulheres liderando o mercado fitness: mesa com Paula Baldini (Action 360º), Mônica Marques (Cia Athletica), Carol Borba e Lilia Lemos (Casa do Fitness), moderação de Eduardo Netto."
+        },
+        {
+          "unit": "Tela 6",
+          "role": "E mais",
+          "content": "Panorama do setor fitness: Eduardo Netto. · Comunicação empresarial: Micarla Lins. · Desenvolvimento de líderes: Carla Amaral. · Aquisições e vendas de academias: Guilherme Leite e Caio Peres. · E Luiza Castanho."
+        },
+        {
+          "unit": "Tela 7",
+          "role": "Ação",
+          "content": "\"Lote 1 limitado. Link na bio.\" + \"Comente PROGRAMAÇÃO e receba a programação do seu congresso no direct.\""
+        },
+        {
+          "unit": "Opção B",
+          "role": "Alternativa leve",
+          "content": "Carrossel curto de 4 telas: (1) capa; (2) Edgard Corona e Felipe Bragança; (3) Fofão; (4) \"Comente PROGRAMAÇÃO\" (a automação envia o link da página) + lote 1 limitado."
+        },
+        {
+          "unit": "Publicação",
+          "role": "Collab com os palestrantes (opção A)",
+          "content": "Sugestão: publicar em collab com os palestrantes citados, com dia e horário combinados antes (os primeiros 20 minutos determinam o engajamento). [AUTORIZAÇÃO E HORÁRIO DA COLLAB – A COMBINAR COM O PALESTRANTE]"
+        }
+      ],
+      "note": "só temas e nomes da planilha de 30/09; nada dos itens \"Em breve\" (um tema de 23/04 sem palestrante, uma sessão de 23/04, duas de 24/04 e o palestrante da sessão de gestão financeira). Sem horários e sem títulos integrais: os textos das telas 3 a 6 são versões editoriais curtas. Fofão: a agência confirma o histórico de campeã olímpica com fonte antes de citar. Empresas aparecem só como vínculo do palestrante, sem logo. [OPÇÃO A OU B – CLIENTE E AGÊNCIA DEFINEM NA VALIDAÇÃO] [PÁGINA DO CONGRESSO COM A PROGRAMAÇÃO 2027 – PREVISTA PARA 06/10, RECONFERIR EM 07/10]"
+    },
+    "agencyResearch": {
+      "owner": "Agência de conteúdo e pesquisa",
+      "request": "pedir ao cliente as fotos e os @ dos palestrantes (a planilha não traz materiais); confirmar com fonte o histórico de campeã olímpica de Fofão antes de citar; conferir em 07/10 se a página de Gestão já mostra a programação 2027.",
+      "deliverables": [
+        "pedir ao cliente as fotos e os @ dos palestrantes (a planilha não traz materiais); confirmar com fonte o histórico de campeã olímpica de Fofão antes de citar; conferir em 07/10 se a página de Gestão já mostra a programação 2027."
+      ],
+      "validation": "Validar todas as afirmações e materiais solicitados antes da publicação. pedir ao cliente as fotos e os @ dos palestrantes (a planilha não traz materiais); confirmar com fonte o histórico de campeã olímpica de Fofão antes de citar; conferir em 07/10 se a página de Gestão já mostra a programação 2027.",
+      "fallback": "opção B (carrossel curto de 4 telas)."
+    },
+    "storyCards": [
+      {
+        "card": "Story 1",
+        "format": "Contexto",
+        "prompt": "Repost do carrossel: \"Saiu a programação 2027 de Gestão de Academias.\""
+      },
+      {
+        "card": "Story 2",
+        "format": "Enquete",
+        "prompt": "\"Qual destaque você mais quer ver?\"",
+        "answers": [
+          "Wellness além da academia",
+          "Mulheres no mercado fitness"
+        ]
+      },
+      {
+        "card": "Story 3",
+        "format": "Link",
+        "prompt": "\"8º Congresso de Gestão de Academias: lote 1 limitado.\" Figurinha de link."
+      }
+    ],
+    "fallback": "opção B (carrossel curto de 4 telas).",
+    "cta": "Garanta a sua vaga no lote 1.",
+    "destination": "página oficial de Gestão de Academias",
+    "destinationUrl": "https://arnold.savagetgroup.com.br/gestao-de-academias/",
+    "congresses": [
+      "Gestão de Academias"
+    ],
+    "keyword": "PROGRAMAÇÃO"
+  },
+  {
+    "phase": "Venda contínua",
+    "id": "1028",
+    "date": "28/10",
+    "channel": "Reel de 25 a 35 segundos + pílula de 8 a 12 segundos",
+    "title": "Pré-treino começa quando?",
+    "origin": "íntegra no YouTube e transcrição editorial validada no Drive.",
+    "originUrl": "https://youtu.be/tAqcK_GgzD8",
+    "originLinkLabel": "Abrir vídeo de referência",
+    "materialLinks": [
+      {
+        "label": "Abrir material no Drive",
+        "url": "https://drive.google.com/file/d/1Giqs6qkKFzEMxNIOBC4rEPsp_IE3FeP5/view",
+        "kind": "post"
+      }
+    ],
+    "idea": "Andreia Naves afirma que o pré-treino de uma competição começa semanas antes, não nos minutos anteriores à prova.",
+    "productionBrief": {
+      "format": "Reel de 25 a 35 segundos + pílula de 8 a 12 segundos",
+      "purpose": "demonstrar profundidade com uma pergunta simples e uma fala real.",
+      "units": [
+        {
+          "unit": "Abertura (0 a 4s)",
+          "role": "Gancho",
+          "content": "Texto na tela: \"Pré-treino começa na refeição de antes da prova? Ou muito antes?\""
+        },
+        {
+          "unit": "Corte",
+          "role": "Trecho da palestra",
+          "content": "Andreia afirma que o pré-treino já vinha sendo construído nas semanas anteriores à competição. Encerrar antes de ela detalhar o pré-treino imediato.",
+          "source": "Andreia Naves · 15:18 a 15:28. Começa em \"O que a gente chama, que a gente entende como pré-treino\" e termina antes de \"Então, o pré-treino imediato\".",
+          "sourceUrl": "https://youtu.be/tAqcK_GgzD8"
+        },
+        {
+          "unit": "Tela de aplicação",
+          "role": "Leitura profissional",
+          "content": "\"A decisão do dia da prova depende do que foi planejado e testado antes.\""
+        },
+        {
+          "unit": "Fechamento",
+          "role": "Ação",
+          "content": "\"Arnold Conference 2026 · Andreia Naves. Em 2027, ela volta à sala para falar de avaliação da hidratação, ao lado de Danielli Mello. Congresso de Nutrição Esportiva 2027 · 24 e 25/04. Lote 1 limitado.\""
+        },
+        {
+          "unit": "Pílula",
+          "role": "Derivação",
+          "content": "Pergunta de abertura + a frase do corte."
+        }
+      ],
+      "note": "sem alimento, suplemento, dose, quantidade de carboidrato ou promessa de performance."
+    },
+    "fallback": "carrossel sem citação: a pergunta, \"preparação anterior\" versus \"decisão do dia\", e o CTA.",
+    "cta": "Garanta a sua vaga no lote 1.",
+    "destination": "página oficial de Nutrição Esportiva",
+    "destinationUrl": "https://arnold.savagetgroup.com.br/conference2/nutricao-esportiva/",
+    "congresses": [
+      "Nutrição Esportiva"
+    ],
+    "funnel": "Topo"
+  },
+  {
+    "phase": "Venda contínua",
+    "id": "1029",
+    "date": "29/10",
+    "funnel": "Meio",
+    "channel": "carrossel de programação (opção A ou B) + 3 Stories",
+    "title": "Programação 2027: Congresso de Nutrição Estética",
+    "origin": "planilha de programação de Nutrição Estética (noite de 29/09); mini-bio e foto de Luisa Wolpe; conteúdo dos cards 1008 e 1026 (queda capilar).",
+    "originUrl": "https://docs.google.com/spreadsheets/d/1iHG54Dtw9X94F97Szq3xhf7CJjP7R8S9/edit?gid=1941859429#gid=1941859429",
+    "originLinkLabel": "Abrir programação no Drive",
+    "idea": "carrossel de programação de Nutrição Estética, com coordenação de Luisa Wolpe. Inclui os temas que estavam no card de queda capilar (Dr. Leandro Lucena e Luisa Wolpe), GLP-1 e cirurgia plástica e lipedema. [OPÇÃO A OU B – CLIENTE E AGÊNCIA DEFINEM NA VALIDAÇÃO] [PÁGINA DO CONGRESSO COM A PROGRAMAÇÃO 2027 – PREVISTA PARA 06/10, RECONFERIR EM 07/10]",
+    "productionBrief": {
+      "format": "carrossel de programação (opção A ou B) + 3 Stories",
+      "purpose": "apresentar a programação 2027 de Nutrição Estética e levar à inscrição no lote 1.",
+      "units": [
+        {
+          "unit": "Tela 1",
+          "role": "Capa (opção A)",
+          "content": "\"Programação 2027: Congresso de Nutrição Estética · 23/04.\""
+        },
+        {
+          "unit": "Tela 2",
+          "role": "Para quem",
+          "content": "\"Um dia inteiro para nutricionistas e profissionais que atuam com estética, emagrecimento e composição corporal.\""
+        },
+        {
+          "unit": "Tela 3",
+          "role": "GLP-1 e cirurgia plástica",
+          "content": "Preparação metabólica para cirurgia plástica: Marília Lacerda. · GLP-1 e cirurgia plástica, com a preservação de massa muscular: Gabriel Ximenes e Pedro Perim."
+        },
+        {
+          "unit": "Tela 4",
+          "role": "Queda capilar",
+          "content": "Queda capilar além da ferritina, inclusive em quem usa canetas de GLP-1: Dr. Leandro Lucena e Luisa Wolpe."
+        },
+        {
+          "unit": "Tela 5",
+          "role": "Lipedema",
+          "content": "Lipedema, da bioenergética ao tratamento: Raquel Wolpe e Luisa Wolpe. · GLP-1 e resposta hormonal no lipedema: Diogo Viana e Rodrigo Granzotti."
+        },
+        {
+          "unit": "Tela 6",
+          "role": "E mais",
+          "content": "Nutrição regenerativa: Suellen Becher, Dr. Vinicius Ortiz e Camila Barijan. · Bioenergética mitocondrial na saúde da mulher: Ana Paula Pujol. · Sistema musculoesquelético e longevidade: Andréia Naves. · Calorimetria indireta e estética corporal: Braian Cordeiro. · Performance feminina: Faruk Kalil, Vanessa Erthal e Alessandra Pinheiro."
+        },
+        {
+          "unit": "Tela 7",
+          "role": "Coordenação e ação",
+          "content": "Foto de Luisa Wolpe, coordenadora (nutricionista, pós-graduada em Nutrição Clínica e mestre em Ciências da Saúde pela UFPR) + \"Lote 1 limitado. Link na bio.\" + \"Comente PROGRAMAÇÃO e receba a programação do seu congresso no direct.\""
+        },
+        {
+          "unit": "Opção B",
+          "role": "Alternativa leve",
+          "content": "Carrossel curto de 4 telas: (1) capa; (2) três nomes de peso: Ana Paula Pujol, Dr. Leandro Lucena (queda capilar) e Gabriel Ximenes (GLP-1 e cirurgia plástica); (3) \"E mais: lipedema, nutrição regenerativa e performance feminina.\"; (4) \"Comente PROGRAMAÇÃO\" (a automação envia o link da página) + lote 1 limitado."
+        },
+        {
+          "unit": "Publicação",
+          "role": "Collab com os palestrantes (opção A)",
+          "content": "Sugestão: publicar em collab com os palestrantes citados, com dia e horário combinados antes (os primeiros 20 minutos determinam o engajamento). [AUTORIZAÇÃO E HORÁRIO DA COLLAB – A COMBINAR COM O PALESTRANTE]"
+        }
+      ],
+      "note": "não usar nomes comerciais de medicamentos (escrever \"canetas de GLP-1\"; o título integral da palestra de queda capilar cita um nome comercial e não entra). Sem horários e sem títulos integrais: os textos das telas 3 a 6 são versões editoriais curtas. [OPÇÃO A OU B – CLIENTE E AGÊNCIA DEFINEM NA VALIDAÇÃO] [PÁGINA DO CONGRESSO COM A PROGRAMAÇÃO 2027 – PREVISTA PARA 06/10, RECONFERIR EM 07/10]"
+    },
+    "agencyResearch": {
+      "owner": "Agência de conteúdo e pesquisa",
+      "request": "buscar as fotos oficiais dos palestrantes citados nas pastas indicadas na planilha (Dr. Leandro Lucena: https://drive.google.com/drive/folders/18wfC5L2Wn-L8YzPXuvBLxzI2YdgLBbQK); conferir em 07/10 se a página de Nutrição Estética já mostra a programação 2027.",
+      "deliverables": [
+        "buscar as fotos oficiais dos palestrantes citados nas pastas indicadas na planilha (Dr. Leandro Lucena: https://drive.google.com/drive/folders/18wfC5L2Wn-L8YzPXuvBLxzI2YdgLBbQK); conferir em 07/10 se a página de Nutrição Estética já mostra a programação 2027."
+      ],
+      "validation": "Validar todas as afirmações e materiais solicitados antes da publicação. buscar as fotos oficiais dos palestrantes citados nas pastas indicadas na planilha (Dr. Leandro Lucena: https://drive.google.com/drive/folders/18wfC5L2Wn-L8YzPXuvBLxzI2YdgLBbQK); conferir em 07/10 se a página de Nutrição Estética já mostra a programação 2027.",
+      "fallback": "opção B (carrossel curto de 4 telas)."
+    },
+    "storyCards": [
+      {
+        "card": "Story 1",
+        "format": "Contexto",
+        "prompt": "Repost do carrossel: \"Saiu a programação 2027 de Nutrição Estética.\""
+      },
+      {
+        "card": "Story 2",
+        "format": "Enquete",
+        "prompt": "\"Qual destes temas você mais quer ver em 2027?\"",
+        "answers": [
+          "GLP-1 e cirurgia plástica",
+          "Queda capilar"
+        ]
+      },
+      {
+        "card": "Story 3",
+        "format": "Link",
+        "prompt": "\"Nutrição Estética 2027: lote 1 limitado.\" Figurinha de link."
+      }
+    ],
+    "fallback": "opção B (carrossel curto de 4 telas).",
+    "cta": "Garanta a sua vaga no lote 1.",
+    "destination": "página oficial de Nutrição Estética",
+    "destinationUrl": "https://arnold.savagetgroup.com.br/conference2/nutricao-estetica/",
+    "congresses": [
+      "Nutrição Estética"
+    ],
+    "keyword": "PROGRAMAÇÃO"
+  },
+  {
+    "phase": "Venda contínua",
     "id": "1030",
     "date": "30/10",
-    "phase": "Venda contínua",
     "channel": "Reel em collab Arnold + Conference (vídeo da Leal) + Stories de homenagem + Stories de escassez",
     "title": "Muita gente vê o palco. Pouca gente entende tudo que constrói um atleta.",
     "origin": "vídeo \"Bodybuilding\" · [LINK DO VÍDEO – A RECEBER DA EQUIPE DO CLIENTE]",
@@ -2226,7 +2104,7 @@ export const octoberCalendarBase = [
           "content": "(1) \"Hoje é Dia do Fisiculturista.\" Uma frase de homenagem. (2) \"Em 25/04, o Congresso de Bodybuilding reúne atletas, treinadores e coaches, com coordenação de Ricardo Pannain.\" (3) \"Inscrições abertas. Quem se inscreve também tem acesso aos 3 dias da feira do Arnold Sports Festival. Lote 1 limitado. Link na bio.\""
         }
       ],
-      "note": "no áudio, a Leal diz que o Congresso de Bodybuilding \"nasce\"; na legenda, não apresentar como estreia (o congresso já aconteceu em 2026). Stories de escassez: publicação condicionada à confirmação do cliente de que o lote 1 segue disponível. \"Últimos lugares\" só com confirmação explícita. O card 1031 (Pannain, comprometimento) continua no dia seguinte: são dois dias seguidos de Bodybuilding, com ângulos diferentes (institucional e comportamento). Benefício da feira: [REDAÇÃO OFICIAL DO BENEFÍCIO – CONFIRMAR COM ADRIANA OU KARLA]. Só publicar a linha do benefício com a redação confirmada e com o benefício já publicado nas páginas dos congressos; sem isso, a linha sai e o texto volta a ser \"Inscrições abertas. Lote 1 limitado. Link na bio.\" (item 3 da legenda). Os Stories de escassez não citam o benefício."
+      "note": "no áudio, a Leal diz que o Congresso de Bodybuilding \"nasce\"; na legenda, não apresentar como estreia (o congresso já aconteceu em 2026). Stories de escassez: publicação condicionada à confirmação do cliente de que o lote 1 segue disponível [STATUS DO LOTE 1 – CONFIRMAR COM O CLIENTE ANTES]. \"Últimos lugares\" só com confirmação explícita. Benefício da feira: [REDAÇÃO OFICIAL DO BENEFÍCIO – CONFIRMAR COM ADRIANA OU KARLA]. Só publicar a linha do benefício com a redação confirmada e com o benefício já publicado nas páginas dos congressos; sem isso, a linha sai e o texto volta a ser \"Inscrições abertas. Lote 1 limitado. Link na bio.\" (item 3 da legenda). Os Stories de escassez não citam o benefício."
     },
     "storyCards": [
       {
@@ -2243,37 +2121,37 @@ export const octoberCalendarBase = [
         "card": "Story 3",
         "format": "Escassez",
         "prompt": "\"Nutrição Esportiva: o lote 1 é limitado.\" Figurinha de link para a página.",
-        "note": "Link: https://arnold.savagetgroup.com.br/conference2/nutricao-esportiva/. Publicação condicionada à confirmação do cliente de que o lote 1 segue disponível."
+        "note": "[STATUS DO LOTE 1 – CONFIRMAR COM O CLIENTE ANTES] Link: https://arnold.savagetgroup.com.br/conference2/nutricao-esportiva/. Publicação condicionada à confirmação do cliente de que o lote 1 segue disponível."
       },
       {
         "card": "Story 4",
         "format": "Escassez",
         "prompt": "\"Nutrição Estética: o lote 1 é limitado.\" Figurinha de link para a página.",
-        "note": "Link: https://arnold.savagetgroup.com.br/conference2/nutricao-estetica/. Publicação condicionada à confirmação do cliente de que o lote 1 segue disponível."
+        "note": "[STATUS DO LOTE 1 – CONFIRMAR COM O CLIENTE ANTES] Link: https://arnold.savagetgroup.com.br/conference2/nutricao-estetica/. Publicação condicionada à confirmação do cliente de que o lote 1 segue disponível."
       },
       {
         "card": "Story 5",
         "format": "Escassez",
         "prompt": "\"3º Simpósio de Fisioterapia Esportiva da SONAFE: o lote 1 é limitado.\" Figurinha de link para a página.",
-        "note": "Link: https://arnold.savagetgroup.com.br/2-simposio-de-fisioterapia-esportiva-sonafe/. Publicação condicionada à confirmação do cliente de que o lote 1 segue disponível."
+        "note": "[STATUS DO LOTE 1 – CONFIRMAR COM O CLIENTE ANTES] Link: https://arnold.savagetgroup.com.br/2-simposio-de-fisioterapia-esportiva-sonafe/. Publicação condicionada à confirmação do cliente de que o lote 1 segue disponível."
       },
       {
         "card": "Story 6",
         "format": "Escassez",
         "prompt": "\"8º Congresso de Gestão de Academias: o lote 1 é limitado.\" Figurinha de link para a página.",
-        "note": "Link: https://arnold.savagetgroup.com.br/gestao-de-academias/. Publicação condicionada à confirmação do cliente de que o lote 1 segue disponível."
+        "note": "[STATUS DO LOTE 1 – CONFIRMAR COM O CLIENTE ANTES] Link: https://arnold.savagetgroup.com.br/gestao-de-academias/. Publicação condicionada à confirmação do cliente de que o lote 1 segue disponível."
       },
       {
         "card": "Story 7",
         "format": "Escassez",
         "prompt": "\"Certificação Internacional em Personal Training – WTTC: o lote 1 é limitado.\" Figurinha de link para a página.",
-        "note": "Link: https://arnold.savagetgroup.com.br/certificacao-internacional-em-personal-training-wttc/. Publicação condicionada à confirmação do cliente de que o lote 1 segue disponível."
+        "note": "[STATUS DO LOTE 1 – CONFIRMAR COM O CLIENTE ANTES] Link: https://arnold.savagetgroup.com.br/certificacao-internacional-em-personal-training-wttc/. Publicação condicionada à confirmação do cliente de que o lote 1 segue disponível."
       },
       {
         "card": "Story 8",
         "format": "Escassez",
         "prompt": "\"Bodybuilding: o lote 1 é limitado.\" Figurinha de link para a página.",
-        "note": "Link: https://arnold.savagetgroup.com.br/conference2/bodybuilding/. Publicação condicionada à confirmação do cliente de que o lote 1 segue disponível."
+        "note": "[STATUS DO LOTE 1 – CONFIRMAR COM O CLIENTE ANTES] Link: https://arnold.savagetgroup.com.br/conference2/bodybuilding/. Publicação condicionada à confirmação do cliente de que o lote 1 segue disponível."
       }
     ],
     "fallback": "sem o vídeo, estático de homenagem + Stories de escassez.",
@@ -2282,72 +2160,113 @@ export const octoberCalendarBase = [
     "destinationUrl": "https://arnold.savagetgroup.com.br/conference2/bodybuilding/",
     "congresses": [
       "Bodybuilding"
-    ]
+    ],
+    "funnel": "Meio/Fundo"
   },
   {
+    "phase": "Venda contínua",
     "id": "1031",
     "date": "31/10",
-    "phase": "Venda contínua",
-    "channel": "carrossel de 5 telas + pílula opcional",
-    "title": "Comprometimento não é obedecer cegamente a um protocolo",
-    "origin": "Reel do Arnold Conference com Ricardo Pannain · https://www.instagram.com/reel/DXXimnVFX4X/ (falas em 00:16 e 00:33; conferir no player do Instagram).",
-    "originUrl": "https://www.instagram.com/reel/DXXimnVFX4X/",
-    "originLinkLabel": "Abrir Reel no Instagram para conferir as falas",
-    "idea": "Ricardo Pannain fala sobre como a falta de comprometimento o desmotiva e por que o compromisso da atleta com o processo importa mais que o tamanho da competição.",
+    "funnel": "Meio",
+    "channel": "vídeo pronto · corte do Podcast Quinn",
+    "title": "O que um colaborador espera",
+    "origin": "acervo Podcast Quinn · Gestão · Cortes: \"26_O que um colaborador espera PODCASTROBERTOTRANJAN_CORTE4.mp4\"",
+    "originUrl": "https://drive.google.com/drive/folders/1wtzKGjNQmQidCZq5RUp4KflV8gcM-IZc",
+    "originLinkLabel": "Abrir pasta de cortes no Drive",
+    "idea": "corte pronto de Roberto Tranjan no Podcast Quinn. A legenda conecta com a programação de Gestão de Academias, que tem liderança como tema. Upgrade opcional: [COLLAB COM CRIS PARENTE – SE A PATRÍCIA CONSEGUIR, SUBSTITUI ESTE CARD]",
     "productionBrief": {
-      "format": "carrossel de 5 telas + pílula opcional",
-      "purpose": "fechar o mês de Bodybuilding com um tema de comportamento, diferente de treino e dieta.",
+      "format": "vídeo pronto · corte do Podcast Quinn",
+      "purpose": "fechar o mês com Gestão de Academias e liderança, sem arte nova.",
+      "units": [
+        {
+          "unit": "Vídeo",
+          "role": "Conteúdo",
+          "content": "Publicar o corte \"26_O que um colaborador espera PODCASTROBERTOTRANJAN_CORTE4.mp4\" como está."
+        },
+        {
+          "unit": "Capa",
+          "role": "Imagem",
+          "content": "Foto de Roberto Tranjan na capa."
+        },
+        {
+          "unit": "Legenda",
+          "role": "Estrutura",
+          "content": "(1) A frase do título do corte. (2) \"No 8º Congresso de Gestão de Academias, liderança está na programação: desenvolvimento de líderes, com Carla Amaral, e resultados em equipe, com Fofão.\" (3) \"Lote 1 limitado. Link na bio.\" (4) \"Comente PROGRAMAÇÃO e receba a programação do seu congresso no direct.\""
+        }
+      ],
+      "note": "a agência confere no player a fala exata antes de escrever a legenda. Identificar como Podcast Quinn; não sugerir que Roberto Tranjan estará em 2027. [COLLAB COM CRIS PARENTE – SE A PATRÍCIA CONSEGUIR, SUBSTITUI ESTE CARD]"
+    },
+    "storyCards": [
+      {
+        "card": "Story 1",
+        "format": "Link",
+        "prompt": "\"8º Congresso de Gestão de Academias: lote 1 limitado.\" Figurinha de link."
+      }
+    ],
+    "fallback": "outro corte pronto da mesma pasta (\"Desejo\" ou \"Código de Nobreza\").",
+    "cta": "Garanta a sua vaga no lote 1.",
+    "destination": "página oficial de Gestão de Academias",
+    "destinationUrl": "https://arnold.savagetgroup.com.br/gestao-de-academias/",
+    "congresses": [
+      "Gestão de Academias"
+    ],
+    "keyword": "PROGRAMAÇÃO"
+  },
+  {
+    "phase": "Venda contínua",
+    "id": "1031a",
+    "date": "Sem data",
+    "channel": "estático ou carrossel de 3 telas, em collab com a Allp Fit + 1 Story",
+    "title": "Patrocinador confirmado: Allp Fit no 8º Congresso de Gestão de Academias",
+    "origin": "pasta de logos dos patrocinadores.",
+    "originUrl": "https://drive.google.com/drive/folders/18UYgpGswH6Gb812KghIg5T5V6jpX_3yJ",
+    "originLinkLabel": "Abrir pasta de logos",
+    "idea": "[PUBLICAÇÃO CONDICIONADA – CONTRATO AINDA NÃO ASSINADO; QUANDO LIBERADO, SUBSTITUI UMA PÍLULA DE FIM DE SEMANA] Primeiro patrocinador confirmado do Conference, ligado a Gestão de Academias.",
+    "productionBrief": {
+      "format": "estático ou carrossel de 3 telas, em collab com a Allp Fit + 1 Story",
+      "purpose": "mostrar que marcas relevantes do setor apoiam o congresso (prova de relevância).",
       "units": [
         {
           "unit": "Tela 1",
-          "role": "Tese",
-          "content": "\"Comprometimento não é obedecer cegamente a um protocolo.\""
+          "role": "Anúncio",
+          "content": "Logo da Allp Fit + \"Patrocinador confirmado · 8º Congresso de Gestão de Academias.\""
         },
         {
           "unit": "Tela 2",
-          "role": "Relato",
-          "content": "Resumo das falas de Ricardo Pannain sobre comprometimento e tamanho da competição. Crédito: \"Relato de Ricardo Pannain · Arnold Conference 2026.\"",
-          "source": "Ricardo Pannain · falas em 00:16 e 00:33 do Reel",
-          "sourceUrl": "https://www.instagram.com/reel/DXXimnVFX4X/"
+          "role": "Quem é",
+          "content": "Uma ou duas linhas sobre a Allp Fit, com texto aprovado pela marca."
         },
         {
           "unit": "Tela 3",
-          "role": "Tradução",
-          "content": "\"Comprometimento é comunicação, consistência e responsabilidade dividida entre atleta e equipe.\""
-        },
-        {
-          "unit": "Tela 4",
-          "role": "Limite",
-          "content": "\"Compromisso não substitui escuta, ajuste e individualização.\""
-        },
-        {
-          "unit": "Tela 5",
           "role": "Ação",
-          "content": "\"Bodybuilding 2027 · 25/04. Lote 1 limitado.\""
-        },
-        {
-          "unit": "Pílula",
-          "role": "Derivação",
-          "content": "Fala iniciada em 00:33 + tese da tela 1."
+          "content": "\"23 e 24/04. A Allp Fit espera você lá. Lote 1 limitado.\""
         }
       ],
-      "note": "não usar como prova de que comprometimento gera título ou resultado. Não culpar o atleta."
+      "note": "[PUBLICAÇÃO CONDICIONADA – CONTRATO AINDA NÃO ASSINADO; QUANDO LIBERADO, SUBSTITUI UMA PÍLULA DE FIM DE SEMANA] Só publicar com aprovação da Adriana e da marca. Nenhuma informação sobre a marca sem aprovação."
     },
     "agencyResearch": {
       "owner": "Agência de conteúdo e pesquisa",
-      "request": "Conferir as falas em 00:16 e 00:33 no player do Instagram antes da edição (Reel: https://www.instagram.com/reel/DXXimnVFX4X/). Se não for possível conferir, usar a alternativa segura.",
+      "request": "pedir à marca (via Adriana) o texto institucional aprovado e o @ para a collab.",
       "deliverables": [
-        "Conferir as falas em 00:16 e 00:33 no player do Instagram antes da edição (Reel: https://www.instagram.com/reel/DXXimnVFX4X/)."
+        "pedir à marca (via Adriana) o texto institucional aprovado e o @ para a collab."
       ],
-      "validation": "Validar todas as afirmações e materiais solicitados antes da publicação. Conferir as falas em 00:16 e 00:33 no player do Instagram antes da edição (Reel: https://www.instagram.com/reel/DXXimnVFX4X/).",
-      "fallback": "carrossel tipográfico com as telas 1, 3, 4 e 5."
+      "validation": "Validar todas as afirmações e materiais solicitados antes da publicação. pedir à marca (via Adriana) o texto institucional aprovado e o @ para a collab.",
+      "fallback": "se não houver aprovação, não publicar; o dia fica sem post."
     },
-    "fallback": "carrossel tipográfico com as telas 1, 3, 4 e 5.",
+    "storyCards": [
+      {
+        "card": "Story 1",
+        "format": "Link",
+        "prompt": "\"A Allp Fit confirmou presença no Congresso de Gestão de Academias.\" Figurinha de link."
+      }
+    ],
+    "fallback": "se não houver aprovação, não publicar; o dia fica sem post.",
     "cta": "Garanta a sua vaga no lote 1.",
-    "destination": "página oficial de Bodybuilding",
-    "destinationUrl": "https://arnold.savagetgroup.com.br/conference2/bodybuilding/",
+    "destination": "página oficial de Gestão de Academias",
+    "destinationUrl": "https://arnold.savagetgroup.com.br/gestao-de-academias/",
     "congresses": [
-      "Bodybuilding"
-    ]
+      "Gestão de Academias"
+    ],
+    "funnel": "Meio"
   }
 ];

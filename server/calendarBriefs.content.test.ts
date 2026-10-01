@@ -2,9 +2,9 @@ import { describe, expect, it } from "vitest";
 import { calendar } from "../client/src/data/planData";
 
 describe("briefings operacionais do calendário", () => {
-  it("cobre as 26 pautas históricas e as 38 entradas da nova fase com sequência explícita ou aprovação prévia", () => {
+  it("cobre as 26 pautas históricas e as 37 entradas da nova fase com sequência explícita ou aprovação prévia", () => {
     // 0925 e 0927 saíram de setembro: foram publicados em 01/10 e 29/09 (cards 1001 e 0929), conforme o cronograma do cliente.
-    expect(calendar).toHaveLength(64);
+    expect(calendar).toHaveLength(63);
     for (const item of calendar) {
       const hasExplicitSequence = Boolean(item.productionBrief?.units.length || item.storyCards?.length);
       const isPreviouslyApproved = item.id === "0831";
@@ -46,7 +46,7 @@ describe("briefings operacionais do calendário", () => {
 
   it("vincula somente os materiais com correspondência inequívoca às pautas", () => {
     const linkedItems = calendar.filter(item => item.materialLinks?.length).map(item => item.id);
-    expect(linkedItems).toEqual(["0904", "0906", "0908", "0910", "0911", "0918", "0919", "0921", "0923", "1001", "1002", "1006", "1012", "1014", "1020", "1021", "1024", "1028"]);
+    expect(linkedItems).toEqual(["0904", "0906", "0908", "0910", "0911", "0918", "0919", "0921", "0923", "1001", "1002", "1006", "1011", "1016", "1017", "1020", "1021", "1028"]);
 
     const links = calendar.flatMap(item => item.materialLinks ?? []);
     const urls = new Set(links.map(link => link.url));
@@ -68,7 +68,7 @@ describe("briefings operacionais do calendário", () => {
 
   it("explicita pesquisa, entregas, validação e fallback quando a agência precisa buscar prova", () => {
     const researchItems = calendar.filter(item => item.agencyResearch);
-    expect(researchItems.map(item => item.id)).toEqual(["1008", "1010", "1016", "1017", "1019", "1021", "1024", "1025", "1026", "1027", "1029", "1031"]);
+    expect(researchItems.map(item => item.id)).toEqual(["1008", "1014", "1016", "1020", "1027", "1029", "1031a"]);
     for (const item of researchItems) {
       expect(item.agencyResearch?.owner.length, item.id).toBeGreaterThan(10);
       expect(item.agencyResearch?.deliverables.length, item.id).toBeGreaterThanOrEqual(1);
