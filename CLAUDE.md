@@ -27,6 +27,7 @@ A plataforma não é usada para controle operacional de status. Ela serve para d
   1. Primeira publicação: cerca de 3.000 créditos (2.982 no histórico do dia; prompt curto em modo Max, com `pnpm test`; o valor pode somar mais de uma tarefa).
   2. `acba409` (29/09): 820 créditos, sendo 177 do botão de sincronização (modo Max) e cerca de 640 do chat, porque sem checkpoint o "Publicar" não habilitava e a Manus rodou testes e build por conta própria.
   3. `ab37b3b` (29/09, noite): 29 créditos, em modo Lite com o prompt único.
+  4. `7229c3e` (01/10, noite): 60 créditos, em modo Lite com o prompt único (etapa 3 da grade; a Manus refez o pull com `cd` explícito porque o ambiente rejeitou o diretório automático).
 
 ## Trabalho em dois computadores (escritório e casa)
 
