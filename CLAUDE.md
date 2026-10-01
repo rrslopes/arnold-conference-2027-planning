@@ -62,8 +62,8 @@ Todo card precisa de: título do post, ideia estratégica, briefing tela a tela 
 | Nutrição Esportiva (2 dias) | 24–25/04 | 450 | 214 | Andréia Naves |
 | Nutrição Estética | 23/04 | 162 | 101 | Luisa Wolpe |
 | 3º Simpósio de Fisioterapia Esportiva da SONAFE | 24/04 | 279 | 249 (esgotou) | Leonardo Luiz Barretti Secchi e Rafael Fernandes Temoteo |
-| 8º Congresso de Gestão de Academias (2 dias) | 23–24/04 | 279 | 247 | Dudu Netto |
-| Certificação Internacional em Personal Training – WTTC | 24/04 | 279 | 190 | Cris Parente |
+| 8º Congresso de Gestão de Academias (2 dias) | 23–24/04 | 279 | 247 | Dudu Netto (na planilha: Eduardo Netto) |
+| Certificação Internacional em Personal Training – WTTC + Top of the Rock (2 dias, à noite) | 23–24/04 | 279 | 190 | Cris Parente (formal: Prof. Cristiano Parente) |
 | Bodybuilding | 25/04 | 279 | 192 | Ricardo Pannain |
 
 Vendas abrem em 06/10/2026. Meta: lotação máxima de todas as salas. Todos os congressos precisam ser vendidos; ter esgotado em 2026 não garante 2027. Hierarquia de apresentação: pilar de nutrição primeiro, depois os demais, sem dedicar uma semana a cada congresso.
@@ -72,18 +72,19 @@ Vendas abrem em 06/10/2026. Meta: lotação máxima de todas as salas. Todos os 
 
 - Nunca comparar congressos nem colocar um "versus" o outro. Cada público é único.
 - Sempre "Certificação Internacional em Personal Training – WTTC" na primeira menção. Nunca só "WTTC".
-- SONAFE é a 3ª edição (confirmado pelo cliente em 29/09; a planilha de programação ainda diz "2º").
+- SONAFE é a 3ª edição (confirmado pelo cliente em 29/09; a planilha de programação de 01/10 já diz "3º").
 - Fabricio Rapello (SONAFE) se escreve com dois L, confirmado pelo Instagram @fabriciorapello, pelo currículo acadêmico e por publicações científicas.
 - Escassez: usar "lote 1 limitado". Proibido publicar datas de virada de lote e valores.
 - Briefings diretos, didáticos e com exemplo. O cliente reprova instrução abstrata.
 - Não repetir pautas dentro do mês nem entre meses. Checar o calendário existente antes de propor.
-- O cliente autorizou divulgar temas e nomes de qualquer congresso assim que houver programação, mesmo que ainda não seja definitiva. Não chamar de programação completa ou definitiva. Se a programação mudar, revisar os cards e e-mails que citam o que mudou.
-- Continua proibido publicar horários, grade completa e títulos integrais das palestras.
+- O cliente autorizou divulgar temas e nomes de qualquer congresso assim que houver programação, mesmo que ainda não seja definitiva. Divulgar só temas e nomes que estão na planilha mais recente de cada congresso. Não chamar de "completa" ou "definitiva", exceto quando o próprio cliente declarar a programação 100% pronta (hoje: SONAFE, planilha de 01/10). Se a programação mudar, revisar os cards e e-mails que citam o que mudou.
+- Continua proibido publicar horários, itens "Em breve", grade completa e títulos integrais das palestras.
+- Preço: nenhum post fala de preço, em nenhum congresso (inclusive Bodybuilding): nada de valores nem de "quanto custa". A comunicação é lote 1 limitado, escassez e autoridade; quem acessa o site descobre o valor. Dizer que o lote 1 tem o menor valor (ex.: "quem entra primeiro garante o menor valor") é argumento de escassez, não preço, e pode ser usado.
 - Divergência entre planilhas do cliente (nome, formação, credencial): vale a planilha de programação mais recente. Ex.: Luisa Wolpe é "pós-graduada em Nutrição Clínica e mestre em Ciências da Saúde pela UFPR" (programação de Estética da noite de 29/09), e não "mestre em Medicina Interna" (planilha de coordenadores).
 - Não há depoimentos de participantes de 2026.
 - Conteúdo de cases de atletas: educativo e sem link de venda (risco jurídico).
 - Autoridade de palestrantes: a agência pesquisa o material bruto; nós indicamos o caminho. Fato sem fonte não entra.
-- Sem nomes comerciais de medicamentos e sem marcas de competições (FIFA) nas artes.
+- Sem nomes comerciais de medicamentos e sem marcas de competições (FIFA) nas artes. Por isso, o corte "Mounjaro virou um sinônimo de status" (Podcast Quinn · Nutrição Esportiva, Rodolfo Peres e Pedro Perim) não pode ser usado.
 - Stories: no máximo 1 ou 2 enquetes por dia, com Story de contexto antes. Menos de 10 respostas = sinal direcional.
 - Acervo 2026 sempre identificado como 2026; não sugerir que o palestrante estará em 2027 sem confirmação.
 - Números da Certificação Internacional em Personal Training – WTTC (validados no roteiro da Leal): "presente em 5 continentes e 18 países, com mais de 35 mil treinadores no mundo". Não usar mais "35 países".
@@ -91,6 +92,25 @@ Vendas abrem em 06/10/2026. Meta: lotação máxima de todas as salas. Todos os 
 - Título que promete algo que a pessoa disse (ex.: "O que Dudu Netto aprendeu sobre gestão…") exige fala pública com fonte; sem fonte, usar a alternativa segura do card.
 - Quando o áudio da Leal disser que um congresso "nasce" e ele já existir (SONAFE, Gestão de Academias, Bodybuilding), a legenda não apresenta como estreia e deixa clara a edição.
 - Números de mercado sem fonte não entram em peças produzidas pela agência do Conference. Vídeos da Leal publicados em collab seguem a aprovação do cliente.
+
+## Regras do pacote-mestre de outubro (desde 01/10/2026)
+
+Fonte: `referencias/briefings/pacote-mestre-outubro-2026-10-01.md` (feedback de Karla, Adriana e Patrícia e decisões do Raphael).
+
+- Capacidade das agências (a partir de 10/10): no máximo 2 artes novas (carrossel ou estático) por semana no feed do Conference, nunca em dias seguidos; nenhuma arte nova no fim de semana (exceção já decidida: a chamada de programação de 10/10); sempre que possível, vídeo no lugar de arte, porque quem edita vídeo não é quem desenha; vídeos que entram no cronograma são editados a tempo pela equipe do cliente; em espaços de respiro, indicar a preferência de material com alternativas (ex.: "pílula X ou Y").
+- Funil equilibrado: artes novas vão para as peças que mais pesam na decisão (programação e autoridade com nomes de 2027), que são meio de funil. A venda direta fica nos Stories e nas legendas. Cada card leva a marcação de funil: topo, meio ou fundo.
+- Ritmo da Leal: segunda, Leal sobre o Arnold (os vídeos de pilar do Conference estão nessa fila); quinta, Leal tendência. No máximo 2 vídeos da Leal por semana no feed do Conference, com constância, sem aparecer e sumir. Não colar a Leal no feed do Arnold.
+- Equilíbrio entre congressos: pilar de nutrição à frente, mas cada congresso aparece no feed pelo menos a cada 7 a 10 dias. Nunca duas programações em dias seguidos.
+- E-mails com par: o card do e-mail na plataforma usa o mesmo título do post relacionado e ganha o campo "Post relacionado" (data e título). E-mail sem par recebe a marcação "E-mail sem post relacionado". Assunto e pré-cabeçalho continuam otimizados para abertura, sem repetir o título do post.
+- Certificação: são dois dias na mesma inscrição, ambos à noite: sexta 23/04 (Certificação Internacional em Personal Training – WTTC) e sábado 24/04 (Top of the Rock). Pode-se dizer "à noite", sem horário. As peças da Certificação levam os logos de chancela do WTTC e do Top of the Rock (pasta: https://drive.google.com/drive/folders/1Rsuw_eSkvvn6JV2nkOiJUbMO4EgxU7Ru). Coordenação: "Cris Parente" no conteúdo social; "Prof. Cristiano Parente" em apresentação formal. Números: seguir o roteiro da Leal ("5 continentes, 18 países e mais de 35 mil treinadores") até o time validar; o Reel do Cris de 02/09 (já publicado, confirmado pelo Raphael no Instagram) fala em "mais de 21 países".
+- Gestão de Academias: o coordenador aparece na planilha como Eduardo Netto; é o Dudu Netto. Ele também palestra no Top of the Rock.
+- Bodybuilding: não há programação 2027. A comunicação é por autoridade (Ricardo Pannain, cortes do Podcast Quinn e vídeo da Leal).
+- Fora do escopo do Conference (só contexto): Instagram pessoal da Leal; patrocinadores do Arnold (um por dia no feed do Arnold); vídeos em IA para a cota Diamond (a imagem do Arnold Schwarzenegger exige autorização formal); CIMED.
+- O calendário de 28/09 a 09/10 espelha o cronograma do cliente (aba Conference, lido em 01/10). Cada card desse período começa com "Registro do cronograma do cliente". A grade de 10 a 31/10 só entra depois da validação do cliente e das agências.
+
+## Páginas dos congressos
+
+- A Patrícia confirmou que a programação 2027 será publicada nas páginas dos congressos na terça-feira, 06/10. Reconferir as páginas em 07/10, antes da chamada de 10/10. Em 01/10, a página de Nutrição Esportiva mostrava Rodolfo Peres como coordenador (o correto é Andréia Naves) e a do SONAFE ainda usava o endereço "2-simposio".
 
 ## Benefício da inscrição: feira do Arnold Sports Festival (desde 29/09/2026)
 
@@ -144,7 +164,9 @@ Se não houver acesso ao Google Drive nesta sessão, pedir ao Raphael a versão 
 - Por enquanto, não usar pílulas prontas do Drive. Todo corte sai da íntegra, com minutagem do YouTube, frase de início e fim e link do vídeo.
 - Bruno Zylber: o vídeo do YouTube (https://youtu.be/8hnvXCzfd3U, 54:38) já é a versão editada, igual ao áudio da transcrição validada. Minutagem do YouTube = minutagem da transcrição, sem somar nada. A diferença de 14:36 citada no parecer vale só para o vídeo original bruto (1:09:15), não para o YouTube. Conferido na transcrição do YouTube em 25/09.
 - Antes de publicar qualquer minutagem, conferir a frase no próprio vídeo do YouTube (a transcrição do YouTube mostra o tempo de cada trecho). A transcrição do Drive serve para achar a fala; a minutagem final é a do YouTube.
+- Todo corte enviado à agência leva a minutagem do YouTube com a frase de início e a frase de fim. Trecho não confirmado no YouTube não vai para a agência.
 - Minutagens conferidas na transcrição do YouTube em 25/09 (todas sem deslocamento em relação às transcrições do Drive): Ivan Lucas 17:32–18:13 (pílula 17:50–18:04); Olívia Fernandes 52:46–53:05; Alessandra Feltre 43:52–44:14 (pílula 45:15–45:26); Américo 36:20–36:51 (pílula 14:17–14:37); Andreia Naves 15:18–15:28; Bruno Zylber 04:33–05:29 (pílula 04:44–04:59).
+- Conferida na transcrição do YouTube em 01/10: Bruno Zylber 13:31–13:41 (alternativa segura do card de microbiota), de "esportiva, dieta do atleta" a "tudo isso altera a microbiota"; começar depois de "Rodrigo, aí vai doer, né?".
 - Reels do Instagram (Ricardo Pannain) não têm transcrição consultável: a agência confere as falas no player antes da edição.
 - Cards movidos de data mudam de ID (novo ID = nova data em DDMM). Antes de trocar o conteúdo de um card mantendo o ID, conferir no site publicado (consulta `planning.getState`) se há status, legenda ou arte salvos para aquele ID; se houver, usar um ID novo com letra e retirar o antigo.
 
@@ -155,13 +177,23 @@ Se não houver acesso ao Google Drive nesta sessão, pedir ao Raphael a versão 
 - Hub: https://arnold.savagetgroup.com.br/conference/
 - Páginas dos congressos: ver `octoberDestinations` em `octoberSocialPlan.ts`.
 
-## Pendências em aberto (atualizado em 29/09/2026)
+## Pendências em aberto (atualizado em 01/10/2026)
+
+- Aguardando o cliente (pacote-mestre de 01/10, parte 8):
+  - validação da grade de 10 a 31/10 e escolha da opção de programação (A, carrossel com todos os palestrantes; B, destaque com 2 ou 3 nomes + automação "Comente PROGRAMAÇÃO");
+  - Faltam 6 meses (23/10): collab com o Arnold ou só Conference;
+  - número de países da Certificação: o roteiro da Leal diz 18; o Reel do Cris de 02/09 diz "mais de 21". Seguimos com 18 até o time validar;
+  - mini-bio da Katherine Ferro (SONAFE), aguardando aprovação dela. Até lá, só nome e tema;
+  - quem configura a automação "Comente PROGRAMAÇÃO" no Instagram;
+  - cortes do vídeo IA da Leal para anúncios (15 e 30 segundos, vertical e quadrado);
+  - collab com o Cris Parente para 31/10 (upgrade opcional, via Patrícia).
 
 - Benefício da feira do Arnold Sports Festival (já confirmado para os seis congressos e todos os lotes): importante confirmar com Adriana ou Karla a redação oficial para garantir perfeito alinhamento comercial da promessa e da oferta.
 - Benefício da feira nas páginas dos congressos: alinhar com a Patrícia, que atualiza o site.
 - Nutrição Estética: pedir ao cliente que corrija "Lucerna" para "Lucena" na coluna de nomes da planilha (mini-CV e Instagram @drleandrolucena confirmam "Lucena", já usado na plataforma).
-- Programação de Nutrição Esportiva: na planilha, conferir a data do domingo (diz 26/04; o certo é 25/04) e o Instagram de Paulo Mendes ("paulomendesmutri").
-- SONAFE: Katherine Ferro não pode ser divulgada até o cliente liberar (orientação da planilha de 28/09).
+- Programação de Nutrição Esportiva: na planilha de 01/10, a data do domingo ainda diz 26/04 (o certo é 25/04) e o Instagram de Paulo Mendes ainda é "paulomendesmutri". Faltam 5 nomes; Marcos Paulo Reis saiu da mesa de corrida.
+- SONAFE: Katherine Ferro foi liberada na planilha de 01/10 (só nome e tema até ela aprovar a mini-bio).
+- Vídeo de tendência da Leal de 08/10: título "O fitness cresceu. Mas o maior mercado ainda está fora da academia" (roteiro "Academia Luxo"). No cronograma, o título aparece como "Mais o maior mercado": conferir a grafia na capa antes da publicação.
 - Datas dos vídeos de tendência da Leal: 5 vídeos em edição para 4 quintas livres em outubro; confirmar com Iris ou Dri.
 - Links dos vídeos da Leal, que vêm da equipe do cliente.
 - Horário de abertura das vendas em 06/10.
@@ -171,7 +203,7 @@ Se não houver acesso ao Google Drive nesta sessão, pedir ao Raphael a versão 
 - Status do lote 1 antes do e-mail e dos Stories de 29 e 30/10.
 - Com Adriana ou Karla: número de participantes de Gestão de Academias em 2026 e um tema ou nome confirmado de Bodybuilding 2027 (provas do e-mail de 06/10).
 - Allp Fit (25/10): aprovação da Adriana e da marca.
-- Migração do @arnold_congressos (0930a): condução com Adriana e a agência de operação.
+- Migração do @arnold_congressos (card 1001a, no cronograma para 01/10): a desativação do perfil antigo segue com Adriana e a agência de operação.
 - Collabs com palestrantes (1016, 1021, 1027, 1029): autorização e horário.
 - Backlog de novembro: conferir no YouTube a minutagem do Marcelo Stefani (08:56–09:18) antes de usar.
 - Técnicas, sem pedido ainda:

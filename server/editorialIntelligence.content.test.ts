@@ -13,8 +13,8 @@ import { navigation } from "../client/src/data/planData";
 describe("inteligência editorial por programação", () => {
   it("organiza os seis congressos sem tratar grades de 2026 como programação de 2027", () => {
     expect(conferencePrograms2027).toHaveLength(6);
-    expect(conferencePrograms2027.filter(item => item.status === "recebida")).toHaveLength(3);
-    expect(conferencePrograms2027.filter(item => item.status === "aguardando")).toHaveLength(3);
+    expect(conferencePrograms2027.filter(item => item.status === "recebida")).toHaveLength(5);
+    expect(conferencePrograms2027.filter(item => item.status === "aguardando").map(item => item.id)).toEqual(["bodybuilding"]);
     expect(conferencePrograms2027.filter(item => item.status === "aguardando").every(item => item.sessions.length === 0)).toBe(true);
     expect(navigation.some(item => item.id === "inteligencia" && item.label === "Programação & conteúdo")).toBe(true);
   });
@@ -83,17 +83,19 @@ describe("inteligência editorial por programação", () => {
     expect(program?.sessions.find(item => item.time === "16h30")?.speakers).toBe("André Fujita e Bárbara Pocceschi");
     expect(program?.sessions.at(-1)?.speakers).toContain("Moderação: Bruno Baroni");
     expect(program?.sourceUrl).toContain("150hh-unHEBioxo2sWwXElElFeZ2JNU75");
-    expect(program?.source).toContain("28/09/2026");
+    expect(program?.source).toContain("01/10/2026");
     expect(program?.note).toContain("O cliente confirmou a numeração oficial: 3º Simpósio");
-    expect(program?.note).toContain("19 dos 20 palestrantes");
-    expect(program?.note).toContain("Katherine Ferro: por orientação da planilha de 28/09, não divulgar por enquanto");
-    expect(program?.statusLabel).toContain("temas e nomes liberados");
-    expect(program?.statusLabel).not.toMatch(/definitiva|completa/i);
+    expect(program?.note).toContain("Todos os 20 palestrantes das sessões têm materiais");
+    expect(program?.note).toContain("libera Katherine Ferro");
+    // Exceção da regra: o cliente declarou a programação do SONAFE completa (01/10).
+    expect(program?.statusLabel).toBe("Programação 2027 completa recebida · temas e nomes liberados");
+    expect(program?.statusLabel).not.toMatch(/definitiva/i);
     expect(program?.note).toContain("sem revelar a grade completa");
     const assets = program?.sessions.flatMap(item => item.speakerAssets ?? []) ?? [];
-    expect(new Set(assets.filter(item => item.materialUrl).map(item => item.name)).size).toBe(19);
-    expect(assets.filter(item => item.note?.includes("pendentes")).map(item => item.name)).toEqual(["Katherine Ferro"]);
-    expect(assets.find(item => item.name === "Katherine Ferro")?.note).toContain("Não divulgar por enquanto");
+    expect(new Set(assets.filter(item => item.materialUrl).map(item => item.name)).size).toBe(20);
+    expect(assets.filter(item => item.note?.includes("pendentes")).map(item => item.name)).toEqual([]);
+    expect(assets.find(item => item.name === "Katherine Ferro")?.note).toContain("usar só nome e tema");
+    expect(JSON.stringify(program)).not.toMatch(/não divulgar por enquanto|não deve ser divulgada/i);
     expect(assets.find(item => item.name === "Fabricio Rapelo")).toBeUndefined();
     expect(assets.find(item => item.name === "Fabricio Rapello")?.note).toContain("Grafia \"Rapello\" confirmada");
   });
@@ -102,8 +104,11 @@ describe("inteligência editorial por programação", () => {
     const program = conferencePrograms2027.find(item => item.id === "nutricao-esportiva");
     expect(program?.status).toBe("recebida");
     expect(program?.statusLabel).toContain("temas e nomes liberados");
+    expect(program?.statusLabel).toContain("concluída, faltando 5 nomes");
     expect(program?.statusLabel).not.toMatch(/definitiva|completa/i);
     expect(program?.date).toBe("24 e 25 de abril de 2027");
+    expect(program?.source).toContain("01/10/2026");
+    expect(program?.sessions.map(item => item.speakers).join(" ")).not.toContain("Marcos Paulo Reis");
     expect(program?.sourceUrl).toContain("1WosiWfiABkEyGKTz2Lk6uaBi7HCUTNEu");
     expect(program?.sessions).toHaveLength(13);
     expect(program?.sessions.filter(item => item.time.startsWith("Sáb 24/04"))).toHaveLength(7);
@@ -111,8 +116,29 @@ describe("inteligência editorial por programação", () => {
     expect(program?.sessions.every(item => item.materialStatus)).toBe(true);
     expect(JSON.stringify(program?.sessions)).not.toMatch(/Análagos|Presrição|Planejameto|nutriconista|26\/04/);
     const assets = program?.sessions.flatMap(item => item.speakerAssets ?? []) ?? [];
-    expect(new Set(assets.filter(item => item.materialUrl).map(item => item.name)).size).toBe(13);
+    expect(new Set(assets.filter(item => item.materialUrl).map(item => item.name)).size).toBe(22);
     expect(confirmedProgramPublicationPolicy.congresses).toContain("Nutrição Esportiva");
+  });
+
+  it("registra Gestão de Academias, Certificação com Top of the Rock e Bodybuilding sem programação", () => {
+    const gestao = conferencePrograms2027.find(item => item.id === "gestao");
+    expect(gestao?.status).toBe("recebida");
+    expect(gestao?.note).toContain("Eduardo Netto, que é o Dudu Netto");
+    expect(JSON.stringify(gestao?.sessions)).not.toMatch(/Em breve/);
+    expect(gestao?.sessions.map(item => item.speakers).join(" ")).toMatch(/Edgard Corona[\s\S]*/);
+    expect(gestao?.sessions.some(item => item.speakers === "Fofão")).toBe(true);
+    expect(gestao?.sessions.some(item => item.title.includes("Quem constrói o fitness?"))).toBe(true);
+    const wttc = conferencePrograms2027.find(item => item.id === "wttc");
+    expect(wttc?.date).toBe("23 e 24 de abril de 2027, à noite");
+    expect(wttc?.note).toContain("Top of the Rock");
+    expect(wttc?.assetSourceUrl).toContain("1Rsuw_eSkvvn6JV2nkOiJUbMO4EgxU7Ru");
+    expect(wttc?.sessions.filter(item => item.title.startsWith("Top of the Rock")).map(item => item.speakers)).toEqual([
+      "Eduardo Netto (Dudu Netto)", "Julio Serrão", "Mário Charro", "Mário Pozzi", "Luiz Carnevalli", "Cristiano Parente (Cris Parente)",
+    ]);
+    expect(wttc?.sessions.every(item => !/\d{1,2}h/.test(item.time))).toBe(true);
+    const bodybuilding = conferencePrograms2027.find(item => item.id === "bodybuilding");
+    expect(bodybuilding?.statusLabel).toBe("Sem programação 2027 · comunicação por autoridade");
+    expect(bodybuilding?.sessions).toHaveLength(0);
   });
 
   it("autoriza temas centrais sem tornar seu uso obrigatório nem antecipar a grade completa", () => {
@@ -120,6 +146,8 @@ describe("inteligência editorial por programação", () => {
       "Nutrição Estética",
       "SONAFE — Simpósio de Fisioterapia Esportiva",
       "Nutrição Esportiva",
+      "Gestão de Academias",
+      "Certificação Internacional em Personal Training – WTTC",
     ]);
     expect(confirmedProgramPublicationPolicy.status).not.toMatch(/definitiva|completa/i);
     expect(confirmedProgramPublicationPolicy.allowed).toContain("quando melhorarem a jornada");

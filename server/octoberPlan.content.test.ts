@@ -8,12 +8,12 @@ const octoberEmails = emailBase.filter(entry => entry.id.startsWith("email-oct-"
 const octoberWhatsApp = whatsappPlan.filter(entry => entry.date.includes("/10"));
 const octoberPaid = paidMediaAssets.filter(entry => entry.id.includes("-oct-"));
 const expectedIds = [
-  "0928", "0929", "0930", "0930a", "1001", "1002", "1003", "1004", "1005", "1006",
+  "0928", "0929", "0930", "1001", "1001a", "1002", "1003", "1004", "1005", "1006",
   "1007", "1008", "1008a", "1009", "1010", "1011", "1012", "1013", "1014", "1015",
   "1015a", "1016", "1017", "1018", "1019", "1020", "1021", "1022a", "1023", "1024",
   "1025", "1026", "1027", "1028", "1029", "1029a", "1030", "1031",
 ];
-const lealVideoIds = ["0929", "1005", "1007", "1008a", "1011", "1013", "1015a", "1022a", "1023", "1029a", "1030"];
+const lealVideoIds = ["0928", "1006", "1007", "1008a", "1011", "1013", "1015a", "1022a", "1023", "1029a", "1030"];
 
 function item(id: string) {
   const match = octoberCalendar.find(entry => entry.id === id);
@@ -46,7 +46,9 @@ describe("pacote editorial de 28/09 a 31/10 de 2026", () => {
   });
 
   it("mantém Nutrição Esportiva à frente nos pontos de hierarquia solicitados", () => {
-    expect(item("0928").congresses).toEqual(["Nutrição Esportiva"]);
+    // De 28/09 a 09/10 o calendário espelha o cronograma do cliente: 28/09 é o vídeo da Leal sobre a mudança do Conference.
+    expect(item("0928").congresses).toEqual(["Todos"]);
+    expect(item("1002").congresses).toEqual(["Nutrição Esportiva"]);
     expect(item("1007").congresses).toEqual(["Nutrição Esportiva", "Nutrição Estética"]);
     const opening = JSON.stringify(item("1006").productionBrief);
     const order = [
@@ -70,10 +72,10 @@ describe("pacote editorial de 28/09 a 31/10 de 2026", () => {
     expect(JSON.stringify([...managementIds, ...certificationIds].map(item))).not.toMatch(/versus/i);
   });
 
-  it("exibe somente os cinco trechos com minutagem confirmada no pacote", () => {
-    const confirmedIds = ["0928", "1001", "1012", "1014", "1020"];
+  it("exibe somente os quatro trechos com minutagem confirmada no pacote", () => {
+    const confirmedIds = ["1002", "1012", "1014", "1020"];
     const sources = confirmedIds.flatMap(id => item(id).productionBrief?.units.filter(unit => unit.source) ?? []);
-    expect(sources).toHaveLength(5);
+    expect(sources).toHaveLength(4);
     expect(sources.every(unit => unit.sourceUrl?.match(/^https:\/\/(youtu\.be|www\.youtube\.com)\//))).toBe(true);
     expect(sources.map(unit => unit.source).join(" ")).toMatch(/17:32 a 18:13|52:46 a 53:05|43:52 a 44:14|36:20 a 36:51|15:18 a 15:28/);
     for (const stale of ["17:36 a 18:13", "52:47 a 53:08", "45:15 a 45:22", "15:18.9 a 15:27.6"]) {
@@ -109,15 +111,14 @@ describe("pacote editorial de 28/09 a 31/10 de 2026", () => {
     expect(item("1027").title).toBe("O que Dudu Netto aprendeu sobre gestão antes de coordenar o congresso");
     expect(item("1016").title).toBe("Programação 2027 de Nutrição Esportiva: temas centrais");
     expect(JSON.stringify(item("1016"))).not.toMatch(/programação (completa|definitiva)/i);
-    expect(JSON.stringify(item("1016"))).not.toContain("Katherine");
     expect(item("1010").productionBrief?.units.find(unit => unit.unit === "Tela 6")?.content).toContain("Em 2027");
     expect(item("1020").productionBrief?.units.find(unit => unit.unit === "Fechamento")?.content).toContain("Danielli Mello");
     expect(item("1028").productionBrief?.units.find(unit => unit.role === "Crédito e ação")?.content).toContain("Murilo Pereira");
     expect(JSON.stringify(item("1008"))).not.toMatch(/definitiva/i);
     expect(item("1029").title).toBe("O caminho de Cris Parente até o título de Melhor Personal Trainer do Mundo");
     expect(JSON.stringify(octoberCalendar)).not.toMatch(/5 coisas sobre/);
-    expect(JSON.stringify(item("1002"))).toMatch(/case real|fontes públicas|sem venda/i);
-    expect(item("1003").title).toContain("ficou sem vaga");
+    expect(item("1003").title).toBe("Público sobre o Conference");
+    expect(item("1009").title).toBe("Muitos profissionais passam horas fazendo com que o paciente desaprenda certas coisas");
   });
 
   it("mantém CTA e destino coerentes com cada fase", () => {
@@ -125,9 +126,7 @@ describe("pacote editorial de 28/09 a 31/10 de 2026", () => {
       expect(entry.cta.length, entry.id).toBeGreaterThan(8);
       expect(entry.destination.length, entry.id).toBeGreaterThan(8);
     }
-    expect(item("1002").destinationUrl).toBeUndefined();
-    expect(item("1002").destination).toContain("sem link");
-    expect(item("0928").destinationUrl).toContain("conference-2027");
+    expect(item("1002").destinationUrl).toContain("conference-2027");
     expect(item("1006").destinationUrl).toBe("https://arnold.savagetgroup.com.br/conference/");
     // 1018 (Dia do Médico) é homenagem: o briefing pede CTA sem venda direta.
     const afterOpening = octoberCalendar.filter(entry => Number(entry.id.slice(0, 4)) > 1006 && entry.id !== "1018" && entry.congresses[0] !== "Todos");
@@ -152,7 +151,16 @@ describe("pacote editorial de 28/09 a 31/10 de 2026", () => {
     expect(item("1017").title).toBe("Inscrições abertas: 3º Simpósio de Fisioterapia Esportiva da SONAFE");
     expect(item("1019").title).toBe("Mais exercícios na sessão não significa uma preparação melhor");
     expect(JSON.stringify(item("1025"))).toContain("[PUBLICAÇÃO CONDICIONADA – CONFIRMAR COM ADRIANA SE A ALLP FIT PODE SER DIVULGADA]");
-    expect(JSON.stringify(item("0930a"))).toContain("[SUGESTÃO – ADRIANA E AGÊNCIA DE OPERAÇÃO DEFINEM A CONDUÇÃO]");
+    expect(item("1001a").title).toBe("Migração do @arnold_congressos para o @arnold_conference");
+    expect(JSON.stringify(item("1001a"))).not.toContain("[SUGESTÃO");
+    expect(item("1005").channel).toBe("arte estática no feed + Stories");
+    // "Menor valor" é argumento de escassez do lote 1, não preço (regra de 01/10).
+    expect(JSON.stringify(item("1005"))).not.toMatch(/R\$|quanto custa/i);
+    expect(item("1006").productionBrief?.units[0]).toMatchObject({ unit: "Vídeo", role: "Abertura no feed" });
+    expect(item("1008a").idea).toContain("(roteiro 'Academia Luxo')");
+    for (const id of ["0928", "0929", "1001", "1001a", "1002", "1003", "1005", "1006", "1008a", "1009"]) {
+      expect(item(id).idea, id).toContain("Registro do cronograma do cliente (aba Conference, lido em 01/10)");
+    }
     expect(octoberCalendar.map(entry => entry.title)).not.toContain("35 países. Até onde sua carreira de personal pode ir?");
   });
 
@@ -165,10 +173,11 @@ describe("pacote editorial de 28/09 a 31/10 de 2026", () => {
     expect(JSON.stringify(openingWttc)).toContain("5 continentes e 18 países, com mais de 35 mil treinadores no mundo");
   });
 
-  it("torna 09/10 executável sem prescrição", () => {
-    const bodybuilding = JSON.stringify(item("1009").productionBrief?.units);
-    expect(bodybuilding).toMatch(/Segunda:.*treino.*Quarta:.*dieta.*Sexta:.*recuperação/i);
-    expect(bodybuilding).toMatch(/o que foi alterado|em que data|que resposta/i);
+  it("torna 09/10 um respiro de Bodybuilding com corte pronto, sem prescrição", () => {
+    const bodybuilding = JSON.stringify(item("1009"));
+    expect(item("1009").channel).toContain("Podcast Quinn");
+    expect(item("1009").origin).toContain("26_Quinn C1");
+    expect(item("1009").productionBrief?.note).toContain("confere no player quem fala");
     expect(bodybuilding).not.toMatch(/dose|fármaco|ciclo/i);
   });
 
@@ -282,7 +291,7 @@ describe("pacote editorial de 28/09 a 31/10 de 2026", () => {
   it("explicita pesquisa somente onde o pacote pede apuração", () => {
     const researched = octoberCalendar.filter(entry => entry.agencyResearch);
     expect(researched.map(entry => entry.id)).toEqual([
-      "1002", "1003", "1008", "1010", "1016", "1017", "1019", "1021", "1024",
+      "1008", "1010", "1016", "1017", "1019", "1021", "1024",
       "1025", "1026", "1027", "1029", "1031",
     ]);
     for (const entry of researched) {

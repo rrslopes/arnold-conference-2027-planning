@@ -2,20 +2,21 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { calendar } from "../client/src/data/planData";
 
-const auditedIds = ["0904", "0906", "0910", "0911", "0921", "0925"];
+// 0925 saiu de setembro: o carrossel foi publicado em 01/10 (card 1001) e outubro não exibe auditoria interna.
+const auditedIds = ["0904", "0906", "0910", "0911", "0921"];
 
 describe("auditoria dos cortes de palestras", () => {
-  it("mantém as seis pautas dependentes de acervo com evidência explícita", () => {
+  it("mantém as cinco pautas dependentes de acervo com evidência explícita", () => {
     const audited = calendar.filter(item => auditedIds.includes(item.id));
-    expect(audited).toHaveLength(6);
+    expect(audited).toHaveLength(5);
     audited.forEach(item => expect(item.cutValidations?.length).toBeGreaterThan(0));
   });
 
-  it("registra treze buscas auditadas com fonte, excerto, localização e orientação de uso", () => {
+  it("registra dez buscas auditadas com fonte, excerto, localização e orientação de uso", () => {
     const appearances = calendar.filter(item => auditedIds.includes(item.id)).flatMap(item => item.cutValidations ?? []);
     const cuts = [...new Map(appearances.map(cut => [cut.id, cut])).values()];
-    expect(appearances).toHaveLength(16);
-    expect(cuts).toHaveLength(13);
+    expect(appearances).toHaveLength(13);
+    expect(cuts).toHaveLength(10);
     cuts.forEach(cut => {
       expect(cut.sourceTitle.length).toBeGreaterThan(15);
       expect(cut.excerpt.length).toBeGreaterThan(35);
@@ -31,7 +32,6 @@ describe("auditoria dos cortes de palestras", () => {
       "https://www.youtube.com/watch?v=asItej-OIk8",
       "https://youtu.be/8hnvXCzfd3U",
       "https://youtu.be/QSjVRVEvZMs",
-      "https://youtu.be/nze1GDIzj9c",
       "https://youtu.be/qCvC2bwxV_0",
       "https://youtu.be/tAqcK_GgzD8",
     ].sort());

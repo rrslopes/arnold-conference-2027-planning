@@ -2,8 +2,9 @@ import { describe, expect, it } from "vitest";
 import { calendar } from "../client/src/data/planData";
 
 describe("briefings operacionais do calendário", () => {
-  it("cobre as 28 pautas históricas e as 38 entradas da nova fase com sequência explícita ou aprovação prévia", () => {
-    expect(calendar).toHaveLength(66);
+  it("cobre as 26 pautas históricas e as 38 entradas da nova fase com sequência explícita ou aprovação prévia", () => {
+    // 0925 e 0927 saíram de setembro: foram publicados em 01/10 e 29/09 (cards 1001 e 0929), conforme o cronograma do cliente.
+    expect(calendar).toHaveLength(64);
     for (const item of calendar) {
       const hasExplicitSequence = Boolean(item.productionBrief?.units.length || item.storyCards?.length);
       const isPreviouslyApproved = item.id === "0831";
@@ -45,27 +46,29 @@ describe("briefings operacionais do calendário", () => {
 
   it("vincula somente os materiais com correspondência inequívoca às pautas", () => {
     const linkedItems = calendar.filter(item => item.materialLinks?.length).map(item => item.id);
-    expect(linkedItems).toEqual(["0904", "0906", "0908", "0910", "0911", "0918", "0919", "0921", "0923", "0925", "0928", "1001", "1006", "1012", "1014", "1020", "1021", "1024", "1028"]);
+    expect(linkedItems).toEqual(["0904", "0906", "0908", "0910", "0911", "0918", "0919", "0921", "0923", "1001", "1002", "1006", "1012", "1014", "1020", "1021", "1024", "1028"]);
 
     const links = calendar.flatMap(item => item.materialLinks ?? []);
     const urls = new Set(links.map(link => link.url));
     expect(urls).toContain("https://www.youtube.com/watch?v=asItej-OIk8");
     expect(urls).toContain("https://docs.google.com/spreadsheets/d/1P6EooZAA6mVkYVMC-hVUfbBvGfxxCx-8/edit?gid=656380718#gid=656380718");
     expect(urls).toContain("https://drive.google.com/file/d/1jPhczJBlHUEfs9MJD8HaArLTM38nlMEp/view");
-    expect(urls).toContain("https://drive.google.com/file/d/1A-MWgxyyRvHui3w5h93BOvoyBmrfjhaC/view");
+    // O material de Olívia Fernandes (1A-MW…) saiu com o card de 01/10, que foi para o backlog de novembro.
+    expect(urls).not.toContain("https://drive.google.com/file/d/1A-MWgxyyRvHui3w5h93BOvoyBmrfjhaC/view");
     expect(urls).toContain("https://drive.google.com/file/d/1wkmbIC1neGjMRzWs_J3sFghmAu9bwYEF/view");
     expect(urls).toContain("https://drive.google.com/file/d/1x7Gehmq6RJ9ahupumY3_wu1xiA_AS1hQ/view");
     expect(urls).toContain("https://drive.google.com/file/d/1Giqs6qkKFzEMxNIOBC4rEPsp_IE3FeP5/view");
     expect(urls).toContain("https://drive.google.com/file/d/1aYjaPT2plpdHOVcHemv_yyTXAjWJAL5q/view");
     expect(urls).toContain("https://arnold.savagetgroup.com.br/conference2/bodybuilding/");
 
-    expect(calendar.find(item => item.id === "0925")?.materialLinks?.map(link => link.label).join(" ")).not.toContain("Luisa");
-    expect(calendar.find(item => item.id === "0927")?.materialLinks).toBeUndefined();
+    expect(calendar.find(item => item.id === "1001")?.materialLinks?.map(link => link.label).join(" ")).not.toContain("Luisa");
+    expect(calendar.find(item => item.id === "0929")?.materialLinks).toBeUndefined();
+    expect(calendar.some(item => ["0925", "0927"].includes(item.id))).toBe(false);
   });
 
   it("explicita pesquisa, entregas, validação e fallback quando a agência precisa buscar prova", () => {
     const researchItems = calendar.filter(item => item.agencyResearch);
-    expect(researchItems.map(item => item.id)).toEqual(["1002", "1003", "1008", "1010", "1016", "1017", "1019", "1021", "1024", "1025", "1026", "1027", "1029", "1031"]);
+    expect(researchItems.map(item => item.id)).toEqual(["1008", "1010", "1016", "1017", "1019", "1021", "1024", "1025", "1026", "1027", "1029", "1031"]);
     for (const item of researchItems) {
       expect(item.agencyResearch?.owner.length, item.id).toBeGreaterThan(10);
       expect(item.agencyResearch?.deliverables.length, item.id).toBeGreaterThanOrEqual(1);
@@ -74,8 +77,10 @@ describe("briefings operacionais do calendário", () => {
     }
   });
 
-  it("transforma 25/09 em um único carrossel de seis cards ancorado em 2026", () => {
-    const item = calendar.find(entry => entry.id === "0925");
+  it("transforma o carrossel de Nutrição Estética (publicado em 01/10) em seis cards ancorados em 2026", () => {
+    const item = calendar.find(entry => entry.id === "1001");
+    expect(item?.title).toBe("Profundidade em Nutrição Estética");
+    expect(item?.date).toBe("01/10");
     expect(item?.productionBrief?.units).toHaveLength(6);
     expect(JSON.stringify(item?.productionBrief)).toContain("2026");
     expect(item?.productionBrief?.note).toContain("Não afirmar");
@@ -99,9 +104,10 @@ describe("briefings operacionais do calendário", () => {
     expect(item?.optionMode).toBe("inputs");
   });
 
-  it("torna 27/09 um teste de cenários executável com a íntegra de Gláucia", () => {
-    const item = calendar.find(entry => entry.id === "0927");
+  it("torna o teste de cenários (publicado em 29/09) executável com a íntegra de Gláucia", () => {
+    const item = calendar.find(entry => entry.id === "0929");
     expect(item?.title).toBe("Sua academia resiste a um cenário que você não projetou?");
+    expect(item?.date).toBe("29/09");
     expect(item?.channel).toBe("Reel + carrossel");
     expect(item?.congresses).toEqual(["Gestão de Academias"]);
     expect(item?.productionBrief?.units).toHaveLength(6);
@@ -113,9 +119,10 @@ describe("briefings operacionais do calendário", () => {
       "Teste a estratégia",
       "Aprofundamento na masterclass",
     ]);
-    expect(item?.cutValidations?.[0]?.speaker).toBe("Gláucia Guarcello");
-    expect(item?.cutValidations?.[0]?.location).toContain("41:38.1–42:04.0");
-    expect(item?.fallback).toContain("carrossel gráfico de seis cards");
+    // Outubro não exibe auditoria interna: o trecho de Gláucia fica no briefing.
+    expect(item?.cutValidations).toBeUndefined();
+    expect(item?.productionBrief?.note).toContain("41:38 a 42:04");
+    expect(item?.fallback.toLocaleLowerCase("pt-BR")).toContain("carrossel gráfico de seis cards");
     expect(item?.keyword).toBe("AULAS");
     expect(item?.destination).toBe("Landing page das masterclasses");
     expect(item?.cta).toContain("Academias em Alta Potência");
@@ -132,8 +139,8 @@ describe("briefings operacionais do calendário", () => {
     expect(calendar.find(item => item.id === "0923")?.optionMode).toBe("inputs");
     expect(calendar.find(item => item.id === "0903")?.optionMode).toBe("inputs");
     expect(calendar.find(item => item.id === "0921")?.optionMode).toBe("inputs");
-    expect(calendar.find(item => item.id === "0925")?.optionMode).toBe("inputs");
-    expect(calendar.find(item => item.id === "0927")?.optionMode).toBe("inputs");
+    expect(calendar.find(item => item.id === "1001")?.optionMode).toBe("inputs");
+    expect(calendar.find(item => item.id === "0929")?.optionMode).toBe("inputs");
   });
 
   it("mantém 23/09 como uma única pauta multiformato de aquecimento", () => {

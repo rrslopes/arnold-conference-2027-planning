@@ -25,69 +25,10 @@ export const octoberCalendarBase = [
     "id": "0928",
     "date": "28/09",
     "phase": "Intensificação",
-    "channel": "Reel de 30 a 45 segundos + pílula de 8 a 12 segundos",
-    "title": "\"Massa magra caiu\" não quer dizer \"perdeu músculo\"",
-    "origin": "íntegra no YouTube e transcrição automática no Drive.",
-    "originUrl": "https://youtu.be/v0BaKxCH-2A",
-    "originLinkLabel": "Abrir vídeo de referência",
-    "materialLinks": [
-      {
-        "label": "Abrir material no Drive",
-        "url": "https://drive.google.com/file/d/1jPhczJBlHUEfs9MJD8HaArLTM38nlMEp/view",
-        "kind": "post"
-      }
-    ],
-    "idea": "muita gente olha um laudo de composição corporal, vê \"massa magra\" menor e conclui que o paciente perdeu músculo. Ivan Lucas mostra que massa magra, massa livre de gordura, tecido mole magro e massa muscular são medidas diferentes, e que o método de avaliação muda a leitura.",
-    "productionBrief": {
-      "format": "Reel de 30 a 45 segundos + pílula de 8 a 12 segundos",
-      "purpose": "demonstrar profundidade científica da sala de Nutrição Esportiva com uma confusão que o nutricionista enfrenta no consultório.",
-      "units": [
-        {
-          "unit": "Abertura (0 a 4s)",
-          "role": "Gancho",
-          "content": "Texto na tela sobre fundo neutro: \"O laudo diz: massa magra caiu. Seu paciente perdeu músculo?\""
-        },
-        {
-          "unit": "Corte (4 a 40s)",
-          "role": "Trecho da palestra",
-          "content": "Ivan explica que os estudos usam \"massa magra\", \"massa livre de gordura\", \"tecido mole magro\" e \"massa muscular\" como se fossem a mesma coisa, mas cada termo pode incluir ou não osso, órgãos e tecido mole. Legenda fiel à fala. Minutagem abaixo.",
-          "source": "Ivan Lucas · 17:32 a 18:13. Começa em \"Primeiro, ele definiu claramente o que que é o quê\" e termina em \"...pode incluir órgão ou pode não incluir\". Pílula: 17:50 a 18:04.",
-          "sourceUrl": "https://youtu.be/v0BaKxCH-2A"
-        },
-        {
-          "unit": "Tela de aplicação (sobreposta ao fim do corte)",
-          "role": "Leitura profissional",
-          "content": "Texto curto: \"Antes de concluir, confira o que o método mede.\" Exemplo em uma linha: \"A bioimpedância estima massa livre de gordura incluindo osso; a DEXA separa osso de tecido mole.\""
-        },
-        {
-          "unit": "Fechamento (últimos 4s)",
-          "role": "Crédito e continuidade",
-          "content": "\"Arnold Conference 2026 · Ivan Lucas. Acompanhe as novidades de Nutrição Esportiva 2027.\""
-        },
-        {
-          "unit": "Pílula",
-          "role": "Derivação",
-          "content": "Só o gancho da abertura + trecho de 17:50 a 18:04, em que ele diz que os termos \"querem dizer coisas muito diferentes\"."
-        }
-      ],
-      "note": "a palestra é sobre análogos de GLP-1; o corte não pode mencionar medicamento, percentuais de estudos nem avaliar exame de uma pessoa. Sem promessa de preservar massa muscular. Não mencionar data de abertura neste post (o anúncio oficial é em 30/09)."
-    },
-    "fallback": "carrossel de 5 telas: (1) o gancho; (2) os 4 termos lado a lado com uma linha cada; (3) \"cada método mede uma coisa\"; (4) \"antes de concluir, confira o método\"; (5) crédito e CTA.",
-    "cta": "Cadastre-se para receber as novidades de Nutrição Esportiva 2027.",
-    "destination": "Landing page geral de novidades",
-    "destinationUrl": "https://oferta.savagetgroup.com.br/conference-2027",
-    "congresses": [
-      "Nutrição Esportiva"
-    ]
-  },
-  {
-    "id": "0929",
-    "date": "29/09",
-    "phase": "Intensificação",
     "channel": "Reel em collab Arnold + Conference (vídeo pronto da Leal) + 2 Stories",
     "title": "O mercado evoluiu. Arnold Conference 2027: conhecimento mais integrado, conectado e atual.",
     "origin": "vídeo \"Novo Arnold Conference 2027\" (documento Crono Arnold e Conference, aba Conference > Pautas mês) · [LINK DO VÍDEO – A RECEBER DA EQUIPE DO CLIENTE]",
-    "idea": "a Leal conta que, em 2027, Congressos e Conference viram uma única plataforma, com três pilares (Nutrição, Fitness e Fisioterapia) e seis congressos. É a abertura institucional da campanha.",
+    "idea": "Registro do cronograma do cliente (aba Conference, lido em 01/10): \"Vídeo Leal Mudança Conference\", publicado pelo Arnold em collab (postado). É o roteiro \"Novo Arnold Conference 2027\", capa \"O mercado evoluiu\" (confirmado pelo Raphael no documento de roteiros da Leal). a Leal conta que, em 2027, Congressos e Conference viram uma única plataforma, com três pilares (Nutrição, Fitness e Fisioterapia) e seis congressos. É a abertura institucional da campanha.",
     "productionBrief": {
       "format": "Reel em collab Arnold + Conference (vídeo pronto da Leal) + 2 Stories",
       "purpose": "apresentar o novo Arnold Conference pela voz da CEO um dia antes do anúncio da data de abertura.",
@@ -128,6 +69,32 @@ export const octoberCalendarBase = [
     "congresses": [
       "Todos"
     ]
+  },
+  {
+    "id": "0929",
+    "date": "29/09",
+    "phase": "Intensificação",
+    "channel": "Reel + carrossel",
+    "title": "Sua academia resiste a um cenário que você não projetou?",
+    "origin": "Íntegra de Gláucia Guarcello no Arnold Conference 2026; transcrição validada, com conferência final no vídeo original",
+    "idea": "Registro do cronograma do cliente (aba Conference, lido em 01/10): Reel + carrossel \"Sua academia resiste a um cenário que você não projetou?\" (Gestão de Academias), postado. Planejado para 27/09 no calendário de setembro. Levar gestores, diretores e proprietários de academias a questionar planejamentos que dependem de uma única previsão. A partir da fala de Gláucia Guarcello, mostrar que cenários não servem para adivinhar o futuro: servem para testar se a estratégia continua de pé diante de incertezas diferentes. No fechamento, oferecer a masterclass Academias em Alta Potência, de Roberto Tranjan, como aprofundamento complementar sobre direção estratégica, relação com alunos, equipe e equilíbrio do negócio — sem apresentá-la como continuação da fala de Gláucia. Identificar as duas palestras como acervo de 2026, sem afirmar que os temas ou palestrantes integram a programação de 2027.",
+    "optionLabel": "Sequência e insumos para produzir",
+    "options": [
+      "Pergunta de abertura: sua academia resiste a um cenário que você não projetou?",
+      "Contexto: escolher uma incerteza de alto impacto para a academia; exemplos de pergunta, e não previsões, podem envolver comportamento do aluno, adoção de serviços digitais ou pressão sobre custos.",
+      "Teste: desenhar dois cenários opostos e plausíveis para a mesma incerteza, sem tentar escolher qual deles vai acontecer.",
+      "Decisão: perguntar o que precisa ser ajustado agora para a academia permanecer de pé nos dois cenários.",
+      "Fonte principal: corte aproximado de 41:38 a 42:04 da íntegra de Gláucia; conferir começo, fim, áudio, imagem e slides antes da edição.",
+      "Ponte para a isca: apresentar Academias em Alta Potência, de Roberto Tranjan, como uma segunda perspectiva sobre direção, relação com alunos e equipe — não como resposta direta ao teste de cenários."
+    ],
+    "fallback": "Carrossel gráfico de seis cards com pergunta, conceito de cenários, uma incerteza exemplificativa, dois cenários opostos, teste de robustez e convite para a masterclass. Não depende de depoimento, bastidor ou nova gravação.",
+    "cta": "Comente AULAS para acessar gratuitamente a masterclass Academias em Alta Potência",
+    "keyword": "AULAS",
+    "destination": "Landing page das masterclasses",
+    "congresses": [
+      "Gestão de Academias"
+    ],
+    "destinationUrl": "https://masterclassconference.savagetgroup.com.br/"
   },
   {
     "id": "0930",
@@ -190,46 +157,81 @@ export const octoberCalendarBase = [
     ]
   },
   {
-    "id": "0930a",
-    "date": "30/09 a 06/10",
+    "id": "1001",
+    "date": "01/10",
     "phase": "Intensificação",
-    "channel": "Sugestão · Stories, bio e post fixado no @arnold_congressos + collab nos posts de 30/09 e 06/10",
-    "title": "Sugestão: levar os seguidores do @arnold_congressos para o @arnold_conference",
-    "origin": "[SUGESTÃO – ADRIANA E AGÊNCIA DE OPERAÇÃO DEFINEM A CONDUÇÃO]",
-    "idea": "[SUGESTÃO – ADRIANA E AGÊNCIA DE OPERAÇÃO DEFINEM A CONDUÇÃO] Levar os cerca de 15 mil seguidores do @arnold_congressos para o @arnold_conference antes da abertura das inscrições, quando o perfil antigo for desativado.",
+    "channel": "Carrossel",
+    "title": "Profundidade em Nutrição Estética",
+    "origin": "Transcrições",
+    "materialLinks": [
+      {
+        "label": "Abrir íntegra — Ana Paula Pujol",
+        "url": "https://www.youtube.com/watch?v=asItej-OIk8",
+        "kind": "video"
+      },
+      {
+        "label": "Abrir íntegra — Mika Yamaguchi",
+        "url": "https://youtu.be/nze1GDIzj9c",
+        "kind": "video"
+      }
+    ],
+    "idea": "Registro do cronograma do cliente (aba Conference, lido em 01/10): Carrossel \"Profundidade em Nutrição Estética\", arte aprovada, programado. Planejado para 25/09 no calendário de setembro. Usar temas do acervo como exemplo de profundidade, sem afirmar que compõem a programação de 2027.",
+    "optionLabel": "Temas que podem ser apresentados",
+    "options": [
+      "Platô e reganho de peso — referência na aula de Ana Paula Pujol.",
+      "Diferenciação de celulite, lipedema e flacidez — referência na aula de Luisa Volpe e Sullen Becher.",
+      "Ambiente, pele e exposoma — referência na aula de Mika Yamaguchi."
+    ],
+    "fallback": "Corte de Ana Paula, Luisa/Sullen ou Mika apenas se houver trecho completo, compreensível isoladamente e aprovado.",
+    "cta": "Comente ESTETICA e acompanhe as novidades",
+    "keyword": "ESTETICA",
+    "destination": "Landing page geral de novidades",
+    "congresses": [
+      "Nutrição Estética"
+    ],
+    "destinationUrl": "https://oferta.savagetgroup.com.br/conference-2027"
+  },
+  {
+    "id": "1001a",
+    "date": "01/10",
+    "phase": "Intensificação",
+    "channel": "Stories, bio e post fixado no @arnold_congressos",
+    "title": "Migração do @arnold_congressos para o @arnold_conference",
+    "origin": "cronograma do cliente, aba Conference, Stories de 01/10 (\"Insta Congressos mudou\").",
+    "idea": "Registro do cronograma do cliente (aba Conference, lido em 01/10): \"Insta Congressos mudou\": trocar a bio do @arnold_congressos para \"Agora estamos em @arnold_conference, siga lá\", colocar a arte nos Stories e fixar nos destaques, e postar no feed do perfil antigo uma arte com legenda, fixada no perfil. Legenda aprovada; o social programa no perfil antigo. Leva os cerca de 15 mil seguidores do @arnold_congressos para o @arnold_conference antes da abertura das inscrições.",
     "productionBrief": {
-      "format": "Sugestão · Stories, bio e post fixado no @arnold_congressos + collab nos posts de 30/09 e 06/10",
+      "format": "Stories, bio e post fixado no @arnold_congressos",
       "purpose": "migrar a audiência do perfil antigo antes da abertura das inscrições.",
       "units": [
         {
-          "unit": "30/09",
-          "role": "Aviso no perfil antigo",
-          "content": "Sequência de 3 Stories no @arnold_congressos: \"Este perfil vai mudar de casa.\" · \"A partir de agora, tudo sobre os congressos acontece em @arnold_conference.\" · figurinha de menção e link para o perfil novo."
+          "unit": "Bio",
+          "role": "Perfil antigo",
+          "content": "Trocar a bio do @arnold_congressos para \"Agora estamos em @arnold_conference, siga lá\"."
         },
         {
-          "unit": "30/09",
-          "role": "Bio e post fixado",
-          "content": "Trocar a bio do perfil antigo para \"Agora estamos em @arnold_conference\" e fixar um post estático com a mesma mensagem."
+          "unit": "Stories",
+          "role": "Aviso",
+          "content": "Arte da mudança nos Stories do @arnold_congressos, com menção ao @arnold_conference, fixada nos destaques."
         },
         {
-          "unit": "30/09 e 06/10",
-          "role": "Collab com o perfil antigo",
-          "content": "Convidar o @arnold_congressos como colaborador nos posts de anúncio (30/09) e de abertura (06/10), para que apareçam no feed de quem ainda segue só o perfil antigo."
+          "unit": "Feed",
+          "role": "Post fixado",
+          "content": "Arte de feed com legenda no @arnold_congressos, fixada no perfil."
         },
         {
-          "unit": "Até 06/10",
+          "unit": "05/10",
           "role": "Boas-vindas no perfil novo",
-          "content": "Um Story no @arnold_conference: \"Se você veio do @arnold_congressos, seja bem-vindo. Ative as notificações para não perder a abertura.\""
+          "content": "Story \"Se você veio do @arnold_congressos\" no @arnold_conference (ver card de 05/10)."
         },
         {
           "unit": "Depois de 06/10",
           "role": "Perfil antigo parado",
-          "content": "Manter o perfil antigo parado, com o post fixado, por algumas semanas antes de desativar, para quem chega por busca ou link antigo."
+          "content": "Manter o perfil antigo parado, com o post fixado, até a decisão de desativar, que é da Adriana e da agência de operação."
         }
       ],
-      "note": "é uma sugestão. A condução, as datas e a decisão de desativação ficam com a Adriana e a agência de operação."
+      "note": "a decisão de desativar o perfil antigo continua com a Adriana e a agência de operação."
     },
-    "fallback": "sem a decisão da Adriana e da agência de operação, nada é publicado no perfil antigo.",
+    "fallback": "se o post do feed não for ao ar, manter a bio e os Stories fixados nos destaques.",
     "cta": "Siga o @arnold_conference.",
     "destination": "perfil @arnold_conference",
     "destinationUrl": "https://www.instagram.com/arnold_conference/",
@@ -238,180 +240,102 @@ export const octoberCalendarBase = [
     ]
   },
   {
-    "id": "1001",
-    "date": "01/10",
+    "id": "1002",
+    "date": "02/10",
     "phase": "Intensificação",
-    "channel": "Reel de 25 a 35 segundos + pílula de 8 segundos",
-    "title": "Seu paciente foi para o medicamento e nunca mais voltou?",
+    "channel": "Reel de 30 a 45 segundos + pílula de 8 a 12 segundos",
+    "title": "\"Massa magra caiu\" não quer dizer \"perdeu músculo\"",
     "origin": "íntegra no YouTube e transcrição automática no Drive.",
-    "originUrl": "https://youtu.be/A3so_9sBi0M",
+    "originUrl": "https://youtu.be/v0BaKxCH-2A",
     "originLinkLabel": "Abrir vídeo de referência",
     "materialLinks": [
       {
         "label": "Abrir material no Drive",
-        "url": "https://drive.google.com/file/d/1A-MWgxyyRvHui3w5h93BOvoyBmrfjhaC/view",
+        "url": "https://drive.google.com/file/d/1jPhczJBlHUEfs9MJD8HaArLTM38nlMEp/view",
         "kind": "post"
       }
     ],
-    "idea": "Olívia Fernandes conta que alunas reclamam que o paciente começa um tratamento medicamentoso e não volta mais à consulta. A resposta dela: cabe ao nutricionista avisar desde o início que o paciente vai precisar dele durante e depois.",
+    "idea": "Registro do cronograma do cliente (aba Conference, lido em 01/10): Reel \"Massa magra caiu não quer dizer 'perdeu músculo'\" (Nutrição Esportiva), vídeo aprovado, collab com o palestrante e @ na legenda. muita gente olha um laudo de composição corporal, vê \"massa magra\" menor e conclui que o paciente perdeu músculo. Ivan Lucas mostra que massa magra, massa livre de gordura, tecido mole magro e massa muscular são medidas diferentes, e que o método de avaliação muda a leitura.",
     "productionBrief": {
-      "format": "Reel de 25 a 35 segundos + pílula de 8 segundos",
-      "purpose": "tocar numa dor real do nutricionista da área estética e mostrar o nível prático das palestras.",
+      "format": "Reel de 30 a 45 segundos + pílula de 8 a 12 segundos",
+      "purpose": "demonstrar profundidade científica da sala de Nutrição Esportiva com uma confusão que o nutricionista enfrenta no consultório.",
       "units": [
         {
           "unit": "Abertura (0 a 4s)",
           "role": "Gancho",
-          "content": "Texto na tela: \"Seu paciente foi para o medicamento e nunca mais voltou à sua consulta?\""
+          "content": "Texto na tela sobre fundo neutro: \"O laudo diz: massa magra caiu. Seu paciente perdeu músculo?\""
         },
         {
-          "unit": "Corte (4 a 27s)",
+          "unit": "Corte (4 a 40s)",
           "role": "Trecho da palestra",
-          "content": "Olívia relata a queixa das alunas (\"o paciente foi fazer uso do medicamento e nem voltou para minha consulta\") e responde que o nutricionista precisa alertar o paciente de que ele terá efeitos colaterais, desmame e vai precisar do acompanhamento depois: \"tudo isso cabe a gente\". Legenda fiel.",
-          "source": "Olívia Fernandes · 52:46 a 53:05. Começa em \"Tem um monte de aluna que fala\" e termina em \"Então, tudo isso cabe a gente, tá, pessoal?\". Parar antes de \"Então, quando eu vejo que não é algo possível...\".",
-          "sourceUrl": "https://youtu.be/A3so_9sBi0M"
+          "content": "Ivan explica que os estudos usam \"massa magra\", \"massa livre de gordura\", \"tecido mole magro\" e \"massa muscular\" como se fossem a mesma coisa, mas cada termo pode incluir ou não osso, órgãos e tecido mole. Legenda fiel à fala. Minutagem abaixo.",
+          "source": "Ivan Lucas · 17:32 a 18:13. Começa em \"Primeiro, ele definiu claramente o que que é o quê\" e termina em \"...pode incluir órgão ou pode não incluir\". Pílula: 17:50 a 18:04.",
+          "sourceUrl": "https://youtu.be/v0BaKxCH-2A"
         },
         {
-          "unit": "Fechamento (últimos 5s)",
-          "role": "Continuidade",
-          "content": "\"Arnold Conference 2026 · Olívia Fernandes. Nutrição Estética 2027: inscrições abrem dia 06/10. Lote 1 limitado.\""
+          "unit": "Tela de aplicação (sobreposta ao fim do corte)",
+          "role": "Leitura profissional",
+          "content": "Texto curto: \"Antes de concluir, confira o que o método mede.\" Exemplo em uma linha: \"A bioimpedância estima massa livre de gordura incluindo osso; a DEXA separa osso de tecido mole.\""
+        },
+        {
+          "unit": "Fechamento (últimos 4s)",
+          "role": "Crédito e continuidade",
+          "content": "\"Arnold Conference 2026 · Ivan Lucas. Acompanhe as novidades de Nutrição Esportiva 2027.\""
         },
         {
           "unit": "Pílula",
           "role": "Derivação",
-          "content": "Gancho + os primeiros 8 segundos do corte."
+          "content": "Só o gancho da abertura + trecho de 17:50 a 18:04, em que ele diz que os termos \"querem dizer coisas muito diferentes\"."
         }
       ],
-      "note": "não mencionar o tema da palestra (acne em usuários de anabolizantes), nomes de medicamentos, suplementos ou doses. Não sugerir que o nutricionista prescreve medicamento."
+      "note": "a palestra é sobre análogos de GLP-1; o corte não pode mencionar medicamento, percentuais de estudos nem avaliar exame de uma pessoa. Sem promessa de preservar massa muscular. Não mencionar data de abertura neste post (o anúncio oficial é em 30/09)."
     },
-    "fallback": "carrossel de 4 telas: (1) o gancho; (2) \"Muitos pacientes somem quando começam um tratamento médico.\"; (3) \"Avise desde o início: ele vai precisar de você durante e depois.\"; (4) CTA.",
-    "cta": "Entre na lista de Nutrição Estética. Inscrições abrem dia 06/10.",
+    "fallback": "carrossel de 5 telas: (1) o gancho; (2) os 4 termos lado a lado com uma linha cada; (3) \"cada método mede uma coisa\"; (4) \"antes de concluir, confira o método\"; (5) crédito e CTA.",
+    "cta": "Cadastre-se para receber as novidades de Nutrição Esportiva 2027.",
     "destination": "Landing page geral de novidades",
     "destinationUrl": "https://oferta.savagetgroup.com.br/conference-2027",
     "congresses": [
-      "Nutrição Estética"
-    ]
-  },
-  {
-    "id": "1002",
-    "date": "02/10",
-    "phase": "Intensificação",
-    "channel": "carrossel educativo de 6 telas",
-    "title": "A lesão que obrigou um campeão a recomeçar (ajustar ao atleta escolhido)",
-    "origin": "pasta do cliente com o rascunho do carrossel do Guga.",
-    "originUrl": "https://drive.google.com/drive/folders/1iVSjpSIUdqif7tfbMxUPiofpWTThHMyS",
-    "originLinkLabel": "Abrir material no Drive",
-    "idea": "o cliente pediu um carrossel contando a história de lesão de um atleta conhecido (referência: pasta do Guga). É conteúdo educativo sobre o que uma lesão exige no retorno ao esporte. Por risco jurídico, não há link de venda nem chamada para inscrição.",
-    "productionBrief": {
-      "format": "carrossel educativo de 6 telas",
-      "purpose": "gerar alcance e salvamentos entre fisioterapeutas com um case real, sem venda.",
-      "units": [
-        {
-          "unit": "Tela 1",
-          "role": "Gancho",
-          "content": "Nome ou apelido do atleta + a frase do título. Imagem: ver regra de direito de imagem abaixo."
-        },
-        {
-          "unit": "Tela 2",
-          "role": "Quem é",
-          "content": "Duas linhas sobre o atleta e o auge da carreira, com fonte."
-        },
-        {
-          "unit": "Tela 3",
-          "role": "A lesão",
-          "content": "O que aconteceu, quando e qual foi a consequência pública (cirurgia, afastamento, retorno). Somente fatos com fonte."
-        },
-        {
-          "unit": "Tela 4",
-          "role": "O que o caso ensina",
-          "content": "Em linguagem geral: retorno ao esporte envolve avaliação, controle de carga e tempo; não é uma decisão única. Sem conduta clínica."
-        },
-        {
-          "unit": "Tela 5",
-          "role": "Ponte",
-          "content": "\"É esse tipo de decisão que a fisioterapia esportiva discute todos os dias.\""
-        },
-        {
-          "unit": "Tela 6",
-          "role": "Engajamento",
-          "content": "\"Salve e envie para um fisioterapeuta.\""
-        }
-      ],
-      "note": "sem link de venda, sem menção a inscrição ou lote. Não afirmar que alguma conduta teria evitado a lesão ou mudado o resultado. Não usar foto do atleta sem licença; na falta, usar ilustração ou tipografia."
-    },
-    "agencyResearch": {
-      "owner": "Agência de conteúdo e pesquisa",
-      "request": "confirmar em fontes públicas (entrevistas, matérias de veículos reconhecidos) cada fato das telas 2 e 3. Atenção: verificar qual articulação foi lesionada no caso escolhido antes de escrever. Entregar a lista de links das fontes junto com a arte.",
-      "deliverables": [
-        "confirmar em fontes públicas (entrevistas, matérias de veículos reconhecidos) cada fato das telas 2 e 3.",
-        "Atenção: verificar qual articulação foi lesionada no caso escolhido antes de escrever.",
-        "Entregar a lista de links das fontes junto com a arte."
-      ],
-      "validation": "Validar todas as afirmações e materiais solicitados antes da publicação. confirmar em fontes públicas (entrevistas, matérias de veículos reconhecidos) cada fato das telas 2 e 3. Atenção: verificar qual articulação foi lesionada no caso escolhido antes de escrever. Entregar a lista de links das fontes junto com a arte.",
-      "fallback": "carrossel com um \"atleta de futebol\" genérico e ilustrado, com a mesma estrutura, identificado como exemplo."
-    },
-    "fallback": "carrossel com um \"atleta de futebol\" genérico e ilustrado, com a mesma estrutura, identificado como exemplo.",
-    "cta": "Salve e envie para um fisioterapeuta.",
-    "destination": "Interação no Instagram (sem link)",
-    "congresses": [
-      "SONAFE"
+      "Nutrição Esportiva"
     ]
   },
   {
     "id": "1003",
     "date": "03/10",
     "phase": "Intensificação",
-    "channel": "Reel de 20 a 25 segundos (alternativa: carrossel)",
-    "title": "Em 2026, quem deixou para depois ficou sem vaga",
-    "origin": "prints enviados pelo cliente · [PASTA DE PRINTS SONAFE – A RECEBER].",
-    "idea": "o simpósio esgotou em 2026 e muita gente pediu mais vagas ou uma sala nova pelo Instagram. Os prints dessas mensagens são a prova. O recado é: em 2027, não deixe para depois.",
+    "channel": "vídeo pronto (respiro)",
+    "title": "Público sobre o Conference",
+    "origin": "acervo Conference · Pílulas Público · Editados: VIDEO_02_CONFERENCE_PUBLICO.mp4",
+    "originUrl": "https://drive.google.com/file/d/1IMi3JlLDseXxysh2SiX2ENpaYJhDd_jQ/view",
+    "originLinkLabel": "Abrir vídeo no Drive",
+    "idea": "Registro do cronograma do cliente (aba Conference, lido em 01/10): respiro com o vídeo \"Público sobre o Conference\" (VIDEO_02_CONFERENCE_PUBLICO.mp4), legenda aprovada, programado. Capa com foto ou bom frame; collab com o perfil do Arnold e @ na legenda.",
     "productionBrief": {
-      "format": "Reel de 20 a 25 segundos (alternativa: carrossel)",
-      "purpose": "criar urgência real três dias antes da abertura, mostrando a procura que o SONAFE teve em 2026.",
+      "format": "vídeo pronto (respiro)",
+      "purpose": "dar respiro ao feed antes da contagem regressiva, com o público de 2026 falando do evento.",
       "units": [
         {
-          "unit": "0 a 3s",
-          "role": "Gancho",
-          "content": "Texto grande: \"Em 2026, o SONAFE esgotou.\""
+          "unit": "Vídeo",
+          "role": "Conteúdo",
+          "content": "Publicar o VIDEO_02_CONFERENCE_PUBLICO.mp4 como está, sem nova edição."
         },
         {
-          "unit": "3 a 15s",
-          "role": "Prova",
-          "content": "Sequência rápida de 6 a 10 prints de comentários e mensagens pedindo vaga, sala extra ou nova turma. Cada print entra com leve zoom, cortes no ritmo da trilha. Nomes, fotos e @ borrados."
+          "unit": "Capa",
+          "role": "Imagem",
+          "content": "Foto ou bom frame do próprio vídeo."
         },
         {
-          "unit": "15 a 20s",
-          "role": "Virada",
-          "content": "\"Em 2027, a 3ª edição abre as inscrições dia 06/10.\""
-        },
-        {
-          "unit": "20 a 25s",
-          "role": "Ação",
-          "content": "\"Lote 1 limitado. Entre na lista e seja avisado primeiro.\""
-        },
-        {
-          "unit": "Trilha",
-          "role": "Tom",
-          "content": "Tensão crescente, sem voz."
+          "unit": "Publicação",
+          "role": "Collab",
+          "content": "Collab com o perfil do Arnold e @ na legenda."
         }
       ],
-      "note": "borrar nome, foto e @ de todos os prints. Não editar o texto dos prints. Não informar número de vagas de 2027."
+      "note": "o conteúdo do vídeo não foi descrito aqui: a legenda aprovada no cronograma é a referência. Identificar como público de 2026."
     },
-    "agencyResearch": {
-      "owner": "Agência de conteúdo e pesquisa",
-      "request": "selecionar os prints mais claros e variados (evitar repetir a mesma pessoa ou a mesma frase).",
-      "deliverables": [
-        "selecionar os prints mais claros e variados (evitar repetir a mesma pessoa ou a mesma frase)."
-      ],
-      "validation": "Validar todas as afirmações e materiais solicitados antes da publicação. selecionar os prints mais claros e variados (evitar repetir a mesma pessoa ou a mesma frase).",
-      "fallback": "carrossel de 6 telas: capa \"Em 2026, o SONAFE esgotou\", 4 telas com prints borrados e tela final com a abertura em 06/10 e lote 1 limitado."
-    },
-    "fallback": "carrossel de 6 telas: capa \"Em 2026, o SONAFE esgotou\", 4 telas com prints borrados e tela final com a abertura em 06/10 e lote 1 limitado.",
-    "cta": "Comente FISIO e entre na lista. Inscrições abrem dia 06/10.",
-    "keyword": "FISIO",
+    "fallback": "se o vídeo não estiver liberado, manter o feed sem post neste dia.",
+    "cta": "Entre na lista e seja avisado da abertura em 06/10.",
     "destination": "Landing page geral de novidades",
     "destinationUrl": "https://oferta.savagetgroup.com.br/conference-2027",
     "congresses": [
-      "SONAFE"
+      "Todos"
     ]
   },
   {
@@ -461,18 +385,18 @@ export const octoberCalendarBase = [
     "id": "1005",
     "date": "05/10",
     "phase": "Intensificação",
-    "channel": "Reel em collab Arnold + Conference (vídeo da Leal feito com IA) + os 4 Stories já previstos",
+    "channel": "arte estática no feed + Stories",
     "title": "É amanhã",
-    "origin": "vídeo \"É amanhã\" (IA) · [LINK DO VÍDEO – A RECEBER DA EQUIPE DO CLIENTE]",
-    "idea": "o feed passa a ter o vídeo \"É amanhã\" da Leal. Os 4 Stories continuam iguais (impacto, escassez, lembrete com contagem regressiva e link): amanhã abre, o lote 1 é limitado e quem chega primeiro garante o menor valor.",
+    "origin": "cronograma do cliente, aba Conference, 05/10.",
+    "idea": "Registro do cronograma do cliente (aba Conference, lido em 01/10): arte \"É amanhã\" no feed (collab com o @arnold_congressos e o Arnold) e Stories \"Se vc veio do Congresso\" e arte \"É amanhã\" com link para ser avisado. O vídeo da Leal feito com IA passou para 06/10. Os Stories lembram que amanhã abre e que o lote 1 é limitado.",
     "productionBrief": {
-      "format": "Reel em collab Arnold + Conference (vídeo da Leal feito com IA) + os 4 Stories já previstos",
+      "format": "arte estática no feed + Stories",
       "purpose": "lembrar a abertura no dia anterior, no feed e nos Stories.",
       "units": [
         {
-          "unit": "Vídeo",
-          "role": "Conteúdo",
-          "content": "Vídeo \"É amanhã\" da Leal, feito com IA pela equipe do cliente."
+          "unit": "Feed",
+          "role": "Arte",
+          "content": "Arte \"É amanhã\", com a arte na capa. Collab com o @arnold_congressos e o Arnold; @ do Conference na legenda."
         },
         {
           "unit": "Legenda",
@@ -480,31 +404,36 @@ export const octoberCalendarBase = [
           "content": "\"É amanhã. Às [HORÁRIO DE ABERTURA – A CONFIRMAR], abrem as inscrições dos seis congressos do Arnold Conference 2027. O lote 1 é limitado. Entre na lista pelo link da bio e receba o aviso na hora.\""
         }
       ],
-      "note": "sem valores e sem datas de virada."
+      "note": "sem valores, sem preço e sem datas de virada."
     },
     "storyCards": [
       {
         "card": "Story 1",
+        "format": "Boas-vindas",
+        "prompt": "\"Se você veio do @arnold_congressos, seja bem-vindo. Ative as notificações para não perder a abertura.\""
+      },
+      {
+        "card": "Story 2",
         "format": "Impacto",
         "prompt": "Tela cheia, fundo roxo institucional: \"É amanhã.\""
       },
       {
-        "card": "Story 2",
+        "card": "Story 3",
         "format": "Escassez",
         "prompt": "\"O lote 1 é limitado. Quem entra primeiro garante o menor valor.\""
       },
       {
-        "card": "Story 3",
+        "card": "Story 4",
         "format": "Lembrete",
         "prompt": "Repostar a figurinha de contagem regressiva de 30/09 com [HORÁRIO DE ABERTURA – A CONFIRMAR]. Texto: \"Ative o lembrete para não perder.\""
       },
       {
-        "card": "Story 4",
+        "card": "Story 5",
         "format": "Link",
         "prompt": "\"Ainda não está na lista? Entre agora e receba o link na abertura.\" Figurinha de link."
       }
     ],
-    "fallback": "sem o vídeo, publicar só os 4 Stories.",
+    "fallback": "sem a arte, publicar só os Stories.",
     "cta": "Entre na lista e receba o link na abertura.",
     "destination": "Landing page geral de novidades",
     "destinationUrl": "https://oferta.savagetgroup.com.br/conference-2027",
@@ -516,9 +445,9 @@ export const octoberCalendarBase = [
     "id": "1006",
     "date": "06/10",
     "phase": "Abertura",
-    "channel": "carrossel de 8 telas + 6 Stories com link direto",
+    "channel": "vídeo da Leal feito com IA (fixado no perfil) + carrossel de 8 telas + 6 Stories com link direto",
     "title": "Inscrições abertas. Lote 1 limitado.",
-    "origin": "selos de cada congresso; páginas oficiais: Nutrição Esportiva · Nutrição Estética · SONAFE · Gestão · WTTC · Bodybuilding",
+    "origin": "vídeo \"Abertura Conference\" da Leal (IA) · [LINK DO VÍDEO – A RECEBER DA EQUIPE DO CLIENTE] · selos de cada congresso; páginas oficiais: Nutrição Esportiva · Nutrição Estética · SONAFE · Gestão · WTTC · Bodybuilding",
     "originUrl": "https://arnold.savagetgroup.com.br/conference2/nutricao-esportiva/",
     "originLinkLabel": "Abrir página de Nutrição Esportiva",
     "materialLinks": [
@@ -548,11 +477,16 @@ export const octoberCalendarBase = [
         "kind": "post"
       }
     ],
-    "idea": "anúncio direto. Cada congresso ganha uma tela própria, isolada, sem comparação. Nos Stories, cada congresso tem seu próprio link.",
+    "idea": "Registro do cronograma do cliente (aba Conference, lido em 01/10): vídeo da Leal feito com IA \"Abertura Conference\" (fixado no perfil, collab com o @arnold_congressos e o Arnold, sem edição da agência) + carrossel \"Inscrições abertas. Lote 1 limitado\" (collab com o Arnold) + Stories + e-mail. anúncio direto. Cada congresso ganha uma tela própria, isolada, sem comparação. Nos Stories, cada congresso tem seu próprio link.",
     "productionBrief": {
-      "format": "carrossel de 8 telas + 6 Stories com link direto",
+      "format": "vídeo da Leal feito com IA (fixado no perfil) + carrossel de 8 telas + 6 Stories com link direto",
       "purpose": "converter no dia da abertura, levando cada pessoa ao checkout do seu congresso com o menor número de cliques.",
       "units": [
+        {
+          "unit": "Vídeo",
+          "role": "Abertura no feed",
+          "content": "Vídeo \"Abertura Conference\" da Leal, feito com IA pela equipe do cliente. Usar foto na capa e fixar no perfil."
+        },
         {
           "unit": "Tela 1",
           "role": "Capa",
@@ -765,7 +699,7 @@ export const octoberCalendarBase = [
     "channel": "Reel publicado pelo Arnold, com o Conference em collab + 2 Stories do Conference",
     "title": "O fitness cresceu. Mas o maior mercado ainda está fora da academia.",
     "origin": "Tendência da Leal · vídeo \"O fitness cresceu\" · [LINK DO VÍDEO – A RECEBER DA EQUIPE DO CLIENTE]",
-    "idea": "a Leal fala do crescimento do setor de academias e do espaço que ainda existe. A ponte natural é Gestão de Academias.",
+    "idea": "Registro do cronograma do cliente (aba Conference, lido em 01/10): \"Leal tendência · 'O fitness cresceu. Mas o maior mercado ainda está fora da academia' (roteiro 'Academia Luxo')\". É o mesmo vídeo, confirmado pelo Raphael no documento de roteiros da Leal; em edição pela equipe do cliente. a Leal fala do crescimento do setor de academias e do espaço que ainda existe. A ponte natural é Gestão de Academias.",
     "productionBrief": {
       "format": "Reel publicado pelo Arnold, com o Conference em collab + 2 Stories do Conference",
       "purpose": "Tendência da Leal (publicação do Arnold): aceitar a collab no horário da publicação e fazer os Stories de ponte para um congresso.",
@@ -802,48 +736,35 @@ export const octoberCalendarBase = [
     "id": "1009",
     "date": "09/10",
     "phase": "Venda contínua",
-    "channel": "carrossel de 5 telas + pílula motion de 10 a 15 segundos",
-    "title": "Mudou treino, dieta e recuperação na mesma semana. O que funcionou?",
-    "origin": "conteúdo institucional de Bodybuilding.",
-    "idea": "várias mudanças feitas ao mesmo tempo impedem a equipe de saber o que gerou a resposta do atleta. Registrar o que mudou, quando e por quê é o primeiro passo para decidir melhor.",
+    "channel": "vídeo pronto (respiro) · corte do Podcast Quinn",
+    "title": "Muitos profissionais passam horas fazendo com que o paciente desaprenda certas coisas",
+    "origin": "acervo Podcast Quinn · Bodybuilding · Cortes: \"26_Quinn C1 - Muitos profissionais passam horas fazendo com que o paciente desaprenda certas coisas.mp4\"",
+    "originUrl": "https://drive.google.com/drive/folders/1mid3RlzBj4VXMqcVsD_A6K8kW0WpsIRp",
+    "originLinkLabel": "Abrir pasta de cortes no Drive",
+    "idea": "Registro do cronograma do cliente (aba Conference, lido em 01/10): respiro de Bodybuilding com o corte \"Podcast Quinn | Pannain\" (arquivo 26_Quinn C1), sem trabalho de edição da agência; usar foto na capa; collab com a Leal e o Conference.",
     "productionBrief": {
-      "format": "carrossel de 5 telas + pílula motion de 10 a 15 segundos",
-      "purpose": "mostrar, com uma situação reconhecível, por que a preparação exige decisões integradas.",
+      "format": "vídeo pronto (respiro) · corte do Podcast Quinn",
+      "purpose": "manter Bodybuilding no feed com um corte pronto, sem arte nova.",
       "units": [
         {
-          "unit": "Tela 1",
-          "role": "Pergunta",
-          "content": "\"Mudou treino, dieta e recuperação na mesma semana. O que funcionou?\""
+          "unit": "Vídeo",
+          "role": "Conteúdo",
+          "content": "Publicar o corte \"26_Quinn C1 - Muitos profissionais passam horas fazendo com que o paciente desaprenda certas coisas.mp4\" como está."
         },
         {
-          "unit": "Tela 2",
-          "role": "Cena (exemplo editorial)",
-          "content": "\"Segunda: a equipe muda o treino. Quarta: muda a dieta. Sexta: muda a rotina de recuperação. Na semana seguinte, o atleta responde diferente, mas ninguém anotou o que mudou, quando e por quê.\" Rodapé: \"Exemplo ilustrativo.\""
+          "unit": "Capa",
+          "role": "Imagem",
+          "content": "Foto na capa."
         },
         {
-          "unit": "Tela 3",
-          "role": "Problema",
-          "content": "\"Com três mudanças quase juntas, ninguém sabe qual ajudou, qual não fez diferença e qual precisa ser revista.\""
-        },
-        {
-          "unit": "Tela 4",
-          "role": "Organização",
-          "content": "Quatro registros simples: o que foi alterado; em que data; que resposta foi observada; quem faz a leitura junto com a equipe."
-        },
-        {
-          "unit": "Tela 5",
-          "role": "Ação",
-          "content": "\"Bodybuilding 2027 · 25/04. Inscrições abertas, lote 1 limitado.\""
-        },
-        {
-          "unit": "Pílula",
-          "role": "Derivação",
-          "content": "Pergunta da tela 1 + consequência da tela 3."
+          "unit": "Legenda",
+          "role": "Texto",
+          "content": "Abrir com a frase do título do corte e fechar com o Congresso de Bodybuilding 2027 e o lote 1 limitado."
         }
       ],
-      "note": "sem fármacos, doses, ciclos, protocolos ou promessa de resultado competitivo."
+      "note": "a agência confere no player quem fala e a frase exata antes de escrever a legenda; o nome do arquivo não basta. Identificar como Podcast Quinn. Sem preço."
     },
-    "fallback": "Reel narrado com a mesma cena e a mesma consequência.",
+    "fallback": "se o corte não estiver liberado, usar outro corte do Podcast Quinn de Bodybuilding marcado como pronto na pasta.",
     "cta": "Garanta a sua vaga no lote 1.",
     "destination": "página oficial de Bodybuilding",
     "destinationUrl": "https://arnold.savagetgroup.com.br/conference2/bodybuilding/",
@@ -1317,7 +1238,7 @@ export const octoberCalendarBase = [
           "content": "Publicar em collab com Andréia Naves. Combinar dia e horário com ela antes, para que aceite a collab na hora da publicação: os primeiros 20 minutos determinam o engajamento. [AUTORIZAÇÃO E HORÁRIO DA COLLAB – A COMBINAR COM O PALESTRANTE]"
         }
       ],
-      "note": "não publicar horários, grade completa nem títulos integrais: os textos das telas 3 a 5 são versões editoriais curtas. Não chamar a programação de completa ou definitiva. Citar só palestrantes com material recebido; Rosana Fortes, Marcos Paulo Reis, Ricardo Sodré e Fernanda Serpa entram quando o material chegar. Sem nomes comerciais de medicamentos. Clubes aparecem só no texto, como vínculo do palestrante, sem logo. Publicar em collab com Andréia Naves. Combinar dia e horário com ela antes, para que aceite a collab na hora da publicação: os primeiros 20 minutos determinam o engajamento. [AUTORIZAÇÃO E HORÁRIO DA COLLAB – A COMBINAR COM O PALESTRANTE]"
+      "note": "não publicar horários, grade completa nem títulos integrais: os textos das telas 3 a 5 são versões editoriais curtas. Não chamar a programação de completa ou definitiva. Citar só palestrantes com material recebido. Na planilha de 01/10, Rosana Fortes, Ricardo Sodré e Fernanda Serpa Carvalho já têm material; Marcos Paulo Reis saiu da programação e não deve ser citado. Sem nomes comerciais de medicamentos. Clubes aparecem só no texto, como vínculo do palestrante, sem logo. Publicar em collab com Andréia Naves. Combinar dia e horário com ela antes, para que aceite a collab na hora da publicação: os primeiros 20 minutos determinam o engajamento. [AUTORIZAÇÃO E HORÁRIO DA COLLAB – A COMBINAR COM O PALESTRANTE]"
     },
     "agencyResearch": {
       "owner": "Agência de conteúdo e pesquisa",
@@ -2138,7 +2059,7 @@ export const octoberCalendarBase = [
       ],
       "note": "sem prescrição, doses ou promessa de performance. A fala cita probiótico só para dizer que a base é a nutrição: não destacar na arte. Não sugerir que Bruno estará em 2027. Minutagens do vídeo do YouTube, conferidas na transcrição do próprio YouTube em 25/09 (tolerância de ±2s). Antes de editar, localizar início e fim pelas frases indicadas."
     },
-    "fallback": "carrossel de 5 telas sem vídeo: (1) \"O intestino do atleta também entra na preparação.\"; (2) \"A pergunta não é só se a microbiota é saudável. É o que ela faz pela performance e pela recuperação.\"; (3) \"Modalidade, dieta, viagens e fuso horário, carga de estresse e fase da temporada alteram a microbiota.\" (fala de Bruno Zylber em 13:31 a 13:41 no YouTube); (4) \"A base sempre vai ser a nutrição.\"; (5) \"Arnold Conference 2026 · Bruno Zylber. Em 2027, Murilo Pereira traz o novo consenso de avaliação intestinal do atleta.\" + CTA.",
+    "fallback": "carrossel de 5 telas sem vídeo: (1) \"O intestino do atleta também entra na preparação.\"; (2) \"A pergunta não é só se a microbiota é saudável. É o que ela faz pela performance e pela recuperação.\"; (3) \"Modalidade, dieta, viagens e fuso horário, carga de estresse e fase da temporada alteram a microbiota.\" (fala de Bruno Zylber em 13:31 a 13:41 no YouTube, conferida na transcrição do YouTube em 01/10: começa em \"esportiva, dieta do atleta\" e termina em \"tudo isso altera a microbiota\"; iniciar depois de \"Rodrigo, aí vai doer, né?\"); (4) \"A base sempre vai ser a nutrição.\"; (5) \"Arnold Conference 2026 · Bruno Zylber. Em 2027, Murilo Pereira traz o novo consenso de avaliação intestinal do atleta.\" + CTA.",
     "cta": "Congresso de Nutrição Esportiva 2027: lote 1 limitado. Link na bio.",
     "destination": "página oficial de Nutrição Esportiva",
     "destinationUrl": "https://arnold.savagetgroup.com.br/conference2/nutricao-esportiva/",

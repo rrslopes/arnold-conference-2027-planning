@@ -239,7 +239,7 @@ export const operationalBriefs: Record<string, ProductionBrief> = {
     ],
     note: "Este não é um comparativo entre congressos nem uma nova lista de perfis. Não indicar compatibilidade de horários, preço, lote, data de abertura ou conteúdo ainda não confirmado. A programação oficial de cada sala sustenta a decisão final. Se usar CONGRESSO, confirmar antes que a automação por mensagem direta esteja ativa; caso contrário, direcionar para o link da bio.",
   },
-  "0925": {
+  "1001": {
     format: "Carrossel de 6 cards",
     purpose: "Demonstrar o tipo de raciocínio aprofundado já entregue em 2026, sem vender os temas como programação confirmada de 2027.",
     units: [
@@ -265,7 +265,7 @@ export const operationalBriefs: Record<string, ProductionBrief> = {
     ],
     note: "Não inserir preço, lote, data, horário, logística ou promessa de inscrição até que as informações estejam confirmadas e a janela móvel seja ativada.",
   },
-  "0927": {
+  "0929": {
     format: "Reel de 30–45 segundos com trecho da íntegra + carrossel didático de 6 cards",
     purpose: "Entregar uma reflexão útil e executável para gestores de academias: em vez de tentar acertar uma única previsão, testar se a estratégia permanece robusta diante de cenários diferentes.",
     units: [
@@ -297,6 +297,6 @@ export const optionModes: Record<string, "alternatives" | "inputs"> = {
   "0922": "inputs",
   "0923": "inputs",
   "0924": "inputs",
-  "0925": "inputs",
-  "0927": "inputs",
+  "1001": "inputs",
+  "0929": "inputs",
 };
