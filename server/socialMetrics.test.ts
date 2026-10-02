@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   MLABS_REPORT_URL,
+  getMlabsReportUrl,
   SOCIAL_ACCOUNT_GOALS,
   SOCIAL_BEST_TIMES,
   SOCIAL_FORMAT_GOALS,
@@ -70,6 +71,8 @@ describe("social metrics references", () => {
 
   it("keeps the mLabs source and all seven Education and Courses day references", () => {
     expect(MLABS_REPORT_URL).toMatch(/^https:\/\/relatorio\.digital\//);
+    expect(getMlabsReportUrl("2026-09")).toBe(MLABS_REPORT_URL);
+    expect(getMlabsReportUrl("2026-10")).toBeNull();
     expect(SOCIAL_BEST_TIMES).toHaveLength(7);
     expect(SOCIAL_BEST_TIMES.find(item => item.day === "Segunda")?.recommended).toContain("19:00");
     expect(SOCIAL_BEST_TIMES.find(item => item.day === "Domingo")?.avoid).toContain("08:00");

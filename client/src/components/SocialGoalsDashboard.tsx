@@ -3,7 +3,7 @@ import { BarChart3, Clock3, Cloud, CloudOff, ExternalLink, History, Instagram, R
 import { toast } from "sonner";
 import { trpc } from "@/lib/trpc";
 import {
-  MLABS_REPORT_URL,
+  getMlabsReportUrl,
   SOCIAL_ACCOUNT_GOALS,
   SOCIAL_BEST_TIMES,
   SOCIAL_FORMAT_GOALS,
@@ -139,6 +139,7 @@ export default function SocialGoalsDashboard() {
   });
 
   const activeConfig = SOCIAL_MONTHS.find(month => month.key === activeMonth) ?? SOCIAL_MONTHS[0];
+  const reportUrl = getMlabsReportUrl(activeMonth);
   const activeValues = useMemo(() => Object.fromEntries(
     SOCIAL_RESULT_FIELDS.map(field => [field, parseNumber(form[activeMonth][field])]),
   ) as SocialMonthlyValues, [activeMonth, form]);
@@ -206,7 +207,7 @@ export default function SocialGoalsDashboard() {
           {planning.isError ? <small className="sync-error"><CloudOff size={13} /> Falha de sincronização.</small> : latest ? <small><Cloud size={13} /> Atualizado em {new Date(latest.updatedAt).toLocaleString("pt-BR")}</small> : <small><Cloud size={13} /> Espaço compartilhado pronto para o primeiro lançamento.</small>}
         </div>
         <div className="social-goals-actions">
-          <a className="secondary-button" href={MLABS_REPORT_URL} target="_blank" rel="noreferrer"><ExternalLink size={16} /> Relatório mLabs</a>
+          {reportUrl ? <a className="secondary-button" href={reportUrl} target="_blank" rel="noreferrer"><ExternalLink size={16} /> Relatório mLabs · {activeConfig.label}</a> : <span className="secondary-button" aria-disabled="true" title="O link entra quando a mLabs gerar o relatório do mês." style={{ opacity: 0.55, cursor: "not-allowed" }}><ExternalLink size={16} /> Relatório de {activeConfig.label} ainda não disponível</span>}
           <button type="button" className="secondary-button" onClick={() => planning.refetch()} disabled={planning.isFetching}><RefreshCw size={16} className={planning.isFetching ? "spin" : ""} /> Atualizar</button>
           <button type="button" className="primary-button" onClick={save} disabled={planning.isLoading || saveMutation.isPending}><Save size={16} /> {saveMutation.isPending ? "Salvando..." : "Salvar resultados"}</button>
         </div>
@@ -224,7 +225,7 @@ export default function SocialGoalsDashboard() {
         <label><span>INÍCIO</span><input type="date" value={form[activeMonth].periodStart} onChange={event => updatePeriod("periodStart", event.target.value)} /></label>
         <label><span>FIM</span><input type="date" value={form[activeMonth].periodEnd} onChange={event => updatePeriod("periodEnd", event.target.value)} /></label>
         <label className="social-partial-toggle"><input type="checkbox" checked={isPartial} onChange={event => updatePeriod("isPartial", event.target.checked)} /><span>Resultado parcial do mês</span></label>
-        <a href={MLABS_REPORT_URL} target="_blank" rel="noreferrer"><ExternalLink size={14} /> Consultar fonte completa</a>
+        {reportUrl ? <a href={reportUrl} target="_blank" rel="noreferrer"><ExternalLink size={14} /> Consultar fonte completa</a> : <small>Relatório mLabs do mês ainda não disponível</small>}
       </div>
 
       <div className="social-view-tabs" role="tablist" aria-label="Visões do painel social">

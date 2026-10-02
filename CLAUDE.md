@@ -153,6 +153,14 @@ Fonte: `referencias/briefings/pacote-mestre-outubro-2026-10-01.md` (feedback de 
 - E-mails com par, na plataforma: em `octoberEmailPlan.ts`, cada e-mail tem `relatedPost` ("dd/mm · título do post" ou "E-mail sem post relacionado") e, quando há par, `title` igual ao título do post. O teste `octoberPlan.content.test.ts` confere que título e data batem com o calendário.
 - Todo prefixo novo de ID de e-mail (ex.: email-nov-) precisa ser incluído na validação de emailItemId em server/routers/planning.ts, com teste, senão a plataforma não salva status nem prévia.
 
+## Resultados do Instagram (Indicadores > Instagram)
+
+- Os números ficam no banco da plataforma, não no Git: são gravados pelo formulário "Salvar resultados" (ou pela mesma chamada `planning.saveSocialResults`, que exige os 8 meses; reenviar os demais meses como estão). Não precisa de push nem da Manus.
+- Rotina: Raphael gera o relatório da mLabs do mês e manda o link + o print de mensagens da Meta. Ler o relatório (os dados por publicação estão nos widgets da página), calcular as medianas (arredondar ao inteiro), mostrar a tabela campo a campo e só gravar com o OK dele. Mês em curso: "Resultado parcial"; mês encerrado: período completo, sem parcial.
+- Cada mês tem o seu link de relatório em `MLABS_REPORT_URLS` (`shared/socialMetrics.ts`); mês sem link mostra "ainda não disponível". Incluir o link novo exige push e publicação.
+- Limitações da mLabs: salvos de Reels vêm zerados; Stories só têm detalhe do Top 20; cliques no link e toques em figurinhas não vêm. Publicação do último dia do mês pode aparecer no relatório do mês seguinte: contar pela data de publicação. O relatório de um mês recém-aberto pode mostrar blocos do mês anterior até a mLabs processar os dados.
+- Setembro/2026 fechado em 02/10 (inclui o carrossel orgânico de 30/09, que será impulsionado depois). Outubro/2026 ainda vazio, sem link.
+
 ## Documentos vivos (ler antes de propor pautas)
 
 - Aprendizados Operacionais: https://docs.google.com/document/d/1EqPdgFPf82fKZ_c0Bpoq5_VzCJx2Xi7V0i2lV-k6Ghs

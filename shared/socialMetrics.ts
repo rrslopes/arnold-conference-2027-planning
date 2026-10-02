@@ -62,7 +62,17 @@ export type SocialMonthlyResult = SocialMonthlyValues & {
   note: string;
 };
 
-export const MLABS_REPORT_URL = "https://relatorio.digital/2EWOaNDZwIGNzYmMwMGMwITYaNDbmZmW.html";
+// A mLabs gera um relatório compartilhável por período: cada mês tem o seu link.
+// Mês sem link mostra o aviso de relatório ainda não disponível.
+export const MLABS_REPORT_URLS: Partial<Record<SocialMonthKey, string>> = {
+  "2026-09": "https://relatorio.digital/2EWOaNDZwIGNzYmMwMGMwITYaNDbmZmW.html",
+};
+
+export const MLABS_REPORT_URL = MLABS_REPORT_URLS["2026-09"] as string;
+
+export function getMlabsReportUrl(monthKey: SocialMonthKey) {
+  return MLABS_REPORT_URLS[monthKey] ?? null;
+}
 
 export const SOCIAL_BEST_TIMES = [
   { day: "Segunda", recommended: "11:30 e 19:00", avoid: "12:00 e 18:00" },
